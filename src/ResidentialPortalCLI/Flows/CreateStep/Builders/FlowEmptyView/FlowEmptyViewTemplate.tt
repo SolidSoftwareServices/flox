@@ -1,5 +1,0 @@
-﻿
-@model EI.RP.WebApp.Flows.AppFlows.<#=this.Options.FlowName#>.Steps.<#=this.ViewName#>.ScreenModel
-
-
-<b>TODO: implement markup for <#=this.ViewName#></b>

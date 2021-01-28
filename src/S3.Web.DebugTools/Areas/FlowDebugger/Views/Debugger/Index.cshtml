@@ -1,0 +1,5 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using S3.Web.DebugTools.Areas.FlowDebugger.Models
+@using S3.Web.DebugTools.Flows.AppFlows.Components.FlowViewer
+@model DebuggerModel
+<vc:flow-viewer input=@(Model) />

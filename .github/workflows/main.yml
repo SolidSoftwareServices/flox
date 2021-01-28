@@ -1,0 +1,152 @@
+name: main
+env:
+  working-directory: './src/'
+  solutionFile: 'S3.Flox.sln'
+  testResultsDirectory: './TestResults/'
+on:
+  push:
+    branches: [master, 'releases/**']
+    
+  pull_request:
+    branches: [master, 'releases/**' ]
+
+jobs:
+  run_build:
+    
+    runs-on: windows-latest
+    steps:
+    - name: Dump context values
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Dump job context
+      env:
+        JOB_CONTEXT: ${{ toJson(job) }}
+      run: echo "$JOB_CONTEXT"
+    - name: Dump steps context
+      env:
+        STEPS_CONTEXT: ${{ toJson(steps) }}
+      run: echo "$STEPS_CONTEXT"
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: echo "$RUNNER_CONTEXT"
+    - name: Dump strategy context
+      env:
+        STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+      run: echo "$STRATEGY_CONTEXT"
+    - name: Dump matrix context
+      env:
+        MATRIX_CONTEXT: ${{ toJson(matrix) }}
+      run: echo "$MATRIX_CONTEXT"
+
+#start      
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Fetch tags and master for GitVersion
+      run: |
+         git fetch --tags --unshallow
+
+    - name:  Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.1.x'
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+            
+    - name: Dump version values
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    - run: |
+        echo "Run ID: ${{ github.run_id }}""
+        echo "Output Run Number: ${{ github.run_number }}"" 
+        echo "Major: ${{ steps.gitversion.outputs.Major }}"
+        echo "Minor: ${{ steps.gitversion.outputs.Minor }}"
+        echo "Patch: ${{ steps.gitversion.outputs.Patch }}"
+        echo "PreReleaseTag: ${{ steps.gitversion.outputs.PreReleaseTag }}"
+        echo "PreReleaseTagWithDash: ${{ steps.gitversion.outputs.PreReleaseTagWithDash }}"
+        echo "PreReleaseLabel: ${{ steps.gitversion.outputs.PreReleaseLabel }}"
+        echo "PreReleaseNumber: ${{ steps.gitversion.outputs.PreReleaseNumber }}"
+        echo "WeightedPreReleaseNumber: ${{ steps.gitversion.outputs.WeightedPreReleaseNumber }}"
+        echo "BuildMetaData: ${{ steps.gitversion.outputs.BuildMetaData }}"
+        echo "BuildMetaDataPadded: ${{ steps.gitversion.outputs.BuildMetaDataPadded }}"
+        echo "FullBuildMetaData: ${{ steps.gitversion.outputs.FullBuildMetaData }}"
+        echo "MajorMinorPatch: ${{ steps.gitversion.outputs.MajorMinorPatch }}"
+        echo "SemVer: ${{ steps.gitversion.outputs.SemVer }}"
+        echo "LegacySemVer: ${{ steps.gitversion.outputs.LegacySemVer }}"
+        echo "LegacySemVerPadded: ${{ steps.gitversion.outputs.LegacySemVerPadded }}"
+        echo "AssemblySemVer: ${{ steps.gitversion.outputs.AssemblySemVer }}"
+        echo "AssemblySemFileVer: ${{ steps.gitversion.outputs.AssemblySemFileVer }}"
+        echo "FullSemVer: ${{ steps.gitversion.outputs.FullSemVer }}"
+        echo "InformationalVersion: ${{ steps.gitversion.outputs.InformationalVersion }}"
+        echo "BranchName: ${{ steps.gitversion.outputs.BranchName }}"
+        echo "Sha: ${{ steps.gitversion.outputs.Sha }}"
+        echo "ShortSha: ${{ steps.gitversion.outputs.ShortSha }}"
+        echo "NuGetVersionV2: ${{ steps.gitversion.outputs.NuGetVersionV2 }}"
+        echo "NuGetVersion: ${{ steps.gitversion.outputs.NuGetVersion }}"
+        echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.NuGetPreReleaseTagV2 }}"
+        echo "NuGetPreReleaseTag: ${{ steps.gitversion.outputs.NuGetPreReleaseTag }}"
+        echo "VersionSourceSha: ${{ steps.gitversion.outputs.VersionSourceSha }}"
+        echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
+        echo "CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"
+        echo "CommitDate: ${{ steps.gitversion.outputs.CommitDate }}"
+    
+
+    - name: Update project version
+      uses: roryprimrose/set-vs-sdk-project-version@v1
+      with:
+        version: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}"
+        assemblyVersion: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}.0"
+        fileVersion: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}"
+      if: ${{ github.event_name != 'pull_request' && github.ref!='refs/heads/master' && (steps.gitversion.outputs.Major>0 || steps.gitversion.outputs.Minor>0) }}
+
+    - name: Install dependencies
+      run: dotnet restore ${{env.solutionFile}}
+      working-directory: ${{env.working-directory}}     
+      
+    - name: Build
+      run: dotnet build ${{env.solutionFile}} --configuration Release --no-restore
+      working-directory: ${{env.working-directory}}
+   
+    - name: Test
+      run: dotnet test ${{env.solutionFile}} --no-restore /p:CollectCoverage=true /p:CoverletOutput=${{env.testResultsDirectory}} /p:CoverletOutputFormat=lcov
+      working-directory: ${{env.working-directory}}
+
+    #NEEDS TO BE PUBLIC FIRST
+    # - name: Publish coverage report to coveralls.io
+    #   uses: coverallsapp/github-action@v1.0.1
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     path-to-lcov: ${{env.testResultsDirectory}}coverage.info   
+    #     working-directory: ${{env.working-directory}}
+   
+    #s3 threading    
+    # - name: Generate nuget package S3.Threading
+    #   run: dotnet pack S3.Threading.csproj --configuration Release -o nupkg
+    #   working-directory: ${{env.working-directory}}/S3.Threading
+   
+    # - name: Publish nuget package S3.Threading
+    #   run: find . -name S3.Threading.*.nupkg -type f -print0 | xargs -0 -I pkg dotnet nuget push pkg -k $nuget_api_key -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+    #   env:
+    #     nuget_api_key: ${{ secrets.NUGET_API_KEY }}
+    #   working-directory: ${{env.working-directory}}/S3.Threading/nupkg
+    #   if: ${{ github.event_name != 'pull_request' && github.ref!='refs/heads/master' && (steps.gitversion.outputs.Major>0 || steps.gitversion.outputs.Minor>0) }}
+    
+    #s3 Testing nunit
+    # - name: Generate nuget package S3.Testing.NUnit
+    #   run: dotnet pack S3.Testing.NUnit.csproj --configuration Release -o nupkg
+    #   working-directory: ${{env.working-directory}}/S3.Testing.NUnit
+   
+    # - name: Publish nuget package S3.Testing.NUnit
+    #   run: find . -name S3.Testing.NUnit.*.nupkg -type f -print0 | xargs -0 -I pkg dotnet nuget push pkg -k $nuget_api_key -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+    #   env:
+    #     nuget_api_key: ${{ secrets.NUGET_API_KEY }}
+    #   working-directory: ${{env.working-directory}}/S3.Testing.NUnit/nupkg
+    #   if: ${{ github.event_name != 'pull_request' && github.ref!='refs/heads/master' && (steps.gitversion.outputs.Major>0 || steps.gitversion.outputs.Minor>0) }}

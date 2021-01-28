@@ -1,0 +1,10 @@
+using S3.UiFlows.Core.Flows.Screens;
+
+
+namespace S3.App.AspNetCore3_1.Flows.AppFlows.StartFailure.FlowDefinitions
+{
+	public abstract class StartFailureFlowScreen : UiFlowScreen<SampleAppFlowType>
+	{
+		public override SampleAppFlowType IncludedInFlowType => SampleAppFlowType.StartFailure;
+	}
+}

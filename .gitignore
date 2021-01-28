@@ -369,3 +369,6 @@ MigrationBackup/
 **/*/*.js.map
 /src/All.sln
 *.patch
+/lib/*.nupkg
+/src/global.json
+/lib/NugetPackagesToPublish/*

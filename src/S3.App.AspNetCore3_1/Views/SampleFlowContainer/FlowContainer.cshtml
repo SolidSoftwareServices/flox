@@ -1,0 +1,25 @@
+@using S3.App.AspNetCore3_1.Flows.AppFlows
+@using S3.UiFlows.Mvc.Components
+@model SampleFlowContainerViewModel
+
+@{
+	ViewData["Title"] = "FlowContainer";
+}
+
+<h2>FlowContainer</h2>
+
+@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow && x != SampleAppFlowType.ContainersFlow))
+{
+	if (flowType!=Model.GetContainedFlow<SampleAppFlowType>())
+	{
+
+		<flow-action action-type="StartFlow"
+		             flow-name="@flowType"
+		             flow-location="ContainedInMe">@flowType.ToString()</flow-action>
+		<b>||</b>
+
+	}
+}
+
+@*NOTE!!!: this is the flow view inside the container*@
+<vc:embedded-flow input=@(new EmbeddedFlowComponent.ComponentParameters{Model=Model}) />

@@ -1,0 +1,84 @@
+
+@using S3.App.AspNetCore3_1.Flows
+@using S3.App.AspNetCore3_1.Flows.AppFlows
+@using S3.App.AspNetCore3_1.Flows.AppFlows.ModelTesterFlow.Steps
+@using S3.App.AspNetCore3_1.Infrastructure
+@model S3.App.AspNetCore3_1.Flows.AppFlows.ModelTesterFlow.Steps.FlowCompletedScreen.ScreenModel
+@{
+	ViewData["Title"] = "FlowCompletedScreen";
+}<div id="ModelTesterFlowPage">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>Data</h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3">
+			@Html.LabelFor(m => m.StepValueNotUsedInTheViewShouldHaveAValue)
+			<span>@Html.DisplayFor(m => m.StepValueNotUsedInTheViewShouldHaveAValue)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			@Html.LabelFor(m => m.StepValue1)
+			<span>@Html.DisplayFor(m => m.StepValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			@Html.LabelFor(m => m.StepValue2)
+			<span>@Html.DisplayFor(m => m.StepValue2)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Nested1 level 1:</b>
+			<span>@Html.DisplayFor(m => m.Nested1.NestedValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Nested1 level 2:</b>
+			<span>@Html.DisplayFor(m => m.Nested1.Nested.NestedValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Nested1 level 3:</b>
+			<span>@Html.DisplayFor(m => m.Nested1.Nested.Nested.NestedValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Nested2 level 1:</b>
+			<span>@Html.DisplayFor(m => m.Nested2.NestedValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Nested2 level 2:</b>
+			<span>	@Html.DisplayFor(m => m.Nested2.Nested.NestedValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Nested2 level 3:</b>
+			<span>@Html.DisplayFor(m => m.Nested2.Nested.Nested.NestedValue1)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			@Html.LabelFor(m => m.SampleInput)
+			<span>@Html.DisplayFor(m => m.SampleInput)</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			@using (await Html.BeginUiFlowFormAsync( Model))
+			{
+				<flow-action  trigger-event=@FlowCompletedScreen.StepEvent.BackToEditValues>Back</flow-action>
+			}
+		</div>
+	</div>
+</div>

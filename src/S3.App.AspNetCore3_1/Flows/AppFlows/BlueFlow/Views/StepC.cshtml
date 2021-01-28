@@ -1,0 +1,77 @@
+@{
+	ViewData["Title"] = "BlueFlow::StepCScreen";
+}
+
+@using S3.App.AspNetCore3_1.Flows.AppFlows
+@using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps;
+@using S3.App.AspNetCore3_1.Infrastructure
+@model S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps.StepCScreen.StepCScreenScreenModel
+<div id="BlueFlowPage">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>Process BlueFlow::StepCScreen</h2>
+		</div>
+	</div>
+	@using (await Html.BeginUiFlowFormAsync( Model))
+	{
+		<div class="row">
+			<div class="col-md-3">
+				@Html.LabelFor(m => m.FlowInputData, $"Flow start value:{Model.FlowInputData }")
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				@Html.LabelFor(m => m.InitialValue, $"Initial screen value:{Model.InitialValue}")
+			</div>
+		</div>
+		if (Model.StepAValue != null)
+		{
+			<div class="row">
+				<div class="col-md-3">
+					@Html.LabelFor(m => m.StepAValue, $"StepA value:{Model.StepAValue}")
+				</div>
+			</div>
+		}
+		if (Model.StepBValue != null)
+		{
+			<div class="row">
+				<div class="col-md-3">
+					@Html.LabelFor(m => m.StepBValue, $"StepB value:{Model.StepBValue}")
+				</div>
+			</div>
+		}
+			<div class="row">
+				<div class="col-md-3">
+					<flow-action action-type="TriggerEvent" trigger-event=@StepCScreen.StepEvent.FlowTransitionCompleted>Complete</flow-action>
+					<flow-action trigger-event=@StepCScreen.StepEvent.Previous>Previous</flow-action>
+					<flow-action trigger-event=@StepCScreen.StepEvent.Reset>Reset</flow-action>
+				</div>
+			</div>
+	}
+	<div class="row">
+		<div class="col-md-3">
+			<flow-action action-type="StartFlow" 
+			             flow-name="@SampleAppFlowType.BlueFlow"
+			             flow-location="SameContainerAsMe">Open new blue flow</flow-action>
+			
+		</div>
+		<div class="col-md-3">
+			<flow-action action-type="ReloadStepWithChanges" flow-parameters=@(new { CustomizableViewDataSample = 10 })>Set 10</flow-action>
+			
+		</div>
+		<div class="col-md-3">
+			<flow-action action-type="ReloadStepWithChanges" flow-parameters=@(new { CustomizableViewDataSample = 20 })>Set 20</flow-action>
+		</div>
+		<div class="col-md-3">
+			<flow-action action-type="ReloadStepWithChanges" flow-parameters=@(new { CustomizableViewDataSample = 30 })>Set 30</flow-action>
+		</div>
+		<div class="col-md-3">
+			@Html.LabelFor(m => m.CustomizableViewDataSample, $"ViewData value:{Model.CustomizableViewDataSample}")
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			@Html.ValidationSummary()
+		</div>
+	</div>
+	</div>

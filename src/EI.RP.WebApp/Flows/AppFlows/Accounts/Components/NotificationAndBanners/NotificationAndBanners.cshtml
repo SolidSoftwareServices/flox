@@ -1,0 +1,49 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Components.NotificationAndBanners.ViewModel
+
+@functions
+{
+    enum PageComponent
+    {
+        CompetitionsBanner = 1,
+        SmartActivationNotification,
+        PromotionsBanner
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model.ScreenModel);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.CompetitionsBanner.Component>(PageComponent.CompetitionsBanner,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.CompetitionsBanner.InputModel
+        {
+            AccountNumber = Model.AccountNumber,
+            DismissBannerEvent = Model.DismissCompetitionBannerEvent,
+            ToCompetitionEvent = Model.ToCompetitionEvent
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.PromotionsBanner.Component>(PageComponent.PromotionsBanner,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.PromotionsBanner.InputModel
+        {
+            AccountNumber = Model.AccountNumber,
+            DismissBannerEvent = Model.DismissPromotionBannerEvent,
+            ToPromotionEvent = Model.ToPromotionEvent
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.SmartMeterActivationBanner.Component>(PageComponent.SmartActivationNotification,
+        new EI.RP.WebApp.Flows.AppFlows.Accounts.Components.SmartMeterActivationBanner.InputModel
+        {
+            ToSmartActivationEvent = Model.ToSmartActivationEvent,
+            DismissBannerEvent = Model.DismissSmartActivationBannerEvent
+        });
+}
+
+<div class="notifications mb-5" data-testid="notifications" data-stacked-cards>
+    @await componentPreLoader.Render(PageComponent.SmartActivationNotification)
+    <button class="notifications__next btn btn-default btn btn-default btn-sm btn-icon-only d-none" data-stacked-cards-next aria-label="Next notification"></button>
+</div>
+
+<div class="notifications" data-testid="banners" data-stacked-cards>
+    @await componentPreLoader.Render(PageComponent.CompetitionsBanner)
+    @await componentPreLoader.Render(PageComponent.PromotionsBanner)
+    <button class="notifications__next notifications__next--small btn btn-default btn-sm btn-icon-only d-none" data-stacked-cards-next aria-label="Next banner"></button>
+</div>

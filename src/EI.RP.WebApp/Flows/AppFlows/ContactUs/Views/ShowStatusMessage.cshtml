@@ -1,0 +1,60 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Flows.AppFlows
+
+@model EI.RP.WebApp.Flows.AppFlows.ContactUs.Steps.ShowStatusMessage.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+        HelpFooter
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "Contact Us"
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.HelpFooter.Component>(PageComponent.HelpFooter);
+}
+
+<div class="portal-header portal-header--without-menu">
+    @await componentPreLoader.Render(PageComponent.Header)
+</div>
+
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    <main class="help" data-page="contact-us-confirmation">
+        <div class="container">
+            <div class="portal-details">
+                <div class="portal-details__form meter-reading">
+                    @if (Model.QueryType == ContactQueryType.AddAdditionalAccount)
+                    {
+                        <h2 data-testid="contact-us-thank-you-additional-account">Thank you</h2>
+                        <p>
+                            Your additional account has been added. You will see details
+                            of this account under Account Overview in a few moments.
+                        </p>
+                    }
+                    else
+                    {
+                        <h2 data-testid="contact-us-thank-you-query">Thank you, we have received your query</h2>
+                        <p>We will respond to your query by email.</p>
+                    }
+                    <flow-action data-testid="meter-reading-back"
+                                 action-type="StartFlow"
+                                 flow-name="@ResidentialPortalFlowType.Accounts"
+                                 flow-location="NotContained"
+                                 class="btn btn-xs btn-xs-back green">Back to My Accounts</flow-action>
+                </div>
+            </div>
+        </div>
+        @await componentPreLoader.Render(PageComponent.HelpFooter)
+    </main>
+</div>

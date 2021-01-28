@@ -1,0 +1,34 @@
+﻿@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.Banner.ViewModel
+
+<div class="feature-container container">
+    <h2 class="text-center feature-container__title">@Model.ContainerTitle</h2>
+    <div class="row block-feature">
+        <div class="col-12 col-lg-11">
+            <a href="#" class="block-feature__link"></a>
+            <div class="block-feature__img"><div style="background-image: url('@Model.ImagePath')"></div></div>
+            <div class="block-feature__content block-content">
+                <h2 class="block-content__title text-white">@Model.Title</h2>
+                <p>@Model.Message</p>
+                @*<button class="btn btn-style-01" type="button">Start Chat</button>*@
+                @if (Model.AnchorLink != null)
+                {
+                    var link = Model.AnchorLink;
+                    @if (link.FlowAction != null)
+                    {
+                        var flowAction = link.FlowAction;
+                        <flow-action data-testid="@link.TestId"
+                                     class="btn btn-style-01 @link.GetClassListString()"
+                                     action-type=@flowAction.FlowActionType
+                                     flow-location=@flowAction.FlowLocation
+                                     flow-name=@flowAction.FlowName
+                                     flow-parameters=@flowAction.FlowParameters>@link.Label</flow-action>
+                    }
+                    else
+                    {
+                        <a href="@link.Href" data-testid="@link.TestId" class="btn btn-style-01 @link.GetClassListString()">@link.Label</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

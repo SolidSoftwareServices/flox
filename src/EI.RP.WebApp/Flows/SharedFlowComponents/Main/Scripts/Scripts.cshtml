@@ -1,0 +1,44 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+
+@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.Scripts.ViewModel
+
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/vendor/hammer/hammer.min.js"></script>
+<script src="~/vendor/ofi/ofi.min.js"></script>
+<script src="~/vendor/moment/moment.min.js"></script>
+<script src="~/vendor/jquery.fileDownload/jquery.fileDownload.js"></script>
+<script src="~/vendor/js-cookie/js.cookie.min.js"></script>
+
+@if (Model.ScreenModel.GetContainedFlow<ResidentialPortalFlowType>() == ResidentialPortalFlowType.Usage)
+{
+    <script src="~/vendor/highcharts/highcharts.js"></script>
+    <script src="~/vendor/highcharts/modules/data.js"></script>
+    <script src="~/vendor/highcharts/modules/no-data-to-display.js"></script>
+    <script src="~/vendor/highcharts/modules/export-data.js"></script>
+    <script src="~/vendor/highcharts/modules/accessibility.js"></script>
+    <script src="~/js/custom-vendors/tempusdominus-bootstrap-4.custom.graphs.js"></script>
+    <script src="~/js/usage-graph-common.residential.js"></script>
+    <script src="~/js/usage-graph-electricity.residential.js"></script>
+}
+else
+{
+    <script src="~/js/custom-vendors/tempusdominus-bootstrap-4.custom.js"></script>
+    <script src="~/js/components/datetimepicker.js"></script>
+}
+
+<script src="~/js/custom-vendors/bootstrap4-toggle.custom.js"></script>
+<script src="~/js/components/flow-action.js"></script>
+<script src="~/js/components/always-on-bottom-footer.js"></script>
+<script src="~/js/components/file-download.js"></script>
+<script src="~/js/components/sub-navigation.js"></script>
+<script src="~/js/components/stacked-cards.js"></script>
+<script src="~/js/components/history-data-attr.js"></script>
+<script src="~/js/components/trap-focus.js"></script>
+<script src="~/js/components/accessible-validations.js"></script>
+<script src="~/js/components/dev-tools.js"></script>
+<script src="~/js/index.residential.js"></script>
+
+@foreach (var scriptTag in Model.ScriptTags)
+{
+    <script src="@scriptTag.Src"></script>
+}

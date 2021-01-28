@@ -1,0 +1,44 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.UiFlows.Mvc.Views
+
+@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.AnchorLink.ViewModel
+
+@{
+	var link = Model.AnchorLinkItem;
+
+	if (link.FlowAction != null)
+	{
+		var flowAction = link.FlowAction;
+		if (flowAction.TriggerEvent != null)
+		{
+			using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+			{
+				var additionalFieldTasks = flowAction
+					.EventAdditionalFields
+					.Select(additionalField => Html.GetHiddenFlowStepMemberAsync(additionalField.PropertyPath, additionalField.Value, false));
+				foreach (var additionalFieldTask in additionalFieldTasks)
+				{
+					@await additionalFieldTask
+				}
+				<flow-action data-testid="@link.TestId"
+				             class="@link.GetClassListString()"
+				             role="@link.Role"
+				             trigger-event="@flowAction.TriggerEvent">@link.Label</flow-action>
+			}
+		}
+		else
+		{
+			<flow-action data-testid="@link.TestId"
+			             class="@link.GetClassListString()"
+			             role="@link.Role"
+			             action-type="@flowAction.FlowActionType"
+			             flow-location="@flowAction.FlowLocation"
+			             flow-name="@flowAction.FlowName"
+			             flow-parameters="@flowAction.FlowParameters">@link.Label</flow-action>
+		}
+	}
+	else
+	{
+		<a href="@link.Href" data-testid="@link.TestId" class="@link.GetClassListString()" @Html.Raw(string.IsNullOrWhiteSpace(link.Role) ? string.Empty : $"role=\"{link.Role}\"")>@link.Label</a>
+	}
+}

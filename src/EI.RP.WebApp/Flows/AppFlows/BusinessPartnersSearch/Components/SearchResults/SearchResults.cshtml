@@ -1,0 +1,95 @@
+﻿@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.BusinessPartnersSearch.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.BusinessPartnersSearch.Components.SearchResults.ViewModel
+
+@if (Model.Paging.CurrentPageItems.Any())
+{
+    @await Html.SecureHiddenForAsync(model => model.IsSingleUserBusinessPartner, false)
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless mb-5" data-testid="search-result-table">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">Business Partner</th>
+                <th scope="col" class="text-left">Description</th>
+                <th scope="col" class="text-left">User Name</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Paging.CurrentPageItems)
+            {
+                <tr>
+                    <td class="text-center" style="width: 110px;">@item.PartnerNumber</td>
+                    <td class="text-left text-break" style="width: 220px;">@item.Description</td>
+                    <td class="text-left text-break" style="width: 220px;">@item.UserName</td>
+                    <td class="text-center" style="width: 150px;">
+                        @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+                        {
+                            @Html.Hidden("SelectedBusinessPartnerId", item.PartnerNumber)
+                            @await Html.SecureHiddenForAsync(m => item.PartnerNumber, false)
+                            <flow-action id="btnSubmit" 
+                                         class="btn btn-agent-search-table btn-agent-search-table--half-line-height"
+                                         data-testid="btn-view-business-partner"
+                                         trigger-event="@SearchAndShowResults.StepEvent.BusinessPartnerSelected">View <span class="d-none d-sm-inline">Business Partner</span></flow-action>
+                        }
+                        @if (Model.ShowDeRegistrationColumn)
+                        {
+                            <br />
+                            <a href="#" id="deregister" class="btn btn-agent-search-table" data-partner-number="@item.PartnerNumber" data-toggle="modal" data-target="#deregister-modal">De-Registration</a>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    @if (Model.Paging.TotalPages > 1)
+	{
+	    <div data-testid="search-result-pages">
+            @await Html.DisplaySmartContainerFlowLinkPaging(Model.ScreenModel, Model.Paging.PageIndex, Model.Paging.TotalPages, 5)
+        </div>
+	}
+}
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function (event) {
+        var els = document.querySelectorAll('[data-partner-number]');
+        els.forEach(function(e) {
+            e.addEventListener('click',
+                function (e) {
+                    e.preventDefault();
+                    document.getElementById("DeregisterSelectedBusinessPartnerId").value = e.target.dataset.partnerNumber;
+                });
+        });
+    }, false);
+</script>
+
+<div class="modal modal-lg fade modal-portal" id="deregister-modal" tabindex="-1" role="dialog" aria-labelledby="deregister-modal-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="deregister-modal-label">Confirm De-Registration</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-testid="agent-btn-close-modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Are you sure you want to de-register?</p>
+            </div>
+            <div class="modal-footer no-flex">
+                @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+                {
+                    @Html.Hidden("SelectedBusinessPartnerId", "-", new { id = "DeregisterSelectedBusinessPartnerId" })
+                    <flow-action id="btnSubmit"
+                                 class="btn btn-secondary" 
+                                 trigger-event="@SearchAndShowResults.StepEvent.DeRegistrationRequested">Confirm</flow-action>
+                    <button type="button" class="btn btn-xs btn-xs-landing" data-dismiss="modal" data-testid="agent-btn-cancel-modal">Cancel</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

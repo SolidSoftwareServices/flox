@@ -1,0 +1,39 @@
+﻿@{
+	ViewData["Title"] = "GreenFlow::FillDataStep_StepBScreen";
+}
+
+@using EI.RP.NavigationPrototype.Flows
+@using EI.RP.NavigationPrototype.Flows.AppFlows
+@using EI.RP.NavigationPrototype.Flows.AppFlows.GreenFlow.Steps
+@using EI.RP.NavigationPrototype.Infrastructure
+
+@model EI.RP.NavigationPrototype.Flows.AppFlows.GreenFlow.Steps.StepBScreen.StepBScreenScreenModel
+<div id="GreenFlowPage">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>Process GreenFlow::FillDataStep_StepBScreen</h2>
+		</div>
+	</div>
+	@using (await Html.BeginUiFlowFormAsync( Model))
+	{
+		
+		<b>Introduce value</b>
+		<div class="row">
+			<div class="col-md-3">
+				@Html.TextBoxFor(m => m.StepBValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<flow-action trigger-event=@StepBScreen.StepEvent.Previous>Previous</flow-action>
+				<flow-action trigger-event=@StepBScreen.StepEvent.Next>Next</flow-action>
+				<flow-action trigger-event=@StepBScreen.StepEvent.Reset>Reset</flow-action>
+			</div>
+		</div>
+	}
+	<div class="row">
+		<div class="col-md-3">
+			@Html.ValidationSummary()
+		</div>
+	</div>
+</div>

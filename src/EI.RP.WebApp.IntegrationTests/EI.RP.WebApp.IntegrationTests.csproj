@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1998</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Sut\Parts\MyAccountElectricityAndGas\Tests\MovingHouse\**" />
+    <Content Remove="Sut\Parts\MyAccountElectricityAndGas\Tests\MovingHouse\**" />
+    <EmbeddedResource Remove="Sut\Parts\MyAccountElectricityAndGas\Tests\MovingHouse\**" />
+    <None Remove="Sut\Parts\MyAccountElectricityAndGas\Tests\MovingHouse\**" />
+  </ItemGroup>
+ <ItemGroup>
+    <Compile Include="..\CommonCompilerExtensions.cs" Link="CommonCompilerExtensions.cs" />
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+	  <PackageReference Include="AngleSharp" Version="0.13.0" />
+	  <PackageReference Include="AngleSharp.Css" Version="0.13.0" />
+	  <PackageReference Include="AngleSharp.Js" Version="0.13.0" />
+	  <PackageReference Include="AngleSharp.XPath" Version="1.1.6" />
+	  <PackageReference Include="AutoFixture" Version="4.11.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.App" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.2.0" />
+	  <PackageReference Include="Moq" Version="4.14.1" />
+	<PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="VXCore.NLog.MiniProfiler" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EI.RP.DomainModels.SpecimenBuilders\EI.RP.DomainModels.SpecimenBuilders.csproj" />
+    <ProjectReference Include="..\EI.RP.Stubs\EI.RP.Stubs.csproj" />
+    <ProjectReference Include="..\EI.RP.TestServices\EI.RP.TestServices.csproj" />
+    <ProjectReference Include="..\EI.RP.UI.TestServices\EI.RP.UI.TestServices.csproj" />
+    <ProjectReference Include="..\EI.RP.WebApp\EI.RP.WebApp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Sut\Parts\MyAccountElectricityAndGas\Tests\A_MovingHouse\Step5\" />
+  </ItemGroup>
+
+</Project>

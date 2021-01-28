@@ -1,0 +1,55 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
+using System.ComponentModel.DataAnnotations;
+using EI.RP.CoreServices.Ports.OData;
+using EI.RP.DataModels.Sap.<#=this.RepositoryName#>.Dtos;
+
+namespace EI.RP.DataModels.Sap.<#=this.RepositoryName#>.Functions
+{
+/******************************
+THIS CLASS WAS GENERATED, DO NOT EDIT MANUALLY. 
+
+For customizations, create and edit a partial file instead
+******************************/
+	public partial class  <#=this.FunctionClassName#> : ODataFunction<<#=this.FunctionClassName#>.QueryObject, <#=this.FunctionResultType#>>
+	{
+
+		public  <#=this.FunctionClassName#> (params Expression<Func<<#=this.FunctionResultType#>, object>>[] expands) : base("<#=this.FunctionName#>", expands)
+		{
+		}
+
+        public override bool ReturnsComplexType ()=> <#=this.ReturnsComplexType.ToString().ToLower()#>;
+        public override bool ReturnsCollection ()=> <#=this.ReturnsCollection.ToString().ToLower()#>;
+
+        public override string  GetEntityContainerName()
+        {
+            return "<#=ContainerName#>";
+        }
+
+        public class QueryObject{
+<#foreach (var property in this.Properties){#>
+        <#if(property.MaxLength!=null){#>[StringLength(<#=property.MaxLength #>)]<#}#>
+
+<#if(!property.ParameterType.StartsWith("DateTime")){#>
+		public virtual <#=property.ParameterType#> <#=property.Name#> { get; set; } <#=property.DefaultValue #>
+<#}#>
+<#if(property.ParameterType.StartsWith("DateTime")){#>
+		 public virtual <#=property.ParameterType#> <#=property.Name#> 
+        {
+             get => _<#=property.Name#>;
+			 set => _<#=property.Name#> = CompensateSapDateTimeBug(value);
+        } 
+        private <#=property.ParameterType#> _<#=property.Name#><#=property.DefaultValue #>;
+<#}#>
+
+<#}#>
+        }
+	}
+}

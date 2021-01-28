@@ -1,0 +1,77 @@
+//       SUMMARY TABLE     
+// =========================
+// 1. Global
+// =========================
+
+
+// 1. Global
+// =========================
+
+
+.breadcrumb {
+  background-color: transparent;
+
+  .breadcrumb-item {
+    font-family: 'Helvetica';
+    font-size: 1.6rem;
+    color: $green;
+    opacity: 1;
+
+    &:before {
+      display: none;
+    }
+
+    &.active {
+      color: #a59d95;
+      opacity: 0.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    &+.breadcrumb-item {
+      padding-left: 0.8rem;
+      
+      &:before {
+        display: inline-block;
+        content: "/";
+        color: rgba(165, 157, 149, 0.6);
+        padding-right: 0.8rem;
+      }
+    }
+  }
+}
+
+.breadcrumb.inversed {
+  .breadcrumb-item {
+    color: #FFFFFF;
+
+    &.active {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    &+.breadcrumb-item {
+      &:before {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+}
+
+
+.plan-breadcrumb {
+  padding-top:2.5rem;
+  padding-bottom:0.5rem;
+  padding-left:0.5rem;
+  padding-right:0.5rem;
+  font-weight:bold;
+  margin-bottom:2.5rem;
+  .parent {
+      font-family: 'StRyde' !important;
+  }
+}

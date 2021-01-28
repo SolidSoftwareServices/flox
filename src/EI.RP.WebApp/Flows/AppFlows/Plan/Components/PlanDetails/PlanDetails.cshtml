@@ -1,0 +1,41 @@
+@using EI.RP.WebApp.Flows.AppFlows.Plan.Components.PlanDetails
+
+@model ViewModel
+
+<div class="plan-your-plan mb-5 pb-3">
+    <h2 class="mb-0" data-testid="price-plan-heading">Your plan</h2>
+    <hr class="mt-0 mb-4" aria-hidden="true" />
+    <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-0">
+            <p class="m-0" data-testid="price-plan-label">@Html.LabelFor(x => x.PlanName)</p>
+        </div>
+        <div class="col-12 col-md-6">
+            <p class="m-0 font-weight-bold text-md-right" data-testid="price-plan">@Model.PlanName</p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-0">
+            <p class="m-0" data-testid="price-plan-discount-label">@Html.LabelFor(x => x.Discount)</p>
+        </div>
+        <div class="col-12 col-md-6">
+            <p class="m-0 font-weight-bold text-md-right" data-testid="price-plan-discount">@($"{Model.Discount:0.##}")%</p>
+        </div>
+    </div>
+    @*@if (Model.CanChangePricePlan)
+    {
+        <div class="row">
+            <div class="col-12 mb-0">
+                <a href="#" class="btn btn-xs green">Change price plan</a>
+            </div>
+        </div>
+    }*@
+    @if (Model.CanAddGas) {
+        <hr class="mt-5 mb-5" aria-hidden="true" />
+        await Html.RenderPartialAsync("./Partials/AddGas.cshtml", Model);
+    }
+    @if (Model.Upgrading.IsUpgradeToSmartAvailable)
+    {
+        <hr class="mt-5 mb-5" aria-hidden="true" />
+        await Html.RenderPartialAsync("./Partials/UpgradeToSmart.cshtml", Model);
+    }
+</div>

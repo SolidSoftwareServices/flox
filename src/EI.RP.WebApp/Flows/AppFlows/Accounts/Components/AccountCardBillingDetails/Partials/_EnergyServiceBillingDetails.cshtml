@@ -1,0 +1,16 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountCardBillingDetails.ViewModel
+
+<div class="my-accounts__item__content">
+    <div class="row">
+        <div class="col-3"><span>Last payment amount</span></div>
+        <div class="col-5"><p class="price">@Model.BillAmount</p></div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-3"><span>Payment date</span></div>
+        <div class="col-5"><p>@Model.DueDate.ToString("dnn MMMM yyyy", true)</p></div>
+        <div class="col-4"></div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿@using EI.RP.WebApp.Models.Shared
+@using EI.RP.WebApp.Models.Static
+
+@model StaticModel
+
+@{
+    ViewData["Title"] = "Privacy Notice and Cookies Policy";
+    Layout = "_Layout_WithNav";
+}
+
+<main class="plan">
+    @await Html.PartialAsync("Partials/_Header", new HeaderModel { Title = "Privacy Notice and Cookies Policy" })
+    @await Html.PartialAsync("Partials/_PrivacyNoticeContent")
+</main>

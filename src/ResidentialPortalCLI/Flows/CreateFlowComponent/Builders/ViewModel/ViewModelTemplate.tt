@@ -1,0 +1,21 @@
+﻿<#@ template language="C#" #>
+using EI.RP.UiFlows.Mvc.Components;
+
+namespace <#=this.Options.Namespace()#>
+{
+	public class ViewModel : <#=this.Options.IsPageable ? "FlowPageableComponentViewModel<ViewModel.Row>" : "FlowComponentViewModel"#>
+	{
+		public string SampleProperty { get; set; }
+
+		
+<# if (this.Options.IsPageable ) { #>
+    public class Row
+		{
+			public string RowSampleProperty { get; set; }
+		}
+<# } else { #> 
+        
+<# } #> 
+		
+	}
+}

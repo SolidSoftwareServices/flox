@@ -1,0 +1,19 @@
+﻿@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step5ReviewAndComplete.ScreenModel
+
+<h2 id="pricePlanHeader">Price Plan</h2>
+<div class="review">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="review__terms" id="pricePlan">
+                @if (Model.ValueSaver)
+                {
+                    @:Your price plan will be ValueSaver. <a href="https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" target="_blank">View Terms and Conditions here.</a>
+                }
+                else
+                {
+                    @:Your price plan and savings will reflect your details displayed above. <a href="https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" target="_blank">View Terms and Conditions here.</a>
+                }
+            </p>
+        </div>
+    </div>
+</div>

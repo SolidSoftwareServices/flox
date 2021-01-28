@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Hosting
+@using EI.RP.CoreServices.DeliveryPipeline.Environments
+
+@inject IHostingEnvironment Environment
+
+@model ErrorViewModel
+
+@{
+    Layout = "_Layout_WithNav";
+    ViewData["Title"] = "An error occurred while processing your request";
+}
+
+<main class="help" data-page="error">
+    <div class="container">
+        <div class="portal-details">
+            <div class="portal-details__form meter-reading">
+                <h2 class="error">An error occurred while processing your request</h2>
+                <p class="mt-4 mb-2">You can:</p>
+                <ul>
+                    <li><a href="#" class="btn btn-xs btn--no-before btn--no-after btn--no-padding green d-inline-block" data-history data-history-back>Go back</a> and try again</li>
+                    <li>Contact system administrator</li>
+                </ul>
+                @if (Model.ShowRequestId)
+                {
+                    <p class="mt-5 mb-0"><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+                }
+                @if (Environment.IsDevelopmentEnv())
+                {
+                    <hr class="my-5" />
+                    <h2>Development Mode</h2>
+                    <p class="mb-2">Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.</p>
+                    <p class="mb-0">
+                        <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</main>

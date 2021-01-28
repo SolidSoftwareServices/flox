@@ -1,0 +1,16 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel
+
+<div class="mt-5">
+    @using (await Html.BeginUiFlowFormAsync(Model))
+    {
+        <flow-action id="btnSkipAndComplete"
+                     class="btn btn-xs green"
+                     action-type="TriggerEvent" 
+                     tag-type="Anchor" 
+                     trigger-event="@ChoosePaymentOption.StepEvent.ManualPaymentSelected">Skip & complete account set up</flow-action>
+    }
+</div>

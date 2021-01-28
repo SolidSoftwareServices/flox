@@ -1,0 +1,182 @@
+//       SUMMARY TABLE
+// =========================
+// 1. Global
+// =========================
+
+// 1. Global
+// =========================
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(239, 239, 239, 0.6);
+}
+
+.table {
+  .btn-link {
+    padding: 0;
+    height: auto;
+    line-height: initial;
+  }
+
+  td,
+  th {
+    font-weight: normal;
+    padding: 1.5rem 1rem;
+
+    @include breakpoint(600px) {
+      padding: 0.6rem 1rem;
+    }
+  }
+
+  th[scope="col"] {
+    color: #009fda;
+    font-family: "HelveticaBold";
+    font-size: 1.4rem;
+    font-weight: normal;
+  }
+
+  th[scope="row"] {
+    color: #63666a;
+  }
+
+  td {
+    color: #63666a;
+    font-size: 1.6rem;
+    vertical-align: middle;
+
+    &.w-5 {
+      width: 5%;
+    }
+  }
+
+  &__pricing {
+    margin-top: 0px !important;
+    font-size: 1.6rem !important;
+
+    &__header tr {
+      th {
+        font-weight: normal;
+        padding: 2rem 1rem 2rem 0;
+        vertical-align: bottom;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+        & strong {
+          font-size: 1.8rem;
+        }
+
+        @include breakpoint(600px) {
+          padding: 1rem 1rem 1rem 0;
+        }
+
+        & .gas-pricing {
+          color: #a30050;
+        }
+
+        & .electricity-pricing {
+          color: $blue;
+        }
+
+        &:not(:first-of-type) {
+          text-align: right;
+        }
+      }
+    }
+
+    &__body {
+      tr {
+        td {
+          font-size: 1.6rem !important;
+          font-weight: normal !important;
+          color: #63666a !important;
+          text-align: left !important;
+          padding: 1.5rem 1rem 1.5rem 0 !important;
+          vertical-align: bottom !important;
+          border: 0 !important;
+
+          & strong {
+            font-size: 1.8rem !important;
+          }
+
+          @include breakpoint(600px) {
+            padding: 0.6rem 1rem 0.6rem 0 !important;
+          }
+
+          &:not(:first-of-type) {
+            text-align: right !important;
+          }
+        }
+      }
+
+      & .row-border {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  & sup {
+    font-size: 1rem;
+  }
+}
+
+.table-wrapper {
+  padding: 4rem;
+}
+
+.table-white {
+  &.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  color: #fff;
+
+  th[scope="col"],
+  th[scope="row"],
+  td {
+    color: #fff;
+  }
+}
+
+.ie .payment .table tr {
+  display: table-row;
+}
+
+.full-pricing {
+  h2 {
+    font-family: "Helvetica", sans-serif !important;
+    font-weight: bold;
+    font-size: 2.4rem !important;
+    line-height: 140%;
+    letter-spacing: 0;
+    margin-top: 1.5rem;
+    width: 90%;
+    display: flex;
+    align-items: flex-end;
+    color: $blue !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  h3 {
+    font-family: "Helvetica", sans-serif;
+    font-weight: normal;
+    font-size: 2.8rem;
+    line-height: 140%;
+    color: $grey;
+    letter-spacing: 0;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  p {
+    font-size: 1.6rem !important;
+  }
+
+  ol {
+    li {
+      font-size: 1.6rem;
+      padding-bottom: 2rem;
+
+      &:before {
+        color: $black;
+      }
+    }
+  }
+}

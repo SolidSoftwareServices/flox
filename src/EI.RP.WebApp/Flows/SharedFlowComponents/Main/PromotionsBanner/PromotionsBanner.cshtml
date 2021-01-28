@@ -1,0 +1,40 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.UiFlows.Mvc.Views
+
+@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.PromotionsBanner.ViewModel
+
+@if (Model.Visible)
+{
+    <div class="notifications__item" id="promotionBanner" data-stacked-card>
+        <div class="notifications__item__content notifications__item__content--banner">
+            @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+            {
+                @foreach (var additionalField in Model.DismissBannerFlowAction.EventAdditionalFields)
+                {
+                    @await Html.GetHiddenFlowStepMemberAsync(additionalField.PropertyPath, additionalField.Value, false)
+                }
+                <flow-action id="promoBoxClose"
+                             class="close-button close-button--small"
+                             aria-label="Dismiss @Model.Heading banner"
+                             trigger-event="@Model.DismissBannerFlowAction.TriggerEvent">
+                </flow-action>
+            }
+
+            @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+            {
+                @foreach (var additionalField in Model.FlowAction.EventAdditionalFields)
+                {
+                    @await Html.GetHiddenFlowStepMemberAsync(additionalField.PropertyPath, additionalField.Value, false)
+                }
+                <flow-action id="promotionEntry"
+                             data-skip-spinner-validations
+                             data-stacked-card-focus 
+                             tag-type="Anchor"
+                             trigger-event="@Model.FlowAction.TriggerEvent">
+                    <img id="imgPromotionBanner" src="~/img/promotions/@Model.ImageDesktop" class="img-desktop" alt="@Model.Heading">
+                    <img src="~/img/promotions/@Model.ImageMobile" class="img-mobile" alt="@Model.Heading">
+                </flow-action>
+            }
+        </div>
+    </div>
+}

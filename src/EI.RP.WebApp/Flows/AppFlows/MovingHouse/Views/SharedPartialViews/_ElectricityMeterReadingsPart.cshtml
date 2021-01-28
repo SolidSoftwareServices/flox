@@ -1,0 +1,123 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions.IElectricityAndGasMeterMovingHouse
+
+@if (Model.ElectricityDevicesMeterReadings?.Count() > 0)
+{
+    var howDoIReadMyMeterModalId = Model.ElectricityDevicesMeterReadings.Count() > 1 ? "#modalMeterReadingTooltipDayNight" : "#modalMeterReadingTooltip24h";
+
+    @Html.HiddenFor(m => m.UserMeterInputFields.Mprn)
+    @Html.HiddenFor(m => m.UserMeterInputFields.MeterReadingDescription)
+
+    <div class="form-group w-100">
+        <h2 id="electricityMeterReadingHeader">Electricity</h2>
+        <div class="form-number" id="MprnHeader">
+            <span class="form-info">MPRN</span> <span>@Model.UserMeterInputFields.Mprn</span>
+        </div>
+        <p id="pElectricityMeterReadingDescription">@Model.UserMeterInputFields.MeterReadingDescription</p>
+
+        @for (var i = 0; i < Model.ElectricityDevicesMeterReadings.Count(); i++)
+        {
+            var registerInfo = Model.ElectricityDevicesMeterReadings.ElementAt(i);
+
+            var tooltipContent = registerInfo.MeterType == MeterType.ElectricityDay 
+                ? "Enter the meter reading corresponding to the night rate. On some meters I refers to Night and II to Day."
+                : registerInfo.MeterType == MeterType.ElectricityNight 
+                    ? "Your meter can have one or two rows of numbers. Ignore digits in red or digits surrounded by a red box."
+                    : "Ignore digits in red or digits surrounded by a red box.";
+
+            var inputId = $"txt_elec_{registerInfo.MeterNumber.TrimStart('0')}";
+
+            <div id="@registerInfo.MeterType Meter reading">
+                <label id="lblElecMeterType" for="@inputId" class="mb-2" data-testid="@registerInfo.MeterType.ToLower()-meter-reading-label">@registerInfo.MeterType Meter Reading * <button type="button" class="portal-details__form__info__icon border-0" aria-label="Information about meter reading" data-toggle="tooltip" data-placement="right" title="" data-original-title="@tooltipContent"></button></label>
+                <small class="d-block mt-0 mb-3">Meter Number: @registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4).PadLeft(9, '*')</small>
+
+                <div class="input-group w-100 portal-details__form meter-reading">
+                    @if (registerInfo.MeterType == MeterType.ElectricityDay)
+                    {
+                        @Html.TextBoxFor(model => model.UserMeterInputFields.MeterReadingDay,
+                            new
+                            {
+                                id = inputId,
+                                @class = "form-control",
+                                placeholder = "00000",
+                                maxlength = "7",
+                                type = "tel",
+                                data_control = "meterReadOnly",
+                                data_testid = $"{registerInfo.MeterType.ToLower()}-meter-reading-input",
+                                aria_label = $"{registerInfo.MeterType} Meter Reading, Meter number ending in {registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4)}, {registerInfo.MeterUnit}"
+                            })
+                        <div class="input-group-append">
+                            <span class="input-group-text">@registerInfo.MeterUnit</span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserMeterInputFields.MeterReadingDay, "", new { @class = "alert alert-form alert-danger w-100", id = "dayElectricityMeterError" })
+                        @await Html.SecureHiddenForAsync(m => m.UserMeterInputFields.ElectricityDayDevicesFieldRequired, false)
+                    }
+                    else if (registerInfo.MeterType == MeterType.ElectricityNight)
+                    {
+                        @Html.TextBoxFor(model => model.UserMeterInputFields.MeterReadingNight,
+                            new
+                            {
+                                id = inputId,
+                                @class = "form-control",
+                                placeholder = "00000",
+                                maxlength = "7",
+                                type = "tel",
+                                data_control = "meterReadOnly",
+                                data_testid = $"{registerInfo.MeterType.ToLower()}-meter-reading-input",
+                                aria_label = $"{registerInfo.MeterType} Meter Reading, Meter number ending in {registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4)}, {registerInfo.MeterUnit}"
+                            })
+                        <div class="input-group-append">
+                            <span class="input-group-text">@registerInfo.MeterUnit</span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserMeterInputFields.MeterReadingNight, "", new { @class = "alert alert-form alert-danger w-100", id = "nightElectricityMeterError" })
+                        @await Html.SecureHiddenForAsync(m => m.UserMeterInputFields.ElectricityNightDevicesFieldRequired, false)
+                    }
+                    else if (registerInfo.MeterType == MeterType.ElectricityNightStorageHeater)
+                    {
+                        @Html.TextBoxFor(model => model.UserMeterInputFields.MeterReadingNightStorageHeater, 
+                            new
+                            {
+                                id = inputId, 
+                                @class = "form-control", 
+                                placeholder = "00000", 
+                                maxlength = "7",
+                                type = "tel", 
+                                data_control = "meterReadOnly",
+                                data_testid = $"{registerInfo.MeterType.ToLower()}-meter-reading-input",
+                                aria_label = $"{registerInfo.MeterType} Meter Reading, Meter number ending in {registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4)}, {registerInfo.MeterUnit}"
+                            })
+                        <div class="input-group-append">
+                            <span class="input-group-text">@registerInfo.MeterUnit</span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserMeterInputFields.MeterReadingNightStorageHeater, "", new { @class = "alert alert-form alert-danger w-100", @id = "nshElectricityMeterError" })
+                        @await Html.SecureHiddenForAsync(m => m.UserMeterInputFields.ElectricityNightStorageHeaterDevicesFieldRequired, false)
+                        }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.UserMeterInputFields.MeterReading24Hrs, 
+                            new
+                            {
+                                id = inputId, 
+                                @class = "form-control", 
+                                placeholder = "00000", 
+                                maxlength = "7",
+                                type = "tel", 
+                                data_control = "meterReadOnly",
+                                data_testid = $"{registerInfo.MeterType.ToLower()}-meter-reading-input",
+                                aria_label = $"{registerInfo.MeterType} Meter Reading, Meter number ending in {registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4)}, {registerInfo.MeterUnit}"
+                            })
+                        <div class="input-group-append">
+                            <span class="input-group-text">@registerInfo.MeterUnit</span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserMeterInputFields.MeterReading24Hrs, "", new { @class = "alert alert-form alert-danger w-100", @id = "oneElectricityMeterError" })
+                        @await Html.SecureHiddenForAsync(m => m.UserMeterInputFields.Electricity24HrsDevicesFieldRequired, false)
+                    }
+                </div>
+            </div>
+        }
+
+        <span class="form-info" data-testid="mimo-how-do-i-read-my-meter">How do I read my meter? <button type="button" class="portal-details__form__info__icon cursor-pointer border-0" aria-label="How do I read my meter?" data-toggle="modal" data-target="@howDoIReadMyMeterModalId"></button></span>
+    </div>
+}

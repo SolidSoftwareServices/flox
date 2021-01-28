@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CommonCompilerExtensions.cs" Link="Infrastructure\CommonCompilerExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="2.2.5" />
+    <PackageReference Include="ServiceStack.Redis" Version="5.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EI.RP.CoreServices\EI.RP.CoreServices.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+﻿@model EI.RP.NavigationPrototype.Flows.AppFlows.BlueFlow.Steps.ErrorScreen.ErrorScreenModel
+@{
+	ViewData["Title"] = "BlueFlow::ErrorScreen";
+
+	
+}
+
+<div id="ErrorScreen">
+
+	<div class="row">
+		<div class="col-md-3">
+			<h2>BlueFlow::ErrorScreen</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			Error: @Model.Error
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			OnStep:@Model.OnStep
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			OnLifecycleEvent:@Model.OnLifecycleEvent
+		</div>
+	</div>
+
+</div>

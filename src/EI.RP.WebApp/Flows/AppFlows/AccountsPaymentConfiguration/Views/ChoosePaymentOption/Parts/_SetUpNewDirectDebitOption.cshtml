@@ -1,0 +1,69 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel
+
+@{
+    var showSingleSetUpForMultipleAccountsOption = new[]
+    {
+        AccountsPaymentConfigurationFlowStartType.MoveOneAndAddAnother,
+        AccountsPaymentConfigurationFlowStartType.MoveElectricityAndGas,
+    }.Contains(Model.StartType);
+
+    string discountText;
+    bool showSaveText;
+
+    if (Model.HasAnyExistingPaymentMethodOfDirectDebit)
+    {
+        discountText = "Set up a new Direct Debit for your bill payments. You will need your IBAN and the name on your bank account.";
+        showSaveText = false;
+    }
+    else
+    {
+        discountText = "Set up a new Direct Debit for your bill payments. You will need your IBAN and the name on your bank account. You will get a 5% discount for setting up a Direct Debit.";
+
+        showSaveText = true;
+    }
+}
+
+<div class="col-12 col-lg-6 mb-5" id="setUpNewDirectDebitOption">
+    <div class="card border h-100">
+        <div class="card-body p-5 h-100 d-flex flex-column">
+            <fieldset>
+                <legend>
+                    <div class="card-title-wrapper">
+                        <h5 class="card-title font-col-title card-title-large mt-0 mb-5 text-center" data-testid="payment-option-new-dd-title">Set Up New Direct Debit</h5>
+                    </div>
+                </legend>
+                <p class="card-text card-text--flex-auto-adjust mb-5" data-testid="payment-option-new-dd-text">@discountText</p>
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    @if (showSingleSetUpForMultipleAccountsOption)
+                    {
+                        <div class="form-group form-check pt-0 mt-0 mr-0 mb-5">
+                            <div class="custom-control custom-checkbox" id="useForBoth">
+                                @Html.CheckBoxFor(model => model.UseNewSingleSetupForAllAccounts,
+                                    new {@class = "custom-control-input", id = "useNewSingleSetupForAllAccounts", name = "useNewSingleSetupForAllAccounts"})
+                                <label id="lblUseSameSetupForAllAccounts"
+                                       class="custom-control-label pr-0 form-info font-smaller"
+                                       for="useNewSingleSetupForAllAccounts">Use this Direct Debit to make payments for both my Electricity and Gas accounts.</label>
+                            </div>
+                        </div>
+                    }
+                    @if (showSaveText)
+                    {
+                        <p class="card-text-strong mb-5">
+                            <span class="heading-medium highlight-txt">Save</span> <strong class="pricing-number highlight-txt">5%</strong>
+                        </p>
+                    }
+                    <div class="card-buttons">
+                        <flow-action id="setUpNewDirectDebit" class="btn btn-primary line-height-for-btns"
+                                     trigger-event="@ChoosePaymentOption.StepEvent.SetUpNewDirectDebit">Set up new Direct Debit</flow-action>
+                    </div>
+                }
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel
+
+@{
+	string btnText = null;
+	switch (Model.StartType)
+	{
+		case AccountsPaymentConfigurationFlowStartType.MoveElectricity:
+		case AccountsPaymentConfigurationFlowStartType.MoveGas:
+		case AccountsPaymentConfigurationFlowStartType.MoveOneAndAddAnother:
+		case AccountsPaymentConfigurationFlowStartType.MoveElectricityAndGas:
+		case AccountsPaymentConfigurationFlowStartType.MoveElectricityAndCloseGas:
+			btnText = "Cancel House Move";
+			break;
+		default:
+			throw new ArgumentOutOfRangeException();
+	}
+}
+
+<div class="modal modal-lg fade modal-portal" id="modal-cancel-payment" tabindex="-1" role="dialog" aria-labelledby="modal-cancel-payment-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="modal-title modal-title-wider" id="modal-cancel-payment-label">Are you sure?</h1>
+            </div>
+            <div class="modal-body modal-body--text text-center">
+                <p>The details provided will be deleted and your move will be cancelled.</p>
+            </div>
+            <div class="modal-footer no-flex">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    <flow-action id="cancelFlowConfirm"
+                                 class="btn btn-secondary"
+                                 trigger-event="@ChoosePaymentOption.StepEvent.CancelFlow">@btnText</flow-action>
+                }
+                <button type="button" id="goBackDlgLink" class="btn btn-xs btn-xs-landing" data-dismiss="modal">Go back</button>
+            </div>
+        </div>
+    </div>
+</div>

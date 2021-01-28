@@ -1,0 +1,31 @@
+﻿@using Ei.Rp.Mvc.Core.Controllers
+
+@using EI.RP.NavigationPrototype.Controllers
+@using EI.RP.NavigationPrototype.Flows.AppFlows
+@using EI.RP.UiFlows.Mvc.Controllers
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+<b>Index Page</b>
+<div id="flows">
+	<b>Flows:</b>
+	@Html.ActionLink("Container of flows that is not a flow", nameof(SampleFlowContainerController.Index), typeof(SampleFlowContainerController).GetNameWithoutSuffix())<br />
+	@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>())
+	{
+		var linkText = flowType == SampleAppFlowType.NoFlow ? $"{nameof(SampleAppFlowType.NoFlow)} should 404" : flowType.ToString();
+		<br />
+		<flow-action action-type="StartFlow" flow-name=@flowType.ToString()>@linkText</flow-action>
+	}
+</div>
+<br />
+<br />
+<b>UI Flow Definitions:</b>
+@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow))
+{
+	<br />
+	@Html.ActionLink($"Flow {flowType}", nameof(UiFlowController.DotGraph), flowType.ToString())
+
+}
+

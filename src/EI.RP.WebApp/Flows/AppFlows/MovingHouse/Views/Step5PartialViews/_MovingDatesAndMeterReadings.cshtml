@@ -1,0 +1,110 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps
+@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step5ReviewAndComplete.ScreenModel
+
+@functions {
+    static string GetReadingValue(string meterType, InputFields meterReading)
+    {
+        if (meterType == MeterType.ElectricityDay)
+            return meterReading.MeterReadingDay;
+
+        if (meterType == MeterType.ElectricityNight)
+            return meterReading.MeterReadingNight;
+
+        if (meterType == MeterType.Electricity24h)
+            return meterReading.MeterReading24Hrs;
+
+        if (meterType == MeterType.ElectricityNightStorageHeater)
+            return meterReading.MeterReadingNightStorageHeater;
+
+        return "";
+    }
+}
+
+<h2 id="movingDateHeader">Moving Dates and Meter Readings</h2>
+<div class="review review--margin">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 id="previosuPropertyMeterReadings">Previous Property</h3>
+            <p class="mb-5" id="moveOutDateTitle">Move out date: <span id="moveOutDate">@Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutDate</span></p>
+            @if (Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutElectricityDevicesMeterReadings != null)
+            {
+                @for (var i = 0; i < Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutElectricityDevicesMeterReadings.Count(); i++)
+                {
+                    var meterInfo = Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutElectricityDevicesMeterReadings.ElementAt(i);
+                    var meterReading = Model.MovingDatesMeterReadingInfoReadingsInfo.PreviousPropertyUserMeterInputFields;
+                    var meterReadingId = $"id_elec_moveout_reading_{meterInfo.MeterNumber.TrimStart('0')}";
+                    var meterReadingValueId = $"id_elec_moveout_reading_value_{meterInfo.MeterNumber.TrimStart('0')}";
+
+                    <h3 id="moveOutElectricityClientType">Electricity</h3>
+                    <p class="mb-5" id="moveOutElectricityMeterReading" data-testid="@meterReadingId">
+                        @meterInfo.MeterType Meter Reading:
+                        <span id="moveOutElectricityMeterReadingValue" data-testid="@meterReadingValueId">@GetReadingValue(meterInfo.MeterType, meterReading)</span>
+                </p>
+            }
+            }
+            @if (Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutGasDevicesMeterReadings != null)
+            {
+                @for (var i = 0; i < Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutGasDevicesMeterReadings.Count(); i++)
+                {
+                    var meterInfo = @Model.MovingDatesMeterReadingInfoReadingsInfo.MoveOutGasDevicesMeterReadings.ElementAt(i);
+                    var meterReading = @Model.MovingDatesMeterReadingInfoReadingsInfo.PreviousPropertyUserMeterInputFields;
+
+                    <h3 id="moveOutGasClientType">Gas</h3>
+                    <p class="mb-5" id="moveOutGasMeterReading">
+                        @meterInfo.MeterType Meter Reading:
+                        <span id="moveOutGasMeterReadingValue">@meterReading.MeterReadingGas</span>
+                    </p>
+                }
+            }
+            @using (await Html.BeginUiFlowFormAsync(Model))
+            {
+                <flow-action class="btn btn-secondary" id="btnEditMoveOutDetails"
+                             trigger-event="@Step5ReviewAndComplete.StepEvent.ToStep1">Edit <span class="sr-only">Previous Property</span></flow-action>
+            }
+        </div>
+        <div class="col-lg-6">
+            <h3 id="newPropertyMoveInDates">New Property</h3>
+            <p class="mb-5" id="moveInDateTitle">Move in date: <span id="moveInDate">@Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInDate</span></p>
+            @if (Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInElectricityDevicesMeterReadings != null)
+            {
+                @for (var i = 0; i < Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInElectricityDevicesMeterReadings.Count(); i++)
+                {
+                    var meterInfo = Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInElectricityDevicesMeterReadings.ElementAt(i);
+                    var meterReading = Model.MovingDatesMeterReadingInfoReadingsInfo.NewPropertyUserMeterInputFields;
+                    var meterReadingId = $"id_elec_movein_reading_{meterInfo.MeterNumber.TrimStart('0')}";
+                    var meterReadingValueId = $"id_elec_movein_reading_value_{meterInfo.MeterNumber.TrimStart('0')}";               
+
+                    <h3 id="moveInElectricityClientAccountType">Electricity</h3>
+                    <p class="mb-5" id="moveInElectricityMeterReading" data-testid="@meterReadingId">
+                        @meterInfo.MeterType Meter Reading:
+                        <span id="moveInElectricityMeterReadingValue" data-testid="@meterReadingValueId">@GetReadingValue(meterInfo.MeterType, meterReading)</span>
+                    </p>
+                }
+            }
+            @if (Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInGasDevicesMeterReadings != null)
+            {
+                @for (var i = 0; i < Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInGasDevicesMeterReadings.Count(); i++)
+                {
+                    var meterInfo = Model.MovingDatesMeterReadingInfoReadingsInfo.MoveInGasDevicesMeterReadings.ElementAt(i);
+                    var meterReading = Model.MovingDatesMeterReadingInfoReadingsInfo.NewPropertyUserMeterInputFields;
+
+                    <h3 id="moveInGas">Gas</h3>
+                    <p class="mb-5" id="moveInGasMeterReading">
+                        @meterInfo.MeterType Meter Reading:
+                        <span id="moveInGasMeterReadingValue">@meterReading.MeterReadingGas</span>
+                    </p>
+                }
+            }
+            @using (await Html.BeginUiFlowFormAsync(Model))
+            {
+                <flow-action class="btn btn-secondary" id="btnEditMoveInDetails"
+                             trigger-event="@Step5ReviewAndComplete.StepEvent.ToStep3">Edit <span class="sr-only">New Property</span></flow-action>
+            }
+        </div>
+    </div>
+</div>

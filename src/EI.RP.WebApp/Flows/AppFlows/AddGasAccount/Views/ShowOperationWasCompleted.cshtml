@@ -1,0 +1,21 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+
+<main class="help" data-page="add-gas-confirmation">
+    <div class="container">
+        <div class="portal-details">
+            <h2 data-testid="add-gas-confirmation-title">Gas Account Set Up & Savings Confirmation</h2>
+            <div class="portal-details__form meter-reading">
+                <h2>Thank you for choosing to make savings the easy way - by staying with Electric Ireland.</h2>
+                <p>
+                    This long term saving is exclusive to our customers so it's great to have you on board. We are creating your new account and in the next four weeks you'll receive your account number.Your new savings will be applied to every Electricity & Gas Bill, every year.
+                    <a href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" target="_blank">Read T&Cs</a>
+                </p>
+                <flow-action id="dds_<_back_to_my_accounts"
+                             class="btn btn-xs btn-xs-back green"
+                             action-type="StartFlow"
+                             flow-name="@ResidentialPortalFlowType.Accounts"
+                             flow-location="NotContained">Back to My Accounts</flow-action>
+            </div>
+        </div>
+    </div>
+</main>

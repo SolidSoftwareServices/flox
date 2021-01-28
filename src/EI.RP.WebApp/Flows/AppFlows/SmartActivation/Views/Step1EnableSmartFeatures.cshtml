@@ -1,0 +1,94 @@
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.SmartActivation.Steps
+@using EI.RP.WebApp.Flows.AppFlows.TermsInfo.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.TermsInfo.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.SmartActivation.Steps.Step1EnableSmartFeatures.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Navigation = 1,
+        Stepper
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.Component>(PageComponent.Navigation,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.InputModel
+        {
+            SourceFlowType = Model.SourceFlowType
+        });
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.Component>(PageComponent.Stepper,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.InputModel
+        {
+            CurrentStep = 1
+        });
+}
+
+@await componentPreLoader.Render(PageComponent.Navigation)
+
+<div id="portal-main" class="portal-main">
+    <div class="position-relative">
+        <div class="sub-navigation-overlay"></div>
+        <main class="page page-authorise mb-5" data-page="step1-enable-smart-features">
+            <div class="container page-container pt-5">
+                @await componentPreLoader.Render(PageComponent.Stepper)
+                <div class="row">
+                    <div class="offset-1 col-10">
+                        <h1 class="text-primary page-title text-center text-sm-left mb-5">Enable smart features</h1>
+                        <hr aria-hidden="true" class="my-5" />
+                        <p class="mb-4">Because your home has a smart meter, you can turn on the following services for free.</p>
+                        <ul>
+                            <li class="mb-2">Personalised tips and advice to lower your bills and carbon emissions</li>
+                            <li class="mb-2">Find out which appliances in your home are using the most electricity</li>
+                            <li class="mb-2">Option to choose monthly billing on a date of your choice</li>
+                            <li class="mb-2">Tailored electricity insights, usage graphs and bill prediction to keep you in control</li>
+                            <li class="mb-2">Yearly review to make sure you're on the best price plan for you</li>
+                        </ul>
+                        @using (await Html.BeginUiFlowFormAsync(Model))
+                        {
+                            <div class="form-group-wrapper">
+                                <div class="form-group form-check form-check--border form-check-only">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(model => model.InformationCollectionAuthorized, new { @class = "custom-control-input pr-0", id = "informationCollectionAuthorized", name = "informationCollectionAuthorized" })
+                                        <label class="custom-control-label font-weight-normal"
+                                               for="informationCollectionAuthorized">
+                                            I allow Electric Ireland to have access to my 30 minute interval electricity data for account management, billing purposes and to provide the additional services listed above.
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.InformationCollectionAuthorized, "", new { @class = "alert alert-form alert-danger", data_testid = "information-collection-authorized-validation" })
+                                </div>
+                            </div>
+                            <div class="btn-container text-center text-sm-left">
+                                <flow-action id="enableSmartServicesButton"
+                                             class="btn btn-primary btn-lg line-height-for-btns mr-sm-5 mb-5"
+                                             trigger-event="@Step1EnableSmartFeatures.StepEvent.EnableSmartServices">
+                                    Yes, enable smart services
+                                </flow-action>
+                                <flow-action data-testid="no-thanks-smart-activation-yes"
+                                             class="btn btn-xs btn--no-before btn--no-after btn--no-padding mx-auto mx-sm-0 mb-5"
+                                             action-type="StartFlow"
+                                             flow-location="@Model.FlowLocation"
+                                             flow-name="@Model.SourceFlowType">
+                                    No, Thanks
+                                </flow-action>
+                            </div>
+                        }
+                        <p class="text-muted mt-5">
+                            If you want to know more about <a data-testid="more-about-smart-meters-link" href="https://www.electricireland.ie/smart-meters">smart meters</a> and what data we gather, visit our
+                            <flow-action data-testid="smart-activation-privacy-notice-link" target="_blank" action-type="StartFlow" flow-location="SameContainerAsMe" flow-name="@ResidentialPortalFlowType.TermsInfo"
+                                         flow-parameters=@(new TermsInfoInput { StartType = TermsInfoFlowInitializer.StartType.Privacy })>privacy notice and cookies policy</flow-action> section.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

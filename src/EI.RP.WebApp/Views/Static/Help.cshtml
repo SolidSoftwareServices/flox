@@ -1,0 +1,18 @@
+﻿@using EI.RP.WebApp.Models.Static
+
+@model StaticModel
+
+@{
+    ViewData["Title"] = "Help";
+    Layout = "_Layout_WithNav";
+}
+
+<main class="help">
+    <div class="help__header">
+        <div class="container">
+            <h1>Help & FAQs</h1>
+        </div>
+    </div>
+    @await Html.PartialAsync("Partials/_HelpContent")
+    @await Html.PartialAsync("Partials/_HelpFooterContent")
+</main>

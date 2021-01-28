@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/js/Microsoft.Msagl.min.js",
+	"inputFiles": [
+		"wwwroot/js/Microsoft.Msagl.js"
+	]
+  },
+	{
+		"outputFileName": "wwwroot/js/jsclr.min.js",
+		"inputFiles": [
+			"wwwroot/js/jsclr.js"
+		]
+	}
+]

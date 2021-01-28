@@ -1,0 +1,95 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.UserContactDetails.Steps
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.UserContactDetails.Steps.MarketingPreferences.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+        SettingsSubNavigation
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "My Profile"
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.SettingsSubNavigation.Component>(PageComponent.SettingsSubNavigation,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.SettingsSubNavigation.InputModel
+        {
+            IsMarketing = true
+        });
+}
+
+<div class="portal-header">
+    @await componentPreLoader.Render(PageComponent.Header)
+    @await componentPreLoader.Render(PageComponent.SettingsSubNavigation)
+</div>
+
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    <main class="help" data-pageid="marketing-preferences">
+        <div class="container">
+            <div class="portal-details">
+                <h2 data-testid="marketing-preference-heading">Marketing Preferences</h2>
+                <hr aria-hidden="true" />
+                <fieldset>
+                    <legend>
+                        <p data-testid="marketing-preference-top-message">Yes! I would like to receive updates about products & services, special offers, energy saving tips and news & events from Electric Ireland via:</p>
+                    </legend>
+                    @using (await Html.BeginUiFlowFormAsync(Model, className: "notification-form p-0"))
+                    {
+                        @Html.ValidationSummary(true, "", new
+                        {
+                            @class = "alert alert-form alert-danger my-5",
+                            role = "alert"
+                        })
+                        @if (Model.MustShowSuccessfullUpdateMessage)
+                        {
+                            <div class="alert alert-form alert-success my-5" id="successMessage">Your Marketing Preferences have been successfully changed.</div>
+                        }
+                        <div class="form-group form-check pl-5 my-5">
+                            <div class="custom-control custom-check">
+                                @Html.CheckBoxFor(m => Model.EmailMarketingActive, new { @id = "chkEmail", @class = "custom-control-input" })
+                                <label class="custom-control-label" for="chkEmail">Email</label>
+                            </div>
+                            <div class="custom-control custom-check">
+                                @Html.CheckBoxFor(m => Model.MobileMarketingActive, new { @id = "chkMobile", @class = "custom-control-input" })
+                                <label class="custom-control-label" for="chkMobile">Mobile</label>
+                            </div>
+                            <div class="custom-control custom-check">
+                                @Html.CheckBoxFor(m => Model.SmsMarketingActive, new { @id = "chkSms", @class = "custom-control-input" })
+                                <label class="custom-control-label" for="chkSms">SMS</label>
+                            </div>
+                            <div class="custom-control custom-check">
+                                @Html.CheckBoxFor(m => Model.PostMarketingActive, new { @id = "chkPost", @class = "custom-control-input" })
+                                <label class="custom-control-label" for="chkPost">Post</label>
+                            </div>
+                            <div class="custom-control custom-check">
+                                @Html.CheckBoxFor(m => Model.LandLineMarketingActive, new { @id = "chkLandLine", @class = "custom-control-input" })
+                                <label class="custom-control-label" for="chkLandLine">Landline</label>
+                            </div>
+                            <div class="custom-control custom-check mb-0">
+                                @Html.CheckBoxFor(m => Model.DoorToDoorMarketingActive, new { @id = "chkDoorToDoor", @class = "custom-control-input" })
+                                <label class="custom-control-label" for="chkDoorToDoor">Door to Door</label>
+                            </div>
+                        </div>
+                        <p data-testid="marketing-preference-bottom-message">You can unsubscribe at any time by adjusting your preferences above and clicking on "Save Changes" or by speaking to a customer service agent.</p>
+                        <div class="mb-5">
+                            <flow-action id="btnSaveContactDetails" class="btn btn-primary text-center w-50 save-notif"
+                                         trigger-event=@MarketingPreferences.StepEvent.SaveMarketingPreferences>Save Changes</flow-action>
+                        </div>
+                    }
+                </fieldset>
+            </div>
+        </div>
+    </main>
+</div>

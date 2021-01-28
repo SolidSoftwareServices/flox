@@ -1,0 +1,56 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+@using EI.RP.UiFlows.Mvc.Controllers
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.InputDirectDebitDetails.ScreenModel
+
+<div class="modal modal-lg fade" id="modal-cancel" tabindex="-1" role="dialog" aria-labelledby="modal-cancel-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="modal-title modal-title-wider" id="modal-cancel-label">Are you sure?</h1>
+            </div>
+            <div class="modal-body modal-body--text text-center">
+                @if (Model.ViewMode == InputDirectDebitDetails.ScreenModel.StepMode.EqualizerSetup)
+                {
+                    <p>The details provided will be deleted and your Equal Monthly Payments will not be set up.</p>
+                }
+                else
+                {
+                    <p>The details provided will be deleted and your savings will not be set up.</p>
+                }
+            </div>
+            <div class="modal-footer no-flex">
+                @if (Model.ViewMode == InputDirectDebitDetails.ScreenModel.StepMode.EqualizerSetup)
+                {
+                    <flow-action action-type="StartFlow"
+                                 flow-name=@ResidentialPortalFlowType.AccountsPaymentConfiguration
+                                 flow-parameters=@( new AccountsPaymentConfigurationFlowInput
+                                                 {
+                                                     AccountNumber = Model.AccountNumber,
+                                                     SecondaryAccountNumber = (string)null,
+                                                     StartType = AccountsPaymentConfigurationFlowStartType.ShowHistory
+                                                 })
+                                 flow-location="SameContainerAsMe"
+                                 id="dds_my_profile_bill_pay_optns"
+                                 class="btn btn-secondary"
+                                 data-testid="modal-cancel-yes-i-am-sure">
+                        Yes, I'm sure
+                    </flow-action>
+                }
+                else
+                {
+                    <a href="@Url.Action(nameof(IUiFlowController.Init), ResidentialPortalFlowType.Accounts.ToString())"
+                       class="btn btn-secondary"
+                       data-testid="modal-cancel-yes-i-am-sure">Yes, I'm sure</a>
+                }
+                <br />
+                <button type="button" class="btn btn-xs btn-xs--no-icon text-uppercase mt-5" data-testid="modal-cancel-go-back" data-dismiss="modal">Go Back</button>
+            </div>
+        </div>
+    </div>
+</div>

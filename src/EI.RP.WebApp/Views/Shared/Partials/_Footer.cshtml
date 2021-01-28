@@ -1,0 +1,15 @@
+﻿@model EI.RP.WebApp.Models.Shared.FooterModel
+
+<footer class="portal-footer @(Model != null ? Model.CssClass : "") always-on-bottom">
+    <div class="container">
+        <ul>
+            <li><a asp-controller="Static" asp-action="Help">Help</a></li>
+            <li><a asp-controller="Static" asp-action="ContactUs">Contact Us</a></li>
+            <li><a asp-controller="Static" asp-action="TermsAndConditions">Terms & Conditions</a></li>
+            <li><a asp-controller="Static" asp-action="Disclaimer">Disclaimer</a></li>
+            <li><a asp-controller="Static" asp-action="PrivacyNotice">Privacy Notice and Cookies Policy</a></li>
+            <li><a href="#" class="optanon-toggle-display">Cookie Settings</a></li>
+        </ul>
+        <p class="copyright">© Copyright 2020 Postal Address: Electric Ireland, PO Box 841, South City Delivery Office, Cork</p>
+    </div>
+</footer>

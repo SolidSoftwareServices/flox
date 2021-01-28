@@ -1,0 +1,86 @@
+//       SUMMARY TABLE     
+// =========================
+// 1. Global
+// =========================
+
+
+// 1. Global
+// =========================
+
+
+.badge {
+	border-radius: 10px;
+	padding: 0.6em 0.65em;
+	font-family: 'Helvetica';
+	font-weight: normal;
+
+	&-default {
+		background-color: $blue;
+		color: #fff;
+	}
+
+	&-primary {
+		background-color: #6e267b;
+	}
+
+	&-success {
+		background-color: #58a618;
+	}
+
+	&-warning {
+		background-color: $warning;
+		color: #fff;
+	}
+
+	&-danger {
+		background-color: $danger;
+	}
+
+	&-info {
+		background-color: #00a599;
+	}
+
+	&-green {
+		background-color: $green;
+		color: #fff;
+	}
+
+	&-pill {
+		border-radius: 50%;
+		font-family: 'HelveticaBold';
+		height: 3rem;
+		width: 3rem;
+		line-height: 1.1;
+		vertical-align: middle;
+		text-align: center;
+	}
+}
+
+.active .badge-green {
+	background-color: #fff;
+	color: $green;
+}
+
+
+.bg {
+
+	.badge {
+		&-default {
+			background-color: #fff;
+			color: $green;
+		}
+
+		&-primary {
+			background-color: #005293;
+		}
+
+		&-green {
+			background-color: #fff;
+			color: $green;
+		}
+	}
+
+}
+
+
+

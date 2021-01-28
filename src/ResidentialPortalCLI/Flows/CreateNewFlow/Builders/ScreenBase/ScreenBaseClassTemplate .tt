@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+
+namespace EI.RP.WebApp.Flows.AppFlows.<#=this.Options.FlowName#>.FlowDefinitions
+{
+    /// <summary>
+	///Base class every screen in (<#=this.Options.FlowName#>) 
+	/// </summary>
+    public abstract class <#=this.Options.FlowName#>Screen : ResidentialPortalScreen
+    {
+        public override ResidentialPortalFlowType IncludedInFlowType => ResidentialPortalFlowType.<#=this.Options.FlowName#>;
+    }
+}
+

@@ -1,0 +1,42 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step5ReviewAndComplete.ScreenModel
+
+<h2 id="propertyDetailsHeader">Property Details</h2>
+<div class="review">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 id="previousProperty">Previous Property</h3>
+            <p id="previousAddressInfo">
+                @if (Model.PreviousPropertyInfo.HouseNo != string.Empty || Model.PreviousPropertyInfo.Street != string.Empty)
+                {
+                    @($"{Model.PreviousPropertyInfo.HouseNo} {Model.PreviousPropertyInfo.Street}")<br />
+                }
+                @if (Model.PreviousPropertyInfo.City != string.Empty)
+                {
+                    @Model.PreviousPropertyInfo.City
+                }
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <h3 id="newProperty">New Property</h3>
+            <p id="newAddressInfo">
+                @if (Model.NewPropertyInfo.HouseNo != string.Empty || Model.NewPropertyInfo.Street != string.Empty)
+                {
+                    @($"{Model.NewPropertyInfo.HouseNo} {Model.NewPropertyInfo.Street}")<br />
+                }
+                @if (Model.NewPropertyInfo.City != string.Empty)
+                {
+                    @Model.NewPropertyInfo.City
+                }
+            </p>
+            @using (await Html.BeginUiFlowFormAsync(Model))
+            {
+                <flow-action class="btn btn-secondary" id="btnEditNewAddress"
+                             trigger-event="@Step5ReviewAndComplete.StepEvent.ToStep2">Edit</flow-action>
+            }
+        </div>
+    </div>
+</div>

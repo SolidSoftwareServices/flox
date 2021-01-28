@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Hosting
+@using EI.RP.CoreServices.DeliveryPipeline.Environments
+@inject IHostingEnvironment HostingEnvironment
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Steps.ShowFlowGenericError.ScreenModel
+
+@{
+	ViewBag.Title = "Smart meter journey - Electric Ireland";
+}
+
+<p>Smart meter flow GENERIC ERROR</p>
+@if (!HostingEnvironment.IsProductionEnvironment() && !HostingEnvironment.IsPreProduction())
+{
+<p>@Model.LastError.ExceptionMessage</p>
+}

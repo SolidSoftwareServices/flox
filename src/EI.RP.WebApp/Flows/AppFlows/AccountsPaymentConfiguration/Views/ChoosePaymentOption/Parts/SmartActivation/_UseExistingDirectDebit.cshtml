@@ -1,0 +1,76 @@
+﻿@using EI.RP.CoreServices.System
+@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel;
+
+@{
+    if (!new[]
+    {
+        AccountsPaymentConfigurationFlowStartType.SmartActivation,
+    }.Contains(Model.StartType))
+    {
+        throw new ArgumentOutOfRangeException();
+    }
+}
+
+
+<div class="col-md-6 d-flex" data-testid="existing-dd-card">
+    <div class="plan-card p-5 w-100">
+        @using (await Html.BeginUiFlowFormAsync(Model))
+        {
+            @await Html.SecureHiddenForAsync(m => m.HasAnyExistingPaymentMethodOfDirectDebit, false)
+            @await Html.SecureHiddenForAsync(m => m.StartType, false)
+            <div class="top">
+                <fieldset>
+                    <legend>
+                        <h2>Use Existing Direct Debit</h2>
+                    </legend>
+                    <p class="regular">You have Direct Debit already set up to pay your bill.</p>
+                    <div class="row setup-dd--table my-5">
+                        <div class="col-12">
+                            <div class="row mb-3">
+                                <div class="col-auto">
+                                    <p class="m-0"><strong>Name</strong></p>
+                                </div>
+                                <div class="col flex-grow-1 text-right">
+                                    <p class="m-0 regular" data-testid="name-on-account">@Model.TargetAccount.BankAccount.NameInBankAccount</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <p class="m-0"><strong>IBAN</strong></p>
+                                </div>
+                                <div class="col flex-grow-1 flex-grow-1 text-right">
+                                    <p class="m-0 regular" data-testid="iban">@Model.TargetAccount.BankAccount.IBAN.Mask('*', @Model.TargetAccount.BankAccount.IBAN.Length - 4)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-wrapper">
+                        <div class="form-group form-check form-check--border form-check-only">
+                            <div class="custom-control custom-checkbox">
+                                @Html.CheckBoxFor(model => model.HasConfirmedDetailsAreCorrect,
+                                    new { @class = "custom-control-input", id = "confirmContinueDebit",aria_required = "true" })
+                                <label id="lblConfirmContinueDebit"
+                                       class="custom-control-label regular pr-0"
+                                       for="confirmContinueDebit">I confirm that all of the details are correct and that I have the authority to make this submission *</label>
+                                @Html.ValidationMessageFor(model => model.HasConfirmedDetailsAreCorrect, string.Empty, new { @class = "alert alert-form alert-danger w-100", id = "confirmContinueDebit-error" })
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="bottom">
+                <div class="bottom-cta">
+                    <div class="pt-4 pb-1 mt-3">
+                        <flow-action id="useExistingDirectDebit" class="btn btn-primary col-md-10 centre offset-md-1"
+                                     trigger-event="@ChoosePaymentOption.StepEvent.UseExistingDirectDebitSelected">Use Existing Direct Debit</flow-action>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

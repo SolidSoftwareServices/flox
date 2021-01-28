@@ -1,0 +1,108 @@
+﻿@using EI.RP.NavigationPrototype.Flows
+
+@using EI.RP.NavigationPrototype.Flows.AppFlows
+@using EI.RP.NavigationPrototype.Flows.AppFlows.ModelTesterFlow.Steps
+@using EI.RP.NavigationPrototype.Flows.SharedFlowComponents.Main.SampleInput
+@using EI.RP.UiFlows.Core.Flows
+@using EI.RP.UiFlows.Core.Flows.Screens
+@using EI.RP.NavigationPrototype.Infrastructure
+
+@model EI.RP.NavigationPrototype.Flows.AppFlows.ModelTesterFlow.Steps.InputScreen.ScreenModel
+@{
+	ViewData["Title"] = $"{nameof(SampleAppFlowType.ModelTesterFlow)}";
+}
+
+
+<div id="ModelTesterFlowPage">
+	<h2>Test inputs here:</h2>
+	@using (await Html.BeginUiFlowFormAsync( Model))
+	{
+		<vc:sample-input screen-model=@(Model) input=@(new InputComponentInput{InputParameter = Model.StringValue})></vc:sample-input>
+
+		<div class="row">
+			<div class="col-md-3">
+				@Html.LabelFor(m => m.RequiredOnlyIfNestedValue1DoesNotHaveAValue)
+				@Html.TextBoxFor(m => m.RequiredOnlyIfNestedValue1DoesNotHaveAValue)
+				@Html.ValidationMessageFor(m => m.RequiredOnlyIfNestedValue1DoesNotHaveAValue)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				@Html.LabelFor(m => m.StepValue1)
+				@Html.TextBoxFor(m => m.StepValue1)
+				@Html.ValidationMessageFor(m => m.StepValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				@Html.LabelFor(m => m.StepValue2)
+				@Html.TextBoxFor(m => m.StepValue2)
+				@Html.ValidationMessageFor(m => m.StepValue2)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<b>Nested1 level 1:</b>
+				@Html.TextBoxFor(m => m.Nested1.NestedValue1)
+				@Html.ValidationMessageFor(m => m.Nested1.NestedValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<b>Nested1 level 2:</b>
+				@Html.TextBoxFor(m => m.Nested1.Nested.NestedValue1)
+				@Html.ValidationMessageFor(m => m.Nested1.Nested.NestedValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<b>Nested1 level 3:</b>
+				@Html.TextBoxFor(m => m.Nested1.Nested.Nested.NestedValue1)
+				@Html.ValidationMessageFor(m => m.Nested1.Nested.Nested.NestedValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<b>Nested2 level 1:</b>
+				@Html.TextBoxFor(m => m.Nested2.NestedValue1)
+				@Html.ValidationMessageFor(m => m.Nested2.NestedValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<b>Nested2 level 2:</b>
+				@Html.TextBoxFor(m => m.Nested2.Nested.NestedValue1)
+				@Html.ValidationMessageFor(m => m.Nested2.NestedValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<b>Nested2 level 3:</b>
+				@Html.TextBoxFor(m => m.Nested2.Nested.Nested.NestedValue1)
+				@Html.ValidationMessageFor(m => m.Nested2.Nested.Nested.NestedValue1)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<flow-action trigger-event=@InputScreen.StepEvent.Submit>Next</flow-action>
+				<flow-action trigger-event=@(new ScreenEvent("AnInvalidScreen","AnInvalidEvent"))>An Invalid Event</flow-action>
+			</div>
+		</div>
+	}
+
+	<div class="row">
+		<div class="col-md-3">
+			@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow && x != SampleAppFlowType.ContainersFlow && x != SampleAppFlowType.ModelTesterFlow))
+			{
+				<flow-action action-type="StartFlow"
+							 flow-name="@flowType"
+							 flow-location="SameContainerAsMe">sibling @flowType</flow-action>
+						}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3" id="validationSummary">
+			@Html.ValidationSummary()
+		</div>
+	</div>
+</div>

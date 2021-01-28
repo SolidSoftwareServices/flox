@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
+  <Import Project="..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.6.1\build\net40\Microsoft.NET.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.6.1\build\net40\Microsoft.NET.Test.Sdk.props')" />
+  <Import Project="..\packages\Microsoft.CodeCoverage.16.6.1\build\netstandard1.0\Microsoft.CodeCoverage.props" Condition="Exists('..\packages\Microsoft.CodeCoverage.16.6.1\build\netstandard1.0\Microsoft.CodeCoverage.props')" />
+  <Import Project="..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2206E14-20EB-4344-BB51-683A746B9C78}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EI.RP.WebApp.AcceptanceTests</RootNamespace>
+    <AssemblyName>EI.RP.WebApp.AcceptanceTests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DnsClient, Version=1.3.2.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.3.2\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeCoverage.16.6.1\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcceptanceTests\Definitions\Accounts\Environment.PreProd.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Accounts\Environment.Test.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Accounts\IEnvironmentInputs.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\UsagePage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\AgentSearchPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\AgentLoginPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\GasAccountConfirmAddressPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\GasAccountPaymentPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\GasAccountSetupPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\ContactUsFormPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\FAQContactUsPanel.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\PlanPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MoveHouseLandingPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MoveHouseStepFive.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MoveHouseStepFour.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MoveHouseStepOne.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MoveHouseStepThree.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MoveHouseStepTwo.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\RequestRefundPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\BillsAndPaymentsPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\EditDirectDebitConfirmationPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\EnergyServicesAccountPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MyAccountsPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\MakeAPaymentPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\PricePlanPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\PasswordResetPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\SharedPageFunctions.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\DashboardPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\DirectDebitSettingsPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\SubmitMeterReadingPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\SignInPage.cs" />
+    <Compile Include="AcceptanceTests\PageObjects\SmartHubPage.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\RefundSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\PlanSteps.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Selectors\CSSLocator.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Selectors\TextMatch.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Selectors\XPathSelectors.cs" />
+    <Compile Include="Infrastructure\Drivers\WebDriverFactory.cs" />
+    <Compile Include="Infrastructure\Drivers\WebDriverMetricsLogger.cs" />
+    <Compile Include="Infrastructure\NUnitExtensions\RetryOnErrorAttribute.cs" />
+    <Compile Include="Infrastructure\NUnitExtensions\TestOutputWriter.cs" />
+    <Compile Include="Infrastructure\ResidentialPortalBrowserFixture.cs" />
+    <Compile Include="AcceptanceTests\Definitions\AccountTypes.cs" />
+    <Compile Include="Infrastructure\Drivers\DriversPool.cs" />
+    <Compile Include="Infrastructure\Drivers\DriverType.cs" />
+    <Compile Include="Infrastructure\Drivers\ResidentialPortalWebDriver.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Accounts\EnvironmentSet.cs" />
+    <Compile Include="AssemblySetUp.cs" />
+    <Compile Include="Infrastructure\Selenium\PageElementAwaiter.cs" />
+    <Compile Include="Infrastructure\Selenium\WebDriverExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegressionTests\PageObjects\RequestRefundPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\NavigationBar.cs" />
+    <Compile Include="RegressionTests\PageObjects\AgentLoginPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\AgentSearchPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\RegisterPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\GasAccountConfirmAddressPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\GasAccountSetUpPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\GasAccountPaymentPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\EqualMonthlyPaymentsPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\PlanPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\EditDirectDebitConfirmationPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\PaymentsPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\DirectDebitSettingsPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\MakeAPaymentPage.cs" />
+    <Compile Include="RegressionTests\PageObjects\ContactUsFormPage.cs" />
+    <Compile Include="RegressionTests\Steps\SubmitRefundSteps.cs" />
+    <Compile Include="RegressionTests\Steps\AgentSteps.cs" />
+    <Compile Include="RegressionTests\Steps\RegisterSteps.cs" />
+    <Compile Include="RegressionTests\Steps\GasSetupSteps.cs" />
+    <Compile Include="RegressionTests\Steps\ContactUsSteps.cs" />
+    <Compile Include="RegressionTests\Steps\PaymentsSteps.cs" />
+    <Compile Include="RegressionTests\Steps\BillingPreferencesSteps.cs" />
+    <Compile Include="RegressionTests\Steps\MakePaymentSteps.cs" />
+    <Compile Include="RegressionTests\TestCases\SubmitRefund.cs" />
+    <Compile Include="RegressionTests\TestCases\Agent.cs" />
+    <Compile Include="RegressionTests\TestCases\Register.cs" />
+    <Compile Include="RegressionTests\TestCases\AddGas.cs" />
+    <Compile Include="RegressionTests\TestCases\MakePayment.cs" />
+    <Compile Include="RegressionTests\TestCases\Contact.cs" />
+    <Compile Include="RegressionTests\TestCases\Payments.cs" />
+    <Compile Include="RegressionTests\TestCases\MeterReading.cs" />
+    <Compile Include="RegressionTests\PageObjects\SubmitMeterReadingPage.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\UsageSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\AddGasSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\AgentLoginSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\BaseStep.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\BillsAndPaymentsSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\ContactUsFormSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\EnergyServicesSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\ForgotPasswordSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\MakeAPaymentSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\MoveHouseSteps.cs" />
+    <Compile Include="Infrastructure\SingleTestContext.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\SignInSteps.cs" />
+    <Compile Include="AcceptanceTests\StepDefinitions\SubmitMeterReadingSteps.cs" />
+    <Compile Include="AcceptanceTests\TestCases\AcceptanceTests.cs" />
+    <Compile Include="AcceptanceTests\Definitions\Selectors\IdentifierSelector.cs" />
+    <Compile Include="AcceptanceTests\Definitions\SharedVariables.cs" />
+    <Compile Include="RegressionTests\Steps\MeterReadingSteps.cs" />
+    <Compile Include="TestSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonCompilerExtensions.cs" Link="CommonCompilerExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AcceptanceTests\Screenshots\" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.12.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.86.0.4240.2200\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.86.0.4240.2200\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets')" />
+  <Import Project="..\packages\Microsoft.CodeCoverage.16.2.0\build\netstandard1.0\Microsoft.CodeCoverage.targets" Condition="Exists('..\packages\Microsoft.CodeCoverage.16.2.0\build\netstandard1.0\Microsoft.CodeCoverage.targets')" />
+  <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.2.0\build\net40\Microsoft.NET.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.2.0\build\net40\Microsoft.NET.Test.Sdk.targets')" />
+  <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.86.0.4240.2200\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.86.0.4240.2200\build\Selenium.WebDriver.ChromeDriver.targets')" />
+</Project>

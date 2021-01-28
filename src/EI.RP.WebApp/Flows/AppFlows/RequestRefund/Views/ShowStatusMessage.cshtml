@@ -1,0 +1,38 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.RequestRefund.Steps.ShowStatusMessage.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        HelpFooter = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.HelpFooter.Component>(PageComponent.HelpFooter);
+}
+
+<main class="help" data-page="request-refund-confirmation">
+    <div class="container">
+        <div class="portal-details">
+            <div class="portal-details__form meter-reading">
+                <h2 data-testid="request-refund-confirmation-title">Thank you, we have received your refund request</h2>
+                <ul class="my-5">
+                    <li class="mb-3">If you have a Direct Debit set up for this account we will refund directly back to that bank account via EFT within 5 working days.</li>
+                    <li>If you do not pay by Direct Debit currently we will contact you on the contact number provided to discuss your refund options.</li>
+                </ul>
+                <flow-action data-testid="request-refund-confirmation-back-to-my-accounts"
+                             action-type="StartFlow"
+                             flow-name="@ResidentialPortalFlowType.Accounts"
+                             flow-location="NotContained"
+                             class="btn btn-xs btn-xs-back green">Back to My Accounts</flow-action>
+            </div>
+        </div>
+    </div>
+    @await componentPreLoader.Render(PageComponent.HelpFooter)
+</main>

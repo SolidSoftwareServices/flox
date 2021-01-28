@@ -1,0 +1,1072 @@
+{
+  "Plans": [
+    {
+      "ID": 1,
+      "GroupName": "DUAL",
+      "OrderIndex": "1",
+      "PlanName": "Home Dual+",
+      "BonusDescription": "24 hour",
+      "PlanFeatures": [
+        "Advanced electricity insights",
+        "8.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+
+      "PriceElectricity24H": "0.1990",
+      "PriceGas24H": "0.05391",
+      "EstimatedAnnualBill": "1731",
+      "EABDescription": "EAB based on urban 24-hour meter with unit rate discount of 8.5% and excludes welcome bonus",
+      "IsAvailable": true,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "RDF_HOME_ELEC_PLUS",
+          "ElecProductID": "RE_HOME_ELEC_PLUS",
+          "GasProductID": "RG_GASPLAN"
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "StandardPrice": {
+                "ExcludingVat": "0.1753",
+                "IncludingVat": "0.1990"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1604",
+                "IncludingVat": "0.1821"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "GasPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "",
+              "StandardPrice": {
+                "ExcludingVat": "0.04750",
+                "IncludingVat": "0.05391"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.04346",
+                "IncludingVat": "0.04933"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "CarbonTax": {
+            "ExcludingVat": "0.00471",
+            "IncludingVat": "0.00535"
+          },
+          "StandingCharge": {
+            "ExcludingVat": "90.78",
+            "IncludingVat": "103.04"
+          }
+        },
+        "EstimatedAnnualBillType": "Dual Fuel",
+        "EstimatedUrbanAnnualBill": {
+          "ExcludingVat": "1525",
+          "IncludingVat": "1731"
+        },
+        "EstimatedRuralAnnualBill": {
+          "ExcludingVat": "1574",
+          "IncludingVat": "1786"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "EstimatedAnnualBillMessage": "The Estimated Annual Bill (EAB) is an estimate of the average household's cost for electricity and gas for a year and includes VAT and all energy-related charges such as the Standing Charge and PSO Levy for electricity and the Standing Charge and Carbon Tax for gas. It does not include non-energy related items such as energy credits for switching, loyalty points or non-cash offers. For electricity, the Estimated Annual bill is based on information such as if a customer is Urban or Rural, the type of meter and any discounts that the customer may have. For gas, the Estimated Annual Bill is based on information such as if the customer is classified as standard or large gas and any discounts that the customer may have. The Estimated Annual Bill is based on annual average consumption of 4,200kWh for electricity and 11,000kWh for gas, as advised by the Commission for the Regulation of Utilities (CRU). See our Estimated Annual Bill FAQ for more details."
+      }
+    },
+    {
+      "ID": 2,
+      "GroupName": "DUAL",
+      "OrderIndex": "2",
+      "PlanName": "Home Dual+ Weekender",
+      "BonusDescription": "Free weekend day",
+      "PlanFeatures": [
+        "Free electricity on Saturdays or Sundays",
+        "Advanced electricity insights",
+        "8.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+      "PriceElectricity24H": "0.2184",
+      "PriceGas24H": "0.05391",
+      "IsAvailable": true,
+      "FreeDayOfElectricityChoice": ["Saturday", "Sunday"],
+      "FreeDayOfElectricityDescription": "The Weekender plan gives you a free electricity from 08:00 - 23:00 on the same day every weekend.",
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "Saturday",
+          "BundleID": "RDF_PLUS_SAT",
+          "ElecProductID": "RE_PLUS_SAT",
+          "GasProductID": "RG_GASPLAN"
+        },
+        {
+          "FreeDayOfElectricityChoice": "Sunday",
+          "BundleID": "RDF_PLUS_SUN",
+          "ElecProductID": "RE_PLUS_SUN",
+          "GasProductID": "RG_GASPLAN"
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1924",
+                "IncludingVat": "0.2184"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1760",
+                "IncludingVat": "0.1998"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            },
+            {
+              "Description": "Night",
+              "StandardPrice": {
+                "ExcludingVat": "0.1924",
+                "IncludingVat": "0.2184"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1760",
+                "IncludingVat": "0.1998"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            },
+            {
+              "Description": "Free Weekend Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.0",
+                "IncludingVat": "0.0"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0",
+                "IncludingVat": "0.0"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "GasPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "",
+              "StandardPrice": {
+                "ExcludingVat": "0.04750",
+                "IncludingVat": "0.05391"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.04346",
+                "IncludingVat": "0.04933"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "CarbonTax": {
+            "ExcludingVat": "0.00471",
+            "IncludingVat": "0.00535"
+          },
+          "StandingCharge": {
+            "ExcludingVat": "90.78",
+            "IncludingVat": "103.04"
+          }
+        },
+        "EstimatedAnnualBillType": "Gas",
+        "EstimatedAnnualBillForGas": {
+          "ExcludingVat": "621",
+          "IncludingVat": "705"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "LowCostPricingMessage": "Energy kWh unit rates will be charged under the following three time periods:\nDay kWh rate is applicable to usage between 08:00 - 23:00 everyday, except selected free weekend day\nNight kWh rate is applicable to usage between 23:00 - 08:00 everyday\nSaturday or Sunday 0.00 c/kWh rate is applicable to usage between 08:00 - 23:00 on selected free weekend day only\nWe may contact you if we think you're using an unreasonably large amount of electricity on your free day(s). If we think you are using an excessive amount, we may take you off the tariff and move you to another tariff.",
+        "EstimatedAnnualBillMessage": "The Estimated Annual Bill (EAB) is an estimate of the average household's cost for gas for a year and includes VAT and all energy-related charges such as the Standing Charge and Carbon Tax. It does not include non-energy related items such as energy credits for switching, loyalty points or non-cash offers. The Estimated Annual Bill is based on information such as if the customer is classified as standard or large gas and any discounts that the customer may have and is calculated using average consumption of 11,000kWh, as advised by the Commission for the Regulation of Utilities (CRU). See our Estimated Annual Bill FAQ for more details."
+      }
+    },
+    {
+      "ID": 3,
+      "GroupName": "DUAL",
+      "OrderIndex": "3",
+      "PlanName": "Home Dual+ Night Boost",
+      "BonusDescription": "Day/Night",
+      "PlanFeatures": [
+        "Super low electricity rates at night",
+        "Advanced electricity insights",
+        "8.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+
+      "PriceDay": "0.2216",
+      "PriceNight": "0.1141",
+      "PriceBoost": "0.0616",
+      "PriceGas24H": "0.05391",
+      "IsAvailable": true,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "RDF_PLUS_NB",
+          "ElecProductID": "RE_PLUS_NB",
+          "GasProductID": "RG_GASPLAN"
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1952",
+                "IncludingVat": "0.2216"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1786",
+                "IncludingVat": "0.2027"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            },
+            {
+              "Description": "Night",
+              "StandardPrice": {
+                "ExcludingVat": "0.1005",
+                "IncludingVat": "0.1141"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0920",
+                "IncludingVat": "0.1044"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            },
+            {
+              "Description": "Night Boost",
+              "StandardPrice": {
+                "ExcludingVat": "0.0543",
+                "IncludingVat": "0.0616"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0497",
+                "IncludingVat": "0.0564"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "207.17",
+                "IncludingVat": "235.14"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "234.91",
+                "IncludingVat": "266.63"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "260.65",
+                "IncludingVat": "295.83"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "284.23",
+                "IncludingVat": "322.60"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "GasPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "",
+              "StandardPrice": {
+                "ExcludingVat": "0.04750",
+                "IncludingVat": "0.05391"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.04346",
+                "IncludingVat": "0.04933"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "CarbonTax": {
+            "ExcludingVat": "0.00471",
+            "IncludingVat": "0.00535"
+          },
+          "StandingCharge": {
+            "ExcludingVat": "90.78",
+            "IncludingVat": "103.04"
+          }
+        },
+        "EstimatedAnnualBillType": "Gas",
+        "EstimatedAnnualBillForGas": {
+          "ExcludingVat": "621",
+          "IncludingVat": "705"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "LowCostPricingMessage": "Energy kWh unit rates will be charged under the following three time periods:\nDay kWh rate is applicable to usage between 08:00 - 23:00 everyday\nNight kWh rate is applicable to usage between 23:00 - 08:00 everyday (excluding Night Boost times)\nNight Boost kWh rate is applicable to usage between 02:00 - 04:00 everyday",
+        "EstimatedAnnualBillMessage": "The Estimated Annual Bill (EAB) is an estimate of the average household's cost for gas for a year and includes VAT and all energy-related charges such as the Standing Charge and Carbon Tax. It does not include non-energy related items such as energy credits for switching, loyalty points or non-cash offers. The Estimated Annual Bill is based on information such as if the customer is classified as standard or large gas and any discounts that the customer may have and is calculated using average consumption of 11,000kWh, as advised by the Commission for the Regulation of Utilities (CRU). See our Estimated Annual Bill FAQ for more details."
+      }
+    },
+    {
+      "ID": 4,
+      "GroupName": "DUAL",
+      "OrderIndex": "4",
+      "PlanName": "Home Dual+ SST",
+      "BonusDescription": "Time of use",
+      "PlanFeatures": [
+        "Standard Smart Tariff",
+        "Super low electricity rates at night",
+        "Advanced electricity insights",
+        "8.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+      "PriceDay": "0.2168",
+      "PriceNight": "0.1143",
+      "PricePeak": "0.2313",
+      "PriceGas24H": "0.5391",
+      "IsAvailable": true,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "RDF_PLUS_SST",
+          "ElecProductID": "RE_PLUS_SST",
+          "GasProductID": "RG_GASPLAN"
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1910",
+                "IncludingVat": "0.2168"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1748",
+                "IncludingVat": "0.1984"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            },
+            {
+              "Description": "Night",
+              "StandardPrice": {
+                "ExcludingVat": "0.1007",
+                "IncludingVat": "0.1143"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0921",
+                "IncludingVat": "0.1045"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            },
+            {
+              "Description": "Peak",
+              "StandardPrice": {
+                "ExcludingVat": "0.2038",
+                "IncludingVat": "0.2313"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1865",
+                "IncludingVat": "0.2117"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "GasPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "",
+              "StandardPrice": {
+                "ExcludingVat": "0.04750",
+                "IncludingVat": "0.05391"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.04346",
+                "IncludingVat": "0.04933"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "8.5"
+            }
+          ],
+          "CarbonTax": {
+            "ExcludingVat": "0.00471",
+            "IncludingVat": "0.00535"
+          },
+          "StandingCharge": {
+            "ExcludingVat": "90.78",
+            "IncludingVat": "103.04"
+          }
+        },
+        "EstimatedAnnualBillType": "Gas",
+        "EstimatedAnnualBillForGas": {
+          "ExcludingVat": "621",
+          "IncludingVat": "705"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "LowCostPricingMessage": "Energy kWh unit rates will be charged under the following three time periods: Day kWh rate is applicable to usage between 08:00 - 23:00 everyday (excluding Peak times)\nNight kWh rate is applicable to usage between 23:00 - 08:00 everyday\nPeak kWh rate is applicable to usage between 17:00 - 19:00 everyday",
+        "EstimatedAnnualBillMessage": "The Estimated Annual Bill (EAB) is an estimate of the average household's cost for gas for a year and includes VAT and all energy-related charges such as the Standing Charge and Carbon Tax. It does not include non-energy related items such as energy credits for switching, loyalty points or non-cash offers. The Estimated Annual Bill is based on information such as if the customer is classified as standard or large gas and any discounts that the customer may have and is calculated using average consumption of 11,000kWh, as advised by the Commission for the Regulation of Utilities (CRU). See our Estimated Annual Bill FAQ for more details."
+      }
+    },
+    {
+      "ID": 5,
+      "GroupName": "SINGLE",
+      "OrderIndex": "1",
+      "PlanName": "Home Electric+",
+      "BonusDescription": "24 hour",
+      "PlanFeatures": [
+        "Advanced electricity insights",
+        "5.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+      "PriceElectricity24H": "0.1990",
+      "EstimatedAnnualBill": "1052",
+      "EABDescription": "EAB based on urban 24-hour meter with unit rate discount of 5.5% which includes direct debit and paperless billing discount",
+      "IsAvailable": true,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "",
+          "ElecProductID": "RE_HOME_ELEC_PLUS",
+          "GasProductID": ""
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "",
+              "StandardPrice": {
+                "ExcludingVat": "0.1753",
+                "IncludingVat": "0.1990"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1657",
+                "IncludingVat": "0.1881"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "EstimatedAnnualBillType": "Electricity",
+        "EstimatedUrbanAnnualBill": {
+          "ExcludingVat": "927",
+          "IncludingVat": "1052"
+        },
+        "EstimatedRuralAnnualBill": {
+          "ExcludingVat": "976",
+          "IncludingVat": "1107"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "EstimatedAnnualBillMessage": "The Estimated Annual Bill (EAB) is an estimate of the average household's cost for electricity for a year and includes VAT and all energy-related charges such as the Standing Charge and PSO Levy. It does not include non-energy related items such as energy credits for switching, loyalty points or non-cash offers. The Estimated Annual bill is based on information such as if a customer is Urban or Rural, the type of meter and any discounts that the customer may have and is calculated using average consumption of 4,200kWh as advised by the Commission for the Regulation of Utilities (CRU). See our Estimated Annual Bill FAQ for more details."
+      }
+    },
+    {
+      "ID": 6,
+      "GroupName": "SINGLE",
+      "OrderIndex": "2",
+      "PlanName": "Home Electric+ Weekender",
+      "BonusDescription": "Free weekend day",
+      "PlanFeatures": [
+        "Free electricity on Saturdays or Sundays",
+        "Advanced electricity insights",
+        "5.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+      "PriceElectricity24H": "0.2184",
+      "IsAvailable": true,
+      "FreeDayOfElectricityChoice": ["Saturday", "Sunday"],
+      "FreeDayOfElectricityDescription": "The Weekender plan gives you a free electricity from 08:00 - 23:00 on the same day every weekend.",
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "Saturday",
+          "BundleID": "",
+          "ElecProductID": "RE_PLUS_SAT",
+          "GasProductID": ""
+        },
+        {
+          "FreeDayOfElectricityChoice": "Sunday",
+          "BundleID": "",
+          "ElecProductID": "RE_PLUS_SUN",
+          "GasProductID": ""
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1924",
+                "IncludingVat": "0.2184"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1818",
+                "IncludingVat": "0.2063"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            },
+            {
+              "Description": "Night",
+              "StandardPrice": {
+                "ExcludingVat": "0.1924",
+                "IncludingVat": "0.2184"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1818",
+                "IncludingVat": "0.2063"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            },
+            {
+              "Description": "Free Weekend Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.0",
+                "IncludingVat": "0.0"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0",
+                "IncludingVat": "0.0"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "LowCostPricingMessage": "Energy kWh unit rates will be charged under the following three time periods:\nDay kWh rate is applicable to usage between 08:00 - 23:00 everyday, except selected free weekend day\nNight kWh rate is applicable to usage between 23:00 - 08:00 everyday\nSaturday or Sunday 0.00 c/kWh rate is applicable to usage between 08:00 - 23:00 on selected free weekend day only\nWe may contact you if we think you're using an unreasonably large amount of electricity on your free day(s). If we think you are using an excessive amount, we may take you off the tariff and move you to another tariff."
+      }
+    },
+    {
+      "ID": 7,
+      "GroupName": "SINGLE",
+      "OrderIndex": "3",
+      "PlanName": "Home Electric+ Night Boost",
+      "BonusDescription": "Day/Night",
+      "PlanFeatures": [
+        "Super low electricity rates at night",
+        "Advanced electricity insights",
+        "5.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+
+      "PriceDay": "0.2216",
+      "PriceNight": "0.1141",
+      "PriceBoost": "0.0616",
+      "IsAvailable": true,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "",
+          "ElecProductID": "RE_PLUS_NB",
+          "GasProductID": ""
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1952",
+                "IncludingVat": "0.2216"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1845",
+                "IncludingVat": "0.2094"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            },
+            {
+              "Description": "Night",
+              "StandardPrice": {
+                "ExcludingVat": "0.1005",
+                "IncludingVat": "0.1141"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0950",
+                "IncludingVat": "0.1078"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            },
+            {
+              "Description": "Night Boost",
+              "StandardPrice": {
+                "ExcludingVat": "0.0543",
+                "IncludingVat": "0.0616"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0513",
+                "IncludingVat": "0.0582"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "207.17",
+                "IncludingVat": "235.14"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "234.91",
+                "IncludingVat": "266.63"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "260.65",
+                "IncludingVat": "295.83"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "284.23",
+                "IncludingVat": "322.60"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "LowCostPricingMessage": "Energy kWh unit rates will be charged under the following three time periods:\nDay kWh rate is applicable to usage between 08: 00 - 23:00 everyday\nNight kWh rate is applicable to usage between 23: 00 - 08:00 everyday (excluding Night Boost times)\nNight Boost kWh rate is applicable to usage between 02:00 - 04:00 everyday"
+      }
+    },
+    {
+      "ID": 8,
+      "GroupName": "SINGLE",
+      "OrderIndex": "4",
+      "PlanName": "Home Electric+ SST",
+      "BonusDescription": "Time of use",
+      "PlanFeatures": [
+        "Standard Smart Tariff",
+        "Advanced electricity insights",
+        "Super low electricity rates at night",
+        "5.5% online exclusive discount on electricity and gas unit rates",
+        "Paperless billing"
+      ],
+      "PriceDay": "0.2168",
+      "PriceNight": "0.1143",
+      "PricePeak": "0.2313",
+      "IsAvailable": true,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "",
+          "ElecProductID": "RE_PLUS_SST",
+          "GasProductID": ""
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1910",
+                "IncludingVat": "0.2168"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1805",
+                "IncludingVat": "0.2049"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            },
+            {
+              "Description": "Night",
+              "StandardPrice": {
+                "ExcludingVat": "0.1007",
+                "IncludingVat": "0.1143"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.0952",
+                "IncludingVat": "0.1081"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            },
+            {
+              "Description": "Peak",
+              "StandardPrice": {
+                "ExcludingVat": "0.2038",
+                "IncludingVat": "0.2313"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1926",
+                "IncludingVat": "0.2186"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change.",
+        "LowCostPricingMessage": "Energy kWh unit rates will be charged under the following three time periods:\nDay kWh rate is applicable to usage between 08:00 - 23:00 everyday (excluding Peak times)\nNight kWh rate is applicable to usage between 23:00 - 08:00 everyday\nPeak kWh rate is applicable to usage between 17:00 - 19:00 everyday"
+      }
+    },
+    {
+      "ID": 9,
+      "GroupName": "SINGLE",
+      "FirstYearCostPerKwh": "785.24",
+      "OrderIndex": "99",
+      "PlanName": "Disabled+ SST",
+      "BonusDescription": "Time of use",
+      "PlanFeatures": [
+        "Standard Smart Tariff",
+        "Advanced electricity insights",
+        "5.5% online exclusive discount on electricity and gas unit rates",
+        "12 month contract with paperless billing"
+      ],
+
+      "PriceDay": "0.1234",
+      "PriceNight": "0.1234",
+      "PricePeak": "0.1234",
+      "EstimatedAnnualBill": "1234.56",
+      "EABDescription": "EAB based on urban 24-hour meter with unit rate discount of 5.5% which includes direct debit and paperless billing discount",
+      "IsAvailable": false,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "",
+          "ElecProductID": "RE_HOME_ELEC_PLUS",
+          "GasProductID": ""
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1753",
+                "IncludingVat": "0.1990"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1657",
+                "IncludingVat": "0.1881"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "EstimatedAnnualBillType": "Electricity",
+        "EstimatedUrbanAnnualBill": {
+          "ExcludingVat": "927",
+          "IncludingVat": "1052"
+        },
+        "EstimatedRuralAnnualBill": {
+          "ExcludingVat": "976",
+          "IncludingVat": "1107"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change."
+      }
+    },
+    {
+      "ID": 10,
+      "GroupName": "DUAL",
+      "FirstYearCostPerKwh": "785.24",
+      "OrderIndex": "99",
+      "PlanName": "Disabled DUAL+ SST",
+      "BonusDescription": "Time of use",
+      "PlanFeatures": [
+        "Standard Smart Tariff",
+        "Advanced electricity insights",
+        "5.5% online exclusive discount on electricity and gas unit rates",
+        "12 month contract with paperless billing"
+      ],
+
+      "PriceDay": "0.1234",
+      "PriceNight": "0.1234",
+      "PricePeak": "0.1234",
+      "EstimatedAnnualBill": "1234.56",
+      "EABDescription": "EAB based on urban 24-hour meter with unit rate discount of 5.5% which includes direct debit and paperless billing discount",
+      "IsAvailable": false,
+      "GeneralTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity/general-terms-and-conditions-from-4-april-2011",
+      "PricePlanTermsAndConditionsUrl": "https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing",
+      "ValidProductProposals": [
+        {
+          "FreeDayOfElectricityChoice": "",
+          "BundleID": "RDF_HOME_ELEC_PLUS",
+          "ElecProductID": "RE_HOME_ELEC_PLUS",
+          "GasProductID": "RG_GASPLAN"
+        }
+      ],
+      "FullPricingInformation": {
+        "ElectricityPricingInfo": {
+          "UnitPrices": [
+            {
+              "Description": "Day",
+              "StandardPrice": {
+                "ExcludingVat": "0.1753",
+                "IncludingVat": "0.1990"
+              },
+              "EffectivePrice": {
+                "ExcludingVat": "0.1657",
+                "IncludingVat": "0.1881"
+              },
+              "EffectiveDirectDebitDiscountPercentage": "5.5"
+            }
+          ],
+          "StandingCharges": [
+            {
+              "ChargeDescription": "Urban",
+              "StandingCharge24H": {
+                "ExcludingVat": "152.64",
+                "IncludingVat": "173.25"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "180.38",
+                "IncludingVat": "204.73"
+              }
+            },
+            {
+              "ChargeDescription": "Rural",
+              "StandingCharge24H": {
+                "ExcludingVat": "201.37",
+                "IncludingVat": "228.56"
+              },
+              "LowUsageStandingCharge": {
+                "ExcludingVat": "229.11",
+                "IncludingVat": "260.04"
+              }
+            }
+          ],
+          "ElectricityPublicServiceObligationLevy": {
+            "ExcludingVat": "78.24",
+            "IncludingVat": "88.80"
+          }
+        },
+        "EstimatedAnnualBillType": "Electricity",
+        "EstimatedUrbanAnnualBill": {
+          "ExcludingVat": "927",
+          "IncludingVat": "1052"
+        },
+        "EstimatedRuralAnnualBill": {
+          "ExcludingVat": "976",
+          "IncludingVat": "1107"
+        },
+        "PricesValidityMessage": "Prices valid as of 1st January 2021 and subject to change."
+      }
+    }
+  ]
+}

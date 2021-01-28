@@ -1,0 +1,52 @@
+﻿@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions.IElectricityAndGasMeterMovingHouse
+
+@if (Model.GasDevicesMeterReadings?.Count() > 0)
+{
+    var howDoIReadMyMeterModalId = "#modalMeterReadingTooltipGas";
+
+    @Html.HiddenFor(m => m.UserMeterInputFields.Gprn)
+    @Html.HiddenFor(m => m.UserMeterInputFields.MeterReadingDescription)
+
+    <div class="form-group w-100">
+        <h2 id="gasMeterReadingHeader">Gas</h2>
+        <div class="form-number" id="GprnHeader">
+            <span class="form-info">GPRN</span> <span>@Model.UserMeterInputFields.Gprn</span>
+        </div>
+        <p id="pGasMeterReadingDescription">@Model.UserMeterInputFields.MeterReadingDescription</p>
+
+        @for (var i = 0; i < Model.GasDevicesMeterReadings.Count(); i++)
+        {
+            var registerInfo = Model.GasDevicesMeterReadings.ElementAt(i);
+
+            var inputId = $"txt_gas_{i}_{registerInfo.MeterNumber.TrimStart('0')}";
+
+            <div id="inputMeterDay">
+                <label id="lblGasMeterType" for="@inputId" class="mb-2" data-testid="@registerInfo.MeterType.ToLower()-meter-reading-label">@registerInfo.MeterType Meter Reading * <button type="button" class="portal-details__form__info__icon border-0" aria-label="Information about meter reading" data-toggle="tooltip" data-placement="right" title="" data-original-title="Ignore digits after the comma."></button></label>
+                <small class="d-block mt-0 mb-3">Meter Number: @registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4).PadLeft(9, '*')</small>
+                <div class="input-group w-100 portal-details__form meter-reading">
+                    @Html.TextBoxFor(model => model.UserMeterInputFields.MeterReadingGas,
+                        new
+                        {
+                            id = inputId,
+                            @class = "form-control",
+                            placeholder = "00000",
+                            maxlength = "7",
+                            type = "tel",
+                            data_control = "meterReadOnly",
+                            data_testid = $"{registerInfo.MeterType.ToLower()}-meter-reading-input",
+                            aria_label = $"{registerInfo.MeterType} Meter Reading, Meter number ending in {registerInfo.MeterNumber.Substring(registerInfo.MeterNumber.Length - 4)}, cubic metre"
+                        })
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon1">m<sup>3</sup></span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.UserMeterInputFields.MeterReadingGas, "", new { @class = "alert alert-form alert-danger w-100", id = "gasMeterReadingError" })
+                    @await Html.SecureHiddenForAsync(m => m.UserMeterInputFields.GasDevicesFieldRequired, false)
+                </div>
+            </div>
+        }
+
+        <span class="form-info" data-testid="mimo-how-do-i-read-my-meter">How do I read my meter? <button type="button" class="portal-details__form__info__icon cursor-pointer border-0" aria-label="How do I read my meter?" data-toggle="modal" data-target="@howDoIReadMyMeterModalId"></button></span>
+    </div>
+}

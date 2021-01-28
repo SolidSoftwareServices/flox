@@ -1,0 +1,24 @@
+﻿@model ErrorViewModel
+
+@{
+    Layout = "_Layout_WithNav";
+    ViewData["Title"] = "Loading health status";
+}
+
+<div class="portal-details__form meter-reading">
+	<h2 class="error">Health status</h2>
+	<p>Loading status (Timeout is 2 minutes)...</p>
+    
+</div>
+
+@section scripts {
+	<script type="text/javascript">
+		$(window).on('load',
+			function () {
+				$(document).ready(function () {
+					window.location.href = '@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/{Context.Request.Path.ToString().Split('/')[1]}/index")';
+				});
+			});
+
+	</script>
+}

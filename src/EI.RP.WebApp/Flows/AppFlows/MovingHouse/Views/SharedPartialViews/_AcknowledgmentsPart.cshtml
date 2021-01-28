@@ -1,0 +1,32 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions.IAcknowledgmentsPartMovingHouse
+
+<div class="form-group form-check pt-0 mt-5 mb-5 mw-100" id="detailsCorrect">
+    <div class="custom-control custom-checkbox mb-5">
+        @Html.CheckBoxFor(model => model.UserConfirmationInputFields.InformationCollectionAuthorized, new { @class = "custom-control-input", id = "details", name = "isDetailsCorrect" })
+        <label class="custom-control-label form-info" for="details">I confirm that all of the details are correct and that I have the authority to make this submission * <button type="button" class="portal-details__form__info__icon border-0" aria-label="Information about confirmation of details" data-toggle="tooltip" data-placement="right" title="" data-original-title="This confirms that you are authorised to provide Electric Ireland with this information."></button></label>
+        @Html.ValidationMessageFor(model => model.UserConfirmationInputFields.InformationCollectionAuthorized, "", new { @class = "alert alert-form alert-danger w-100" })
+    </div>
+    <div class="custom-control custom-checkbox" id="termsAndConditions">
+        @Html.CheckBoxFor(model => model.UserConfirmationInputFields.TermsAndConditionsAccepted, new { @class = "custom-control-input", id = "terms", name = "hasReadTerms" })
+        <label class="custom-control-label form-info" for="terms">
+            @if (Model.ShowTermsAcknowledgmentType == ShowTermsAcknowledgmentType.ShowBoth)
+            {
+                <text>
+                    I confirm that I have read the Electric Ireland <a role="link" href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity" target="_blank">Electricity</a>
+                    and <a role="link" href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-gas" target="_blank">Gas</a> General Terms and Conditions *
+                </text>
+            }
+            else if (Model.ShowTermsAcknowledgmentType == ShowTermsAcknowledgmentType.ShowGas)
+            {
+                <text>I confirm that I have read the Electric Ireland <a role="link" href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-gas" target="_blank">Gas</a> General Terms and Conditions *</text>
+            }
+            else if (Model.ShowTermsAcknowledgmentType == ShowTermsAcknowledgmentType.ShowElectricity)
+            {
+                <text>I confirm that I have read the Electric Ireland <a role="link" href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity" target="_blank">Electricity</a> General Terms and Conditions *</text>
+            }
+        </label>
+        @Html.ValidationMessageFor(model => model.UserConfirmationInputFields.TermsAndConditionsAccepted, "", new { @class = "alert alert-form alert-danger w-100" })
+    </div>
+</div>

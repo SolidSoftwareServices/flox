@@ -1,0 +1,70 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step1InputCloseAccountDetails.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        MovingHouseHeader = 1,
+    }
+}
+
+@{
+    const string sharedPartialViewsLocationPrefix = "./SharedPartialViews/";
+    const string stepCloseAccountPartialViewsPrefix = "./StepCloseAccountPartialViews/";
+    var btnCloseText = Model.MovingHouseType != MovingHouseType.CloseElectricityAndGas ? "Close Account" : "Close Accounts";
+
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.MovingHouse.Components.MovingHouseHeader.Component>(PageComponent.MovingHouseHeader,
+        new EI.RP.WebApp.Flows.AppFlows.MovingHouse.Components.MovingHouseHeader.InputModel
+        {
+            MovingHouseType = Model.MovingHouseType,
+            StepNumber = 6
+        });
+}
+
+<main class="plan" data-page="mimo-close-accounts">
+    <div class="container">
+        <div class="portal-details">
+            @await componentPreLoader.Render(PageComponent.MovingHouseHeader)
+            @using (await Html.BeginUiFlowFormAsync(Model, className: "moving-form date-form"))
+            {
+                <h2 class="landing-head" data-testid="mimo-1-title">Moving Out Details</h2>
+                <span class="form-info" data-testid="mimo-1-info">* Denotes mandatory fields</span>
+                <hr class="mt-5 mb-5" aria-hidden="true" />
+
+                @await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_MoveInOutDatePart.cshtml", Model)
+                <hr class="mt-5 mb-5" aria-hidden="true" />
+
+                <div id="movingHouseMeterReadings">
+                    @await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_ElectricityMeterReadingsPart.cshtml", Model)
+                    @await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_GasMeterReadingsPart.cshtml", Model)
+                </div>
+                <hr class="mt-5 mb-5" aria-hidden="true" />
+
+                @await Html.PartialAsync($"{stepCloseAccountPartialViewsPrefix}_ForwardingAddress.cshtml", Model)
+                <hr class="mt-5 mb-5" aria-hidden="true" />
+
+                @await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_IncomingOccupantPart.cshtml", Model)
+                <hr class="mt-5 mb-5" aria-hidden="true" />
+
+                @await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_AcknowledgmentsPart.cshtml", Model)
+
+                <div class="portal-details__form__buttons mt-5">
+                    <a href="#" data-toggle="modal" data-target="#modal-close-accounts" class="btn btn-primary" id="btnClose">@btnCloseText</a>
+                    <a href="#" data-toggle="modal" data-target="#modal-cancel-mimo" class="btn btn-xs btn--no-before btn--no-after btn--no-padding green">Cancel</a>
+                </div>
+
+                @await Html.PartialAsync($"{stepCloseAccountPartialViewsPrefix}/_CloseAccountPopUp.cshtml", Model)
+            }
+        </div>
+    </div>
+</main>
+
+@await Html.PartialAsync($"./SharedPartialViews/_Popup_Cancel.cshtml", Model)
+@await Html.PartialAsync($"./SharedPartialViews/_Popup_MeterReadings.cshtml", Model)

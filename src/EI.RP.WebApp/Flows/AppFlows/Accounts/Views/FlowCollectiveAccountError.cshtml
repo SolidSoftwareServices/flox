@@ -1,0 +1,69 @@
+﻿@using EI.RP.UiFlows.Mvc.Components
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Steps.ShowFlowCollectiveAccountError.ScreenModel
+
+@functions{
+    enum PageComponent
+    {
+        Head = 1,
+        LoadingOverlay,
+        MainNavigation,
+        ContainedFlowViewPort,
+        DevTools,
+        Footer,
+        Scripts
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    componentPreLoader.StartLoading<EmbeddedFlowComponent>(PageComponent.ContainedFlowViewPort, new EmbeddedFlowComponent.ComponentParameters
+    {
+        Model = Model
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.Component>(PageComponent.Head, new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.InputModel
+    {
+        Title = Model.ScreenTitle
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.LoadingOverlay.Component>(PageComponent.LoadingOverlay);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.CollectiveAccountMainNavigation.Component>(PageComponent.MainNavigation);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.DevTools.Component>(PageComponent.DevTools);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.CollectiveAccountFooter.Component>(PageComponent.Footer);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Scripts.Component>(PageComponent.Scripts);
+}
+
+<!DOCTYPE html>
+<html lang="en-IE">
+@await componentPreLoader.Render(PageComponent.Head)
+<body class="with-footer" data-layout="collective" data-layout-type="smart">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerNoScripts.cshtml")
+    @await componentPreLoader.Render(PageComponent.LoadingOverlay)
+    @await componentPreLoader.Render(PageComponent.MainNavigation)
+    <div id="portal-main" class="portal-main">
+        @if (Model.HasContainedFlow())
+        {
+            @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+        }
+        else
+        {
+            <div class="position-relative">
+                <div class="sub-navigation-overlay"></div>
+                <main class="help" data-page="business-online-account-error">
+                    <div class="container">
+                        <div class="portal-details">
+                            <div class="portal-details__form meter-reading">
+                                <h2 class="error" data-testid="business-online-account-error">We're sorry</h2>
+                                <p data-testid="business-online-account-error-text">Please log in to Business Online to view your account.</p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        }
+    </div>
+    @await componentPreLoader.Render(PageComponent.DevTools)
+    @await componentPreLoader.Render(PageComponent.Footer)
+    @await componentPreLoader.Render(PageComponent.Scripts)
+</body>
+</html>

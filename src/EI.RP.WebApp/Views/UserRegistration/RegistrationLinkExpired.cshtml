@@ -1,0 +1,23 @@
+﻿@using Ei.Rp.Mvc.Core.Controllers
+@using EI.RP.WebApp.Controllers
+@using EI.RP.WebApp.Controllers.Membership
+
+@model EI.RP.WebApp.Models.Membership.PasswordModel
+
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<div data-page="create-account-link-expired">
+    <h1 class="page-login__title">This link has expired or is invalid</h1>
+    <p class="page-login__subtitle mb-3">Your account activation link has expired or is invalid.</p>
+    <p class="page-login__subtitle">
+        To sign up, please complete the <a id="SignUp" href="@Url.Action(nameof(OnlineAccountController.CreateOnlineAccountView), typeof(OnlineAccountController).GetNameWithoutSuffix())" class="btn-xs btn-xs--no-icon">registration form</a> again
+        or alternatively go to <a id="SignIn" href="@Url.Action(nameof(LoginController.Login), typeof(LoginController).GetNameWithoutSuffix())" class="btn-xs btn-xs--no-icon">login</a> page.
+    </p>
+</div>
+
+@section images
+{
+    <div class="page-login__img" style="background-image: url('@Url.Content("~/img/login-signup-bg.jpg")')"></div>
+}

@@ -1,0 +1,153 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.DomainModelExtensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.UserContactDetails.Steps
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.UserContactDetails.Steps.UserContactDetailsInput.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+        SettingsSubNavigation,
+        PrivacyNoticeMessage
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "My Profile"
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.SettingsSubNavigation.Component>(PageComponent.SettingsSubNavigation,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.SettingsSubNavigation.InputModel
+        {
+            IsMyDetails = true
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.Component>(PageComponent.PrivacyNoticeMessage,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.InputModel
+        {
+            AccountNumber = Model.AccountNumber,
+            PrependedMessage = "Electric Ireland currently holds the below information related to your account. You can update this in accordance with your own personal preferences."
+        });
+}
+
+<div class="portal-header">
+    @await componentPreLoader.Render(PageComponent.Header)
+    @await componentPreLoader.Render(PageComponent.SettingsSubNavigation)
+</div>
+
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    <main class="help" data-pageid="contact-user-detail">
+        <div class="container">
+            <div class="portal-details">
+                <h2 data-testid="contact-details-heading">Contact Details</h2>
+                <hr aria-hidden="true" />
+                @await componentPreLoader.Render(PageComponent.PrivacyNoticeMessage)
+                <div class="portal-details__form no-border">
+                    @using (await Html.BeginUiFlowFormAsync(Model))
+                    {
+                        @Html.ValidationSummary(true, "", new
+                        {
+                            @class = "alert alert-form alert-danger my-5",
+                            role = "alert"
+                        })
+                        @if (Model.MustShowSuccessfullUpdateMessage)
+                        {
+                            <div class="alert alert-form alert-success my-5" id="successMessage">Your contact details have been successfully changed.</div>
+                        }
+                        <div class="form-group w-100">
+                            <label for="login-email">Login Email</label>
+                            <p id="login-email" class="mt-0 mb-2" data-testid="loginEmail">
+                                @Model.LoginEMail
+                            </p>
+                            <p class="smaller m-0">Why can't I change this email? <button type="button" class="portal-details__form__info__icon cursor-pointer border-0" aria-label="Why can't I change this email?" data-toggle="modal" data-target="#why-cant-change-modal"></button></p>
+                        </div>
+                        <div class="form-group w-100">
+                            <label class="form-label" for="contactEmail" id="lblContactEmail">Contact Email</label>
+                            @Html.TextBoxFor(model => model.ContactEMail, new
+                            {
+                                id = "contactEmail", 
+                                @class = "form-control w-100", 
+                                placeholder = "Contact Email", 
+                                type = "email",
+                                autocomplete = "email"
+                            })
+                            @Html.ValidationMessageFor(model => model.ContactEMail, "", new { @class = "alert alert-form alert-danger", @role = "alert" })
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="primaryPhoneNumber" data-testid="PrimaryPhoneNumber">Phone</label>
+                            @Html.TextBoxFor(model => model.PrimaryPhoneNumber, new
+                            {
+                                id = "primaryPhoneNumber", 
+                                @class = "form-control w-100", 
+                                placeholder = "Phone", 
+                                type = "tel",
+                                autocomplete = "tel-national"
+                            })
+                            @Html.ValidationMessageFor(model => model.PrimaryPhoneNumber, "", new { @class = "alert alert-form alert-danger", @role = "alert" })
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="alternativePhoneNumber" data-testid="AlternativePrimaryPhoneNumber">Alternative Phone <span class='regular'>(optional)</span></label>
+                            @Html.TextBoxFor(model => model.AlternativePhoneNumber, new
+                            {
+                                id = "alternativePhoneNumber", 
+                                @class = "form-control w-100", 
+                                placeholder = "Phone", 
+                                type = "tel",
+                                autocomplete = "tel-national"
+                            })
+                            @Html.ValidationMessageFor(model => model.AlternativePhoneNumber, "", new { @class = "alert alert-form alert-danger", @role = "alert" })
+                        </div>
+                        <div class="portal-details__editable">
+                            <p class="portal-details__editable__label">Billing address</p>
+                            <div class="portal-details__editable__wrap">
+                                <div class="portal-details__editable__content">
+                                    @foreach (var addressLine in @Model.AddressLines)
+                                    {
+                                        @addressLine
+                                        <br />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portal-details__form__buttons">
+                            <flow-action id="btnSaveContactDetails" class="btn btn-secondary"
+                                         trigger-event="@UserContactDetailsInput.StepEvent.SaveContactDetails">Save Changes</flow-action>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-lg fade modal-portal" id="why-cant-change-modal" tabindex="-1" role="dialog" aria-labelledby="why-cant-change-modal-label" aria-hidden="true" data-trap-focus>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h1 class="modal-title modal-title-wider" id="why-cant-change-modal-label">Why can't I change this email?</h1>
+                    </div>
+                    <div class="modal-body modal-body--text">
+                        <p>
+                            If you are changing your email address: Please remember that the email address used to set up your online account remains your log in
+                            email/username each time you log in to your online account even if you change your email address here. Also, as stated in our terms and conditions,
+                            it is your responsibility as an online account user to ensure that we have a valid and up to date email address for you so that we can
+                            notify you when your bill is available.
+                        </p>
+                    </div>
+                    <div class="modal-footer no-flex">
+                        <button type="button" class="btn btn-xs btn-xs-landing" data-dismiss="modal">Ok, got it</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

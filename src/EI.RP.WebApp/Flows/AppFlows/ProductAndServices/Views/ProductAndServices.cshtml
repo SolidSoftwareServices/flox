@@ -1,0 +1,346 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.ProductAndServices.Steps.ProductAndServices.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+        ProductAndServicesSubNavigation
+    }
+}
+
+@{
+    ViewBag.Title = "Product and Services";
+
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "Products & Services"
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.ProductAndServicesSubNavigation.Component>(PageComponent.ProductAndServicesSubNavigation,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.ProductAndServicesSubNavigation.InputModel
+        {
+            IsProductsAndServices = true
+        });
+}
+
+<div class="portal-header">
+    @await componentPreLoader.Render(PageComponent.Header)
+    @await componentPreLoader.Render(PageComponent.ProductAndServicesSubNavigation)
+</div>
+
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    <main class="help" data-page="products-and-services">
+        <div class="container" data-testid="products-and-services-container">
+            <div class="products-container portal-details">
+                <div class="portal-details-category" data-testid="smart-thermostats">
+                    <h2 data-testid="smart-thermostats-heading">Smart Thermostats</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="nest-learning-thermostat-card">
+                                <div class="icon-wrapper icon-wrapper-nest"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="nest-learning-thermostat-card-heading">Nest Learning Thermostat</h2>
+                                    </div>
+                                    <p class="card-text">Exclusive to Electric Ireland Customers, 74% off RRP.</p>
+                                    <p class="card-text-strong">Only €130</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.NestLearningThermostat" class="btn btn-secondary w-100 mb-5" target="_blank" data-testid="nest-learning-thermostat-card-link" aria-label="Buy Online Now, Nest Learning Thermostat">Buy Online Now</a>
+                                        <a href="@Model.NestLearningThermostatFindOutMoreURL" class="btn btn-xs green" target="_blank" data-testid="nest-learning-thermostat-card-more-link" aria-label="Find out more, Nest Learning Thermostat">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="climote-card">
+                                <div class="icon-wrapper icon-wrapper-climote"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="climote-card-heading">Climote</h2>
+                                    </div>
+                                    <p class="card-text">Control your heating from your smartphone, laptop or tablet and avoid unnecessary energy costs.</p>
+                                    <p class="card-text-strong">Only €90</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.ClimoteURL" target="_blank" data-testid="climote-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Buy Online Now, Climote">Buy Online Now</a>
+                                        <a href="@Model.ClimoteFindOutMoreURL" class="btn btn-xs green" target="_blank" data-testid="climote-card-more-link" aria-label="Find out more, Climote">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="honeywell-evohome-card">
+                                <div class="icon-wrapper icon-wrapper-honeywell"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="honeywell-evohome-card-heading">Honeywell Evohome</h2>
+                                    </div>
+                                    <p class="card-text">Create and control up to 12 individual zones and your hot water.</p>
+                                    <p class="card-text-strong">Grant Available</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.HoneywellEvoHomeURL" target="_blank" data-testid="honeywell-evohome-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, Honeywell Evohome">Request a call back</a>
+                                        <a href="@Model.HoneywellEvoHomeFindOutMoreURL" class="btn btn-xs green" target="_blank" data-testid="honeywell-evohome-card-more-link" aria-label="Find out more, Honeywell Evohome">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portal-details-category" data-testid="gas-boiler-services">
+                    <h2 data-testid="gas-boiler-services-heading">Gas Boiler Services</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="gas-boiler-service-card">
+                                <div class="icon-wrapper icon-wrapper-gas-boiler-service"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="gas-boiler-service-card-heading">Gas Boiler Service</h2>
+                                    </div>
+                                    <p class="card-text">Keep your gas boiler running smoothly and safely for just €89.</p>
+                                    <p class="card-text-strong">Only €89</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.GasBoilerServiceURL" target="_blank" data-testid="gas-boiler-service-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Book Online Now, Gas Boiler Service">Book Online Now</a>
+                                        <a href="@Model.GasBoilerFindOutURL" class="btn btn-xs green" target="_blank" data-testid="gas-boiler-service-card-more-link" aria-label="Find out more, Gas Boiler Service">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="gas-boiler-repair-card">
+                                <div class="icon-wrapper icon-wrapper-gas-boiler-repair"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="gas-boiler-repair-card-heading">Gas Boiler Repair</h2>
+                                    </div>
+                                    <p class="card-text">Electric Ireland offer 24/7 Gas Boiler Repair to customers nationwide.</p>
+                                    <p class="card-text-strong">Need a repair?</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.GasBoilerRepairURL" target="_blank" data-testid="gas-boiler-repair-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, Gas Boiler Repair">Request a call back</a>
+                                        <a href="@Model.GasBoilerRepairFindOutURL" class="btn btn-xs green" target="_blank" data-testid="gas-boiler-repair-card-more-link" aria-label="Find out more, Gas Boiler Repair">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="gas-boiler-replacement-card">
+                                <div class="icon-wrapper icon-wrapper-gas-boiler-replacement"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="gas-boiler-replacement-card-heading">Gas Boiler Replacement</h2>
+                                    </div>
+                                    <p class="card-text">Upgrade to a new A-Rated energy efficient gas boiler.</p>
+                                    <p class="card-text-strong">Grant Available</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.GasBoilerReplacementURL" target="_blank" data-testid="gas-boiler-replacement-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, Gas Boiler Replacement">Request a call back</a>
+                                        <a href="@Model.GasBoilerReplacementFindOutURL" class="btn btn-xs green" target="_blank" data-testid="gas-boiler-replacement-card-more-link" aria-label="Find out more, Gas Boiler Replacement">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portal-details-category" data-testid="smart-thermostat-and-gas-boiler-services">
+                    <h2 data-testid="smart-thermostat-and-gas-boiler-services-heading">Smart Thermostat and Gas Boiler Service Bundles</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="nest-gas-boiler-service-card">
+                                <div class="icon-wrapper icon-wrapper-nest-and-gas-boiler-service"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="nest-gas-boiler-service-card-heading">Nest & Gas Boiler Service</h2>
+                                    </div>
+                                    <p class="card-text">Upgrade your heating control and give your gas boiler a new lease of life.We'll even include Google Home Mini at no cost. RRP over €500.</p>
+                                    <p class="card-text-strong">Only €209</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.NestGasBoilerServiceURL" target="_blank" data-testid="nest-gas-boiler-service-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Buy Online Now, Nest & Gas Boiler Service">Buy Online Now</a>
+                                        <a href="@Model.NestGasBoilerServiceFindOutURL" class="btn btn-xs green" target="_blank" data-testid="nest-gas-boiler-service-card-more-link" aria-label="Find out more, Nest & Gas Boiler Service">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="climote-gas-boiler-service-card">
+                                <div class="icon-wrapper icon-wrapper-climote-and-gas-boiler-service"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="climote-gas-boiler-service-card-heading">Climote & Gas Boiler Services</h2>
+                                    </div>
+                                    <p class="card-text">Prepare your home for Winter by getting your gas boiler serviced and enjoy remote heating control straight from your phone with Climote.</p>
+                                    <p class="card-text-strong">Only €169</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.ClimotGasBoilerServiceURL" target="_blank" data-testid="climote-gas-boiler-service-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Buy Online Now, Climote & Gas Boiler Services">Buy Online Now</a>
+                                        <a href="@Model.ClimoteGasBoilerServiceFindOutURL" class="btn btn-xs green" target="_blank" data-testid="climote-gas-boiler-service-card-more-link" aria-label="Find out more, Climote & Gas Boiler Services">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portal-details-category" data-testid="home-energy-products">
+                    <h2 data-testid="home-energy-products-heading">Home Energy Products</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="solar-pv-card">
+                                <div class="icon-wrapper icon-wrapper-solar-pv"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="solar-pv-card-heading">Solar PV</h2>
+                                    </div>
+                                    <p class="card-text">By installing our Photovoltaic (PV) panels your home's roof could be saving you money.</p>
+                                    <p class="card-text-strong">Grant Available</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.SolarPVURL" target="_blank" data-testid="solar-pv-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Calculate Savings, Solar PV">Calculate Savings</a>
+                                        <a href="@Model.SolarPVFindOutURL" class="btn btn-xs green" target="_blank" data-testid="solar-pv-card-more-link" aria-label="Find out more, Solar PV">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="ev-chargers-card">
+                                <div class="icon-wrapper icon-wrapper-ev-chargers"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="ev-chargers-card-heading">EV Chargers</h2>
+                                    </div>
+                                    <p class="card-text">Electric Ireland customers can avail of a Smart Electric Vehicle Home Charger.</p>
+                                    <p class="card-text-strong">From Just €499*</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.EvChargersURL" target="_blank" data-testid="ev-chargers-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, EV Chargers">Request a call back</a>
+                                        <a href="@Model.EvChargersFindOutURL" class="btn btn-xs green" target="_blank" data-testid="ev-chargers-card-more-link" aria-label="Find out more, EV Chargers">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="solar-battery-storage-card">
+                                <div class="icon-wrapper icon-wrapper-solar-battery-storage"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="solar-battery-storage-card-heading">Solar Battery Storage</h2>
+                                    </div>
+                                    <p class="card-text">Add a Solar Battery System to increase savings from Solar PV.</p>
+                                    <p class="card-text-strong">Speak to an Expert</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.SolarBatteryStorageURL" target="_blank" data-testid="solar-battery-storage-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, Solar Battery Storage">Request a call back</a>
+                                        <a href="@Model.SolarBatteryStorageFindOutURL" class="btn btn-xs green" target="_blank" data-testid="solar-battery-storage-card-more-link" aria-label="Find out more, Solar Battery Storage">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portal-details-category" data-testid="smart-home-products">
+                    <h2 data-testid="smart-home-products-heading">Smart Home Products</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="nest-cam-indoor-card">
+                                <div class="icon-wrapper icon-wrapper-nest-cam-indoor"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="nest-cam-indoor-card-heading">Nest Cam Indoor</h2>
+                                    </div>
+                                    <p class="card-text">Nest Cam Indoor lets you see around the clock with Night Vision.</p>
+                                    <p class="card-text-strong">Only €189</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.NestCamIndoorURL" target="_blank" data-testid="nest-cam-indoor-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Buy Online Now, Nest Cam Indoor">Buy Online Now</a>
+                                        <a href="@Model.NestCamIndoorFindOutURL" class="btn btn-xs green" target="_blank" data-testid="nest-cam-indoor-card-more-link" aria-label="Find out more, Nest Cam Indoor">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="nest-protect-card">
+                                <div class="icon-wrapper icon-wrapper-nest-protect"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="nest-protect-card-heading">Nest Protect</h2>
+                                    </div>
+                                    <p class="card-text">Protect your family and home with advanced smoke detection technology.</p>
+                                    <p class="card-text-strong">Only €119</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.NestProtectURL" target="_blank" data-testid="nest-protect-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Buy Online Now, Nest Protect">Buy Online Now</a>
+                                        <a href="@Model.NestProtectFindOutURL" class="btn btn-xs green" target="_blank" data-testid="nest-protect-card-more-link" aria-label="Find out more, Nest Protect">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" data-testid="google-home-mini-card">
+                            <div class="card">
+                                <div class="icon-wrapper icon-wrapper-google-home-mini"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h2 class="card-title" data-testid="google-home-mini-card-heading">Google Home Mini</h2>
+                                    </div>
+                                    <p class="card-text">Tackle your day, control your smart home and enjoy your entertainment.</p>
+                                    <p class="card-text-strong">Only €59</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.GoogleHomeMiniURL" target="_blank" data-testid="google-home-mini-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Buy Online Now, Google Home Mini">Buy Online Now</a>
+                                        <a href="@Model.GoogleHomeMiniFindOutURL" class="btn btn-xs green" target="_blank" data-testid="google-home-mini-card-more-link" aria-label="Find out more, Google Home Mini">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portal-details-category" data-testid="interested-products">
+                    <h2 data-testid="interested-products-heading">You may also be interested in...</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="smarter-pay-as-you-go-card">
+                                <div class="icon-wrapper icon-wrapper-smarter-pay-as-you-go"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h5 class="card-title" data-testid="smarter-pay-as-you-go-card-heading">Smarter Pay As You Go</h5>
+                                    </div>
+                                    <p class="card-text"><span class="font-weight-bold">€150</span> credit when you sign up and <span class="font-weight-bold">€60</span> credit for existing customers.</p>
+                                    <p class="card-text-strong">Speak to an Expert</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.SmarterPayAsYouGoURL" target="_blank" data-testid="smarter-pay-as-you-go-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, Smarter Pay As You Go">Request a call back</a>
+                                        <a href="@Model.SmarterPayAsYouGoFindOutMoreURL" class="btn btn-xs green" target="_blank" data-testid="smarter-pay-as-you-go-card-more-link" aria-label="Find out more, Smarter Pay As You Go">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card" data-testid="add-gas-card">
+                                <div class="icon-wrapper icon-wrapper-add-gas"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h5 class="card-title" data-testid="add-gas-card-heading">Add Gas</h5>
+                                    </div>
+                                    <p class="card-text">Enjoy an extra discount when you move your gas to Electric Ireland.</p>
+                                    <p class="card-text-strong">+3% Savings Discount</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.AddGasURL" target="_blank" data-testid="add-gas-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Sign up now, Add Gas">Sign up now</a>
+                                        <a href="@Model.AddGasFindOutURL" class="btn btn-xs green" target="_blank" data-testid="add-gas-card-more-link" aria-label="Find out more, Add Gas">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" data-testid="heat-pump-price-plan-card">
+                            <div class="card">
+                                <div class="icon-wrapper icon-wrapper-heat-pump-price-plan"></div>
+                                <div class="card-body">
+                                    <div class="card-title-wrapper">
+                                        <h5 class="card-title" data-testid="heat-pump-price-plan-card-heading">Heat Pump Price Plan</h5>
+                                    </div>
+                                    <p class="card-text">Receive a 15.5% exclusive discount if your home has heat pump technology.</p>
+                                    <p class="card-text-strong">Speak to an Expert</p>
+                                    <div class="card-buttons">
+                                        <a href="@Model.AllElectricHomeURL" target="_blank" data-testid="heat-pump-price-plan-card-link" class="btn btn-secondary w-100 mb-5" aria-label="Request a call back, Heat Pump Price Plan">Request a call back</a>
+                                        <a href="@Model.AllElectricHomeFindOutURL" class="btn btn-xs green" target="_blank" data-testid="heat-pump-price-plan-card-more-link" aria-label="Find out more, Heat Pump Price Plan">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

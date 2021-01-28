@@ -1,0 +1,16 @@
+﻿@model EI.RP.WebApp.Flows.AppFlows.CompetitionEntry.Steps.CompetitionEntry.ScreenModel
+
+<h2 data-testid="competition-heading">@Model.Heading</h2>
+<p class="font-weight-bold" data-testid="competition-description">@Model.Description</p>
+@if (!string.IsNullOrEmpty(Model.Description1?.Trim()))
+{
+    <p class="font-light" data-testid="competition-description1">@Model.Description1 <a href='https://www.electricireland.ie/brightertogether' target='_blank'> electricireland.ie/brightertogether</a></p>
+}
+@if (!string.IsNullOrEmpty(Model.Description2?.Trim()))
+{
+    <p data-testid="competition-description2">@Model.Description2</p>
+}
+@if (!string.IsNullOrEmpty(Model.Description3?.Trim()))
+{
+    <p data-testid="competition-description3">@Model.Description3</p>
+}

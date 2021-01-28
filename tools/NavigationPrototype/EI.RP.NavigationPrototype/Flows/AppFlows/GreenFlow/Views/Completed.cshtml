@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "GreenFlow::FlowCompletedScreen";
+}
+@model EI.RP.NavigationPrototype.Flows.AppFlows.GreenFlow.Steps.FlowCompletedScreen.FlowCompletedScreenScreenModel
+<div id="GreenFlowPage">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>GreenFlow::Process Completed</h2>
+
+			@if (Model.BlueFlowInitialScreenValue != null)
+			{
+				<b>BlueFlowInitialScreenValue input was:</b>
+				@Html.TextBoxFor(x => x.BlueFlowInitialScreenValue);
+			}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<b>Blueflow return event handled:</b>
+			@Html.TextBoxFor(x => x.BlueFlowEventHandled);
+
+		</div>
+	</div>
+</div>

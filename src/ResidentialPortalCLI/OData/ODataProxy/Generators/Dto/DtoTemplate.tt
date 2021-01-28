@@ -1,0 +1,67 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="Microsoft.Data.Edm" #>
+<#@ import namespace="System.Linq" #>
+using System;
+using System.Collections.Generic;
+using EI.RP.CoreServices.Ports.OData;
+using System.ComponentModel.DataAnnotations;
+namespace EI.RP.DataModels.Sap.<#=this.RepositoryName#>.Dtos
+{
+/******************************
+THIS CLASS WAS GENERATED, DO NOT EDIT MANUALLY. 
+
+For customizations, create and edit a partial file instead
+******************************/
+    [CrudOperations(CanAdd=<#=this.Operations.CanAdd.ToString().ToLower()#>, CanUpdate=<#=this.Operations.CanUpdate.ToString().ToLower()#>, CanDelete=<#=this.Operations.CanDelete.ToString().ToLower()#>, CanQuery=<#=this.Operations.CanQuery.ToString().ToLower()#>)]
+	public partial class <#=this.ClassName#> : ODataDtoModel
+	{
+<#if (CollectionName!=null){#>public override string CollectionName()=>"<#=CollectionName#>";<#}#>
+ public override object[] UniqueId()
+		{
+
+			return new object []
+			{
+<#foreach (var key in this.PrimaryKeys){#>
+				<#=key#>,
+
+<#}#>
+			};
+		}
+        public  override string  GetEntityContainerName()
+        {
+            return "<#=ContainerName#>";
+        }
+
+<#foreach (var property in this.Properties){#>
+ <#if(!property.IsNullable){#>
+        [Required(AllowEmptyStrings = true)]
+
+<#}#>
+<#if(property.MaxLength!=null){#>
+        [StringLength(<#=property.MaxLength #>)]
+
+<#}#>
+<#if(property.CanSort){#>
+        [Sortable]
+
+<#}#>
+<#if(property.CanFilter){#>
+        [Filterable]
+
+<#}#>
+<#if(!property.ReturnType.StartsWith("DateTime")){#>
+		public virtual <#=property.ReturnType#> <#=property.Name#> { get; set; } <#=property.DefaultValue #>
+<#}#>
+<#if(property.ReturnType.StartsWith("DateTime")){#>
+        public virtual <#=property.ReturnType#> <#=property.Name#> 
+        {
+            get => _<#=property.Name#>;
+			set => _<#=property.Name#> = CompensateSapDateTimeBug(value);
+        } 
+        private <#=property.ReturnType#> _<#=property.Name#><#=property.DefaultValue #>;
+<#}#>
+<#}#>
+		
+
+	}
+}

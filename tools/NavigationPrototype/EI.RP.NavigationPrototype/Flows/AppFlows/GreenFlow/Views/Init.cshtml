@@ -1,0 +1,42 @@
+﻿
+
+@using EI.RP.NavigationPrototype.Flows
+@using EI.RP.NavigationPrototype.Flows.AppFlows
+@using EI.RP.NavigationPrototype.Flows.AppFlows.GreenFlow.Steps
+@using EI.RP.NavigationPrototype.Infrastructure
+
+@model EI.RP.NavigationPrototype.Flows.AppFlows.GreenFlow.Steps.InitialScreen.InitialScreenScreenModel
+@{
+	ViewData["Title"] = "GreenFlow::Initial registration";
+}
+<div id="GreenFlowPage">
+
+	<div class="row">
+		<div class="col-md-3">
+			<h2>GreenFlow::Step 0</h2>
+		</div>
+	</div>
+	@using (await Html.BeginUiFlowFormAsync( Model))
+	{
+		<b>Introduce Value('a'-->StepC, numeric-->Errors):</b>
+		<div class="row">
+			<div class="col-md-3">
+				@Html.TextBoxFor(m => m.StepValue1)
+				@Html.ValidationMessageFor(m => m.StepValue1);
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<flow-action trigger-event=@InitialScreen.StepEvent.Next>Next</flow-action>
+				<flow-action trigger-event=@InitialScreen.StepEvent.Reset>Reset</flow-action>
+			</div>
+		</div>
+	}
+
+
+	<div class="row">
+		<div class="col-md-3" id="ValidationSummary">
+			@Html.ValidationSummary()
+		</div>
+	</div>
+</div>

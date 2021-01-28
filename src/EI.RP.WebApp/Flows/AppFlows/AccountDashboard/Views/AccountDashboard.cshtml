@@ -1,0 +1,107 @@
+﻿@using EI.RP.UiFlows.Mvc.Components
+@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountDashboard.Steps.AccountDashboard.ScreenModel
+
+@functions{
+    enum PageComponent
+	{
+		Head = 1,
+		LoadingOverlay,
+		MainNavigation,
+        Header,
+		SubNavigation,
+		ContainedFlowViewPort,
+		DevTools,
+		Footer,
+		Scripts
+	}
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    componentPreLoader.StartLoading<EmbeddedFlowComponent>(PageComponent.ContainedFlowViewPort,
+        new EmbeddedFlowComponent.ComponentParameters
+        {
+            Model = Model,
+            RouteValues = new
+            {
+                Model.Account.AccountNumber
+            }
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.Component>(PageComponent.Head,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.InputModel
+        {
+            Title = Model.ScreenTitle
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.LoadingOverlay.Component>(PageComponent.LoadingOverlay);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.AccountDashboard.Components.AccountDashboardMainNavigation.Component>(PageComponent.MainNavigation,
+        new EI.RP.WebApp.Flows.AppFlows.AccountDashboard.Components.AccountDashboardMainNavigation.InputModel
+        {
+            AccountNumber = Model.Account.AccountNumber,
+            IsAgentUser = Model.IsAgentUser
+        });
+    if (Model.ShowHeader)
+    {
+        componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+            new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+            {
+                AccountNumber = Model.Account.AccountNumber
+            });
+    }
+    if (Model.ShowSubNavigation)
+    {
+        componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.AccountDashboard.Components.AccountDashboardSubNavigation.Component>(PageComponent.SubNavigation,
+            new EI.RP.WebApp.Flows.AppFlows.AccountDashboard.Components.AccountDashboardSubNavigation.InputModel
+            {
+                AccountNumber = Model.Account.AccountNumber
+            });
+    }
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.DevTools.Component>(PageComponent.DevTools);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.AccountDashboard.Components.AccountDashboardFooter.Component>(PageComponent.Footer);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Scripts.Component>(PageComponent.Scripts);
+}
+
+<!DOCTYPE html>
+<html lang="en-IE">
+@await componentPreLoader.Render(PageComponent.Head)
+<body class="with-footer" data-layout="@(Model.Account.ClientAccountType == ClientAccountType.EnergyService ? "energy-services" : "electricity-and-gas")" data-layout-type="smart">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerNoScripts.cshtml")
+    @await componentPreLoader.Render(PageComponent.LoadingOverlay)
+    @if (Model.IsSmartActivation)
+    {
+        @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+    }
+    else
+    {
+        @await componentPreLoader.Render(PageComponent.MainNavigation)
+        <div id="portal-main" class="portal-main">
+            @if (Model.ShowHeader || Model.ShowSubNavigation)
+            {
+                <div class="portal-header @(Model.ShowSubNavigation ? string.Empty : "portal-header--without-menu")">
+                    @if (Model.ShowHeader)
+                    {
+                        @await componentPreLoader.Render(PageComponent.Header)
+                    }
+                    @if (Model.ShowSubNavigation)
+                    {
+                        @await componentPreLoader.Render(PageComponent.SubNavigation)
+                    }
+                </div>
+                <div class="position-relative">
+                    <div class="sub-navigation-overlay"></div>
+                    @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+                </div>
+            }
+            else
+            {
+                @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+            }
+        </div>
+    }
+    @await componentPreLoader.Render(PageComponent.DevTools)
+    @await componentPreLoader.Render(PageComponent.Footer)
+    @await componentPreLoader.Render(PageComponent.Scripts)
+</body>
+</html>

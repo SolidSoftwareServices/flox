@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="170px" height="50px" viewBox="0 0 170 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>encrypted</title>
+    <desc>Created with Sketch.</desc>
+    <g id="encrypted" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" stroke="#C6C6C6" fill="#EEEEEF" x="0.5" y="0.5" width="169" height="49" rx="6"></rect>
+        <circle id="Oval" stroke="#71AD57" stroke-width="2" cx="28.5" cy="25.5" r="16.5"></circle>
+        <rect id="Rectangle" fill="#EEEEEF" transform="translate(28.602736, 25.013259) rotate(-13.000000) translate(-28.602736, -25.013259) " x="9.602736" y="22.5132587" width="38" height="5"></rect>
+        <polygon id="Rectangle" fill="#71AD57" transform="translate(15.000000, 34.000000) rotate(19.000000) translate(-15.000000, -34.000000) " points="11 30 19 30 11 38"></polygon>
+        <polygon id="Rectangle-Copy-3" fill="#71AD57" transform="translate(42.000000, 16.000000) rotate(199.000000) translate(-42.000000, -16.000000) " points="38 12 46 12 38 20"></polygon>
+        <text id="256-bit-SSL-encrypte" font-family="Arial-BoldMT, Arial" font-size="16" font-weight="bold" line-spacing="13" letter-spacing="-0.5" fill="#71AD57">
+            <tspan x="69" y="26">256-bit SSL</tspan>
+            <tspan x="69" y="39">encrypted</tspan>
+        </text>
+        <rect id="Rectangle" fill="#C6C6C6" x="55" y="5" width="1" height="39"></rect>
+        <g id="lock-24px" transform="translate(29.000000, 25.000000) rotate(-11.000000) translate(-29.000000, -25.000000) translate(18.000000, 13.000000)">
+            <polygon id="Path" points="0 0 22 0 22 24 0 24"></polygon>
+            <path d="M16.5,8 L15.5833333,8 L15.5833333,6 C15.5833333,3.24 13.53,1 11,1 C8.47,1 6.41666667,3.24 6.41666667,6 L6.41666667,8 L5.5,8 C4.49166667,8 3.66666667,8.9 3.66666667,10 L3.66666667,20 C3.66666667,21.1 4.49166667,22 5.5,22 L16.5,22 C17.5083333,22 18.3333333,21.1 18.3333333,20 L18.3333333,10 C18.3333333,8.9 17.5083333,8 16.5,8 Z M11,17 C9.99166667,17 9.16666667,16.1 9.16666667,15 C9.16666667,13.9 9.99166667,13 11,13 C12.0083333,13 12.8333333,13.9 12.8333333,15 C12.8333333,16.1 12.0083333,17 11,17 Z M13.8416667,8 L8.15833333,8 L8.15833333,6 C8.15833333,4.29 9.4325,2.9 11,2.9 C12.5675,2.9 13.8416667,4.29 13.8416667,6 L13.8416667,8 Z" id="Shape" fill="#71AD57" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

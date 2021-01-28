@@ -1,0 +1,87 @@
+﻿@using Ei.Rp.Mvc.Core.Controllers
+@using Ei.Rp.Mvc.Core.Cryptography.Urls
+@using EI.RP.WebApp.Controllers
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Html
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountCardBillingDetails.ViewModel
+
+@functions
+{
+    private async Task<IHtmlContent> GetLatestBillActionLink(bool isMobile = false)
+    {
+        Model.HasIncludedLatestBillActionLink = true;
+
+        var classes = "btn btn-secondary";
+        if (isMobile)
+        {
+            classes += " mb-4";
+        }
+        else 
+        {
+            classes += " d-none d-lg-inline-block";
+        }
+
+        return await Html.GetActionLinkAsync("View latest Bill",
+            nameof(FilesController.GetInvoicePdf),
+            typeof(FilesController).GetNameWithoutSuffix(),
+            new
+            {
+                Model.ReferenceDocNumber,
+                Model.AccountNumber
+            },
+            new
+            {
+                data_testid = "account-card-view-latest-bill",
+                data_ignore_loading_overlay = "",
+                @class = classes
+            });
+    }
+}
+
+<div class="my-accounts__item__content">
+    <div class="row">
+        <div class="col-3"><span>Equaliser amount</span></div>
+        <div class="col-5">
+            <p class="price @(Model.IsOverdue ? "price-overdue" : string.Empty)">
+                @Model.EqualizerAmount <span>@(Model.IsOverdue ? "Payment Overdue" : string.Empty)</span>
+            </p>
+        </div>
+        <div class="col-4">
+            @if (Model.CanShowLatestBillActionLink())
+            {
+                @await GetLatestBillActionLink()
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3"><span>Next payment date</span></div>
+        <div class="col-5">
+            <p>@Model.EqualizerNextBillDate?.ToString("dnn MMMM yyyy", true)</p>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5"><small>This is an equaliser account. Your bank is debited by the same amount each month.</small></div>
+        <div class="col-4"></div>
+    </div>
+    @if (Model.HasAccountCredit)
+    {
+        <div class="row">
+            <div class="col-3"><span>Account Credit</span></div>
+            <div class="col-5">
+                <p><span>@(-Model.CurrentBalanceAmount)</span></p>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    }
+    <div class="row d-block d-lg-none">
+        <div class="col-12">
+            @if (Model.CanShowLatestBillActionLink(true))
+            {
+                @await GetLatestBillActionLink(true)
+            }
+        </div>
+    </div>
+</div>

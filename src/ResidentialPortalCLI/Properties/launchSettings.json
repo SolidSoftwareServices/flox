@@ -1,0 +1,28 @@
+{
+	"profiles": {
+		"odata proxy from Test": {
+			"commandName": "Project",
+			"commandLineArgs": "oData --settingsFile ./Odata/odatainput.test.json"
+		},
+		"odata proxy from preprod": {
+			"commandName": "Project",
+			"commandLineArgs": "oData --settingsFile ./Odata/odatainput.preprod.json"
+		},
+		"odata openapi from preprod": {
+			"commandName": "Project",
+			"commandLineArgs": "oDataOpenApi --settingsFile ./Odata/odatainput.preprod.json --output C:/DEVELOPMENT/CODE/openapi/preprod"
+		},
+		"CreateFlow": {
+			"commandName": "Project",
+			"commandLineArgs": "createNewFlow --projectDir ../../../../EI.RP.WebApp --flowName Plan --flowTypesEnumName ResidentialPortalFlowType"
+		},
+		"CreateFlowInput": {
+			"commandName": "Project",
+			"commandLineArgs": "createFlowInput --projectDir ../../../../EI.RP.WebApp --flowName Plan"
+		},
+		"CreateFlowComponent": {
+			"commandName": "Project",
+			"commandLineArgs": "createFlowComponent --projectDir ../../../../EI.RP.WebApp --flowName Plan --componentName AccountBilling"
+		}
+	}
+}

@@ -1,0 +1,65 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AddGasAccount.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AddGasAccount.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.AddGasAccount.Steps.ConfirmAddress.ScreenModel
+
+<main class="plan" data-page="add-gas-confirm-address">
+    <div class="container">
+        <div class="portal-details">
+
+            <h2 id="gasAccountSetUpTitle" class="landing-head landing-align-left-on-mobile">Gas Account Set Up</h2>
+            <hr/>
+
+            <h2 id="confirmAddressTitle" class="landing-head mt-5">Confirm your address</h2>
+            <span id="confirmAddressText" class="form-info form-info-header">The following address matches the GPRN you entered. Please check this address is correct before proceeding.</span>
+
+            <div class="border rounded p-5 my-5">
+                <div class="row">
+                    <div class="col-12 col-sm-6 mt-4 mb-4" data-testid="address-container">
+                        <p id="gprn" class="m-0" data-testid="address-container-title-and-number"><strong>GPRN: @Model.GPRN.PadLeft(7, '0')</strong></p>
+                        <p id="address-details" class="m-0 mt-2 text-uppercase" data-testid="address-container-address">
+                            @if (Model.HouseNo != string.Empty)
+                            {
+                                @Model.HouseNo <br />
+                            }
+                            @if (Model.Street != string.Empty)
+                            {
+                                @Model.Street <br />
+                            }
+                            @if (Model.City != string.Empty)
+                            {
+                                @Model.City <br />
+                            }
+                            @if (Model.PostalCode != string.Empty)
+                            {
+                                @Model.PostalCode
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center-on-mobile">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                <flow-action id="btnConfirmAddress"
+                             class="btn btn-primary line-height-for-btns"
+                             trigger-event="@ConfirmAddress.StepEvent.ConfirmNewAddress">Yes, this is my new address</flow-action>
+                    <div class="mt-5">
+                        <flow-action id="btnNotMyAddress"
+                                     class="btn btn-xs btn-xs-back green"
+                                     action-type="StartFlow"
+                                     flow-location="SameContainerAsMe"
+                                     flow-name="@ResidentialPortalFlowType.AddGasAccount"
+                                     flow-parameters="@(new AddGasAccountFlowInput { ElectricityAccountNumber = Model.AccountNumber })">No, this is not my new address. Try again.</flow-action>
+                    </div>
+                }
+            </div>
+
+            <p id="help-number" class="form-info my-5 form-info-footer">Need help? Contact an Electric Ireland agent on 1850 372 372</p>
+
+        </div>
+    </div>
+</main>

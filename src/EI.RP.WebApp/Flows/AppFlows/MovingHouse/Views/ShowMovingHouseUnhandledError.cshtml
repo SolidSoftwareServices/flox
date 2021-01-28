@@ -1,0 +1,21 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.ShowMovingHouseUnhandledError.ScreenModel
+
+<main class="plan" data-page="error_page" >
+    <div class="container">
+        <div class="portal-details">
+            <h2 class="landing-head" data-testid="title">Moving House</h2>
+            <div class="portal-details__form" id="MPRN-GPRN">
+                <h2 class="error mb-4" data-testid="subtitle">We cannot process your move request at the moment.</h2>
+                <p id="contactNumber">Please call 1850 372 372 to complete your move.</p>
+                <flow-action id="backToMyAccount"
+                             class="btn btn-xs btn-xs-back green"
+                             data-testid="back-to-my-accounts"
+                             action-type="StartFlow"
+                             flow-name="@ResidentialPortalFlowType.Accounts"
+                             flow-location="NotContained">Back to My Accounts</flow-action>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,43 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step0OperationSelection.ScreenModel
+
+<div class="landing portal-details" data-testid="mimo-0-address-box">
+    <div class="my-accounts__item">
+        <h2>Accounts</h2>
+        <div class="row">
+            @if (Model.ElectricityAccountNumber != null && Model.GasAccountNumber != null)
+            {
+                <div class="col-lg-6">
+                    <p data-testid="mimo-0-address-title">You have accounts for both Electricity and Gas at this address:</p>
+                    <p data-testid="mimo-0-address-description" class="address">@Model.InitiatedFromAccountNumberDescription</p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-blue" data-testid="mimo-0-accounts">
+	                    Electricity Account: @Model.ElectricityAccountNumber<br />
+	                    Gas Account: @Model.GasAccountNumber
+                    </p>
+                </div>
+            }
+            else if (Model.ElectricityAccountNumber != null)
+            {
+                <div class="col-lg-6">
+                    <p data-testid="mimo-0-address-title">You have account for Electricity at this address:</p>
+                    <p data-testid="mimo-0-address-description" class="address">@Model.InitiatedFromAccountNumberDescription</p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-blue" data-testid="mimo-0-accounts">Electricity Account: @Model.ElectricityAccountNumber</p>
+                </div>
+            }
+            else if (Model.GasAccountNumber != null)
+            {
+                <div class="col-lg-6">
+					<p data-testid="mimo-0-address-title">You have account for Gas at this address:</p>
+                    <p data-testid="mimo-0-address-description" class="address">@Model.InitiatedFromAccountNumberDescription</p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-blue" data-testid="mimo-0-accounts">Gas Account: @Model.GasAccountNumber</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

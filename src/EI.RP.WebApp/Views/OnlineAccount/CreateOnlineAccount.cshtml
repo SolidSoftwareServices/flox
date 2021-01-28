@@ -1,0 +1,237 @@
+﻿@using Ei.Rp.Mvc.Core.Controllers;
+@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+@using EI.RP.WebApp.Controllers.Membership
+
+@model EI.RP.WebApp.Models.OnlineAccount.CreateOnlineAccountModel
+
+@{
+    ViewData["Title"] = "Sign up";
+    var subtitle = Model.Source != null && Model.Source.ToLower() == "smarthubpage" ? "In just a few minutes you'll have access to Smart Services dashboard" : "Set up your online account";
+}
+
+<div data-page="create-account">
+    <h1 class="page-login__title">Sign up</h1>
+    <p class="page-login__subtitle">@subtitle</p>
+    <div class="page-login__note mt-5 mb-5">
+        <p>
+            Electric Ireland requires the below information to create and administer your account. The data controller is the Electricity Supply Board, trading as Electric Ireland.
+            Please refer to our <a asp-controller="Static" asp-action="PrivacyNotice" class="btn btn-xs btn-xs--no-icon" title="Privacy Notice" target="_blank">Privacy Notice</a>.
+        </p>
+    </div>
+
+    @using (Html.BeginForm("CreateOnlineAccount", "OnlineAccount", FormMethod.Post, new { id = "registrationForm", @class = "create-account" }))
+    {
+        @await Html.HoneypotForAsync(m => m.PotText)
+        <div class="form-group w-100">
+            <label for="txtAccountNumber">Account Number <button type="button" class="portal-details__form__info__icon cursor-pointer border-0" aria-label="Information about Account Number" data-toggle="modal" data-target="#modalAccount"></button></label>
+            @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.AccountNumber, new
+            {
+                @class = "form-control w-100",
+                id = "txtAccountNumber",
+                type = "text",
+                placeholder = "Account Number",
+                inputmode = "numeric"
+            })
+            @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.AccountNumber, "", new { id = "accountNumberErrMsg", @class = "alert alert-form alert-danger w-100" })
+        </div>
+        <div class="form-group w-100">
+            <label for="txtMPRN">Last 6 digits of MPRN or GPRN</label>
+            @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.MPRNGPRN, new
+            {
+                @class = "form-control w-100",
+                id = "txtMPRN",
+                type = "text",
+                placeholder = "000000",
+                maxlength = "6",
+                inputmode = "numeric"
+            })
+            @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.MPRNGPRN, "", new { @class = "alert alert-form alert-danger w-100", @data_testid = "mprn-gprn-error" })
+            <div>
+                <p class="small mb-0 d-inline-block" id="whereDoIFind">Where do I find my MPRN / GPRN?</p>
+                <button type="button" class="portal-details__form__info__icon d-inline-block border-0" data-toggle="modal" data-target="#modalMPRN" aria-labelledby="whereDoIFind"></button>
+            </div>
+        </div>
+        <div class="form-group w-100">
+            <label for="txtEmail">Email Address</label>
+            @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.Email, new
+            {
+                @class = "form-control w-100",
+                id = "txtEmail",
+                type = "text",
+                placeholder = "sample@email.com",
+                maxlength = "64",
+                autocomplete = "email"
+            })
+            @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.Email, "", new { @class = "alert alert-form alert-danger w-100" })
+        </div>
+        <div class="form-group w-100">
+            <label for="txtPhoneNumber">Phone Number</label>
+            @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.PhoneNumber, new
+            {
+                @class = "form-control w-100",
+                id = "txtPhoneNumber",
+                type = "tel",
+                placeholder = "Phone Number",
+                maxlength = "20",
+                autocomplete = "tel-national"
+            })
+            @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.PhoneNumber, "", new { @class = "alert alert-form alert-danger w-100" })
+        </div>
+        <div class="form-group w-100 mb-5">
+            <fieldset>
+                <legend>
+                    <label for="txtDateofBirthDay">Date of Birth <span class="portal-details__form__info__icon" data-toggle="tooltip" data-placement="right" title="" data-original-title="This information will help us to protect your data. Please use format Day / Month / Year." aria-label="This information will help us to protect your data. Please use format Day / Month / Year."></span></label>
+                </legend>
+                <div class="date-wrapper">
+                    @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.DateOfBirthDay, new
+                    {
+                        @class = "form-control",
+                        id = "txtDateofBirthDay",
+                        type = "text",
+                        placeholder = "DD",
+                        maxlength = "2",
+                        aria_label = "Day",
+                        autocomplete = "bday-day",
+                        inputmode = "numeric"
+                    })
+                    @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.DateOfBirthMonth, new
+                    {
+                        @class = "form-control",
+                        id = "txtDateofBirthMonth",
+                        type = "text",
+                        placeholder = "MM",
+                        maxlength = "2",
+                        aria_label = "Month",
+                        autocomplete = "bday-month",
+                        inputmode = "numeric"
+                    })
+                    @Html.TextBoxFor(model => model.CreateOnlineAccountFormData.DateOfBirthYear, new
+                    {
+                        @class = "form-control",
+                        id = "txtDateofBirthYear",
+                        type = "text",
+                        placeholder = "YYYY",
+                        maxlength = "4",
+                        aria_label = "Year",
+                        autocomplete = "bday-year",
+                        inputmode = "numeric"
+                    })
+                </div>
+                @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.DateOfBirth, "", new {@class = "alert alert-form alert-danger w-100", @data_testid = "date-of-birth-error" })
+            </fieldset>
+        </div>
+        <div class="form-group form-check mb-5">
+            <div class="custom-control custom-checkbox mb-4">
+                @Html.CheckBoxFor(model => model.CreateOnlineAccountFormData.IsAccountOwner, new
+                {
+                    @class = "custom-control-input",
+                    id = "chkOwner",
+                    type = "checkbox"
+                })
+                <label class="custom-control-label" for="chkOwner">I confirm that I am the account holder</label>
+                @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.IsAccountOwner, "", new { @class = "alert alert-form alert-danger w-100" })
+            </div>
+            <div class="custom-control custom-checkbox">
+                @Html.CheckBoxFor(model => model.CreateOnlineAccountFormData.TermsAndConditionsAccepted, new
+                {
+                    @class = "custom-control-input",
+                    id = "chkAcceptTC",
+                    type = "checkbox"
+                })
+                <label class="custom-control-label" for="chkAcceptTC">I accept the <a asp-controller="Static" asp-action="TermsAndConditions" target="_blank" class="btn btn-xs btn-xs--no-icon">Terms and Conditions</a></label>
+                @Html.ValidationMessageFor(model => model.CreateOnlineAccountFormData.TermsAndConditionsAccepted, "", new { @class = "alert alert-form alert-danger w-100" })
+            </div>
+        </div>
+        <div class="page-login__note mb-5">
+            <p>Any other Electric Ireland accounts you have will be registered automatically.</p>
+        </div>
+        @Html.ValidationSummary(true, "", new
+        {
+            @class = "alert alert-form alert-danger w-100 mt-5 mb-5",
+            role = "alert"
+        })
+        <div class="row">
+            <div class="col-12 col-md-auto mb-5 text-center text-sm-left">
+                <button id="CreateAccount" class="btn btn-primary btn-lg btn-lg-create-account" type="submit">Sign up</button>
+            </div>
+            <div class="col-12 col-md-auto text-center text-sm-left mb-5">
+                Already have an account? <a id="SignUp" href="@Url.Action(nameof(LoginController.Login), typeof(LoginController).GetNameWithoutSuffix())" class="btn btn-xs">Log in</a>
+            </div>
+        </div>
+        @*<p class="text-center text-sm-left">
+                <a href="#" class="btn btn-secondary">I'm a PAYG customer</a>
+            </p>*@
+    }
+</div>
+
+@section modals
+{
+    <div class="modal modal-lg fade" id="modalAccount" tabindex="-1" role="dialog" aria-labelledby="accountLabel" aria-hidden="true" data-trap-focus>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="accountLabel">Where to find my account number?</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img src="~/img/bill.svg" alt="Bill" />
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>Your bill (Front)</h3>
+                            <p>This is your Electric Ireland account number. You'll find it in the top right hand corner of your bill.</p>
+                            <div class="d-block d-lg-none">
+                                <img src="~/img/bill.svg" alt="Bill" />
+                            </div>
+                            <h3 class="bottom-title">Your account number</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer no-flex mt-4">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Go back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-lg modal-login fade" id="modalMPRN" tabindex="-1" role="dialog" aria-labelledby="MPRNlabel" aria-hidden="true" data-trap-focus>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="MPRNlabel">Where to find my MPRN or GPRN number?</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img src="~/img/bill_explained.svg" alt="Bill" />
+                        </div>
+                        <div class="col-lg-6">
+                            <h3 class="mb-2">Your bill (Front)</h3>
+                            <p>
+                                Your MPRN (Meter Point Reference Number) and GPRN (Gas Point Registration Number) identify your connection to the ESB Network and are unique to your home.
+                                You can find your MPRN/GPRN on the top right corner of your current bill.
+                            </p>
+                            <div class="d-block d-lg-none">
+                                <img src="~/img/bill_explained.svg" alt="example of MPRN number at top-right of bill, 10012345678" role="img" />
+                            </div>
+                            <h3 class="bottom-title">Your MPRN/GPRN</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer no-flex mt-4">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Go back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section images
+{
+    <div class="page-login__img" style="background-image: url('@Url.Content("~/img/login-signup-bg.jpg")')"></div>
+}

@@ -1,0 +1,56 @@
+﻿@model TestSettingsViewModel
+
+@{
+    ViewData["Title"] = "Test settings";
+    Layout = "_Layout_WithNav";
+}
+
+@section styles {
+    <style>
+        .form-align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        label {
+            font-size: 16px !important;
+            color: #232323 !important;
+            margin-bottom: 4px !important;
+        }
+    </style>
+}
+
+<div class="container pt-5 pb-5">
+    <h1>Test settings</h1>
+    <p>Enter values that are not available yet in SAP to test the expectations:</p>
+    <hr class="mt-5 mb-5" />
+    @using (Html.BeginForm("Submit", "TestSettings", FormMethod.Post, 
+        new { id = "loginForm" }))
+    {
+        <h3 class="mb-4"><strong>Latest Billing</strong></h3>
+        <div class="form-group mt-0 mb-4">
+            @Html.CheckBoxFor(model => model.CanShowCostToDate, new { @class = "mr-2" })
+            @Html.LabelFor(model => model.CanShowCostToDate, "Show Cost to Date")
+        </div>
+        <div class="form-group mt-0 mb-4">
+            @Html.LabelFor(model => model.CostToDateAmount, "Cost to Date Amount")
+            @Html.TextBoxFor(model => model.CostToDateAmount, new { @class = "form-control w-100" })
+        </div>
+        <div class="form-group mt-0 mb-5">
+            @Html.LabelFor(model => model.CostToDateSince, "Cost to Date Since")
+            @Html.TextBox("CostToDateSince", Model.CostToDateSince.ToString("dd/MM/yyyy"), new { @class = "form-control w-100" })
+        </div>
+        <hr class="mt-5 mb-5" />
+        <div class="form-group mt-5 mb-5">
+            @Html.LabelFor(model => model.SimulateAppWorkloadDelaySeconds, "Simulate App workload seconds delay")
+            @Html.TextBox("SimulateAppWorkloadDelaySeconds", Model.SimulateAppWorkloadDelaySeconds, new { @class = "form-control w-100" })
+        </div>
+        <hr class="mt-5 mb-5" />
+        <div class="form-group mt-5 mb-5">
+            @Html.CheckBoxFor(model => model.SimulateConsumptionDataFailure, new { @class = "mr-2" })
+            @Html.LabelFor(model => model.SimulateConsumptionDataFailure, "Simulate Chart Data Failure")
+        </div>
+        <input class="btn btn-secondary" type="submit" name="Submit" value="Submit" />
+    }
+</div>

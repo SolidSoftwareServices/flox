@@ -1,0 +1,47 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.StepShowCloseAccountResult.ScreenModel
+
+<main class="help plan" data-page="mimo-close-accounts-confirmation">
+    <div class="container">
+        <div class="portal-details">
+            <h2>Confirmation</h2>
+            <hr aria-hidden="true" />
+            <div class="moving-form">
+                @if (Model.LastStepEvent == Step0OperationSelection.StepEvent.CloseElectricitySelected)
+                {
+                    <div class="form-number mt-4 mb-4" id="electricityAccountInfo">
+                        <span class="form-info">Electricity </span><span>@Model.ElectricityAccountNumber</span>
+                    </div>
+                }
+                else if (Model.LastStepEvent == Step0OperationSelection.StepEvent.CloseGasSelected)
+                {
+                    <div class="form-number mt-4 mb-4" id="gasAccountInfo">
+                        <span class="form-info">Gas </span><span>@Model.GasAccountNumber</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-number mt-4 mb-4" id="electricityAccountInfo">
+                        <span class="form-info">Electricity </span><span>@Model.ElectricityAccountNumber</span>
+                    </div>
+                    <div class="form-number mt-4 mb-4" id="gasAccountInfo">
+                        <span class="form-info">Gas </span><span>@Model.GasAccountNumber</span>
+                    </div>
+                }
+                <p class="mb-2">Your final bill should be issued within 3 working days.</p>
+            </div>
+            <div class="portal-details__form meter-reading">
+                <h2 id="closeConfirmationHeader">@Model.CloseConfirmationHeader</h2>
+                <p id="electricityPaymentInfo" class="mb-4">@Model.ElectricityPaymentInfo</p>
+                <p id="gasPaymentInfo" class="mb-4">@Model.GasPaymentInfo</p>
+                <flow-action data-id="dds_back_to_my_accounts"
+                             class="btn btn-xs btn-xs-back green mt-4"
+                             action-type="StartFlow"
+                             flow-name="@ResidentialPortalFlowType.Accounts"
+                             flow-location="NotContained">Back to my accounts</flow-action>
+            </div>
+        </div>
+    </div>
+</main>

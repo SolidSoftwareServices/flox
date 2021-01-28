@@ -1,0 +1,12 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+
+@model EI.RP.WebApp.Flows.AppFlows.MakeAPayment.Components.PaymentMessages.ViewModel
+
+@if (Model.AccountType == ClientAccountType.Electricity)
+{
+    <div class="col-sm" data-testid="make-a-payment-payg-message">
+        <p class="font-weight-bold">Electricity Pay As You Go Customers</p>
+        <p>The payment form on this page <b>will not</b> add credit to your PAYG meter.</p>
+        <p>To top up your PAYG meter <a href="https://electricireland.payzone.ie/Account/LogOn" target="_blank">please log in here</a>.</p>
+    </div>
+}

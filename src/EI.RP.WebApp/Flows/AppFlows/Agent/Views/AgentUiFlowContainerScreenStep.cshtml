@@ -1,0 +1,60 @@
+﻿@using EI.RP.UiFlows.Mvc.Components
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.Agent.Steps.AgentUiFlowContainerScreenStep.AgentUiFlowContainerScreenStepUiFlowScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Head = 1,
+        LoadingOverlay,
+        AgentMainNavigation,
+        ContainedFlowViewPort,
+        DevTools,
+        AgentFooter,
+        Scripts
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    componentPreLoader.StartLoading<EmbeddedFlowComponent>(PageComponent.ContainedFlowViewPort,
+        new EmbeddedFlowComponent.ComponentParameters
+        {
+            Model = Model
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.Component>(PageComponent.Head,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.InputModel
+        {
+            Title = Model.ScreenTitle
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.LoadingOverlay.Component>(PageComponent.LoadingOverlay);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Agent.Components.AgentMainNavigation.Component>(PageComponent.AgentMainNavigation,
+        new EI.RP.WebApp.Flows.AppFlows.Agent.Components.AgentMainNavigation.InputModel
+        {
+            IsAgentUser = true
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.DevTools.Component>(PageComponent.DevTools);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Agent.Components.AgentFooter.Component>(PageComponent.AgentFooter);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Scripts.Component>(PageComponent.Scripts);
+}
+
+<!DOCTYPE html>
+<html lang="en-IE">
+@await componentPreLoader.Render(PageComponent.Head)
+<body class="with-footer" data-layout="admin" data-layout-type="smart">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerNoScripts.cshtml")
+    @await componentPreLoader.Render(PageComponent.LoadingOverlay)
+    @await componentPreLoader.Render(PageComponent.AgentMainNavigation)
+    <div id="portal-main" class="portal-main">
+        <div class="position-relative">
+            <div class="sub-navigation-overlay"></div>
+            @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+        </div>
+    </div>
+    @await componentPreLoader.Render(PageComponent.DevTools)
+    @await componentPreLoader.Render(PageComponent.AgentFooter)
+    @await componentPreLoader.Render(PageComponent.Scripts)
+</body>
+</html>

@@ -1,9 +1,0 @@
-﻿@model EI.RP.WebApp.Flows.AppFlows.MakeAPayment.Components.PaymentMessages.ViewModel
-
-<div class="portal-details__note mt-5">
-    <div class="row">
-        @await Html.PartialAsync("./Partials/_DirectDebitMessage.cshtml", Model)
-        @await Html.PartialAsync("./Partials/_ElectricityPayAsYouGoMessage.cshtml", Model)
-        @await Html.PartialAsync("./Partials/_GasPayAsYouGoMessage.cshtml", Model)
-    </div>
-</div>

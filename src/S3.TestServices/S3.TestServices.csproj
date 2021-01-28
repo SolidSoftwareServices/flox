@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>netstandard2.0</TargetFramework>
+	<Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+  </PropertyGroup>
+ <ItemGroup>
+    <Compile Include="..\CommonCompilerExtensions.cs" Link="CommonCompilerExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="AutoFixture" Version="4.15.0" />
+	<PackageReference Include="AutoFixture.AutoMoq" Version="4.15.0" />
+	<PackageReference Include="MiniProfiler.Shared" Version="4.2.22" />
+	<PackageReference Include="Moq" Version="4.16.0" />
+	<PackageReference Include="Moq.AutoMock" Version="2.3.0" />
+	
+	<PackageReference Include="NUnit" Version="3.13.0" />
+	<PackageReference Include="System.CodeDom" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\S3.CoreServices\S3.CoreServices.csproj" />
+  </ItemGroup>
+
+</Project>

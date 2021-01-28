@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"noImplicitAny": false,
+		"noEmitOnError": true,
+		"removeComments": false,
+		"sourceMap": true,
+		"target": "es5",
+
+		"module": "AMD"
+	},
+	"exclude": [
+		"node_modules",
+		"wwwroot"
+	],
+
+	"include": [
+		"./**/*.ts", "../../../src/S3.UiFlows.Mvc/Components/Controller/ComponentPartialsController.cs", "../../../src/S3.UiFlows.Mvc/Components/Deferred/FlowStepDeferredLoadComponent.cs", "../../../src/S3.UiFlows.Mvc/Components/Deferred/FlowDeferredComponentViewModel.cs"
+	],
+	"compileOnSave": true
+}

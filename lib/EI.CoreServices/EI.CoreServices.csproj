@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+		<RepositoryUrl>https://digitalprogramme.visualstudio.com/CS%20%E2%80%93%20EI%20Residential%20Portal/_git/CS%20%E2%80%93%20EI%20Residential%20Portal</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<ILRepackTargetsFile>$(ProjectDir)no-targets</ILRepackTargetsFile>
+		<Authors>Miguel Merayo</Authors>
+		<owners>Electric Ireland</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Cross-cutting Core services</description>
+		
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2" />
+		<PackageReference Include="NuGet.CommandLine" Version="5.8.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\EI.RP.CoreServices\EI.RP.CoreServices.csproj" />
+	</ItemGroup>
+	<Target Name="ILRepacker" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<PropertyGroup>
+			<WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
+			<MergeDir>$(OutputPath)..\Merged\</MergeDir>
+			<OutputDllFullPath>$(MergeDir)$(TargetName)$(TargetExt)</OutputDllFullPath>
+		</PropertyGroup>
+		<ItemGroup>
+			<InputAssemblies Include="$(OutputPath)$(TargetName)$(TargetExt)" />
+			<InputAssemblies Include="$(OutputPath)*.dll" Exclude="$(OutputPath)$(TargetName)$(TargetExt);ILRepack.Lib.MSBuild.Task.dll" />
+		</ItemGroup>
+
+		<Message Text="MERGING: @(InputAssemblies->'%(Filename)') INTO $(OutputDllFullPath)" Importance="High" />
+		<ILRepack Parallel="true" DebugInfo="true" AllowDuplicateResources="false" InputAssemblies="@(InputAssemblies)" TargetKind="SameAsPrimaryAssembly" AllowedDuplicateNamespaces="System.Runtime.CompilerServices.*" OutputFile="$(OutputDllFullPath)" Union="True" RenameInternalized="true" Internalize="true" Verbose="false" InternalizeExclude="EI.*" />
+		
+		<RemoveDir Directories="$(OutputPath)" />
+		<CreateItem Include="$(MergeDir)*.*">
+			<Output TaskParameter="Include" ItemName="X-FilesToCopy" />
+		</CreateItem>
+		
+		<Copy SourceFiles="@(X-FilesToCopy)" DestinationFolder="$(OutputPath)" />
+		<RemoveDir Directories="$(MergeDir)" />
+		<ItemGroup>
+			<NugetExe Include="%userprofile%\.nuget\packages\nuget.commandline\5.8.0\tools\nuget.exe"/>
+		</ItemGroup>
+		<Exec Command="@(NugetExe) pack $(ProjectDir)lib.nuspec -Version $(AssemblyVersion)" />
+
+		<!--<CreateItem Include="$(ProjectDir)*.nupkg">
+			<Output TaskParameter="Include" ItemName="X-packages" />
+		</CreateItem>-->
+		<ItemGroup>
+			<X-packages Include="$(ProjectDir)*.nupkg" />
+		</ItemGroup>
+		<Copy SourceFiles="@(X-packages)" DestinationFolder="$(ProjectDir)../NugetPackagesToPublish" />
+		
+		<Delete Files="@(X-packages)" />
+	</Target>
+</Project>

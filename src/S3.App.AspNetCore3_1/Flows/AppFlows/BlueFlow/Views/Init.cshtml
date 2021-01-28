@@ -1,0 +1,121 @@
+@using S3.App.AspNetCore3_1.Flows
+
+@using S3.App.AspNetCore3_1.Flows.AppFlows
+@using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.FlowDefinitions
+@using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps
+@using S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Components.SampleComponent
+@using S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Components.SampleComponentAsync
+@using S3.App.AspNetCore3_1.Flows.SharedFlowComponents.Main.SampleInput
+@using S3.UiFlows.Core.Flows.Screens.Metadata
+@using S3.App.AspNetCore3_1.Infrastructure
+@using S3.UiFlows.Mvc.Components.PreLoad
+@model S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps.InitialScreen.InitialScreenScreenModel
+@{
+	ViewData["Title"] = "BlueFlow::Initial registration";
+	var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+	componentPreLoader.StartLoading<SampleComponentAsync>(PageComponent.AsyncComponent1, new SampleComponentInputAsync { InputParameter = "async component input 1" });
+	componentPreLoader.StartLoading<SampleComponentAsync>(PageComponent.AsyncComponent2, new SampleComponentInputAsync { InputParameter = "async component input 2" });
+}
+@functions{
+
+	enum PageComponent
+	{
+		AsyncComponent1 = 1,
+		AsyncComponent2 ,
+
+	}
+}
+<div id="BlueFlowPage">
+
+	<div class="row">
+		<div class="col-md-3">
+			<h2>BlueFlow::Step 0</h2>
+		</div>
+	</div>
+	@using (await Html.BeginUiFlowFormAsync(Model))
+	{
+
+		<b>Introduce Value('a'-->StepC, numeric-->Errors):</b>
+		<div class="row">
+			<div class="col-md-3">
+				@Html.TextBoxFor(m => m.StepValue1)
+				@Html.ValidationMessageFor(m => m.StepValue1)
+			</div>
+		</div>
+
+		<vc:sample-input screen-model=@(Model)
+						 input=@(new InputComponentInput{InputParameter=Model.StringValue})></vc:sample-input>
+		<div class="row">
+			<div class="col-md-3">
+				<flow-action trigger-event=@InitialScreen.StepEvent.Next>Next</flow-action>
+				<flow-action trigger-event=@InitialScreen.StepEvent.Reset>Reset</flow-action>
+			</div>
+		</div>
+	}
+
+	<div class="row">
+		<div class="col-md-3">
+			<flow-action action-type="StartFlow"
+						 flow-location="SameContainerAsMe"
+						 flow-name="@SampleAppFlowType.GreenFlow">
+				open @SampleAppFlowType.GreenFlow.ToString() from sibling
+			</flow-action>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<flow-action id="lnkFailInitialization"
+						 action-type="StartFlow"
+						 flow-location="SameContainerAsMe"
+						 flow-name=@SampleAppFlowType.BlueFlow
+						 flow-parameters=@(new {
+							                 FailOnStep = nameof(FlowInitializer),
+							                 FailOnEvent=ScreenLifecycleStage.FlowInitialization
+
+						                 })>
+				open @SampleAppFlowType.BlueFlow.ToString() Failing in flow initializer
+			</flow-action>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<flow-action id="lnkFailCreatingStep"
+						 action-type="StartFlow"
+						 flow-location="SameContainerAsMe"
+						 flow-name=@SampleAppFlowType.BlueFlow
+						 flow-parameters=@(new {
+				                             FailOnStep = BlueFlowScreenName.Step0Screen,
+				                             FailOnEvent=ScreenLifecycleStage.CreatingStepData
+
+			                             })>
+				open @SampleAppFlowType.BlueFlow.ToString() Failing in InitialScreen.CreateStepData
+			</flow-action>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3" id="ValidationSummary">
+			@Html.ValidationSummary()
+		</div>
+	</div>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<div class="row">
+		<div class="col-md-3">
+			
+			@await componentPreLoader.Render(PageComponent.AsyncComponent1)
+			
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+
+			@await componentPreLoader.Render(PageComponent.AsyncComponent2)
+
+
+		</div>
+	</div>
+
+</div>

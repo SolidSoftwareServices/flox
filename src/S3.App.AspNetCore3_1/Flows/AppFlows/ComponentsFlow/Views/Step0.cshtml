@@ -1,0 +1,53 @@
+@using Microsoft.AspNetCore.Html
+@using S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Components.SampleComponentAsync
+@using S3.UiFlows.Mvc.Components.PreLoad
+@using S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Components.SampleComponent
+@model S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Steps.Step0Screen.InitialScreenScreenModel
+@{
+	ViewData["Title"] = "ComponentsFlowPage::Step0";
+}
+
+@functions{
+
+	enum PageComponent
+	{
+		AsyncComponent=0,
+		Component1 = 1,
+		Component2 = 2,
+		Component3 = 3,
+		Component4 = 4,
+		Component5 = 5,
+		Component6 = 6,
+		Component7 = 7
+	}
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<div id="ComponentsFlow">
+
+	@{
+		var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+		componentPreLoader.StartLoading<SampleComponentAsync>(PageComponent.AsyncComponent, new SampleComponentInputAsync { InputParameter = "async component input" });
+		for (int i = 1; i <= 7; i++)
+		{
+			componentPreLoader.StartLoading<SampleComponent>((PageComponent)i, new SampleComponentInput { InputParameter = i.ToString() });
+		}
+
+	}
+	<div class="row">
+		<div class="col-md-6">
+			<h2>ComponentsTestPage::Step 0</h2>
+		</div>
+	</div>
+	@await componentPreLoader.Render(PageComponent.Component1)
+	@await componentPreLoader.Render(PageComponent.Component2)
+	@await componentPreLoader.Render(PageComponent.Component3)
+	@await componentPreLoader.Render(PageComponent.Component4)
+	@await componentPreLoader.Render(PageComponent.Component5)
+	@await componentPreLoader.Render(PageComponent.Component6)
+	@await componentPreLoader.Render(PageComponent.Component7)
+
+
+
+	@await componentPreLoader.Render(PageComponent.AsyncComponent)
+
+</div>

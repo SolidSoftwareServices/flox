@@ -1,0 +1,35 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.Usage.Steps.Usage.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        UsageChart = 1,
+    }
+}
+
+@{
+    ViewBag.Title = "Usage - Electric Ireland";
+
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Usage.Components.UsageChart.Component>(PageComponent.UsageChart,
+        new EI.RP.WebApp.Flows.AppFlows.Usage.Components.UsageChart.InputModel
+        {
+            AccountNumber = Model.AccountNumber,
+            CanCompare = true
+        });
+}
+
+<main class="usage" data-page="usage">
+    <div class="container">
+        <div class="row pt-5 pb-md-5">
+            <div class="col px-0 px-md-5">
+                @await componentPreLoader.Render(PageComponent.UsageChart)
+            </div>
+            <div class="col-12 col-lg-2"></div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+  </PropertyGroup>
+ <ItemGroup>
+    <Compile Include="..\CommonCompilerExtensions.cs" Link="Infrastructure\CommonCompilerExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CrmUtilityUmcUrmRepositoryToProxyAdapter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Microsoft.csharp" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.Spatial" Version="5.8.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EI.RP.CoreServices.OData.Client\EI.RP.CoreServices.OData.Client.csproj" />
+    <ProjectReference Include="..\EI.RP.DataServices\EI.RP.DataServices.csproj" />
+    <ProjectReference Include="..\Ei.Rp.DomainErrors\Ei.Rp.DomainErrors.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+  </ItemGroup>
+
+</Project>

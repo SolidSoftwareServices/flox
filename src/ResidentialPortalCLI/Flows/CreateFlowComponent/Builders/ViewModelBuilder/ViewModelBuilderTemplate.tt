@@ -1,0 +1,43 @@
+﻿<#@ template language="C#" #>
+using System.Linq;
+using System.Threading.Tasks;
+using EI.RP.CoreServices.Cqrs.Queries;
+using EI.RP.CoreServices.System.Paging;
+using EI.RP.UiFlows.Core.Flows.Screens.Models;
+using EI.RP.UiFlows.Mvc.Components;
+
+namespace <#=this.Options.Namespace()#>
+{
+	internal class ViewModelBuilder : IComponentViewModelBuilder<InputModel, ViewModel>
+	{
+		private readonly IDomainQueryResolver _domainQueryResolver;
+
+		public ViewModelBuilder(IDomainQueryResolver queryResolver)
+		{
+			_domainQueryResolver = queryResolver;
+		}
+
+		public async Task<ViewModel> Resolve(InputModel componentInput, UiFlowScreenModel screenModelContainingTheComponent = null)
+		{
+			var result = new ViewModel
+			{
+                SampleProperty=componentInput.SampleInputValue,
+<# if (this.Options.IsPageable ) { #>
+
+				NumberOfPageLinks = componentInput.NumberPagingLinks,
+				IsPagingEnabled = componentInput.IsPagingEnabled,
+                Paging = componentInput.Collection
+					.Select(x =>
+						new ViewModel.Row
+						{
+							RowSampleProperty = "TheRowPropertyValue,
+							
+						})
+					.ToPagedData(componentInput.PageSize, componentInput.PageIndex, componentInput.IsPagingEnabled)
+<# } #> 
+				
+			};
+			return result;
+		}
+	}
+}

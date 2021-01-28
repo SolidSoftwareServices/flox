@@ -1,0 +1,44 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.MeterReadings.Steps.ShowMeterReadingStatus.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        MeterReadingHistory = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.MeterReadingHistory.Component>(PageComponent.MeterReadingHistory, 
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.MeterReadingHistory.InputModel
+        {
+            NumberPagingLinks = 4,
+            AccountNumber = Model.AccountNumber,
+            ContainedInFlowType = ResidentialPortalFlowType.MeterReadings,
+            IsPagingEnabled = true,
+            PageIndex = Model.PageIndex,
+            PageSize = 8
+        });
+}
+
+<main class="help" data-page="meter-reading-success">
+    <div class="container">
+        <div class="portal-details">
+            <div class="portal-details__form meter-reading">
+                <h2 data-testid="meter-reading-success-title">Thank you</h2>
+                <p>Thanks for submitting your meter reading.</p>
+                <flow-action data-testid="meter-reading-back"
+                             action-type="StartFlow"
+                             flow-name="@ResidentialPortalFlowType.Accounts"
+                             flow-location="NotContained"
+                             class="btn btn-xs btn-xs-back green">Back to My Accounts</flow-action>
+            </div>
+            @await componentPreLoader.Render(PageComponent.MeterReadingHistory)
+        </div>
+    </div>
+</main>

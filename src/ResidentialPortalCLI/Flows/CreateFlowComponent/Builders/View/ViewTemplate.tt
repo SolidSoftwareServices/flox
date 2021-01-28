@@ -1,0 +1,23 @@
+﻿<#@ template language="C#" #>
+@using <#=this.Options.Namespace()#>
+
+@model ViewModel
+<br/>
+<b>SampleProperty value:</b> @Model.SampleProperty
+
+<# if (this.Options.IsPageable ) { #>
+   @foreach (var item in Model.Paging.CurrentPageItems)
+    {
+        <tr>Row found</tr>
+    }
+      @if (Model.Paging.TotalPages > 1)
+	{
+	    <div class="pagination pagination_right" data-testid="search-result-pages">
+            @await Html.DisplayContainerFlowLinkPaging("Paging", Model.ScreenModel, ResidentialPortalFlowType.<#=this.Options.FlowName#>, Model.Paging.PageIndex, Model.Paging.TotalPages, Model.Paging.PageSize, Model.NumberOfPageLinks,
+                index => Url.Action(nameof(IUiFlowController.Init), ResidentialPortalFlowType.<#=this.Options.FlowName#>.ToString(), new {pageIndex = index}))
+        </div>
+	    <br/>
+	    <br/>
+	}
+<# }  #>
+  

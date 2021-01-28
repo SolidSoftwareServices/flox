@@ -1,0 +1,42 @@
+﻿@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.InputDirectDebitDetails.ScreenModel
+
+<div class="modal modal-lg fade" id="modal-skip-dd-setup" tabindex="-1" role="dialog" aria-labelledby="modal-skip-dd-setup-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="modal-title modal-title-wider" id="modal-skip-dd-setup-label">Are you sure?</h1>
+            </div>
+            <div class="modal-body modal-body--text text-center">
+                <p>Direct Debit payments will not be set up</p>
+            </div>
+            <div class="modal-footer no-flex">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    @await Html.SecureHiddenForAsync(x => x.ViewMode, false)
+                    <flow-action id="manualPaymentConfirmButton"
+                                 class="btn btn-secondary"
+                                 trigger-event="@InputDirectDebitDetails.StepEvent.ManualPaymentSetupCompleted"
+                                 onclick="disableValidations();">Yes, I'm sure</flow-action>
+                }
+                <br/>
+                <button type="button" class="btn btn-xs btn-xs--no-icon text-uppercase mt-5" data-dismiss="modal">Go Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function disableValidations() {
+        for (var i = 0; i < document.forms.length; i++) {
+            document.forms[i].onsubmit = '';
+        }
+    }
+</script>

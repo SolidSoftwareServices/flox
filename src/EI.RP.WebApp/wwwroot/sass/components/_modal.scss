@@ -1,0 +1,619 @@
+//       SUMMARY TABLE
+// =========================
+// 1. Global
+// 2. Comparison Modal
+// =========================
+
+// 1. Global
+// =========================
+
+.modal {
+  filter: drop-shadow(0px 0px 100px rgba(0, 0, 0, 0.1));
+  border: none;
+  width: 37rem;
+  max-height: 100vh;
+  background: url(../img/popover.svg) no-repeat bottom center;
+  background-size: contain;
+  z-index: 1080;
+
+  hr {
+    border-top: 1px solid #e8e8e8;
+    width: 100%;
+  }
+
+  @include breakpoint(992px) {
+    max-height: 80vh;
+  }
+
+  &-dialog {
+    margin: 0;
+    @include transform(translateZ(0) !important);
+  }
+
+  &-header {
+    border: none;
+    background-color: $blue;
+    padding-left: 2rem;
+
+    .close {
+      color: #fff;
+      opacity: 1;
+      margin-right: 0;
+      font-size: 2rem;
+      margin-top: -0.6rem;
+    }
+
+    &--block {
+      display: block;
+      padding-top: 4rem !important;
+    }
+  }
+
+  &-footer {
+    border: none;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    padding-top: 0;
+    position: relative;
+
+    &.no-flex {
+      display: block;
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -0.2rem;
+      left: 0;
+      height: 2rem;
+      background-color: #fff;
+      width: 100%;
+    }
+  }
+
+  &-content {
+    border: none;
+  }
+
+  &-title {
+    color: #fff;
+    font-family: "Helvetica";
+    font-size: 2.2rem;
+  }
+
+  &-body {
+    background-color: #fff;
+    padding-left: 2rem;
+    border: none;
+    @include transform(translateY(-1px));
+
+    p {
+      color: #63666a;
+    }
+
+    &--text {
+      padding-bottom: 5rem !important;
+      padding-left: 15% !important;
+      padding-right: 15% !important;
+
+      &__narrow {
+        padding-bottom: 5rem !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      & a {
+        color: $green;
+      }
+
+      & p {
+        color: $grey;
+      }
+    }
+  }
+
+  &-lg {
+    width: 80%;
+    left: 0;
+    right: 0;
+    height: auto;
+    padding: 0 !important;
+    margin: auto;
+    top: 50%;
+    @include transform(translateY(-50%));
+
+    @include breakpoint(991px) {
+      width: 90%;
+    }
+
+    .modal-dialog {
+      max-width: 100%;
+    }
+
+    .modal-title {
+      text-align: left;
+      color: $blue;
+      font-family: "StRyde";
+      font-size: 4.5rem;
+      max-width: 500px;
+      margin: 4rem auto;
+      line-height: 5.5rem;
+
+      &__smaller {
+        margin: 6.5rem auto 2rem auto;
+        padding-bottom: 2rem;
+        max-width: 512px;
+        width: 100%;
+        font-size: 2.8rem;
+        border-bottom: 0.1rem solid #e8e8e8;
+        display: flex;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      &__underline {
+        margin: 6.5rem auto 2rem auto;
+        padding-bottom: 2rem;
+        max-width: 512px;
+        width: 100%;
+        border-bottom: 0.1rem solid #e8e8e8;
+        display: flex;
+        justify-content: center;
+        line-height: 1;
+        text-align: center;
+      }
+
+      @include breakpoint(991px) {
+        font-size: 3.2rem;
+        line-height: 3.5rem;
+        margin: 2rem auto;
+        max-width: 90%;
+
+        &__smaller {
+          margin: 2rem auto 2rem auto;
+          padding-bottom: 2rem;
+          max-width: 472px;
+          width: 100%;
+          font-size: 2.8rem;
+          line-height: 1;
+        }
+      }
+
+      &-wider {
+        max-width: 90%;
+      }
+    }
+
+    .modal-body {
+      padding: 0 20%;
+
+      & .narrow {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+      }
+
+      img {
+        display: block;
+      }
+
+      @include breakpoint(991px) {
+        padding: 0 5%;
+        text-align: center;
+
+        & .narrow {
+          padding-top: 0;
+          padding-right: 2rem !important;
+          padding-bottom: 0;
+          padding-left: 2rem !important;
+        }
+
+        img {
+          max-width: 30%;
+          margin: 0 auto;
+        }
+      }
+
+      h3 {
+        font-family: "HelveticaBold";
+        font-size: 2rem;
+        color: $blue;
+        font-weight: 400;
+        line-height: 3rem;
+
+        @include breakpoint(600px) {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+        }
+
+        @media screen and (min-width: 992px) {
+          &.bottom-title {
+            position: absolute;
+            bottom: 1rem;
+          }
+        }
+      }
+
+      p {
+        font-size: 2rem;
+
+        @include breakpoint(600px) {
+          font-size: 1.6rem;
+          line-height: 1.8rem;
+        }
+      }
+
+      &__small {
+        h3 {
+          color: $black;
+          font-size: 1.8rem;
+          line-height: 2rem;
+        }
+
+        p {
+          font-size: 1.6rem;
+          line-height: 2.4rem;
+        }
+      }
+
+      &__smallest {
+        p {
+          font-size: 1.4rem;
+          line-height: 2rem;
+        }
+      }
+    }
+
+    .modal-footer {
+      padding-bottom: 5rem;
+      text-align: center;
+
+      &__your-plan {
+        text-align: left;
+        border-top: 1px solid #e8e8e8;
+
+        @include breakpoint(991px) {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      & > .row {
+        align-items: center;
+      }
+
+      .btn {
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+
+        @include breakpoint(320px) {
+          font-size: 1.4rem;
+        }
+      }
+
+      @include breakpoint(991px) {
+        padding-bottom: 3rem;
+
+        &:before {
+          height: 2rem;
+        }
+      }
+    }
+
+    .modal-header {
+      background-color: #fff;
+      padding: 0;
+      border-radius: 0;
+
+      @include breakpoint(991px) {
+        padding-top: 3rem;
+
+        &-xs {
+          padding: 3rem 2rem 0 2rem;
+        }
+      }
+    }
+
+    .modal-contact {
+      & img {
+        margin: 0 auto 3rem auto;
+        min-width: 50px;
+        max-width: 60px;
+        display: block;
+      }
+
+      & a {
+        color: $green;
+      }
+
+      & .btn.btn-xs {
+        color: $green;
+      }
+
+      & .col-sm:first-child {
+        border-right: 1px solid #e8e8e8;
+      }
+
+      @include breakpoint(576px) {
+        margin: 2rem auto;
+        max-width: 90%;
+
+        & .col-sm:first-child {
+          padding-bottom: 2rem;
+          border-right: none;
+          border-bottom: 1px solid #e8e8e8;
+        }
+      }
+    }
+
+    .close {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      font-size: 4rem;
+      background-color: #777777;
+      position: absolute;
+      top: 3rem;
+      right: 3rem;
+      z-index: 10;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 1.4rem;
+        width: 1.4rem;
+        background: url(../img/icon-close.svg) no-repeat center;
+        background-size: contain;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%) translateZ(0);
+      }
+
+      span {
+        display: none;
+      }
+
+      @include breakpoint(991px) {
+        height: 3rem;
+        width: 3rem;
+        font-size: 2rem;
+        top: 2rem;
+        right: 2rem;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.ie .modal {
+  box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.15);
+}
+
+body.modal-open {
+  overflow: hidden;
+
+  //   @include breakpoint(1024px) {
+  //   	position: fixed;
+  //   }
+}
+
+// 2. Global
+// =========================
+#comparisonModal.modal {
+  max-width: 480px;
+  padding-bottom: 3rem !important;
+  background: url("../img/popover-grey.svg") no-repeat bottom center;
+  background-size: contain;
+}
+#comparisonModal .modal-header .close {
+  font-family: none, serif;
+  font-size: 22px;
+  width: 35px;
+  height: 35px;
+}
+#comparisonModal .modal-title {
+  font-size: 28px;
+  margin-bottom: 0;
+}
+#comparisonModal .modal-body.modal-body--text {
+  padding-bottom: 0 !important;
+  transform: none;
+}
+#comparisonModal .modal-footer {
+  padding-top: 25px;
+  background-color: rgb(242, 242, 242);
+}
+#comparisonModal .modal-footer:before {
+  all: initial;
+}
+#comparisonModal .modal-footer .message {
+  font-family: "Helvetica", sans-serif;
+  font-size: 14px;
+  color: #525252;
+}
+
+.stack-on-mobile {
+  @include breakpoint(991px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    > div {
+      text-align: center;
+      &:nth-child(1) {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.modal-form {
+  @include breakpoint(991px) {
+    & .narrow {
+      padding-top: 0;
+      padding-right: 2rem !important;
+      padding-bottom: 0;
+      padding-left: 2rem !important;
+    }
+  }
+
+  .form-check {
+    padding-top: 3rem;
+    max-width: 90%;
+
+    .custom-control-label {
+      line-height: 2rem;
+    }
+
+    &.form-radio {
+      padding-top: 0;
+    }
+  }
+
+  .custom-control-label.form-info::before,
+  .custom-control-label.form-info::after {
+    top: 0.3rem;
+  }
+
+  .form-radio {
+    margin-bottom: 0;
+
+    .custom-radio .custom-control-label::before {
+      top: 0.5rem;
+    }
+
+    .custom-radio .custom-control-label::after {
+      top: 0.1rem;
+    }
+
+    label {
+      margin-left: 0;
+    }
+
+    & > label {
+      display: block;
+      margin-bottom: 2rem;
+    }
+
+    .custom-radio {
+      margin-bottom: 1.5rem;
+
+      label {
+        padding-left: 3rem;
+      }
+    }
+
+    .custom-control-label {
+      font-family: "HelveticaLight";
+      font-size: 1.6rem;
+      color: #525252;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .form-number {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    .form-info {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 1.5rem;
+      line-height: 1;
+    }
+
+    span:last-child {
+      font-family: "Helvetica";
+      font-size: 1.6rem;
+      display: inline-block;
+      vertical-align: middle;
+      color: #000;
+      line-height: 2.6rem;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    & button:first-child {
+      margin-right: 2rem;
+    }
+
+    @include breakpoint(991px) {
+      flex-direction: column;
+
+      & button:first-child {
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  label {
+    font-family: "HelveticaBold";
+    font-size: 1.6rem;
+    color: #232323;
+    line-height: 2.6rem;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 3rem;
+    letter-spacing: 0.5px;
+    color: #525252;
+    font-family: "HelveticaLight";
+  }
+
+  .form-group {
+    margin-top: 2rem;
+
+    &.no-margin {
+      margin-bottom: 0;
+
+      .form-control {
+        margin-bottom: 0;
+      }
+
+      & + .form-check {
+        padding-top: 0;
+      }
+    }
+  }
+
+  .form-control {
+    border-radius: 4px;
+    margin-bottom: 2.4rem;
+
+    &.force-border {
+      border-radius: 4px !important;
+      border: 1px solid rgba(102, 102, 102, 0.5) !important;
+    }
+  }
+}
+
+.modal.cancel-screen {
+  & .modal-footer {
+    &:before {
+      display: none;
+    }
+
+    padding-right: 0;
+    display: flex;
+
+    & .btn:first-child {
+      margin-right: 3rem;
+    }
+
+    @include breakpoint(576px) {
+      flex-direction: column;
+
+      & .btn:first-child {
+        margin-right: 0;
+        margin-bottom: 3rem;
+      }
+    }
+  }
+}

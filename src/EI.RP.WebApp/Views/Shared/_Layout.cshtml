@@ -1,0 +1,39 @@
+﻿@using EI.RP.WebApp.Models.Shared
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+    @await Html.PartialAsync("Partials/_MetaTags")
+    @await Html.PartialAsync("Partials/_FavIcons")
+    <title>@ViewData["Title"] | Electric Ireland</title>
+    @await Html.PartialAsync("Partials/_Styles")
+    @await RenderSectionAsync("styles", false)
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerScripts.cshtml")
+    @await Html.PartialAsync("Partials/_CookiesPolicyScripts")
+    @await Html.PartialAsync("Partials/_StartupScripts")
+    @await RenderSectionAsync("startupScripts", false)
+</head>
+<body class="with-footer" data-layout="logged-out" data-layout-type="smart">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerNoScripts.cshtml")
+    @await Html.PartialAsync("Partials/_LoadingOverlay")
+    <main class="page-login">
+        <div class="row page-login__content">
+            <div class="col-lg-6 page-login__wrapper">
+                <a asp-controller="Login" asp-action="Login" class="logo">
+                    <img id="logoImg" src="~/img/logo.svg" alt="electric ireland" />
+                </a>
+                <div class="row h-100">
+                    <div class="col-10 offset-1 col-xl-8 offset-xl-2 align-self-center">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+            @await RenderSectionAsync("images", false)
+        </div>
+    </main>
+    @await RenderSectionAsync("modals", false)
+    @await Html.PartialAsync("Partials/_DevTools")
+    @await Html.PartialAsync("Partials/_Footer", new FooterModel { CssClass = "portal-footer--login" })
+    @await Html.PartialAsync("Partials/_Scripts")
+    @await RenderSectionAsync("scripts", false)
+</body>
+</html>

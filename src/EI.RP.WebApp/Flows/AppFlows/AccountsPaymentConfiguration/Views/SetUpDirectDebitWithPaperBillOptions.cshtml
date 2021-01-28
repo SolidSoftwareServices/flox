@@ -1,0 +1,160 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.SetupDirectDebitWithPaperBillOptions.BillingAndPaymentOptionsData
+
+<main class="help" data-page="direct-debit-settings">
+    <div class="container">
+        <div class="portal-details">
+            <h2>Billing Preferences</h2>
+            <hr aria-hidden="true"/>
+
+            @using (await Html.BeginUiFlowFormAsync(Model))
+            {
+                @if (Model.PaymentMethod == PaymentMethodType.DirectDebit || Model.PaymentMethod == PaymentMethodType.Equalizer)
+                {
+                    <p>You are currently paying by Direct Debit.</p>
+                    <flow-action class="btn btn-secondary"
+                                 data-testid="direct-debit-settings-edit"
+                                 trigger-event="@SetupDirectDebitWithPaperBillOptions.StepEvent.SetUpDirectDebit">Edit Direct Debit</flow-action>
+                }
+                else
+                {
+                    <p>By setting up Direct Debit you will <strong>save 5%</strong> on your bills.</p>
+                    <flow-action class="btn btn-secondary"
+                                 data-testid="direct-debit-settings-set-up"
+                                 trigger-event="@SetupDirectDebitWithPaperBillOptions.StepEvent.SetUpDirectDebit">Set Up Direct Debit</flow-action>
+                    if (Model.PaymentMethod == PaymentMethodType.Equalizer)
+                    {
+                        <h2>Equal Monthly Payments</h2>
+                        <hr aria-hidden="true"/>
+                        <p>Spread the cost of your energy with our fixed monthly Direct Debit.</p>
+                        <flow-action class="btn btn-xs"
+                                     data-testid="direct-debit-settings-equalizer-find-out-more"
+                                     trigger-event="@null">Find out more</flow-action>
+                    }
+                }
+            }
+
+            <h2 class="mt-5">Paperless Billing</h2>
+            <hr />
+
+            @if (Model.SwitchOnUpdateSuccess)
+            {
+                <div class="alert alert-success" data-testid="direct-debit-settings-paperless-alert">
+                    You have turned on Paperless Billing, your savings will be applied within 12 days.
+                    <a href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" target="_blank">Read T&Cs</a>
+                </div>
+            }
+            else if (Model.SwitchOffUpdateSuccess)
+            {
+                <div class="alert alert-success" data-testid="direct-debit-settings-paperless-alert">
+                    You have turned off Paperless Billing, you will no longer receive the 0.5% saving and your bills will be sent via post.
+                </div>
+            }
+
+            @if (!Model.HasPaperBill)
+            {
+                <p><strong data-testid="direct-debit-settings-paperless-status">You are currently on paperless billing.</strong></p>
+                <p>If you turn off Paperless Billing you will no longer receive the 0.5% saving and your bills will be sent via post.</p>
+            }
+            else
+            {
+                <p><strong data-testid="direct-debit-settings-paperless-status">Paperless billing is currently off.</strong></p>
+                <p>If you turn on Paperless Billing you will receive a 0.5% saving.</p>
+            }
+
+            <div class="toggle-button__container">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    <input type="radio"
+                           name="@SharedSymbol.FlowEventFormFieldName"
+                           data-testid="direct-debit-settings-paperless-toggle-on"
+                           id="toggle-on"
+                           value="@SetupDirectDebitWithPaperBillOptions.StepEvent.SwitchOffPaperBill"
+                           onclick="this.form.submit()" 
+                           @(Model.HasPaperBill ? "" : "checked" )>
+                    <label class="toggle-button toggle-left" id="bpo_toggle_on" for="toggle-on"><span>On</span></label>
+
+                    <input type="radio"
+                           name=@SharedSymbol.FlowEventFormFieldName
+                           data-testid="direct-debit-settings-paperless-toggle-off"
+                           id="toggle-off"
+                           data-toggle="modal" 
+                           data-target="#paperless-confirmation"
+                           @(Model.HasPaperBill ? "checked" : "")>
+                    <label class="toggle-button toggle-right" for="toggle-off" data-toggle="modal" data-target="#paperless-confirmation"><span>Off</span></label>
+                }
+            </div>
+
+            <div class="equaliser-help mt-5 mb-5">
+                <h2 class="mb-0 mt-0">Other payment options</h2>
+                <p class="mb-1 mt-4"><strong>Electronic Fund Transfers</strong></p>
+                <p class="mb-1 mt-1">You can set up an Electronic Fund Transfer with your bank using the following details:</p>
+                <p class="mb-1 mt-1">
+                    <strong>Your Electric Ireland Account Number <br></strong>
+                    <strong>IBAN:</strong> IE36AIBK93208681900087 <br>
+                    <strong>BIC:</strong> AIBKIE2D
+                </p>
+                <p class="mb-1 mt-4"><strong>Cheque</strong></p>
+                <p class="mb-1 mt-1">Please send your cheque (made payable to Electric Ireland) and your completed Bank Giro Credit Transfer slip (attached to the bottom of your bill) to:</p>
+                <p class="mb-1 mt-1">
+                    Electric Ireland<br />
+                    PO Box 323<br />
+                    Little Island<br />
+                    Cork
+                </p>
+                <a class="mb-0 mt-4" href="https://www.electricireland.ie/residential/help/billing/how-can-i-pay-my-electricity-and-gas-bill-from-electric-ireland">Find out other ways to pay your bill</a>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@using (await Html.BeginUiFlowFormAsync(Model))
+{
+    <div id="paperless-confirmation" class="modal modal-lg fade" tabindex="-1" aria-labelledby="paperless-title" role="dialog" aria-hidden="true" data-trap-focus>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h1 class="modal-title modal-title-wider" id="paperless-title">Are you sure?</h1>
+                </div>
+                <div class="modal-body modal-body--text">
+                    <p class="text-center mb-3">By turning off Paperless Billing you <strong>will no longer receive the 0.5% saving.</strong></p>
+                    <p class="text-center mb-0">
+                        You can continue to login to Your Account Online, however your bills will be sent by post.
+                        Otherwise, your price plan terms and conditions will not change.
+                        <a href="https://electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" target="_blank"> Read T&Cs</a>
+                    </p>
+                </div>
+                <div class="modal-footer no-flex">
+                    <button type="button" class="btn btn-primary btn-lg paperless-reverse mb-3" data-dismiss="modal">No, keep my savings</button><br />
+                    <flow-action class="btn btn-xs btn-xs--no-icon text-uppercase"
+                                 data-testid="direct-debit-settings-paperless-turn-off-confirm"
+                                 trigger-event=@SetupDirectDebitWithPaperBillOptions.StepEvent.SwitchOnPaperBill><p>Yes I'm sure, continue</p></flow-action>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    "use strict;"
+
+    /***** DOM ready */
+
+    document.addEventListener('DOMContentLoaded', function (event) {
+        subNavigation.Init();
+        document
+            .querySelector('.paperless-reverse')
+            .addEventListener('click', function (evt) {
+                document.getElementById('toggle-on').checked = true;
+            }, false);
+    }, false);
+</script>

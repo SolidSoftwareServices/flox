@@ -1,0 +1,31 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.InputDirectDebitDetails.ScreenModel
+
+<div class="modal modal-lg fade" id="modal-cancel-dd-setup" tabindex="-1" role="dialog" aria-labelledby="modal-cancel-dd-setup-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="modal-title modal-title-wider" id="modal-cancel-dd-setup-label">Are you sure?</h1>
+            </div>
+            <div class="modal-body modal-body--text text-center">
+                <p>Direct Debit payments will not be set up</p>
+            </div>
+            <div class="modal-footer no-flex">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    <flow-action id="cancelDirectDebitSetupYesImSure"
+                                 class="btn btn-secondary"
+                                 trigger-event="@InputDirectDebitDetails.StepEvent.CancelDirectDebitSetup">Yes, I'm sure</flow-action>
+                }
+                <br/>
+                <button type="button" class="btn btn-xs btn-xs--no-icon text-uppercase mt-5" data-dismiss="modal">Go Back</button>
+            </div>
+        </div>
+    </div>
+</div>

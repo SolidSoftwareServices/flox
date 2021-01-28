@@ -1,0 +1,82 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step5ReviewAndComplete.ScreenModel
+
+@{
+    AccountsPaymentConfigurationResult.AccountConfigurationInfo primaryAccount = Model.PaymentInfo.First(x => !x.IsNewAccount);
+    AccountsPaymentConfigurationResult.AccountConfigurationInfo secondaryAccount = null;
+    if (Model.PaymentInfo.Count() > 1)
+    {
+        secondaryAccount = Model.PaymentInfo.Last(x => x != primaryAccount);
+    }
+}
+
+<h2 id="accountDetailsHeader">Account Details</h2>
+<div class="review">
+    <div class="row">
+        @if (Model.MovingHouseType.IsOneOf(MovingHouseType.MoveElectricity, MovingHouseType.MoveGas, MovingHouseType.MoveElectricityAndGas, MovingHouseType.MoveElectricityAndCloseGas))
+        {
+            <div class="col-lg-6">
+                <h2 id="primaryAccountType">@primaryAccount.Account.ClientAccountType</h2>
+                <p id="primaryAccountNumber">Your @primaryAccount.Account.ClientAccountType account @primaryAccount.Account.AccountNumber will be moved to your new property address.</p>
+            </div>
+            @if (Model.MovingHouseType == MovingHouseType.MoveElectricityAndCloseGas)
+            {
+                var accountNumber = Model.SecondaryAccountNumber;
+                <div class="col-lg-6">
+                    <h2 id="gasAccountType">Gas</h2>
+                    <p id="gasAccountNumber">You are closing your Gas account @accountNumber.</p>
+                    <flow-action flow-location="SameContainerAsMe"
+                                 action-type="StartFlow"
+                                 flow-name="@ResidentialPortalFlowType.MovingHouse"
+                                 flow-parameters="@(new MovingHouseInput { InitiatedFromAccountNumber = Model.InitiatedFromAccountNumber })"
+                                 id="btnStartOver"
+                                 class="btn btn-secondary">Start Over</flow-action>
+                </div>
+            }
+            else
+            {
+                @if (secondaryAccount != null)
+                {
+                    <div class="col-lg-6">
+                        <h2 id="secondaryAccountType">@secondaryAccount.Account.ClientAccountType</h2>
+                        <p id="secondaryAccountNumber">Your @secondaryAccount.Account.ClientAccountType account @secondaryAccount.Account.AccountNumber will be moved to your new property address.</p>
+                    </div>
+                }
+            }
+        }
+        else if (Model.MovingHouseType.IsOneOf(MovingHouseType.MoveElectricityAndAddGas, MovingHouseType.MoveGasAndAddElectricity))
+        {
+            var electricityAccount = Model.PaymentInfo.First();
+            var gasAccount = Model.PaymentInfo.Last();
+
+            <div class="col-lg-6">
+                @if (electricityAccount?.Account == null)
+                {
+                    <h2 id="electricityAccountType">Electricity</h2>
+                    <p id="newElectricityAccountText">We are creating your new account and in the next four weeks you'll receive your account number.</p>
+                }
+                else
+                {
+                    <h2 id="electricityAccountType">@electricityAccount.Account.ClientAccountType</h2>
+                    <p id="electricityAccountNumber">Your @electricityAccount.Account.ClientAccountType account @electricityAccount.Account.AccountNumber will be moved to your new property address.</p>
+                }
+            </div>
+            <div class="col-lg-6">
+                @if (gasAccount?.Account == null)
+                {
+                    <h2 id="gasAccountType">Gas</h2>
+                    <p id="newGasAccountText">We are creating your new account and in the next four weeks you'll receive your account number.</p>
+                }
+                else
+                {
+                    <h2 id="gasAccountType">@gasAccount.Account.ClientAccountType</h2>
+                    <p id="gasAccountNumber">Your @gasAccount.Account.ClientAccountType account @gasAccount.Account.AccountNumber will be moved to your new property address.</p>
+                }
+            </div>
+        }
+    </div>
+</div>

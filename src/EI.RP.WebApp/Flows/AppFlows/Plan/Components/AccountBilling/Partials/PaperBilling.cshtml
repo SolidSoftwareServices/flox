@@ -1,0 +1,142 @@
+@using EI.RP.WebApp.Flows.AppFlows.Plan.Components.AccountBilling
+@using EI.RP.UiFlows.Mvc
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+
+@model ViewModel
+
+<div class="plan-billing-paperless-billing mb-5">
+    <div class="row mb-4">
+        <div class="col-6 mb-0">
+            <h3 id="paperless-billing-label" class="m-0" data-testid="paperless-billing-heading">Paperless billing</h3>
+        </div>
+        <div class="col-6 text-right">
+            @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel, htmlId: "paperless-form"))
+            {
+                @Html.Hidden("ShouldValidateMeterData", false)
+                <input type="checkbox"
+                       data-testid="paperless-billing-toggle"
+                       name="@SharedSymbol.FlowEventFormFieldName"
+                       value="@Model.PaperBill.SwitchOnPaperBillEvent"
+                       @(!Model.PaperBill.HasPaperBill || Model.IsContractPending ? "" : "checked")
+                       data-toggle="toggle"
+                       aria-labelledby="paperless-billing-label"
+                       @(Model.IsContractPending ? string.Empty : "data-paperless-toggle")
+                       @(Model.IsContractPending ? "disabled" : string.Empty)>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 mb-0">
+            <p class="m-0" data-testid="paperless-billing-text">
+                Paperless billing adds 0.5% discount on your energy prices. Bills are delivered by email and are accessible in the
+                @if (Model.IsContractPending)
+                {
+                    <span data-testid="paperless-billing-nolink">payments section</span>
+                }
+                else
+                {
+                    <flow-action action-type="StartFlow"
+                                 data-testid="paperless-billing-link"
+                                 flow-location="SameContainerAsMe"
+                                 flow-name="@ResidentialPortalFlowType.AccountsPaymentConfiguration"
+                                 flow-parameters="@(new AccountsPaymentConfigurationFlowInput
+                                                                                                     {
+                                                                                                         StartType = AccountsPaymentConfigurationFlowStartType.ShowHistory,
+                                                                                                         AccountNumber = Model.AccountNumber
+                                                                                                     })">payments section</flow-action>
+                }
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="paperless-confirmation" class="modal modal-lg fade modal-portal modal-plan" tabindex="-1" role="dialog" aria-labelledby="paperless-title" aria-hidden="true" data-paperless-modal data-testid="paper-billing-confirmation" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="paperless-title" data-testid="paper-billing-confirmation-heading">Are you sure?</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-paperless-reverse>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p data-testid="paper-billing-confirmation-text">
+                    <strong>By turning off Paperless Billing you will no longer receive the 0.5% saving.</strong> You can continue to login to Your Account Online, however your bills will be sent by post.
+                    @if (Model.PaperBill.IsSmartAccount && Model.MonthlyBilling.IsMonthlyBillingActive)
+                    {
+                        @:Your electricity bill will also be issued every two months instead of monthly, and you'll no longer be able to select a billing date of your choice.
+                    } Otherwise, your price plan terms and conditions will not change. <a href="https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" target="_blank">Read T&Cs</a>.
+                </p>
+                <p class="w-100">
+                    <button class="btn btn-primary" data-dismiss="modal" data-paperless-reverse data-testid="paper-billing-confirmation-no-button">No, keep my savings</button>
+                </p>
+            </div>
+            <div class="modal-footer no-flex">
+                @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel, htmlId: "paperless-form"))
+                {
+                    @Html.Hidden("ShouldValidateMeterData", false)
+                    <flow-action class="btn btn-xs green"
+                                 data-testid="paper-billing-confirmation-yes-button"
+                                 trigger-event="@Model.PaperBill.SwitchOffPaperBillEvent">
+                        Yes I'm sure, continue
+                    </flow-action>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    'use strict';
+    document.addEventListener('DOMContentLoaded',
+        function (event) {
+            var paperless = {};
+            paperless.toggle = {
+                element: $('[data-paperless-toggle]'),
+                Bind: function () {
+                    var that = this;
+                    if (that.element) {
+                        that.element.on('change',
+                            function (e) {
+                                if (that.element.prop('checked') === false) {
+                                    $('[data-paperless-modal]').modal('show');
+                                }
+                                else {
+                                    that.element.closest('form').submit();
+                                    loadingOverlay.overlay.Show();
+                                }
+                            });
+                    }
+                },
+                Init: function () {
+                    this.Bind();
+                }
+            };
+            paperless.modal = {
+                element: $('[data-paperless-reverse]'),
+                toggle: undefined,
+                Bind: function () {
+                    var that = this;
+                    if (that.element) {
+                        that.element.on('click',
+                            function (e) {
+                                that.toggle.element.bootstrapToggle('on', true);
+                            });
+                    }
+                },
+                Init: function (toggleObj) {
+                    this.toggle = toggleObj;
+                    this.Bind();
+                }
+            };
+            paperless.Init = function () {
+                this.toggle.Init();
+                this.modal.Init(this.toggle);
+            };
+            paperless.Init();
+        },
+        false);
+</script>

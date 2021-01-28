@@ -1,0 +1,162 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Flows.AppFlows
+
+@model EI.RP.WebApp.Flows.AppFlows.MeterReadings.Steps.SubmitMeterReading.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        MeterReadingHistory = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.MeterReadingHistory.Component>(PageComponent.MeterReadingHistory, 
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.MeterReadingHistory.InputModel
+        {
+            NumberPagingLinks = 4,
+            AccountNumber = Model.AccountNumber,
+            ContainedInFlowType = ResidentialPortalFlowType.MeterReadings,
+            IsPagingEnabled = true,
+            PageIndex = Model.PageIndex,
+            PageSize = 8
+        });
+}
+
+<main class="help" data-page="meter-reading">
+    <div class="container">
+        <div class="portal-details">
+            <h2 data-testid="meter-reading-title">Meter Reading</h2>
+            <hr aria-hidden="true" />
+            <div class="portal-details__item no-border">
+                <p class="portal-details__item__label">
+                    @(Model.AccountType == ClientAccountType.Gas ? "GPRN" : "MPRN")
+                </p>
+                <p class="portal-details__item__content">@Model.MeterPointRefNumber</p>
+            </div>
+            @await Html.PartialAsync($"./MeterReadingPartialViews/_SubmitMeterReading.cshtml", Model)
+            @await componentPreLoader.Render(PageComponent.MeterReadingHistory)
+        </div>
+    </div>
+</main>
+
+<div class="modal modal-lg fade modal-portal modal-portal-wider modal-portal-gas" id="modalMeterReadingTooltipGas" data-testid="meter-reading-how-do-i-read-gas-modal" tabindex="-1" role="dialog" aria-labelledby="accountLabel" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog">
+        <div class="modal-wrap">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Digital Meter</h1>
+                    <button type="button" class="close d-block d-lg-none" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p>Make note of the number, reading from left to right. Please ignore in red or surrounded by a red box.</p>
+                        <p>And remember, if you have night storage, you'll have two of these meters.</p>
+                        <p><img src="~/img/meter-3.jpg" alt="Standard Meter" /></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Reading a dial (clock) meter</h1>
+                    <button type="button" class="close d-none d-lg-block" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p>This meter displays a series of dials, as shown bellow. Read from left to right. If the pointer is halfway between two figures, use the lower figure. For example, if it is between 6 and 7, use 6. Or if the pointer is between 3 and 4, use 3. The reading on the image below is '1842'.</p>
+                        <p><img src="~/img/meter-4.jpg" alt="Standard Meter" /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" >
+            <a href="https://www.electricireland.ie/residential/help/meters/how-to-read-your-gas-meter"
+               class="btn btn-xs green"
+               target="_blank">
+                For other meters read our full FAQ
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-lg fade modal-portal modal-portal-wider" id="modalMeterReadingTooltipDayNight" data-testid="meter-reading-how-do-i-read-day-night-modal" tabindex="-1" role="dialog" aria-labelledby="accountLabel" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-wrap">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Day &amp; Night Meter</h1>
+                        <button type="button" class="close d-block d-lg-none" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>These meters may have numbers '1' and '2' or Roman numerals 'I' and 'II' referring to night and Day resepectively.</p>
+                            <p>Read from left to right ignoring the figure in red surrounded by a red box.</p>
+                            <p><img src="~/img/meter-1.jpg" alt="Standard Meter"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Standard Electronic Meter</h1>
+                        <button type="button" class="close d-none d-lg-block" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>You need to press blue button on the meter until 'Day' or 'Night' is visible on the screen. Then take reading from left to right, ignoring figures after the decimal point.</p>
+                            <p><img src="~/img/meter-2.jpg" alt="Standard Meter"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer no-flex">
+                <a data-test-id="for-other-meters-link" 
+                   href="https://www.electricireland.ie/residential/help/meters/how-to-read-your-electricity-meter" 
+                   class="btn btn-xs green" 
+                   target="_blank">
+                    For other meters read our full FAQ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-lg fade modal-portal" id="modalMeterReadingTooltip24h" data-testid="meter-reading-how-do-i-read-24h-modal" tabindex="-1" role="dialog" aria-labelledby="accountLabel" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Standard Meter</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>Make note of the number, reading from left to right. Please ignore in red or surrounded by a red box.</p>
+                    <p>And remember, if you have night storage, you'll have two of these meters.</p>
+                    <p><img src="~/img/meter.jpg" alt="Standard Meter" /></p>
+                </div>
+            </div>
+            <div class="modal-footer no-flex">
+                <a data-test-id="for-other-meters-link"
+                   href="https://www.electricireland.ie/residential/help/meters/how-to-read-your-electricity-meter"
+                   class="btn btn-xs green"
+                   target="_blank">
+                    For other meters read our full FAQ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

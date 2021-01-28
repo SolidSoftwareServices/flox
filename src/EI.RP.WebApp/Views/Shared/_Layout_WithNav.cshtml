@@ -1,0 +1,33 @@
+﻿@using EI.RP.WebApp.Models.Shared
+
+@model LayoutWithNavModel
+
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+    @await Html.PartialAsync("Partials/_MetaTags")
+    @await Html.PartialAsync("Partials/_FavIcons")
+    <title>@ViewData["Title"] | Electric Ireland</title>
+    @await Html.PartialAsync("Partials/_Styles")
+    @await RenderSectionAsync("styles", false)
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerScripts.cshtml")
+    @await Html.PartialAsync("Partials/_CookiesPolicyScripts")
+    @await Html.PartialAsync("Partials/_StartupScripts")
+    @await RenderSectionAsync("startupScripts", false)
+</head>
+<body class="with-footer" data-layout="logged-out-with-nav" data-layout-type="smart">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerNoScripts.cshtml")
+    @await Html.PartialAsync("Partials/_LoadingOverlay")
+    @await Html.PartialAsync("Partials/_MainNavigation", new MainNavigationModel { ShowBackToLogin = Model.ShowBackToLogin })
+    <div class="portal-main">
+        <div class="position-relative">
+            @RenderBody()
+        </div>
+    </div>
+    @await RenderSectionAsync("modals", false)
+    @await Html.PartialAsync("Partials/_DevTools")
+    @await Html.PartialAsync("Partials/_Footer", new FooterModel())
+    @await Html.PartialAsync("Partials/_Scripts")
+    @await RenderSectionAsync("scripts", false)
+</body>
+</html>

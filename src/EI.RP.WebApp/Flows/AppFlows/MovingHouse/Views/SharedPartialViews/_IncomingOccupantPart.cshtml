@@ -1,0 +1,58 @@
+﻿@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions.IIncommingOccupantPart
+
+<div class="form-group form-check form-radio">
+    <fieldset>
+        <legend>
+            <label data-testid="mimo-do-you-know-incoming-occupant" for="">Do you know the name and phone number of the incoming occupant or landlord or letting agent?</label>
+        </legend>
+        <div class="custom-control custom-radio">
+            @Html.RadioButtonFor(model => model.UserLettingFields.IncomingOccupant, true, new {id = "incomingOccupantYes", @class = "custom-control-input"})
+            @Html.Label("", "Yes", new {@for = "incomingOccupantYes", @class = "custom-control-label"})
+        </div>
+        <div class="custom-control custom-radio">
+            @Html.RadioButtonFor(model => model.UserLettingFields.IncomingOccupant, false, new {id = "incomingOccupantNo", @class = "custom-control-input"})
+            @Html.Label("", "No", new {@for = "incomingOccupantNo", @class = "custom-control-label"})
+        </div>
+    </fieldset>
+</div>
+
+<div id="incomingOccupantContainer" class="form-group form-toggle d-none">
+    <span class="form-info">Electric Ireland requires the below information to facilitate the continuity of supply.</span>
+    <div id="incomingOccupantName" class="w-100 form-group no-margin">
+        <label for="LettingAgentName">Name of incoming occupant or landlord or letting agent * <button type="button" class="portal-details__form__info__icon border-0" aria-label="Information about name of incoming occupant or landlord or letting agent" data-toggle="tooltip" data-placement="right" title="" data-original-title="Where known please provide the name of the incoming occupier."></button></label>
+        @Html.TextBoxFor(model => model.UserLettingFields.LettingAgentName, new { @class = "form-control w-100", id = "LettingAgentName", placeholder = "Name" })
+        @Html.ValidationMessageFor(model => model.UserLettingFields.LettingAgentName, null, new { @class = "alert alert-form alert-danger w-100", id = "lettingAgentNameError" })
+    </div>
+    <div id="incomingOccupantNumber" class="w-100 form-group no-margin">
+        <label for="LettingPhoneNumber">Phone number of incoming occupant or landlord or letting agent * <button type="button" class="portal-details__form__info__icon border-0" aria-label="Information about phone number of incoming occupant or landlord or letting agent" data-toggle="tooltip" data-placement="right" title="" data-original-title="Where known please provide the phone number of the incoming occupier."></button></label>
+        @Html.TextBoxFor(model => model.UserLettingFields.LettingPhoneNumber, new { @class = "form-control w-100", id = "LettingPhoneNumber", placeholder = "Phone Number" })
+        @Html.ValidationMessageFor(model => model.UserLettingFields.LettingPhoneNumber, null, new { @class = "alert alert-form alert-danger w-100", id = "lettingPhoneNumberError" })
+    </div>
+    <div id="incomingOccupantCheckedBox" class="form-group form-check">
+        <div class="custom-control custom-checkbox">
+            @Html.CheckBoxFor(model => model.UserLettingFields.OccupierDetailsAccepted, new { @class = "custom-control-input", id = "occupier" })
+            <label class="custom-control-label form-info" for="occupier">I confirm that I have a permission of incoming occupier to give their name and contact details to Electric Ireland, for the purpose of avoiding a potential disconnection charge to me and a reconnection fee to the incoming occupier. *</label>
+            @Html.ValidationMessageFor(model => model.UserLettingFields.OccupierDetailsAccepted, "", new { @class = "alert alert-form alert-danger w-100", id = "occupierDetailsAcceptedError" })
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ToggleIncomingOccupantVisibility($('#incomingOccupantYes')[0].checked);
+        $(document).on('change', '#incomingOccupantYes', function () {
+            ToggleIncomingOccupantVisibility(true);
+        });
+        $(document).on('change', "#incomingOccupantNo", function () {
+            ToggleIncomingOccupantVisibility(false);
+        });
+    });
+    function ToggleIncomingOccupantVisibility(visible) {
+        if (visible) {
+            $("#incomingOccupantContainer").removeClass("d-none");
+        }
+        else {
+            $("#incomingOccupantContainer").addClass("d-none");
+        }
+    }
+</script>

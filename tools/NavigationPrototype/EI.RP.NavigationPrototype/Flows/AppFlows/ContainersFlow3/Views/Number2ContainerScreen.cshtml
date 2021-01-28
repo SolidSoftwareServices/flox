@@ -1,0 +1,25 @@
+﻿@{
+	ViewData["Title"] = "Containers 3 sample Number2Step";
+}
+@model EI.RP.NavigationPrototype.Flows.AppFlows.ContainersFlow3.Steps.Number2ContainerScreen.ScreenModel
+<div id="Containers3FlowPage">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>Containers 3 sample Number2Step</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			BlueFlowInitialScreenValue input was:<b>@Model.BlueFlowSelectedInput</b>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			Loaded:<b>@Model.Step1Loaded</b>
+		</div>
+		<div class="col-md-3">
+			Now:<b>@DateTime.UtcNow</b>
+		</div>
+	</div>
+
+</div>

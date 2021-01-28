@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+using EI.RP.UiFlows.Core.Flows.Screens;
+namespace EI.RP.WebApp.Flows.AppFlows.<#=this.Options.FlowName#>.FlowDefinitions
+{
+    /// <summary>
+	///These are the steps of your flow(<#=this.Options.FlowName#>) each step is defined by an screen and a template
+    /// you can reach the step by defining a navigation from another step or the flow initializer
+	/// </summary>
+     public static class <#=this.Options.FlowName#>Step
+    {
+	}
+}
+

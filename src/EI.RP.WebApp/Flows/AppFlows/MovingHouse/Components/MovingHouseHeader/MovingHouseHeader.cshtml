@@ -1,0 +1,71 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.TermsInfo.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.TermsInfo.Steps
+@using Microsoft.AspNetCore.Html
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Components.MovingHouseHeader.ViewModel
+
+<h2 id="step@(Model.CurrentStepNumber)Header" class="landing-head">@Model.HeaderText</h2>
+
+<div id="gdprText" class="info-message">
+    <p>
+        Electric Ireland requires the information on this form to provide and administer this service.
+        The data controller is the Electricity Supply Board, trading as Electric Ireland. 
+        Please refer to our 
+        <flow-action
+            action-type="StartFlow" flow-location="SameContainerAsMe"
+            flow-name=@ResidentialPortalFlowType.TermsInfo
+            flow-parameters=@(new TermsInfoInput {StartType = TermsInfoFlowInitializer.StartType.Privacy})
+            target="_blank">Privacy Notice</flow-action>.
+    </p>
+</div>
+
+@if (Model.ShowProcess)
+{
+    <ul class="stepper">
+        @GetTabItem(1, "Previous Property Details")
+        @GetTabItem(2, $"New {Model.PrnText}")
+        @GetTabItem(3, "New Property Details")
+        @GetTabItem(4, "Payment")
+        @GetTabItem(5, "Review")
+    </ul>
+}
+
+@functions
+{
+    private IHtmlContent GetTabItem(int order, string text)
+    {
+        var li = new TagBuilder("li");
+
+        li.GenerateId($"step{order}","");
+        li.AddCssClass("stepper__step");
+
+        var sr = new TagBuilder("span");
+        sr.AddCssClass("sr-only");
+
+        if (Model.CurrentStepNumber == order)
+        {
+            li.AddCssClass("active");
+            sr.InnerHtml.AppendHtml("active");
+        }
+        else if (Model.CurrentStepNumber > order)
+        {
+            li.AddCssClass("completed");
+            sr.InnerHtml.AppendHtml("completed");
+        }
+
+        var nb = new TagBuilder("span");
+        nb.AddCssClass("nb");
+        nb.InnerHtml.AppendHtml(order.ToString());
+
+        var label = new TagBuilder("span");
+        label.AddCssClass("label");
+        label.InnerHtml.AppendHtml(text);
+
+        li.InnerHtml.AppendHtml(nb);
+        li.InnerHtml.AppendHtml(label);
+        li.InnerHtml.AppendHtml(sr);
+
+        return li;
+    }
+}

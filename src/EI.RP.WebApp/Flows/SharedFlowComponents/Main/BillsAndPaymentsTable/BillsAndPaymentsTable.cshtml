@@ -1,0 +1,31 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.BillsAndPaymentsTable.ViewModel
+
+@if (!Model.Paging.CurrentPageItems.Any())
+{
+    @if (!Model.IsAccountClosed)
+    {
+        <hr />
+    }
+    <p class="@(Model.IsAccountClosed?"text-left":"")" data-testid="no-payment-applied-msg">No payments have been applied to this account yet.</p>
+    @if (!Model.IsAccountClosed)
+    {
+        <p data-testid="payment-msg">If you have recently made a payment, it can take up to 3 working days to be processed.</p>
+    }
+}
+
+@await Html.PartialAsync($"./Partials/_Table.cshtml", Model)
+
+@if (Model.IsPagingEnabled && Model.Paging.TotalPages > 1)
+{
+    <div class="pagination pagination_right">
+        @await Html.DisplaySmartContainerFlowLinkPaging(
+            Model.ScreenModel,
+            Model.Paging.PageIndex,
+            Model.Paging.TotalPages,
+            Model.NumberOfPageLinks,
+            id: Model.PaginationId,
+            focusOnElement: Model.WhenChangingPageFocusOn ?? Model.TableId)
+    </div>
+}

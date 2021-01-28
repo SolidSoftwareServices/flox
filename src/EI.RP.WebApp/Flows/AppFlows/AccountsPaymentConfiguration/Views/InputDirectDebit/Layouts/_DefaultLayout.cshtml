@@ -1,0 +1,93 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.InputDirectDebitDetails.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        PrivacyNoticeMessage = 1,
+    }
+}
+
+@{
+    ViewBag.Title = "Set up Direct Debit - My Account - Electric Ireland";
+    const string popupViewsLocationPrefix = "./../Popups/";
+    const string partViewsLocationPrefix = "./../Parts/";
+    if (!new[] { InputDirectDebitDetails.ScreenModel.StepMode.DefaultSetUp, InputDirectDebitDetails.ScreenModel.StepMode.DefaultEdit }.Contains(Model.ViewMode))
+    {
+        throw new ArgumentOutOfRangeException();
+    }
+
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.Component>(PageComponent.PrivacyNoticeMessage,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.InputModel
+        {
+            AccountNumber = Model.AccountNumber,
+            PrependedMessage = "Electric Ireland requires the below information to allow you to pay your Bills by Direct Debit."
+        });
+}
+
+<main class="help" data-page="dd-settings">
+    <div class="container">
+        <div class="portal-details">
+            <h2 data-testid="dd-settings-title">Direct Debit Settings - @Model.ClientAccountType</h2>
+            <hr aria-hidden="true" />
+            <p data-testid="dd-settings-description">By setting up Direct Debit you will save 5% on your bills. Your first Direct Debit payment will be made 14 days after your next bill is issued.</p>
+
+            @await componentPreLoader.Render(PageComponent.PrivacyNoticeMessage)
+
+            <div class="portal-details__form" id="directdebit">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    @await Html.PartialAsync($"{partViewsLocationPrefix}_InputFields.cshtml", Model)
+
+                    @await Html.PartialAsync($"{partViewsLocationPrefix}_TermsAndConditionsInput.cshtml", Model)
+
+                    @Html.ValidationSummary(true, "", new
+                    {
+                        @class = "alert alert-form alert-danger mb-5",
+                        role = "alert"
+                    })
+
+                    <div class="portal-details__form__buttons">
+                        @if ((Model.PaymentMethod == PaymentMethodType.DirectDebit || Model.PaymentMethod == PaymentMethodType.Equalizer))
+                        {
+                            <flow-action id="dds_update_details_btn"
+                                         class="btn btn-secondary"
+                                         data-testid="dd-settings-primary-button"
+                                         trigger-event="@InputDirectDebitDetails.StepEvent.DirectDebitSetupCompleted">Update details</flow-action>
+                            <a href="#"
+                               id="dds_cancel_btn"
+                               class="btn btn-xs btn-xs--no-icon btn-xs--primary ml-auto ml-md-0 mr-auto d-table d-md-inline-block"
+                               data-toggle="modal"
+                               data-target="#modal-cancel"
+                               data-testid="dd-settings-secondary-button">
+                                Cancel
+                            </a>
+                        }
+                        else
+                        {
+                            <flow-action class="btn btn-secondary line-height-for-btns"
+                                         data-testid="dd-settings-primary-button"
+                                         trigger-event="@InputDirectDebitDetails.StepEvent.DirectDebitSetupCompleted">Complete Direct Debit Setup</flow-action>
+                            <a href="#" id="dds_cancel_btn" class="btn btn-xs btn-xs--no-icon btn-xs--primary ml-auto ml-md-0 mr-auto d-table d-md-inline-block"
+                               data-toggle="modal" data-target="#modal-cancel" data-testid="dd-settings-secondary-button">Cancel</a>
+                        }
+                    </div>
+                }
+            </div>
+
+            @await Html.PartialAsync($"{partViewsLocationPrefix}_Mandate.cshtml", Model)
+
+        </div>
+    </div>
+</main>
+
+@await Html.PartialAsync($"{popupViewsLocationPrefix}_CancelPopup.cshtml", Model)
+@await Html.PartialAsync($"{popupViewsLocationPrefix}_SkipPopup.cshtml", Model)

@@ -1,0 +1,54 @@
+﻿@using Ei.Rp.Mvc.Core.Cryptography.Urls
+@using EI.RP.WebApp.Controllers
+
+@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.BillsAndPaymentsTable.ViewModel
+
+<table class="table table-striped table-borderless" data-testid="bills-and-payments-component" id="@Model.TableId">
+    <tbody>
+        @foreach (var item in Model.Paging.CurrentPageItems)
+        {
+            var amount = "-";
+            var amountClass = "";
+
+            @if (!string.IsNullOrWhiteSpace(item.ReceivedAmount) && item.ReceivedAmount.Trim() != "-")
+            {
+                amount = $"+ {item.ReceivedAmount}";
+                amountClass = "price";
+            }
+            else if (!string.IsNullOrWhiteSpace(item.DueAmount) && item.DueAmount.Trim() != "-")
+            {
+                amount = item.DueAmount;
+            }
+
+            <tr>
+                <td>
+                    <p class="text-capitalize" data-testid="bills-and-payments-component-description">
+                        @if (item.HasInvoiceFile)
+                        {
+                            @await Html.GetActionLinkAsync(item.Description, nameof(FilesController.GetInvoicePdf), typeof(FilesController), routeValues: new
+                            {
+                                item.ReferenceDocNumber,
+                                Model.AccountNumber
+                            }, 
+                            new 
+                            { 
+                                @class = "download-bill",
+                                data_ignore_loading_overlay = "",
+                                data_file_download_promise = "",
+                                aria_label = $"Download Bill, {item.Date}, {amount}"
+                            })
+                        }
+                        else
+                        {
+                            @item.Description
+                        }
+                    </p>
+                    <span data-testid="bills-and-payments-component-date">@item.Date</span>
+                </td>
+                <td>
+                    <p class="@amountClass" data-testid="bills-and-payments-component-amount">@amount</p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

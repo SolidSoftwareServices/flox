@@ -1,0 +1,21 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.EnergyServicesAccountOverview.Components.EnergyServicesBillingDetails.ViewModel
+
+<div data-testid="energy-service-billing-details-component">
+
+    <span class="text-uppercase payment__caption">Last payment amount</span>
+    <p class="payment__price" data-testid="energy-service-billing-details-component-amount">@(Model.Amount != null ? Model.Amount.ToString() : "€0.00")</p>
+
+    <p class="due-date">
+        Payment date:
+        <span data-testid="energy-service-billing-details-component-date">@Model.PaymentDate.ToString("dnn MMMM yyyy", true)</span>
+    </p>
+
+    @if (Model.PaymentMethod == PaymentMethodType.DirectDebitNotAvailable)
+    {
+    <small>You are currently paying one or more of your energy accounts through a third party. This means that you will have limited online viewing and payment functionality. If you have any queries regarding payment amounts, please contact your Credit Union.</small>
+    }
+
+</div>

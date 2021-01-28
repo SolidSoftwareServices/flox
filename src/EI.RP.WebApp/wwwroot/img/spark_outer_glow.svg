@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="outer_glow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1000 900" style="enable-background:new 0 0 1000 900;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:url(#SVGID_2_);}
+</style>
+<g>
+	
+		<radialGradient id="SVGID_1_" cx="693.4177" cy="455.1962" r="220.3827" gradientTransform="matrix(1.8611 0 0 -0.8881 -790.5198 854.2597)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#009FDA;stop-opacity:0.5"/>
+		<stop  offset="1" style="stop-color:#009FDA;stop-opacity:0"/>
+	</radialGradient>
+	<ellipse class="st0" cx="500" cy="450" rx="410.2" ry="195.7"/>
+	
+		<radialGradient id="SVGID_2_" cx="617.5812" cy="467.6664" r="200.4965" gradientTransform="matrix(1.388 0 0 -0.7367 -357.2028 794.5298)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#009FDA"/>
+		<stop  offset="0.7" style="stop-color:#009FDA;stop-opacity:0"/>
+	</radialGradient>
+	<ellipse class="st1" cx="500" cy="450" rx="278.3" ry="147.7"/>
+</g>
+</svg>

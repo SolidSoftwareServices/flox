@@ -1,0 +1,77 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel
+
+@{
+    var showSingleSetUpForMultipleAccountsOption = new[]
+    {
+        AccountsPaymentConfigurationFlowStartType.MoveOneAndAddAnother,
+        AccountsPaymentConfigurationFlowStartType.MoveElectricityAndGas
+    }.Contains(Model.StartType);
+}
+
+<div class="modal modal-lg modal-xlg fade modal-portal" id="modal-confirm-manual-payment" tabindex="-1" role="dialog" aria-labelledby="modal-confirm-manual-payment-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="modal-title modal-title-wider" id="modal-confirm-manual-payment-label">Are you sure?</h1>
+            </div>
+            <div class="modal-body modal-body--text">
+                <p>If you sign up for Direct Debit payments you will save 5% on your bills.</p>
+                <div class="row">
+                    <div class="col-12 col-lg-6 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body h-100 d-flex flex-column">
+                                <div class="card-title-wrapper flex-auto-adjust">
+                                    <h5 class="card-title font-col-title card-title-large mt-0 mb-5 text-center">Set up Direct Debit and save 5%</h5>
+                                </div>
+                                @using (await Html.BeginUiFlowFormAsync(Model))
+                                {
+                                    @if (showSingleSetUpForMultipleAccountsOption)
+                                    {
+                                        <div class="form-group form-check pt-0 mt-0 mr-0 mb-5">
+                                            <div class="custom-control custom-checkbox mb-4" id="useForBoth">
+                                                @Html.CheckBoxFor(model => model.UseNewSingleSetupForAllAccountsFromManualConfirmDialog,
+                                                    new { @class = "custom-control-input", id = "useNewSingleSetupForAllAccountsFromManualConfirmDialog", @name = "useNewSingleSetupForAllAccountsFromManualConfirmDialog" })
+                                                <label id="lbluseNewSingleSetupForAllAccountsFromManualConfirmDialog"
+                                                       class="custom-control-label pr-0 form-info font-smaller"
+                                                       for="useNewSingleSetupForAllAccountsFromManualConfirmDialog">Use this Direct Debit to make payments for both my Electricity and Gas accounts.</label>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="card-buttons">
+                                        <flow-action id="setUpNewDirectDebitDlg" class="btn btn-primary line-height-for-btns"
+                                                     trigger-event="@ChoosePaymentOption.StepEvent.SetUpNewDirectDebit">Set up new Direct Debit</flow-action>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body h-100 d-flex flex-column">
+                                <div class="card-title-wrapper flex-auto-adjust">
+                                    <h5 class="card-title font-col-title card-title-large mt-0 mb-5 text-center">Pay manually and receive no savings</h5>
+                                </div>
+                                @using (await Html.BeginUiFlowFormAsync(Model))
+                                {
+                                    <flow-action id="manualPaymentDlg" class="btn btn-secondary line-height-for-btns"
+                                                 trigger-event="@ChoosePaymentOption.StepEvent.ManualPaymentSelected">Continue manual payments</flow-action>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer no-flex">
+                <button type="button" class="btn btn-xs btn-xs-landing" data-dismiss="modal">Go back</button>
+            </div>
+        </div>
+    </div>
+</div>

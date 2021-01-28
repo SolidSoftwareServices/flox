@@ -1,0 +1,44 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.UiFlows.Mvc.Views
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Components.SmartMeterActivationBanner.ViewModel
+
+@if (Model.CanOptToSmart)
+{
+    @foreach (var eligibleItem in Model.SmartActivationEligibleItems)
+    {
+        <div class="notifications__item" id="smartActivationBanner" data-stacked-card data-testid="smart-activation-notification">
+            <div class="notifications__item__content">
+                @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+                {
+                    @foreach (var additionalField in eligibleItem.DismissNotificationAction.EventAdditionalFields)
+                    {
+                        @await Html.GetHiddenFlowStepMemberAsync(additionalField.PropertyPath, additionalField.Value, false)
+                    }
+                    <flow-action id="smartActivationBannerClose"
+                                 class="close-button"
+                                 aria-label="Dismiss smart features notification"
+                                 trigger-event="@eligibleItem.DismissNotificationAction.TriggerEvent">
+                    </flow-action>
+                }
+                <h2>Good news,</h2>
+                <p>Your smart electricity meter with <strong class="font-weight-bold" data-testid="smart-activation-mprn">MPRN @eligibleItem.Mprn</strong> is now online and working correctly. You can now get free access to electricity insights, detailed usage graphs, monthly billing and lots more.</p>
+                @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel))
+                {
+                    @foreach (var additionalField in eligibleItem.FlowAction.EventAdditionalFields)
+                    {
+                        @await Html.GetHiddenFlowStepMemberAsync(additionalField.PropertyPath, additionalField.Value, false)
+                    }
+                    <flow-action class="btn btn-primary"
+                                 data-skip-spinner-validations
+                                 data-testid="smart-activation-journey"
+                                 tag-type="Anchor"
+                                 trigger-event="@eligibleItem.FlowAction.TriggerEvent">
+                        Find out more
+                    </flow-action>
+                }
+            </div>
+        </div>
+    }
+
+}

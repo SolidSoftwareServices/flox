@@ -1,0 +1,55 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.CompetitionEntry.Steps.CompetitionEntry.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+        ProductAndServicesSubNavigation
+    }
+}
+
+@{
+    ViewBag.Title = "Competition Entry - My Accounts - Electric Ireland";
+    const string sharedPartialViewsLocationPrefix = "./SharedPartialViews/";
+
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "Products & Services"
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.ProductAndServicesSubNavigation.Component>(PageComponent.ProductAndServicesSubNavigation,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.ProductAndServicesSubNavigation.InputModel
+        {
+            IsCompetitions = true
+        });
+}
+
+<div class="portal-header">
+    @await componentPreLoader.Render(PageComponent.Header)
+    @await componentPreLoader.Render(PageComponent.ProductAndServicesSubNavigation)
+</div>
+
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    <main class="help" data-page="competition-entry-successful">
+        <div class="container">
+            <div class="products-container portal-details">
+                <div class="mb-5">
+                    <picture data-testid="competition-entry-image">
+                        <source media="(min-width:981px)" srcset="~/img/competitions/@Model.ImageDesktop" alt="@Model.ImageAltText">
+                        <img src="~/img/competitions/@Model.ImageMobile" alt="@Model.ImageAltText" />
+                    </picture>
+                </div>
+                <div class="competition-wrap">
+                    @*@await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_CompetitionDescription.cshtml", Model)*@
+                    @await Html.PartialAsync($"{sharedPartialViewsLocationPrefix}_AnswerSubmitted.cshtml", Model)
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

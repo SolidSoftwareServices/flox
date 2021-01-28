@@ -1,0 +1,209 @@
+//       SUMMARY TABLE     
+// =========================
+// 1. Global
+// =========================
+
+
+// 1. Global
+// =========================
+
+
+.pagination {
+  
+  .page-item {
+    padding: 0;
+    margin: 0 0.5rem;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .page-link {
+    background-color: #efefef;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 10px;
+    font-family: 'Helvetica';
+    color: $grey;
+    border: 2px solid #efefef;
+    text-align: center;
+    line-height: 3rem;
+
+    &:hover {
+      background-color: $blue;
+      color: #fff;
+      border-color: $blue;
+    }
+
+    &[aria-disabled="true"] {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  .active .page-link {
+    z-index: 0;
+    border-color: $green;
+    background-color: #fff;
+    color: $green;
+  }
+
+  .page-item:first-child .page-link,
+  .page-item:last-child .page-link {
+    border-radius: 50%;
+    border-color: $green;
+    background-color: $green;
+    font-size: 0;
+
+    span {
+      background: url(../img/arrow-white.svg) no-repeat center;
+      background-size: 12px;
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    &:hover {
+      background-color: $blue;
+      border-color: $blue;
+    }
+  }
+
+  .page-item:first-child .page-link span {
+    @include transform(rotate(180deg));
+  }
+
+
+
+  &-lg {
+    .page-link {
+      font-size: 2rem;
+      height: 4.4rem;
+      width: 4.4rem;
+      line-height: 2.8rem;
+    }
+  }
+
+  &-sm {
+    .page-link {
+      font-size: 1.4rem;
+      height: 3.2rem;
+      width: 3.2rem;
+      line-height: 2.5rem;
+    }
+
+    .page-item:first-child .page-link,
+    .page-item:last-child .page-link {
+      span {
+        background-size: 9px;
+      }
+    }
+  }
+
+
+
+  &-inverse {
+    .page-link {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-color: transparent;
+      color: #fff;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+        border-color: transparent;
+      }
+    }
+
+    .page-item:first-child .page-link,
+    .page-item:last-child .page-link {
+      background-color: #fff;
+      border-color: #fff;
+
+      span {
+        background: url(../img/arrow-green.svg) no-repeat center;
+      }
+
+      &:hover {
+        background-color: #dedede;
+        border-color: #dedede;
+      }
+    }
+
+    .active .page-link {
+      z-index: 0;
+      border-color: #fff;
+
+      &:hover {
+        background-color: #fff;
+      }
+    }
+  }
+
+
+
+  &.pager {
+    .page-item:first-child .page-link,
+    .page-item:last-child .page-link {
+      border-radius: 10px;
+      font-size: 1.6rem;
+      color: #fff;
+      width: auto;
+      min-width: 9.5rem;
+
+      span {
+        background: none;
+        height: auto;
+        width: auto;
+
+        &.caret {
+          background: url(../img/arrow-white.svg) no-repeat center;
+          background-size: 10px;
+          height: 10px;
+          width: 10px;
+          display: inline-block;
+          font-size: 0;
+          vertical-align: middle;
+        }
+      }
+
+      &[aria-disabled="true"] {
+        background-color: #a59d95;
+        border-color: #a59d95;
+      }
+    }
+
+    .page-item:first-child .page-link {
+      .caret {
+        margin-right: 0.7rem;
+      }
+    }
+
+    .page-item:last-child .page-link {
+      .caret {
+        margin-left: 0.7rem;
+      }
+    }
+
+    &.pagination-inverse {
+      .page-item:first-child .page-link,
+      .page-item:last-child .page-link {
+        background-color: #fff;
+        color: $green;
+
+        span.caret {
+          background-image: url(../img/arrow-green.svg);
+        }
+
+        &[aria-disabled="true"] {
+          color: $blue;
+
+          span.caret {
+            background-image: url(../img/arrow-blue-darker.svg);
+          }
+        }
+      }
+    }
+  }
+
+}

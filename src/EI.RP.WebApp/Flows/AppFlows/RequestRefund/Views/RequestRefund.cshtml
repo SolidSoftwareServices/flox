@@ -1,0 +1,73 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.RequestRefund.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.RequestRefund.Steps.RequestRefund.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        PrivacyNoticeMessage = 1,
+        HelpFooter
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.Component>(PageComponent.PrivacyNoticeMessage,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.InputModel
+        {
+            AccountNumber = Model.AccountNumber, 
+            PrependedMessage = "Electric Ireland requires the below information to respond to your query."
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.HelpFooter.Component>(PageComponent.HelpFooter);
+}
+
+<main class="help" data-page="request-refund">
+    <div class="container">
+        <div class="portal-details">
+            <h2>Request Refund</h2>
+            <hr aria-hidden="true"/>
+            @await componentPreLoader.Render(PageComponent.PrivacyNoticeMessage)
+            <div class="portal-details__form no-border">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    <div class="form-group w-100">
+                        <label id="lblAccount" for="txtAccount">Account</label>
+                        <p class="my-0" id="txtAccount">@Model.DisplayAccountName</p>
+                        @Html.HiddenFor(x => x.AccountNumber, new { id = "selectedAccount" })
+                    </div>
+                    <div class="form-group w-100">
+                        <label id="lblAccountCredit" for="txtAccountCredit">Account Credit</label>
+                        <p class="my-0" id="txtAccountCredit">@(Model.AmountCredit != null ? -Model.AmountCredit : "‎€0.00")</p>
+                    </div>
+                    <ul class="mb-5">
+                        <li id="refundText" class="my-3">We can only refund the full amount of your account credit.</li>
+                        <li class="my-3">If you are signed up to Direct Debit payments for this account we will refund directly back to that account within five working days.</li>
+                        <li class="my-3">If you do not pay by Direct Debit, please include your contact number in the Additional Information box below so we can call you to discuss your refund options.</li>
+                        <li class="my-3">Do not include your bank account details in the box below.</li>
+                    </ul>
+                    <div class="form-group w-100">
+                        <label id="lblComments" for="txtComments">Additional Information</label>
+                        @Html.TextAreaFor(model => model.Comments, new { id = "txtComments", @class = "form-control w-100", placeholder = "Please refund the full amount of my account credit.", name = "query" })
+                        @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "alert alert-form alert-danger" })
+                    </div>
+                    @Html.ValidationSummary(true, "", new
+                    {
+                        @class = "alert alert-form alert-danger my-5",
+                        role = "alert"
+                    })
+                    <p>
+                        <flow-action id="btnRequestRefund"
+                                     class="btn btn-primary text-center"
+                                     trigger-event="@RequestRefund.StepEvent.SubmitRefund">Request Refund</flow-action>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    @await componentPreLoader.Render(PageComponent.HelpFooter)
+</main>

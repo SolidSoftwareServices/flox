@@ -1,0 +1,86 @@
+﻿@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.EqualizerMonthlyPayments.ScreenModel
+
+<main class="help" data-page="equalizer-landing">
+    <div class="container">
+        @if (Model.EqualizerMonthlyPaymentDetails == null)
+        {
+            <div class="portal-details">
+
+                <h2>Equal Monthly Payments</h2>
+
+                <div class="portal-details__form">
+                    <h2 class="error">We cannot process your request at the moment.</h2>
+                    <p>Please call 1850 372 372 to set up Equal Monthly Payments.</p>
+                    <flow-action data-testid="equalizer-landing-back"
+                                 action-type="StartFlow"
+                                 flow-name="@ResidentialPortalFlowType.Accounts"
+                                 flow-location="NotContained"
+                                 class="btn btn-xs btn-xs-back green">Back to My Accounts</flow-action>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="portal-details equaliser equaliser-info">
+
+                <h2>Equal Monthly Payments</h2>
+                <p>Fixed monthly direct debit payments spread over 12 months.</p>
+
+                <div class="equaliser-monthly-payment">
+                    <h2 data-testid="equalizer-landing-monthly-payment">Your Equal Monthly Payment: <span><i aria-hidden="true">@Model.EqualizerMonthlyPaymentDetails.EqualizerMonthlyPayment*</i></span>
+                    <span class="visually-hidden">Calculation is based on previous Electricity / Gas usage and your current price plan. We also include a 10% contingency to allow for price changes, change in weather or other factors. Please note there may be a small variance in your actual monthly payment amount compared to the amount shown here due to your selected payments date</span></h2>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p data-testid="equalizer-landing-highest-bill-amount">Highest Bill: @Model.EqualizerMonthlyPaymentDetails.HighestBillAmount</p>
+                            <span data-testid="equalizer-landing-highest-bill-date">Invoice Date: @Model.EqualizerMonthlyPaymentDetails.HighestBillInvoiceDate</span>
+                        </div>
+                        <div class="col-lg-6">
+                            <p data-testid="equalizer-landing-lowest-bill-amount">Lowest Bill: @Model.EqualizerMonthlyPaymentDetails.LowestBillAmount</p>
+                            <span data-testid="equalizer-landing-lowest-bill-date">Invoice Date: @Model.EqualizerMonthlyPaymentDetails.LowestBillInvoiceDate</span>
+                        </div>
+                    </div>
+                    @using (await Html.BeginUiFlowFormAsync(Model))
+                    {
+                        <flow-action class="btn btn-primary text-center"
+                                     data-testid="equalizer-landing-set-up"
+                                     trigger-event="@EqualizerMonthlyPayments.StepEvent.SetupEqualizerMonthlyPayments">Set Up Equaliser</flow-action>
+                    }
+                </div>
+
+                <p aria-hidden="true">* Calculation is based on previous Electricity / Gas usage and your current price plan. We also include a 10% contingency to allow for price changes, change in weather or other factors. Please note there may be a small variance in your actual monthly payment amount compared to the amount shown here due to your selected payments date.</p>
+
+                <div class="equaliser-help">
+                    <h2>Equal Monthly payments Explained</h2>
+                    <ul>
+                        <li>Equaliser is our fixed monthly Direct Debit payment option</li>
+                        <li>Spread the cost of your energy evenly over a 12 month period</li>
+                        <li>Easy to set up</li>
+                        <li>Know how much you will pay each month</li>
+                        <li>Never miss a payment by setting your own payment date</li>
+                        <li>Any outstanding balance currently on your account will be included in your monthly payment amount</li>
+                    </ul>
+                    <img src="~/img/equalizer-graph.png" alt="Graph showing typical yearly energy usage fluctuating while the equaliser payments are the same each month" width="480" />
+                    <div class="caption">
+                        <span class="caption__square" style="background-color: #009fda;"></span>
+                        <span class="caption__info">Typical Yearly Energy Usage</span>
+                        <span class="caption__square" style="background-color: #0075b0;"></span>
+                        <span class="caption__info">Equaliser Payments</span>
+                    </div>
+                    <h2>Recalculation</h2>
+                    <p>Any credit or debit at the end of the 12 months will be included in your calculations for the next 12 months.</p>
+                    <h2 class="help">Help</h2>
+                    <a href="https://www.electricireland.ie/residential/help/billing/how-is-my-monthly-equaliser-payment-calculated" target="_blank">How is my monthly Electricity Equaliser and/or Gas Equaliser payment calculated?</a>
+                    <a href="https://www.electricireland.ie/residential/help/billing/can-i-choose-the-date-for-my-monthly-equaliser-direct-debit-payment" target="_blank">Can I choose the date for my monthly Electricity and/or Gas Equaliser direct debit payment?</a>
+                    <a href="https://www.electricireland.ie/residential/help/billing/will-my-meter-be-read-as-before-when-i-m-on-equaliser" target="_blank">Will my meter be read as before when I’m on Equaliser?</a>
+                    <a href="https://www.electricireland.ie/residential/help/billing/what-happens-if-i-opt-out-of-equaliser-or-close-my-account-during-the-year" target="_blank">What happens if I opt out of Gas and/or Electricity Equaliser or close my account during the year?</a>
+                </div>
+
+            </div>
+        }
+    </div>
+</main>

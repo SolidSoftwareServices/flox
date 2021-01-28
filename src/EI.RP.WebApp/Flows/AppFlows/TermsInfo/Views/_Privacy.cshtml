@@ -1,0 +1,30 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.TermsInfo.Steps.TermsInfoIndex.TermsInfoScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "Privacy Notice and Cookies Policy"
+        });
+}
+
+<div class="portal-header portal-header--without-menu">
+    @await componentPreLoader.Render(PageComponent.Header)
+</div>
+
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    @await Html.PartialAsync("~/Views/Static/Partials/_PrivacyNoticeContent.cshtml")
+</div>

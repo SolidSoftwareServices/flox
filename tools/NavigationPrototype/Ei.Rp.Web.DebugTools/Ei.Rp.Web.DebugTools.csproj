@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+	  <EnableDefaultContentItems>false</EnableDefaultContentItems>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;FrameworkDeveloper</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Must come after setting TypeScriptToolsVersion (See above) -->
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets') AND '$(EnableTypeScriptNuGetTarget)' != 'true'" />
+
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.DotNetCore.targets" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.DotNetCore.targets') AND '$(EnableTypeScriptNuGetTarget)' != 'true'" />
+
+<ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="jquery.TypeScript.DefinitelyTyped" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="2.2.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ObjectsComparer" Version="1.4.1" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <None Remove="bundleconfig.json" />
+    <None Remove="Flows\AppFlows\app.ts" />
+    <None Remove="Flows\AppFlows\boot.ts" />
+   
+    <None Remove="Flows\AppFlows\samplegraph.json" />
+    <None Remove="Flows\AppFlows\styles.css" />
+    <None Remove="Flows\config.ts" />
+    <None Remove="Scripts\graphs\contextgraph.ts" />
+    <None Remove="Scripts\graphs\ggraph.ts" />
+    <None Remove="Scripts\graphs\iddgraph.ts" />
+    <None Remove="Scripts\graphs\iddsvggraph.ts" />
+    <None Remove="Scripts\graphs\messages.ts" />
+    <None Remove="Scripts\graphs\svggraph.ts" />
+    <None Remove="Scripts\JsonPath\jsonpath-picker.min.css" />
+    <None Remove="Scripts\JsonPath\jsonpath-picker.min.js" />
+    <None Remove="tsconfig.json" />
+	 
+	
+  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Flows\AppFlows\Components\FlowViewer\*.js" />
+
+		<None Remove="Flows\AppFlows\Components\FlowViewer\*.js.map" />
+		<None Remove="Flows\AppFlows\Components\FlowViewer\*.css" />
+	</ItemGroup>
+  <ItemGroup>
+    <Content Include="bundleconfig.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    
+  </ItemGroup>
+  <ItemGroup>
+	  <EmbeddedResource Include="Flows\**\*.css" />
+	  <EmbeddedResource Include="Scripts\**\*.css" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <TypeScriptCompile Include="Flows\config.ts" />
+    <TypeScriptCompile Include="Scripts\graphs\contextgraph.ts" />
+    <TypeScriptCompile Include="Scripts\graphs\ggraph.ts" />
+    <TypeScriptCompile Include="Scripts\graphs\iddgraph.ts" />
+    <TypeScriptCompile Include="Scripts\graphs\iddsvggraph.ts" />
+    
+    <TypeScriptCompile Include="Scripts\graphs\messages.ts" />
+    
+    <TypeScriptCompile Include="Scripts\graphs\msagl.worker.ts" />
+    
+    <TypeScriptCompile Include="Scripts\graphs\svggraph.ts" />
+    
+  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Flows\**\*.js" />
+		<EmbeddedResource Include="Scripts\**\*.js" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Include="..\..\..\src\CommonCompilerExtensions.cs" Link="CommonCompilerExtensions.cs" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Content Include="tsconfig.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\EI.RP.CoreServices\EI.RP.CoreServices.csproj" />
+	  <ProjectReference Include="..\..\..\src\EI.RP.UiFlows.Core\EI.RP.UiFlows.Core.csproj" />
+	</ItemGroup>
+  <!-- Don't forget to add the typescript props -->
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+
+</Project>

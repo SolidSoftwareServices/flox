@@ -1,0 +1,91 @@
+@using EI.RP.WebApp.DomainModelExtensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.CoreServices.System
+@using Ei.Rp.DomainModels.MappingValues
+@model EI.RP.WebApp.Flows.AppFlows.Plan.Components.AccountBilling.ViewModel
+
+@{
+	var directDebitButtonLabel = "Set Up Direct Debit";
+}
+
+<div class="plan-billing mb-5">
+	<h2 class="mb-0" data-testid="billing-heading">Billing</h2>
+	<hr class="mt-0 mb-4" aria-hidden="true"/>
+	<div class="plan-billing-payment-details mb-5">
+		<div class="row mb-4">
+			<div class="col-12 col-md-6 mb-0">
+				<p class="m-0" data-testid="payment-method-label">@Html.LabelFor(x => x.PaymentMethod)</p>
+			</div>
+			<div class="col-12 col-md-6">
+				<p class="m-0 font-weight-bold text-md-right" data-testid="payment-method">@Model.PaymentMethod.ToUserText()</p>
+			</div>
+		</div>
+		@if (Model.PaymentMethod.IsOneOf(PaymentMethodType.DirectDebit, PaymentMethodType.Equalizer))
+		{
+			directDebitButtonLabel = "Edit Direct Debit";
+
+			<div class="row mb-4">
+				<div class="col-12 col-md-6 mb-0">
+					<p class="m-0" data-testid="direct-debit-bank-label">@Html.LabelFor(x => x.DirectDebit.NameInBankAccount)</p>
+				</div>
+				<div class="col-12 col-md-6">
+					<p class="m-0 font-weight-bold text-md-right" data-testid="direct-debit-bank">@Model.DirectDebit.NameInBankAccount</p>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col-12 col-md-6 mb-0">
+					<p class="m-0" data-testid="direct-debit-iban-label">@Html.LabelFor(x => x.DirectDebit.IBAN)</p>
+				</div>
+				<div class="col-12 col-md-6">
+					<p class="m-0 font-weight-bold text-md-right" data-testid="direct-debit-iban">@Model.DirectDebit.IBAN.Mask('*', Model.DirectDebit.IBAN.Length - 4)</p>
+				</div>
+			</div>
+		}
+		@if (Model.PaymentMethod.HasDirectDebitAvailable())
+		{
+			if (Model.IsContractPending)
+			{
+				<div class="row">
+					<div class="col-12 mb-0">
+						<flow-action class="btn btn-xs disabled"
+						             data-testid="edit-direct-debit-link">@directDebitButtonLabel</flow-action>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="row">
+					<div class="col-12 mb-0">
+						<flow-action class="btn btn-xs green"
+						             data-testid="edit-direct-debit-link"
+						             action-type="StartFlow"
+						             flow-location="SameContainerAsMe"
+						             flow-name="@ResidentialPortalFlowType.AccountsPaymentConfiguration"
+						             flow-parameters="@(new AccountsPaymentConfigurationFlowInput {StartType = AccountsPaymentConfigurationFlowStartType.EditDirectDebit, AccountNumber = Model.AccountNumber})">@directDebitButtonLabel</flow-action>
+					</div>
+				</div>
+			}
+		}
+	</div>
+	@if (Model.Equaliser.IsVisible)
+	{
+		<hr class="mt-5 mb-5" aria-hidden="true"/>
+		await Html.RenderPartialAsync("./Partials/Equaliser.cshtml", Model);
+	}
+	@if (Model.PaperBill.IsVisible)
+	{
+		<hr class="mt-5 mb-5" aria-hidden="true"/>
+		await Html.RenderPartialAsync("./Partials/PaperBilling.cshtml", Model);
+	}
+	@if (Model.MonthlyBilling.IsVisible && Model.MonthlyBilling.CanEnableMonthlyPayments)
+	{
+		<hr class="mt-0 mb-5" aria-hidden="true"/>
+		await Html.RenderPartialAsync("./Partials/MonthlyBilling.cshtml", Model);
+	}
+	@if (Model.MeterData.IsVisible && Model.MeterData.IsActive)
+	{
+		<hr class="mt-0 mb-5" aria-hidden="true"/>
+		await Html.RenderPartialAsync("./Partials/MeterData.cshtml", Model);
+	}
+</div>

@@ -1,0 +1,29 @@
+﻿@using System.Linq.Expressions
+@using EI.RP.NavigationPrototype.Flows.AppFlows.MetadataTestFlow.Steps
+@using Microsoft.AspNetCore.Html
+@model EI.RP.NavigationPrototype.Flows.AppFlows.MetadataTestFlow.Steps.Step0Screen.InitialScreenScreenModel
+@{
+	ViewData["Title"] = "MetadataTestFlowPage::Step0";
+}
+
+@functions{
+	
+		IHtmlContent AddRow<TProperty>(Expression<Func<Step0Screen.InitialScreenScreenModel, TProperty>> expression) 
+		{
+			return Html.Raw($"<div class=\"row\"><div class=\"col-md-6\">{@Html.LabelFor(expression)}:{Html.ValueFor(expression)}</div></div>");
+		}
+}
+
+<div id="MetadataTestFlowPage">
+
+	<div class="row">
+		<div class="col-md-6">
+			<h2>MetadataTestFlowPage::Step 0</h2>
+		</div>
+	</div>
+	
+	@AddRow(m => m.FlowHandler)
+	@AddRow(m => m.FlowScreenName)
+	
+
+</div>

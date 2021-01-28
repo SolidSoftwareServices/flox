@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Hosting
+@using EI.RP.CoreServices.DeliveryPipeline.Environments
+@using EI.RP.CoreServices.Platform
+@using EI.RP.WebApp.Infrastructure.Settings
+
+@inject IHostingEnvironment Environment
+@inject IUiAppSettings Platform
+
+@if (Platform.RequireCookiesPolicyCompliance) 
+{
+    @if (Environment.IsProductionEnvironment())
+    {
+        <!-- OneTrust Cookies Consent Notice start for electricireland.ie -->
+        <script type="text/javascript" src="https://cdn.cookielaw.org/consent/19a46100-5271-4f4a-8361-dd2767a5880c/OtAutoBlock.js" ></script>
+        <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="19a46100-5271-4f4a-8361-dd2767a5880c" ></script>
+        <script type="text/javascript">
+            function OptanonWrapper() { }
+        </script>
+        <!-- OneTrust Cookies Consent Notice end for electricireland.ie -->
+    }
+    else
+    {
+        <!-- OneTrust Cookies Consent Notice start for electricireland.ie -->
+        <script type="text/javascript" src="https://cdn.cookielaw.org/consent/19a46100-5271-4f4a-8361-dd2767a5880c-test/OtAutoBlock.js" ></script>
+        <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="19a46100-5271-4f4a-8361-dd2767a5880c-test" ></script>
+        <script type="text/javascript">
+            function OptanonWrapper() { }
+        </script>
+        <!-- OneTrust Cookies Consent Notice end for electricireland.ie -->
+    }
+}

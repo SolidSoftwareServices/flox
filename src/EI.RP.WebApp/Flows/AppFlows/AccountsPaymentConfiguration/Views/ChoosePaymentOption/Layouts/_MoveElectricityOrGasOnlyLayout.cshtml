@@ -1,0 +1,42 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel
+
+@{
+    const string partialViewsLocationPrefix = "./../Parts/";
+    const string popupsViewsLocationPrefix = "./../Popups/";
+    const string actionViewsLocationPrefix = "./../Actions/";
+    if (!new[] {
+        AccountsPaymentConfigurationFlowStartType.MoveElectricity
+        , AccountsPaymentConfigurationFlowStartType.MoveGas
+        ,AccountsPaymentConfigurationFlowStartType.MoveOneAndAddAnother
+
+    }.Contains(Model.StartType))
+    {
+        throw new ArgumentOutOfRangeException();
+    }
+}
+
+<p class="my-5 sub-heading" id="choosePaymentOptions">Choose a payment option:</p>
+
+<div class="row" data-testid="payment-options-container">
+    @if (Model.ExistingPaymentMethod == PaymentMethodType.DirectDebit)
+    {
+        @await Html.PartialAsync($"{partialViewsLocationPrefix}_UseExistingDirectDebit.cshtml", Model)
+        @await Html.PartialAsync($"{partialViewsLocationPrefix}_SetUpNewDirectDebitOption.cshtml", Model)
+    }
+    else if (Model.ExistingPaymentMethod == PaymentMethodType.DirectDebitNotAvailable ||
+             Model.ExistingPaymentMethod == PaymentMethodType.Manual ||
+             Model.ExistingPaymentMethod == PaymentMethodType.Equalizer ||
+             Model.ExistingPaymentMethod == PaymentMethodType.ESBPremises)
+    {
+        @await Html.PartialAsync($"{partialViewsLocationPrefix}_SetUpNewDirectDebitOption.cshtml", Model)
+        @await Html.PartialAsync($"{partialViewsLocationPrefix}_SetUpManualOption.cshtml", Model)
+    }
+</div>
+
+@await Html.PartialAsync($"{actionViewsLocationPrefix}_CancelAction.cshtml", Model)
+
+@await Html.PartialAsync($"{popupsViewsLocationPrefix}_CancelPopup.cshtml", Model)
+@await Html.PartialAsync($"{popupsViewsLocationPrefix}_ConfirmManualPaymentPopup.cshtml", Model)

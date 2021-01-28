@@ -1,0 +1,32 @@
+﻿@using EI.RP.UiFlows.Mvc.Views
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel;
+
+@{
+    if (!new[]
+    {
+AccountsPaymentConfigurationFlowStartType.SmartActivation,
+}.Contains(Model.StartType))
+    {
+        throw new ArgumentOutOfRangeException();
+    }
+}
+
+<div class="offset-md-1 col-md-10" data-testid="alternative-payer">
+    <p class="mb-5" data-testid="alternative-payer-message">
+        You are currently paying one or more of your energy accounts through a third party. This means that you will have limited online viewing and payment functionality.
+    </p>
+    <p class="mb-5" data-testid="alternative-payer-query-message">
+        If you have any queries regarding payment amounts, please contact your Credit Union.
+    </p>
+    <div class="btn-container text-center">
+        @using (await Html.BeginUiFlowFormAsync(Model))
+        {
+            <flow-action id="continueAlternativePayer" class="btn btn-primary line-height-for-btns mr-sm-5 mb-5"
+                         trigger-event="@ChoosePaymentOption.StepEvent.AlternativePayerSelected">Continue</flow-action>
+        }
+    </div>
+</div>

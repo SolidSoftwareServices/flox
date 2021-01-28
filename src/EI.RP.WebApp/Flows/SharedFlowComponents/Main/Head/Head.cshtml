@@ -1,0 +1,46 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.ViewModel
+
+@functions
+{
+enum PageComponent
+{
+    Favicons = 1,
+}
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model.ScreenModel);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Favicons.Component>(PageComponent.Favicons);
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no">
+    @foreach (var metaTag in Model.MetaTags)
+    {
+        <meta name="@metaTag.Name" content="@metaTag.Content">
+    }
+
+    @await componentPreLoader.Render(PageComponent.Favicons)
+
+    <title>@string.Join(" | ", Model.Title, "Electric Ireland")</title>
+
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/tempusdominus-bootstrap-4.custom.css" rel="stylesheet">
+    <link href="~/css/styles.css" rel="stylesheet">
+    @foreach (var style in Model.StyleTags)
+    {
+        <link href="@style.Href" rel="@style.Rel">
+    }
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerScripts.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/Partials/_CookiesPolicyScripts.cshtml")
+    
+    <script src="~/js/polyfills.js"></script>
+    <script src="~/vendor/jquery/jquery-3.5.1.min.js"></script>
+</head>

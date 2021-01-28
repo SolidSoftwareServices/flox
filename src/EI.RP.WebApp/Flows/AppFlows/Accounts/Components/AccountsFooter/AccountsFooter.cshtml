@@ -1,0 +1,23 @@
+﻿@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsFooter.ViewModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Footer = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model.ScreenModel);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Footer.Component>(PageComponent.Footer, 
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Footer.InputModel
+        {
+            NavigationItems = Model.NavigationItems
+        });
+}
+
+@await componentPreLoader.Render(PageComponent.Footer)

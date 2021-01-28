@@ -1,0 +1,70 @@
+@mixin breakpoint($width)
+{
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin breakpointHeight($height)
+{
+  @media screen and (max-height: $height) {
+    @content;
+  }
+}
+
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transform($args...) {
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -ms-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+@mixin border-radius($args...) {
+  -webkit-border-radius: $args;
+  -moz-border-radius: $args;
+  -ms-border-radius: $args;
+  -o-border-radius: $args;
+  border-radius: $args;
+}
+
+@mixin border-top-right-radius($args...) {
+  -webkit-border-top-right-radius: $args;
+  -moz-border-top-right-radius: $args;
+  -ms-border-top-right-radius: $args;
+  -o-border-top-right-radius: $args;
+  border-top-right-radius: $args;
+}
+
+@mixin border-top-left-radius($args...) {
+  -webkit-border-top-left-radius: $args;
+  -moz-border-top-left-radius: $args;
+  -ms-border-top-left-radius: $args;
+  -o-border-top-left-radius: $args;
+  border-top-left-radius: $args;
+}
+
+@mixin border-bottom-right-radius($args...) {
+  -webkit-border-bottom-right-radius: $args;
+  -moz-border-bottom-right-radius: $args;
+  -ms-border-bottom-right-radius: $args;
+  -o-border-bottom-right-radius: $args;
+  border-bottom-right-radius: $args;
+}
+
+@mixin border-bottom-left-radius($args...) {
+  -webkit-border-bottom-left-radius: $args;
+  -moz-border-bottom-left-radius: $args;
+  -ms-border-bottom-left-radius: $args;
+  -o-border-bottom-left-radius: $args;
+  border-bottom-left-radius: $args;
+}

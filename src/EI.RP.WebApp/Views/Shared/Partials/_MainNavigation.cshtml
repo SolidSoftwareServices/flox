@@ -1,0 +1,13 @@
+﻿@model EI.RP.WebApp.Models.Shared.MainNavigationModel
+
+<header class="portal-menu" data-navigation data-navigation-type="smart">
+    <div class="container">
+        <a class="portal-menu__logo" data-testid="home_url" asp-controller="Login" asp-action="Login">
+            <img src="~/img/logo.svg" alt="Electric Ireland" width="75" height="37" />
+        </a>
+        @if (Model.ShowBackToLogin)
+        {
+            <a asp-controller="Login" asp-action="Login" class="portal-menu__nav__item__link portal-menu__nav__item__link__cancel">Go back to Login</a>
+        }
+    </div>
+</header>

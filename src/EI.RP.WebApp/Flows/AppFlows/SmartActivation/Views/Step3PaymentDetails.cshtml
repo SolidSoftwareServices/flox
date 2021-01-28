@@ -1,0 +1,51 @@
+@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.SmartActivation.Steps.Step3PaymentDetails.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Navigation = 1,
+        Stepper,
+        ContainedFlowViewPort
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    componentPreLoader.StartLoading<EmbeddedFlowComponent>(PageComponent.ContainedFlowViewPort,
+        new EmbeddedFlowComponent.ComponentParameters
+        {
+            Model = Model
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.Component>(PageComponent.Navigation,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.InputModel
+        {
+            SourceFlowType = Model.SourceFlowType,
+            FlowLocation = EI.RP.UiFlows.Mvc.FlowTagHelpers.FlowActionTagHelper.StartFlowLocation.SameContainerAsMe
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.Component>(PageComponent.Stepper,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.InputModel
+        {
+            CurrentStep = 3
+        });
+}
+
+@await componentPreLoader.Render(PageComponent.Navigation)
+
+<div id="portal-main" class="portal-main">
+    <div class="position-relative">
+        <div class="sub-navigation-overlay"></div>
+        <main class="page page-authorise" data-page="step3-payment-details">
+            <div class="container page-container pt-5 pb-0">
+                @await componentPreLoader.Render(PageComponent.Stepper)
+            </div>
+            <div class="container @(Model.PaymentMethod != PaymentMethodType.DirectDebit ? "page-container page-container--full" : "")">
+                @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+            </div>
+        </main>
+    </div>
+</div>

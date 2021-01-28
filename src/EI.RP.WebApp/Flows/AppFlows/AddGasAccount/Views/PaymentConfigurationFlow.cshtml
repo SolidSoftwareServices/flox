@@ -1,0 +1,24 @@
+﻿@using EI.RP.UiFlows.Mvc.Components
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.AddGasAccount.Steps.ExecutePaymentConfigurationFlowThenStoreResults.StepData
+
+@functions
+{
+    enum PageComponent
+    {
+        ContainedFlowViewPort = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EmbeddedFlowComponent>(PageComponent.ContainedFlowViewPort,
+        new EmbeddedFlowComponent.ComponentParameters
+        {
+            Model = Model
+        });
+}
+
+@await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)

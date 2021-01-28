@@ -1,0 +1,32 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.FlowDefinitions.ICancellableMovingHouseStep
+
+@{
+    var btnText = "Cancel House Move";
+}
+
+<div class="modal modal-lg fade modal-portal" id="modal-cancel-mimo" tabindex="-1" role="dialog" aria-labelledby="modal-cancel-mimo-label" aria-hidden="true" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="modal-title modal-title-wider" id="modal-cancel-mimo-label">Are you sure?</h1>
+            </div>
+            <div class="modal-body modal-body--text text-center">
+                <p>The details provided will be deleted and your move will be cancelled.</p>
+            </div>
+            <div class="modal-footer no-flex">
+                <flow-action flow-location="SameContainerAsMe"
+                             action-type="StartFlow"
+                             flow-name="@ResidentialPortalFlowType.MovingHouse"
+                             flow-parameters="@(new MovingHouseInput { InitiatedFromAccountNumber = Model.InitiatedFromAccountNumber })"
+                             class="btn btn-secondary" id="cancelMoveHouse">@btnText</flow-action>
+                <button type="button" class="btn btn-xs btn-xs-landing" data-dismiss="modal">Go back</button>
+            </div>
+        </div>
+    </div>
+</div>

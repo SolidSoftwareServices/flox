@@ -1,0 +1,114 @@
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Flows.AppFlows.SmartActivation.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.SmartActivation.Steps.Step4BillingFrequency.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Navigation = 1,
+        Stepper
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.Component>(PageComponent.Navigation,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.InputModel 
+        {
+            SourceFlowType = Model.SourceFlowType
+        });
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.Component>(PageComponent.Stepper,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.InputModel
+        {
+            CurrentStep = 4
+        });
+
+    var daysOfMonth = Enumerable.Range(1, 28)
+        .Select(i => new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString()
+        });
+}
+
+@await componentPreLoader.Render(PageComponent.Navigation)
+
+<div id="portal-main" class="portal-main">
+    <div class="position-relative">
+        <div class="sub-navigation-overlay"></div>
+        <main class="page page-authorise mb-5 pb-5" data-page="step4-billing-frequency">
+            <div class="container page-container pt-5 pb-5">
+                @await componentPreLoader.Render(PageComponent.Stepper)
+                <div class="row">
+                    <div class="offset-md-1 col-md-10">
+                        <h1 class="text-primary page-title text-left mb-5">How often would you like your electricity bill?</h1>
+                        <hr class="my-5" />
+                        @using (await Html.BeginUiFlowFormAsync(Model))
+                        {
+                            <div class="form-group-wrapper form-group-wrapper--with-border mb-2">
+                                <div class="form-group form-check form-check--border form-radio">
+                                    <div class="custom-control custom-radio">
+                                        @Html.RadioButtonFor(model => model.BillingFrequencyType, BillingFrequencyType.EveryMonth, new
+                                        {
+                                            id = "billingFrequencyTypeEveryMonth",
+                                            @class = "custom-control-input",
+                                            data_day_of_month_visible = true
+                                        })
+                                        <label class="custom-control-label" for="billingFrequencyTypeEveryMonth">Every month</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-check form-check--border form-radio">
+                                    <div class="custom-control custom-radio">
+                                        @Html.RadioButtonFor(model => model.BillingFrequencyType, BillingFrequencyType.EveryTwoMonths, new
+                                        {
+                                            id = "billingFrequencyTypeEveryTwoMonths",
+                                            @class = "custom-control-input",
+                                            data_day_of_month_visible = false
+                                        })
+                                        <label class="custom-control-label" for="billingFrequencyTypeEveryTwoMonths">Every 2 months</label>
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BillingFrequencyType, "Please select how often would you like your electricity bill", new { @class = "alert alert-form alert-danger w-100 d-block mt-2 mb-5" })
+                            <div class="form-group form-select custom-calendar w-100 d-none" data-day-of-month-container>
+                                <label class="mb-3" for="@Html.IdFor(model => model.BillingDayOfMonth)">Day of the month</label>
+                                <p class="note">
+                                    @if (Model.IsAlternativePayer)
+                                    {
+                                        <small data-testid="alternativePayerNote">Payment will be due approximately 14 days after this date, or in line with your Credit Union fixed payment date</small>
+                                    }
+                                    else
+                                    {
+                                        <small data-testid="standardPayerNote">Payment will be due approximately 14 days after this date</small>
+                                    }
+                                </p>
+                                <div class="position-relative">
+                                    @Html.DropDownListFor(model => model.BillingDayOfMonth, daysOfMonth, "Choose a date", new
+                                    {
+                                        data_testid = "billing-day-of-month-options",
+                                        @class = "custom-select w-100"
+                                    })
+                                    <span class="form-select-arrow"></span>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.BillingDayOfMonth, "Please select the day of the month", new { @class = "alert alert-form alert-danger w-100" })
+                            </div>
+                            <div class="btn-container btn-container--center">
+                                <flow-action id="continueButton"
+                                             class="btn btn-primary no-toggle"
+                                             trigger-event="@Step4BillingFrequency.StepEvent.Continue">
+                                    Continue
+                                </flow-action>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/js/pages/smart-activation/step4.js"></script>

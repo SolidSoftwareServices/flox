@@ -1,0 +1,189 @@
+/* Period filter */
+.period-switcher .tab-content .tab-pane {
+  background: none;
+}
+
+.period-switcher #pills-tab {
+  background: rgba(237, 237, 237, 0.7);
+  border-radius: 100px;
+  line-height: 1;
+}
+
+.period-switcher #pills-tab .nav-link {
+  width: 95px;
+  border-radius: 100px;
+  text-align: center;
+  color: #6E6E6E;
+  border: none;
+
+  &:focus {
+    color: #FFFFFF;
+  }
+}
+
+.period-switcher #pills-tab .nav-link.active, .period-switcher #pills-tab .nav-link:hover {
+  color: #fff;
+}
+
+.period-nav {
+  position: relative;
+  width: 100%;
+}
+
+.period-nav .btn-next,
+.period-nav .btn-prev {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.period-nav .btn-next:before,
+.period-nav .btn-prev:before {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+
+.period-nav .btn-prev {
+  padding: 0;
+  transform: rotate(-180deg)
+}
+
+.period-nav .btn-next:hover:before,
+.period-nav .btn-prev:hover:before {
+  box-shadow: 0px 1px 10px rgba(82, 82, 82, 0.5);
+  background: #ffffff;
+  background: #ffffff url('../img/arrow-green.svg') no-repeat center;
+}
+
+.period-nav .selected-range {
+  font-size: 22px;
+  color: $green;
+  border-radius: 10px;
+  padding: 5px 25px;
+}
+
+.period-nav .selected-range:hover {
+  box-shadow: 0px 1px 10px rgba(82, 82, 82, 0.5);
+}
+
+.period-nav .selected-range:before {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 425px) {
+  .period-switcher #pills-tab {
+    flex-wrap: nowrap;
+  }
+  .period-switcher #pills-tab .nav-link {
+    width: 75px;
+    padding: 10px;
+  }
+}
+
+main.usage.comparison .selected-range {
+  border: 1px solid #0075b0;
+  border-radius: 10px;
+  color: #0075b0;
+  padding: 8px 20px;
+  font-size: 16px;
+  margin: 0 5px;
+  display: inline-block !important;
+}
+
+main.usage.comparison .selected-range-compare {
+  border: 1px solid #525252;
+  border-radius: 10px;
+  color: #525252;
+  padding: 8px 20px;
+  margin: 0 5px;
+  display: inline-block !important;
+}
+
+main.usage.comparison .selected-range:hover {
+  background: #0075b0;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+main.usage.comparison .selected-range-compare:hover {
+  background: #525252;
+  color: #ffffff;
+}
+
+main.usage.comparison .selected-range-compare:before {
+  visibility: hidden;
+}
+
+main.usage.comparison .period-nav .btn-prev,
+main.usage.comparison .period-nav .btn-next {
+  display: none !important;
+}
+
+.period-nav .btn-default:focus:before {
+  background: #fff url(../img/arrow-green.svg) no-repeat center;
+}
+
+.period-nav .btn-default:active:before {
+  background-image: url(../img/arrow-white.svg);
+  background-color: $green;
+}
+
+.selected-range {
+  position: relative;
+}
+
+.selected-range.active {
+  background: $green;
+  color: #fff !important;
+}
+
+.selected-range-compare.active {
+  background: #525252;
+  color: #fff !important;
+}
+
+.period-nav[data-period="day"] .selected-range:before {
+  visibility: visible;
+  position: absolute;
+  content: attr(data-day);
+  font-family: "HelveticaLight", sans-serif;
+  color: $green;
+  background: #fff;
+  line-height: inherit;
+  overflow: hidden;
+  padding-left: 1px;
+}
+
+.period-nav[data-period="day"] .selected-range.active:before {
+  position: absolute;
+  content: attr(data-day);
+  font-family: "HelveticaLight", sans-serif;
+  color: #fff;
+  background: $green;
+}
+
+main.usage.comparison .period-nav[data-period="day"] .selected-range-compare:before {
+  visibility: visible;
+  position: absolute;
+  content: attr(data-day);
+  font-family: "HelveticaLight", sans-serif;
+  color: #525252;
+  background: #fff;
+  line-height: inherit;
+  overflow: hidden;
+  padding-left: 1px;
+}
+
+main.usage.comparison .period-nav[data-period="day"] .selected-range-compare.active:before {
+  position: absolute;
+  content: attr(data-day);
+  font-family: "HelveticaLight", sans-serif;
+  color: #fff;
+  background: #525252;
+}
+
+main.usage.comparison .period-nav[data-period="day"] .selected-range-compare:hover:before {
+  background: #525252;
+  color: #fff;
+}

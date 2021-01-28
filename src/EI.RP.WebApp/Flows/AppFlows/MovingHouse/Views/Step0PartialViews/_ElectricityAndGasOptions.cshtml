@@ -1,0 +1,25 @@
+﻿@if (Model.HasStaffDiscount)
+{
+    <div class="col-lg-4 d-flex align-items-start flex-column">
+        <p>Transfer my Electricity account</p>
+        <p class="options__desc">Your account appears to have staff discount applied. To ensure this is transferred please call us on 1850 372 372</p>
+    </div>
+}
+else
+{
+    <div class="col-lg-4 d-flex align-items-start flex-column">
+        <p class="mb-auto">Transfer both my accounts</p>
+        <p class="options__desc">I want to transfer my Electricity & Gas<br/> accounts to my new address.</p>
+        <a id="btnMoveElecAndGas" class="btn btn-primary" href="#move-both" data-toggle="modal">Move Electricity & Gas</a>
+    </div>
+    <div class="col-lg-4 d-flex align-items-start flex-column">
+        <p class="mb-auto">Transfer my electricity account</p>
+        <p class="options__desc">I want to transfer my Electricity account to<br/> my new address and close my Gas account.</p>
+        <a id="btnMoveElecAndCloseGas" class="btn btn-primary" href="#move-and-close" data-toggle="modal">Move Electricity & Close Gas</a>
+    </div>
+}
+<div class="col-lg-4 d-flex align-items-start flex-column">
+    <p class="@(Model.HasStaffDiscount ? string.Empty : "mb-auto")">Close my accounts</p>
+    <p class="options__desc">I want to close my accounts and leave<br /> Electric Ireland.</p>
+    <a id="btnCloseElecAndGas" class="btn btn-secondary" href="#close-both" data-toggle="modal">Close Electricity & Gas</a>
+</div>

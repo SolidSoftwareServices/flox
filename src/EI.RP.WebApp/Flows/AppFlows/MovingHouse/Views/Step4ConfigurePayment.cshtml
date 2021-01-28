@@ -1,0 +1,37 @@
+﻿@using EI.RP.UiFlows.Mvc.Components
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.MovingHouse.Steps.Step4ConfigurePayment.StepData
+
+@functions
+{
+    enum PageComponent
+    {
+        MovingHouseHeader = 1,
+        ContainedFlowViewPort
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    componentPreLoader.StartLoading<EmbeddedFlowComponent>(PageComponent.ContainedFlowViewPort,
+        new EmbeddedFlowComponent.ComponentParameters
+        {
+            Model = Model
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.MovingHouse.Components.MovingHouseHeader.Component>(PageComponent.MovingHouseHeader,
+        new EI.RP.WebApp.Flows.AppFlows.MovingHouse.Components.MovingHouseHeader.InputModel
+        {
+            MovingHouseType = Model.MovingHouseType,
+            StepNumber = 4
+        });
+}
+
+<main class="plan" data-page="mimo-4">
+    <div class="container">
+        <div class="portal-details">
+            @await componentPreLoader.Render(PageComponent.MovingHouseHeader)
+            @await componentPreLoader.Render(PageComponent.ContainedFlowViewPort)
+        </div>
+    </div>
+</main>

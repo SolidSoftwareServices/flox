@@ -1,0 +1,130 @@
+﻿@using Ei.Rp.Mvc.Core.Cryptography.AntiTampering
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.BusinessPartnersSearch.Steps
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model EI.RP.WebApp.Flows.AppFlows.BusinessPartnersSearch.Steps.SearchAndShowResults.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        SearchResults = 1,
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    if (Model.HasQuery())
+    {
+        componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.BusinessPartnersSearch.Components.SearchResults.Component>(PageComponent.SearchResults,
+            new EI.RP.WebApp.Flows.AppFlows.BusinessPartnersSearch.Components.SearchResults.InputModel
+            {
+                IsPagingEnabled = true,
+                NumberPagingLinks = 5,
+                PageIndex = Model.PageIndex,
+                PageSize = SearchAndShowResults.ScreenModel.PageSize,
+                QueryUserName = Model.UserName,
+                BusinessPartnersIdToShow = Model.BusinessPartnerNumbers,
+            });
+    }
+}
+
+<main class="help" data-page="business-partners-search">
+    <div class="container">
+        <div class="portal-details">
+            <h2>Agent Search</h2>
+            <div class="portal-details__form meter-reading">
+                @using (await Html.BeginUiFlowFormAsync(Model, htmlId: "AgentSearchForm"))
+                {
+                    @if (!string.IsNullOrEmpty(Model.ShowSuccessfulMessage))
+                    {
+                        <div class="alert alert-form alert-success w-100 mb-5">
+                            @(Model.ShowSuccessfulMessage)
+                        </div>
+                    }
+
+                    @if (Model.Errors.Any())
+                    {
+                        @Html.ValidationSummary("", new
+                        {
+                            id = "errorMessage", 
+                            @class = "alert alert-form alert-danger w-100 mb-5",
+                            role = "alert"
+                        })
+                    }
+                    else if (!string.IsNullOrEmpty(Model.ShowErrorMessage))
+                    {
+                        <div class="alert alert-form alert-danger w-100 mb-5" data-testid="error-message">
+                            @Model.ShowErrorMessage
+                        </div>
+                    }
+
+                    <div class="form-group w-100 mt-0 mb-4">
+                        <label for="Partner">Business Partner</label>
+                        <div class="form-group mt-0 mb-0 w-100">
+                            @Html.TextBoxFor(model => model.PartnerNum, new { id = "Partner", @class = "form-control w-100", placeholder = "Business Partner" })
+                            @Html.ValidationMessageFor(model => model.PartnerNum, "", new { @class = "alert alert-form alert-danger w-100" })
+                        </div>
+                    </div>
+                    <div class="form-group w-100 mt-0 mb-4">
+                        <label for="FirstName">User Name</label>
+                        <div class="form-group mt-0 mb-0 w-100">
+                            @Html.TextBoxFor(model => model.UserName, new { id = "FirstName", @class = "form-control w-100", placeholder = "User Name" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "alert alert-form alert-danger w-100" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group w-100 mt-0 mb-4">
+                                <label for="Street">Street</label>
+                                <div class="form-group mt-0 mb-0 w-100">
+                                    @Html.TextBoxFor(model => model.Street, new { id = "Street", @class = "form-control w-100", placeholder = "Street" })
+                                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "alert alert-form alert-danger w-100" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group w-100 mt-0 mb-4">
+                                <label for="House">House No.</label>
+                                <div class="form-group mt-0 mb-0 w-100">
+                                    @Html.TextBoxFor(model => model.HouseNum, new { id = "House", @class = "form-control w-100", placeholder = "House No." })
+                                    @Html.ValidationMessageFor(model => model.HouseNum, "", new { @class = "alert alert-form alert-danger w-100" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group w-100 mt-0 mb-4">
+                                <label for="City">City</label>
+                                <div class="form-group mt-0 mb-0 w-100">
+                                    @Html.TextBoxFor(model => model.City, new { id = "City", @class = "form-control w-100", placeholder = "City" })
+                                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "alert alert-form alert-danger w-100" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group w-100 mt-0 mb-4">
+                                <label for="MaxNo">Maximum Records</label>
+                                <div class="form-group mt-0 mb-0 w-100">
+                                    @Html.TextBoxFor(model => model.MaxRecords, new { id = "MaxNo", @class = "form-control w-100", placeholder = "0", maxlength = "6", max = "100" })
+                                    @Html.ValidationMessageFor(model => model.MaxRecords, "", new { @class = "alert alert-form alert-danger w-100" })
+                                    @await Html.SecureHiddenForAsync(model => model.MaxRecords, false)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <flow-action id="btnSubmit"
+                                 class="btn btn-primary"
+                                 trigger-event="@SearchAndShowResults.StepEvent.FetchBusinessPartnersRequested">Find Business Partner</flow-action>
+                }
+            </div>
+            @if (Model.HasQuery())
+            {
+                @await componentPreLoader.Render(PageComponent.SearchResults)
+            }
+        </div>
+    </div>
+</main>

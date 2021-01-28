@@ -1,0 +1,41 @@
+﻿@{
+	ViewData["Title"] = "Containers 2 sample Number1Step";
+}
+
+
+@using EI.RP.NavigationPrototype.Flows.AppFlows
+@using EI.RP.NavigationPrototype.Flows.AppFlows.ContainersFlow2.Steps
+@using EI.RP.UiFlows.Mvc.Components
+@using EI.RP.NavigationPrototype.Infrastructure
+@model EI.RP.UiFlows.Core.Flows.Screens.Models.UiFlowScreenModel
+
+<div id="Containers2FlowPage">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>Containers 2 sample Number1Step</h2>
+		</div>
+	</div>
+
+	@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow))
+	{
+		if (flowType != Model.GetContainedFlow<SampleAppFlowType>())
+		{
+			<flow-action action-type="StartFlow"
+			             flow-name="@flowType"
+			             flow-location="ContainedInMe">@flowType.ToString()</flow-action>
+			<b>||</b>
+		}
+	}
+
+	<div id="contained-part" style="background-color: yellowgreen; margin-left: 30px;">
+		<vc:embedded-flow input="@(new EmbeddedFlowComponent.ComponentParameters {Model = Model})"/>
+	</div>
+	@using (await Html.BeginUiFlowFormAsync( Model))
+	{
+		<div class="row">
+			<div class="col-md-3">
+				<flow-action id="containerNext" trigger-event=@Number1ContainerScreen.StepEvent.Step2>Next</flow-action>
+			</div>
+		</div>
+	}
+</div>

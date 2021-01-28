@@ -1,0 +1,84 @@
+﻿@using EI.RP.CoreServices.System
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.InputDirectDebitDetails.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        PrivacyNoticeMessage = 1,
+    }
+}
+
+@{
+    ViewBag.Title = "Set up Direct Debit - My Account - Electric Ireland";
+    const string popupViewsLocationPrefix = "./../Popups/";
+    const string partViewsLocationPrefix = "./../Parts/";
+    if (!new[] { InputDirectDebitDetails.ScreenModel.StepMode.EqualizerSetup }.Contains(Model.ViewMode))
+    {
+        throw new ArgumentOutOfRangeException();
+    }
+
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.Component>(PageComponent.PrivacyNoticeMessage,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.InputModel
+        {
+            AccountNumber = Model.AccountNumber,
+            PrependedMessage = "Electric Ireland requires the below information to allow you to pay your Bills by Direct Debit."
+        });
+}
+
+<main class="help" data-page="equaliser-direct-debit">
+
+    <div class="container">
+        <div class="portal-details">
+            <h2>Equal Monthly Payments</h2>
+            <hr aria-hidden="true" />
+
+            <div class="row mt-5 mb-2">
+                <div class="col-12 col-md-6"><p class="mt-0 mb-0">Your Equal Monthly Payment:</p></div>
+                <div class="col-12 col-md-6"><p class="mt-0 mb-0 text-md-right font-weight-bold">@Model.EqualizedAmount</p></div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12 col-md-6"><p class="mt-0 mb-0">Payment Date:</p></div>
+                <div class="col-12 col-md-6"><p class="mt-0 mb-0 text-md-right font-weight-bold" data-testid="equaliser-direct-debit-payment-date">@Model.DisplayFirstPaymentDate.ToDisplayDate(false)</p></div>
+            </div>
+
+            @await componentPreLoader.Render(PageComponent.PrivacyNoticeMessage)
+
+            <div class="portal-details__form">
+                @using (await Html.BeginUiFlowFormAsync(Model))
+                {
+                    @await Html.PartialAsync($"{partViewsLocationPrefix}_InputFields.cshtml", Model)
+
+                    @await Html.PartialAsync($"{partViewsLocationPrefix}_TermsAndConditionsInput.cshtml", Model)
+
+                    @Html.ValidationSummary(true, "", new
+                    {
+                        @class = "alert alert-form alert-danger mb-5",
+                        role = "alert"
+                    })
+
+                    <div class="portal-details__form__buttons">
+                        <flow-action class="btn btn-secondary line-height-for-btns"
+                                     data-testid="equaliser-direct-debit-complete-setup"
+                                     trigger-event="@InputDirectDebitDetails.StepEvent.DirectDebitSetupCompleted">Complete Direct Debit Setup</flow-action>
+                        <a href="#" id="dds_cancel_btn" class="btn btn-xs btn-xs--no-icon btn-xs--primary ml-auto ml-md-0 mr-auto d-table d-md-inline-block"
+                           data-toggle="modal" data-target="#modal-cancel">Cancel</a>
+                    </div>
+                }
+            </div>
+
+            @await Html.PartialAsync($"{partViewsLocationPrefix}_Mandate.cshtml", Model)
+
+        </div>
+    </div>
+
+</main>
+
+@await Html.PartialAsync($"{popupViewsLocationPrefix}_CancelPopup.cshtml", Model)

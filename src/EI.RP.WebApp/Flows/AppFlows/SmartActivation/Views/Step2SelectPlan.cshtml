@@ -1,0 +1,87 @@
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using Ei.Rp.DomainModels.SmartActivation
+@using EI.RP.CoreServices.System
+
+@model EI.RP.WebApp.Flows.AppFlows.SmartActivation.Steps.Step2SelectPlan.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Navigation = 1,
+        Stepper,
+        PlanCard1,
+        PlanCard2,
+        PlanCard3,
+        PlanCard4,
+        PlanCard5,
+        PlanCard6,
+        PlanCard7,
+        PlanCard8,
+    }
+
+    PageComponent GetPlanCardLoaderId(SmartPlan smartPlan)
+    {
+        var planCardLoaderId = $"PlanCard{smartPlan.OrderIndex}".ToEnum<PageComponent>();
+        return planCardLoaderId;
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.Component>(PageComponent.Navigation,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationNavigation.InputModel
+        {
+            SourceFlowType = Model.SourceFlowType
+        });
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.Component>(PageComponent.Stepper,
+        new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationStepper.InputModel
+        {
+            CurrentStep = 2
+        });
+
+	foreach (var plan in Model.Plans)
+	{
+		componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationPlanCard.Component>(GetPlanCardLoaderId(plan),
+			new EI.RP.WebApp.Flows.AppFlows.SmartActivation.Components.SmartActivationPlanCard.InputModel
+			{
+				Plan = plan
+			});
+	}
+}
+
+@await componentPreLoader.Render(PageComponent.Navigation)
+
+<div id="portal-main" class="portal-main">
+    <div class="position-relative">
+        <div class="sub-navigation-overlay"></div>
+        <main class="page page-authorise mb-5 pb-5" data-page="step2-select-plan">
+            <div class="container page-container pt-5 pb-0">
+                @await componentPreLoader.Render(PageComponent.Stepper)
+            </div>
+            <div class="portal-main smart-switch pt-0">
+                <div class="container">
+                    <div class="portal-details py-0">
+                        <div class="container page-container pb-0">
+                            <div class="row cards-heading">
+                                <div class="column col-12 col-md-10 offset-md-1 mb-5">
+                                    <h1 class="text-primary page-title mb-5 text-center mw-100">Upgrade to a smart price plan for free</h1>
+                                    <hr class="my-5" aria-hidden="true">
+                                    <p class="my-0 text-center">Keep the same discounts and energy prices as your current plan, plus get access to free advanced electricity insights and more time of use options.</p>
+                                </div>
+                            </div>
+                        </div>
+	                    <div class="row plans plans--activation justify-content-center">
+		                    @foreach (var plan in Model.Plans)
+		                    {
+			                    @await componentPreLoader.Render(GetPlanCardLoaderId(plan));
+		                    }
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

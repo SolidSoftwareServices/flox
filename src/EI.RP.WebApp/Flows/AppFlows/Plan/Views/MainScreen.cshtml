@@ -1,0 +1,46 @@
+@using EI.RP.WebApp.Flows.AppFlows.Plan.Steps
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+
+@model EI.RP.WebApp.Flows.AppFlows.Plan.Steps.MainScreen.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        PlanDetails = 1,
+        AccountBilling
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Plan.Components.PlanDetails.Component>(PageComponent.PlanDetails,
+        new EI.RP.WebApp.Flows.AppFlows.Plan.Components.PlanDetails.InputModel
+        {
+            AccountNumber = Model.AccountNumber
+        });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Plan.Components.AccountBilling.Component>(PageComponent.AccountBilling,
+        new EI.RP.WebApp.Flows.AppFlows.Plan.Components.AccountBilling.InputModel 
+        {
+            AccountNumber = Model.AccountNumber,
+            SwitchOffPaperBillEvent = MainScreen.StepEvent.SwitchOffPaperBill,
+            SwitchOnPaperBillEvent = MainScreen.StepEvent.SwitchOnPaperBill,
+            SwitchOffMonthlyBillingEvent = MainScreen.StepEvent.SwitchBiMonthlyBilling,
+            SwitchOnMonthlyBillingEvent = MainScreen.StepEvent.SwitchMonthlyBilling,
+            SwitchOffMeterData = MainScreen.StepEvent.SwitchOffMeterData,
+            NoAccessToFeatures = Model.NoAccessToFeatures,
+            MovedToStandardPlan = Model.MovedToStandardPlan,
+            AgreeTermsAndConditions = Model.AgreeTermsAndConditions,
+            IsMoveToStandardPlanRequestSendSuccesfully =  Model.IsMoveToStandardPlanRequestSendSuccesfully
+        });
+}
+
+<main class="plan" data-page="plan">
+    <div class="container">
+        <div class="portal-details">
+            @await componentPreLoader.Render(PageComponent.PlanDetails)
+            @await componentPreLoader.Render(PageComponent.AccountBilling)
+        </div>
+    </div>
+</main>

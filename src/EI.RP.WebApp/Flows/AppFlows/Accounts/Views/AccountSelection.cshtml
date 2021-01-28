@@ -1,0 +1,127 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.Accounts.FlowDefinitions
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using Ei.Rp.DomainModels.Contracts.Accounts
+@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountCardsContainer
+
+@model EI.RP.WebApp.Flows.AppFlows.Accounts.Steps.AccountSelection.ScreenModel
+
+@functions{
+
+	enum PageComponent
+	{
+		Head = 1,
+	    LoadingOverlay,
+		MainNavigation,
+	    Header,
+		SubNavigation,
+		NotificationsAndBanners,
+		AccountCards,
+		DevTools,
+		Scripts,
+		Footer
+	}
+}
+
+@{
+	//TODO:ismultiplage to be encapsulated in the components
+		var isMultipageView = Model.UserAccounts.ResolveIsMultipageView(Model.SelectedAccount.IsOpen);
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountCardsContainer.Component>(PageComponent.AccountCards,
+	    new EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountCardsContainer.InputModel
+    {
+		
+        AccountType = Model.SelectedAccount.AccountType,
+        IsOpen = Model.SelectedAccount.IsOpen,
+        HasStartedFromMeterReading = Model.HasStartedFromMeterReading,
+        IsPagingEnabled = true,
+        PageIndex = Model.PageIndex,
+        PageSize = 4
+    });
+	componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.NotificationAndBanners.Component>(PageComponent.NotificationsAndBanners, new EI.RP.WebApp.Flows.AppFlows.Accounts.Components.NotificationAndBanners.InputModel
+	{
+		AccountNumber = Model.DefaultAccountNumber,
+		ToSmartActivationEvent = Model.ToSmartActivationEvent,
+		ToCompetitionEvent = Model.ToCompetitionEvent,
+		ToPromotionEvent = Model.ToPromotionEvent,
+		DismissSmartActivationBannerEvent = Model.DismissSmartActivationBannerEvent,
+		DismissCompetitionBannerEvent = Model.DismissCompetitionBannerEvent,
+		DismissPromotionBannerEvent = Model.DismissPromotionBannerEvent
+	});
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.Component>(PageComponent.Head, new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Head.InputModel
+    {
+        Title = Model.SelectedAccount.IsOpen ? "My Accounts" : "Closed Accounts"
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.LoadingOverlay.Component>(PageComponent.LoadingOverlay);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsMainNavigation.Component>(PageComponent.MainNavigation, new EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsMainNavigation.InputModel
+    {
+        AccountNumber = Model.DefaultAccountNumber, 
+        IsAgentUser = Model.IsAgentUser
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header, new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+    {
+        Title = Model.SelectedAccount.IsOpen ? "My Accounts" : "Closed Accounts"
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsSubNavigation.Component>(PageComponent.SubNavigation, new EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsSubNavigation.InputModel
+    {
+       
+        AccountType = Model.SelectedAccount.AccountType,
+        IsOpen = Model.SelectedAccount.IsOpen
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.DevTools.Component>(PageComponent.DevTools);
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsFooter.Component>(PageComponent.Footer, new EI.RP.WebApp.Flows.AppFlows.Accounts.Components.AccountsFooter.InputModel
+    {
+        AccountNumber = Model.DefaultAccountNumber
+    });
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Scripts.Component>(PageComponent.Scripts);
+}
+
+<!DOCTYPE html>
+<html lang="en-IE">
+@await componentPreLoader.Render(PageComponent.Head)
+<body class="with-footer" data-layout="electricity-and-gas" data-layout-type="smart">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_GoogleTagManagerNoScripts.cshtml")
+    @await componentPreLoader.Render(PageComponent.LoadingOverlay)
+    @await componentPreLoader.Render(PageComponent.MainNavigation)
+    <div id="portal-main" class="my-accounts portal-main" data-page="my-accounts-@(Model.SelectedAccount.IsOpen ? "open" : "closed")">
+        <div class="@(isMultipageView? "portal-header" : "help__header")">
+            @await componentPreLoader.Render(PageComponent.Header)
+            @await componentPreLoader.Render(PageComponent.SubNavigation)
+        </div>
+        <div class="position-relative">
+            <div class="sub-navigation-overlay"></div>
+            <div class="@(isMultipageView ? "pt-5" : "my-accounts__content" )">
+                <div class="my-accounts__container container">
+
+                    @await componentPreLoader.Render(PageComponent.NotificationsAndBanners)
+                    @await componentPreLoader.Render(PageComponent.AccountCards)
+
+                    @if (Model.SelectedAccount.IsOpen && Model.HasClosedAccounts)
+                    {
+                        <flow-action class="btn btn-xs blue"
+                                     data-testid="view-closed-accounts-link"
+                                     action-type="ReloadStepWithChanges"
+                                     flow-location="SameContainerAsMe"
+                                     flow-name="@ResidentialPortalFlowType.Accounts"
+                                     flow-parameters="@(new AccountsFlowInput {AccountTypeValue = Model.SelectedAccount.AccountType, IsOpen = false, PageIndex = 1})">View Closed Accounts</flow-action>
+                    }
+                    else if (!Model.SelectedAccount.IsOpen && Model.HasOpenAccounts)
+                    {
+                        <flow-action class="btn btn-xs blue back"
+                                     data-testid="view-open-accounts-link"
+                                     action-type="ReloadStepWithChanges"
+                                     flow-location="SameContainerAsMe"
+                                     flow-name="@ResidentialPortalFlowType.Accounts"
+                                     flow-parameters="@(new AccountsFlowInput {AccountTypeValue = Model.SelectedAccount.AccountType, IsOpen = true, PageIndex = 1})">Back to My Accounts</flow-action>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @await componentPreLoader.Render(PageComponent.DevTools)
+    @await componentPreLoader.Render(PageComponent.Footer)
+    @await componentPreLoader.Render(PageComponent.Scripts)
+</body>
+</html>

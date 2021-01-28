@@ -1,0 +1,127 @@
+@using EI.RP.WebApp.Flows.AppFlows.Plan.Components.AccountBilling
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Infrastructure.Extensions
+
+@model ViewModel
+
+<div class="plan-billing-smart-meter-data">
+    <div class="row mb-4">
+        <div class="col-6 mb-0">
+            <h3 id="smart-meter-data-label" class="m-0" data-testid="smart-meter-data-heading">Smart meter data</h3>
+        </div>
+        <div class="col-6 text-right">
+            <input type="checkbox" @(Model.MeterData.IsChecked && !Model.IsContractPending ? "checked" : "") data-toggle="toggle" @(Model.IsContractPending ? "disabled" : "") aria-labelledby="smart-meter-data-label" data-testid="smart-meter-data-toggle" smart-meter-toggle>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-0">
+            <p class="m-0" data-testid="smart-meter-data-text">Electric Ireland receives daily electricity readings from your smart meter. This gives you access to insights, smart price plans and more.</p>
+        </div>
+    </div>
+</div>
+
+<div id="meter-data-confirmation" class="modal modal-lg fade modal-portal modal-plan" tabindex="-1" role="dialog" aria-labelledby="meter-data-confirmation-title" aria-hidden="true" data-meter-data-modal data-testid="meter-data-confirmation" data-trap-focus>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (await Html.BeginUiFlowFormAsync(Model.ScreenModel, htmlId: "meter-data-form"))
+            {
+                <div class="modal-header">
+                    <h1 class="modal-title text-center" id="meter-data-confirmation-title" data-testid="meter-data-confirmation-heading">Are you sure you want to turn off smart meter data?</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-meter-data-reverse>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center mt-3 mt-lg-5" data-testid="meter-data-confirmation-text">To proceed with this change, please confirm that you understand:</p>
+                    <div class="form-group form-check pt-0 my-5 mw-100 text-left">
+                        @Html.Hidden("ShouldValidateMeterData", true)
+                        <div class="custom-control custom-checkbox mb-5">
+                            @Html.CheckBoxFor(model => model.NoAccessToFeatures, new {@class = "custom-control-input"})
+                            <label class="custom-control-label form-info pr-0" for="@Html.IdFor(model => model.NoAccessToFeatures)">
+                                I will no longer have access to detailed electricity information, advanced insights or monthly billing
+                            </label>
+                            @Html.ValidationMessageFor(model => model.NoAccessToFeatures, "", new {@class = "alert alert-form alert-danger w-100"})
+                        </div>
+                        <div class="custom-control custom-checkbox mb-5">
+                            @Html.CheckBoxFor(model => model.MovedToStandardPlan, new {@class = "custom-control-input"})
+                            <label class="custom-control-label form-info pr-0" for="@Html.IdFor(model => model.MovedToStandardPlan)" data-testid="meter-data-downgrade-checkbox-text">
+                                I will be moved to the standard @Model.MeterData.PlanName plan with the same pricing and discounts as my current plan
+                            </label>
+                            @Html.ValidationMessageFor(model => model.MovedToStandardPlan, "", new {@class = "alert alert-form alert-danger w-100"})
+                        </div>
+                        <div class="custom-control custom-checkbox mb-5">
+                            @Html.CheckBoxFor(model => model.AgreeTermsAndConditions, new {@class = "custom-control-input"})
+                            <label class="custom-control-label form-info pr-0" for="@Html.IdFor(model => model.AgreeTermsAndConditions)">
+                                I agree to the <a href="https://www.electricireland.ie/residential/helpful-links/terms-conditions/residential-electricity-and-gas-pricing" 
+                                                  data-testid="meter-data-terms-and-conditions-link"
+                                                  class="btn btn-xs green" target="_blank">terms and conditions</a> of this new plan
+                            </label>
+                            @Html.ValidationMessageFor(model => model.AgreeTermsAndConditions, "", new {@class = "alert alert-form alert-danger w-100"})
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer no-flex">
+                    <flow-action class="btn btn-primary mb-5"
+                                 data-testid="meter-data-confirmation-yes-button"
+                                 trigger-event="@Model.MeterData.SwitchOffMeterData">Continue</flow-action>
+                    <button class="btn btn-xs green" 
+                            data-dismiss="modal" 
+                            data-meter-data-reverse 
+                            data-testid="meter-data-confirmation-no-button">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    'use strict';
+    document.addEventListener('DOMContentLoaded',
+        function(event) {
+            var meterData = {};
+            meterData.toggle = {
+                element: $('[smart-meter-toggle]'),
+                Bind: function() {
+                    var that = this;
+                    if (that.element) {
+                        that.element.on('change',
+                            function(e) {
+                                if (that.element.prop('checked') === false) {
+                                    $('[data-meter-data-modal]').modal('show');
+                                }
+                            });
+                    }
+                },
+                Init: function() {
+                    this.Bind();
+                }
+            };
+            meterData.modal = {
+                element: $('[data-meter-data-reverse]'),
+                toggle: undefined,
+                Bind: function() {
+                    var that = this;
+                    if (that.element) {
+                        that.element.on('click',
+                            function(e) {
+                                that.toggle.element.bootstrapToggle('on', true);
+                            });
+                    }
+                },
+                Init: function(toggleObj) {
+                    this.toggle = toggleObj;
+                    this.Bind();
+                }
+            };
+            meterData.Init = function() {
+                this.toggle.Init();
+                this.modal.Init(this.toggle);
+            };
+            meterData.Init();
+
+            if (@Model.MeterData.HasValidationErrors.ToString().ToLower()) {
+                meterData.toggle.element.bootstrapToggle('off', false);
+            }
+        },
+        false);
+</script>

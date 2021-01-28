@@ -1,0 +1,24 @@
+﻿
+
+#controls {
+    height: 95%;
+    width: 30%;
+}
+
+#graphContainer {
+	box-sizing: border-box;
+	border: 1px solid black;
+	height: 80%;
+	width: 100%;
+	position: relative;
+	right: 5px;
+	top: 5px;
+	transform: scale(1.5);
+}
+
+#graphView {
+    height: 100%;
+    width: 100%;
+}
+
+

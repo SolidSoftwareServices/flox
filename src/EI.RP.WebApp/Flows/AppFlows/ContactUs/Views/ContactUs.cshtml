@@ -1,0 +1,238 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.UiFlows.Mvc.Components.PreLoad
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.ContactUs.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.ContactUs.Steps.ContactUs.ScreenModel
+
+@functions
+{
+    enum PageComponent
+    {
+        Header = 1,
+        PrivacyNoticeMessage,
+        FaqBillsAndPayments,
+        FaqMeterRead,
+        HelpFooter
+    }
+}
+
+@{
+    var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.Component>(PageComponent.Header,
+        new EI.RP.WebApp.Flows.SharedFlowComponents.Main.Header.InputModel
+        {
+            Title = "Contact Us"
+        });
+
+    if (!string.IsNullOrWhiteSpace(Model.SelectedAccount))
+    {
+        componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.Component>(PageComponent.PrivacyNoticeMessage,
+            new EI.RP.WebApp.Flows.SharedFlowComponents.Main.PrivacyNoticeMessage.InputModel
+            {
+                AccountNumber = Model.SelectedAccount,
+                PrependedMessage = "Electric Ireland requires the below information to respond to your query."
+            });
+    }
+
+    @if (!string.IsNullOrEmpty(Model.SelectedQueryType))
+    {
+        var queryType = (ContactQueryType)Uri.UnescapeDataString(Model.SelectedQueryType);
+        if (queryType == ContactQueryType.BillOrPayment)
+        {
+            componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.ContactUs.Components.FaqBillsAndPayments.Component>(PageComponent.FaqBillsAndPayments);
+        }
+        else if (queryType == ContactQueryType.MeterRead)
+        {
+            componentPreLoader.StartLoading<EI.RP.WebApp.Flows.AppFlows.ContactUs.Components.FaqMeterRead.Component>(PageComponent.FaqMeterRead);
+        }
+    }
+
+    componentPreLoader.StartLoading<EI.RP.WebApp.Flows.SharedFlowComponents.Main.HelpFooter.Component>(PageComponent.HelpFooter);
+}
+
+<div class="portal-header portal-header--without-menu">
+    @await componentPreLoader.Render(PageComponent.Header)
+</div>
+<div class="position-relative">
+    <div class="sub-navigation-overlay"></div>
+    <main class="help" data-page="contact-us">
+        @if (Model.HasAccounts)
+        {
+            <div class="container">
+                <div class="portal-details">
+                    <h2>Your Query</h2>
+                    <hr aria-hidden="true"/>
+                    @await componentPreLoader.Render(PageComponent.PrivacyNoticeMessage)
+                    <div class="portal-details__form no-border">
+
+                        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                        {
+                            <div class="alert alert-form alert-danger font-weight-bold mb-5" data-testid="contact-us-error-message">@Model.ErrorMessage</div>
+                        }
+
+                        @using (await Html.BeginUiFlowFormAsync(Model))
+                        {
+							@Html.HiddenFor(x=>x.HasAccounts,new {id="hasAccounts"})
+                            <div class="form-group w-100">
+                                <label for="accountList">Account</label>
+                                <div class="w-100 form-select">
+                                    @Html.DropDownListFor(model => model.SelectedAccount, Model.AccountList, new {id = "accountList", data_onchange = "account", @class = "custom-select w-100"})
+                                    <span class="form-select-arrow"></span>
+                                </div>
+                                @Html.HiddenFor(x => x.SelectedAccount, new {id = "selectedAccount"})
+                                @Html.ValidationMessageFor(model => model.SelectedAccount, "", new {@class = "alert alert-form alert-danger", role = "alert"})
+                                <flow-action data-account-change-trigger class="d-none" trigger-event="@ContactUs.StepEvent.AccountChanged"/>
+                            </div>
+
+                            <div class="form-group w-100">
+                                <label for="queryType">Type of Query</label>
+                                <div class="w-100 form-select">
+                                    @Html.DropDownListFor(x => x.SelectedQueryType, Model.QueryTypes, new {id = "queryType", data_onchange = "query-type", @class = "custom-select w-100"})
+                                    <span class="form-select-arrow"></span>
+                                </div>
+                                @Html.HiddenFor(x => x.SelectedQueryType, new {id = "selectedQueryType"})
+                                @Html.ValidationMessageFor(model => model.SelectedQueryType, "", new {@class = "alert alert-form alert-danger"})
+                                <flow-action data-query-change-trigger class="d-none" data-testid="step-event-query-changed" trigger-event="@ContactUs.StepEvent.QueryChanged"/>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(Model.SelectedQueryType))
+                            {
+                                var queryType = (ContactQueryType) Uri.UnescapeDataString(Model.SelectedQueryType);
+                                @if (queryType == ContactQueryType.AddAdditionalAccount)
+                                {
+                                    <div class="portal-details__form" data-testid="additional-account-component">
+                                        <h2>Enter Account Details</h2>
+                                        <div class="form-group w-100">
+                                            <label for="accountNumber">Account Number</label>
+                                            @Html.TextBoxFor(model => model.AccountNumber,
+                                                new
+                                                {
+                                                    @class = "form-control w-100",
+                                                    name = "accountNumber",
+                                                    id = "accountNumber",
+                                                    placeholder = "Please enter your account number here",
+                                                    maxlength = "9",
+                                                    type = "tel",
+                                                    aria_label = "Account Number"
+                                                })
+                                            @Html.ValidationMessageFor(model => model.AccountNumber, "",
+                                                new
+                                                {
+                                                    @class = "alert alert-form alert-danger",
+                                                    role = "alert"
+                                                })
+                                        </div>
+                                        <div class="form-group w-100">
+                                            <label for="meterNumber">Last 6 digits of MPRN or GPRN</label>
+                                            @Html.TextBoxFor(model => model.MPRN,
+                                                new
+                                                {
+                                                    @class = "form-control w-100",
+                                                    id = "meterNumber",
+                                                    placeholder = "Please enter your MPRN or GPRN here",
+                                                    maxlength = "6",
+                                                    type = "tel",
+                                                    aria_label = "Last 6 digits of MPRN or GPRN"
+                                                })
+                                            @Html.ValidationMessageFor(model => model.MPRN, "",
+                                                new
+                                                {
+                                                    @class = "alert alert-form alert-danger",
+                                                    role = "alert"
+                                                })
+                                        </div>
+                                        <div class="portal-details__note mt-5" data-testid="privacy-notice-message-component">
+                                            <p class="font-weight-bold">Where do I find my MPRN / GPRN?</p>
+                                            <p>Your MPRN (Meter Point Reference Number) and GPRN (Gas Point Registration Number) identify your connection to the ESB Network and are unique to your home.</p>
+                                            <p>You can find your MPRN/GPRN on the top right corner of your current bill.</p>
+                                            <div class="offset-2 col-8 offset-md-0 col-md-4">
+                                                <img src="~/img/bill_explained.svg" class="img-fluid"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                                else if (queryType == ContactQueryType.BillOrPayment)
+                                {
+                                    @await componentPreLoader.Render(PageComponent.FaqBillsAndPayments)
+                                }
+                                else if (queryType == ContactQueryType.MeterRead)
+                                {
+                                    @await componentPreLoader.Render(PageComponent.FaqMeterRead)
+                                }
+                            }
+
+                            <div class="form-group w-100">
+                                <label for="subject">Subject</label>
+                                @Html.TextBoxFor(model => model.Subject, new {id = "subject", @class = "form-control w-100", name = "subject", placeholder = "Please enter your subject here", aria_label = "Subject"})
+                                @Html.ValidationMessageFor(model => model.Subject, "", new {@class = "alert alert-form alert-danger", role = "alert"})
+                            </div>
+
+                            <div class="form-group w-100">
+                                <label for="query">Query</label>
+                                @Html.TextAreaFor(model => model.CommentText, new {id = "query", @class = "form-control w-100", placeholder = "Please enter your query here", name = "query", aria_label = "Query", rows = "7"})
+                                @Html.ValidationMessageFor(model => model.CommentText, "", new {@class = "alert alert-form alert-danger", role = "alert"})
+                            </div>
+
+                            <p>Please do not send your bank details or other sensitive data in your query.</p>
+
+                            <p>
+                                <flow-action id="btnSubmitQuery"
+                                             class="btn btn-primary w-50 text-center"
+                                             trigger-event="@ContactUs.StepEvent.SubmitQuery">Submit Query</flow-action>
+                            </p>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @await Html.PartialAsync("~/Views/Static/Partials/_ContactUsContent.cshtml")
+        }
+        @await componentPreLoader.Render(PageComponent.HelpFooter)
+    </main>
+</div>
+
+<script>
+
+    'use strict';
+
+    var contactUs = {
+        accounts: {
+            select: document.querySelector('[data-onchange="account"]'),
+            button: document.querySelector('[data-account-change-trigger]')
+        },
+        queryTypes: {
+            select: document.querySelector('[data-onchange="query-type"]'),
+            button: document.querySelector('[data-query-change-trigger]')
+        },
+        Bind: function (select, button) {
+            if (select && button) {
+                select.addEventListener('change',
+                    function (event) {
+                        button.click();
+                    },
+                    false);
+            }
+        },
+        Init: function () {
+            this.Bind(this.accounts.select, this.accounts.button);
+            this.Bind(this.queryTypes.select, this.queryTypes.button);
+        }
+    };
+
+
+    /***** DOM ready */
+
+    document.addEventListener('DOMContentLoaded',
+        function (event) {
+            contactUs.Init();
+        },
+        false);
+
+</script>

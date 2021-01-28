@@ -1,0 +1,74 @@
+﻿<#@ template language="C#" #>
+using System;
+using System.Threading.Tasks;
+using EI.RP.CoreServices.Cqrs.Commands;
+using EI.RP.CoreServices.Cqrs.Queries;
+using EI.RP.CoreServices.Http.Session;
+using EI.RP.UiFlows.Core.Configuration;
+using EI.RP.UiFlows.Core.DataSources;
+using EI.RP.UiFlows.Core.Flows.Initialization;
+using EI.RP.UiFlows.Core.Flows.Initialization.Models;
+using EI.RP.UiFlows.Core.Flows.Screens;
+using EI.RP.UiFlows.Core.Flows.Screens.Models;
+using EI.RP.WebApp.Flows.AppFlows.<#=this.Options.FlowName#>.FlowDefinitions;
+
+namespace EI.RP.WebApp.Flows.AppFlows.<#=this.Options.FlowName#>.Steps
+{
+    /// <summary>
+	///this is the entry point of the flow (<#=this.Options.FlowName#>) the initial screen is resolved here and as you have the option of holding all the flow context here or in the steps
+	/// </summary>
+	public class <#=this.Options.FlowName#>FlowInitializer : UiFlowInitializationStep<ResidentialPortalFlowType,
+		<#=this.Options.FlowName#>FlowInitializer.RootScreenModel>
+	{
+		private readonly IUserSessionProvider _userSessionProvider;
+		private readonly IDomainQueryResolver _domainQueryResolver;
+		private readonly IDomainCommandDispatcher _domainCommandDispatcher;
+
+		public <#=this.Options.FlowName#>FlowInitializer(IUserSessionProvider userSessionProvider,
+			IDomainQueryResolver domainQueryResolver,
+			IDomainCommandDispatcher domainCommandDispatcher)
+		{
+			_userSessionProvider = userSessionProvider;
+			_domainQueryResolver = domainQueryResolver;
+			_domainCommandDispatcher = domainCommandDispatcher;
+		}
+
+		public override ResidentialPortalFlowType InitializerOfFlowType => ResidentialPortalFlowType.<#=this.Options.FlowName#>;
+
+		public override bool Authorize()
+		{
+            throw new NotImplementedException("//TODO: samplereturn !_userSessionProvider.IsAnonymous()")			;
+		}
+
+		public override IScreenFlowConfigurator OnDefiningAdditionalInitialStateTransitions(
+			IScreenFlowConfigurator preStartCfg, UiFlowContextData contextData)
+		{
+			return preStartCfg
+				.OnEventNavigatesTo(ScreenEvent.ErrorOccurred, <#=this.Options.FlowName#>Step.ShowFlowGenericError)
+				.OnEventNavigatesTo(ScreenEvent.Start, <#=this.Options.FlowName#>Step.InitialScreen);
+
+		}
+
+		protected override async Task<RootScreenModel> OnBuildStartData(UiFlowContextData contextData,
+			RootScreenModel data)
+		{
+			//TODO: POPULATE THE START DATA
+
+			return data;
+		}
+
+		protected override ScreenEvent ResolveInitializationEventToTrigger(
+			ScreenEvent defaultEventToTriggerAfter,
+			UiFlowScreenModel screenModel)
+		{
+			//TODO: implement here the logic resolve the initial event that navigates to the initial screen to show
+			return base.ResolveInitializationEventToTrigger(defaultEventToTriggerAfter, screenModel);
+		}
+
+
+		public class RootScreenModel : InitialFlowScreenModel, I<#=this.Options.FlowName#>Input
+		{
+			
+		}
+	}
+}

@@ -1,0 +1,36 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.MakeAPayment.Steps
+@using EI.RP.WebApp.Flows.AppFlows.MakeAPayment.FlowDefinitions
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ShowAccountCostEstimation.EstimateYourCostData
+
+<main class="plan" data-page="estimate-your-costs">
+    <div class="container">
+        <div class="portal-details equaliser equaliser-info">
+            <h2>Estimate your costs</h2>
+            <div class="equaliser-monthly-payment">
+                <h2>Your estimated cost to date is: <span data-testid="estimate-your-costs-amount">@Model.EstimatedAmount</span></h2>
+                <flow-action 
+                    class="btn btn-primary text-center"
+                    data-testid="estimate-your-costs-make-a-payment-link"
+                    action-type="StartFlow"
+                    flow-name="@ResidentialPortalFlowType.MakeAPayment"
+                    flow-location="SameContainerAsMe"
+                    flow-parameters="@(new MakeAPaymentInput
+                                     {
+                                        StartType = PaymentFlowInitializer.StartType.FromEstimateCost,
+                                        AccountNumber = (string)null
+                                     })">Make a Payment</flow-action>
+            </div>
+            <p>Please note this product has been designed to calculate your approximate energy cost for an interim period. It is an estimate based on previous usage patterns, the amount provided should only serve as a guide.</p>
+            <div class="equaliser-help">
+                <h2>How is my estimated amount calculated?</h2>
+                <p>
+                    To calculate your estimated cost to date we take the total of your previous bills to get an accurate average cost. Once we get the total of your previous bills, we divide this total by the number of days in the billing period, which gives us your approximate daily cost. We then work out the number of days between when your last bill was issued and today's date.
+                    This then gives us the estimate of your cost to date.
+                    Your estimated cost to date does not take into account any payments you have made since your last bill was issued.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+  </PropertyGroup>
+ <ItemGroup>
+    <Compile Include="..\CommonCompilerExtensions.cs" Link="CommonCompilerExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EI.RP.CoreServices\EI.RP.CoreServices.csproj" />
+    <ProjectReference Include="..\EI.RP.DataModels\EI.RP.DataModels.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿@using EI.RP.WebApp.Flows.AppFlows.TermsInfo.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.TermsInfo.Steps.TermsInfoIndex.TermsInfoScreenModel
+
+@if (Model.StartType == TermsInfoFlowInitializer.StartType.Disclaimer)
+{
+    @await Html.PartialAsync($"~/Flows/AppFlows/TermsInfo/Views/_Disclaimer.cshtml")
+}
+else if (Model.StartType == TermsInfoFlowInitializer.StartType.TermsAndConditions)
+{
+    @await Html.PartialAsync($"~/Flows/AppFlows/TermsInfo/Views/_TC.cshtml")
+}
+else if (Model.StartType == TermsInfoFlowInitializer.StartType.Privacy)
+{
+    @await Html.PartialAsync($"~/Flows/AppFlows/TermsInfo/Views/_Privacy.cshtml")
+}

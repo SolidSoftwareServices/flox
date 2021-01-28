@@ -1,0 +1,59 @@
+//       SUMMARY TABLE     
+// =========================
+// 1. Global
+// =========================
+
+
+// 1. Global
+// =========================
+
+.tooltip {
+	font-family: 'Helvetica';
+	font-size: 1.4rem;
+
+	@include breakpoint(991px) {
+		max-width: 170px;
+	}
+
+	&.show {
+		opacity: 1;
+	}
+
+	&-inner {
+		background-color: $green;
+		border-radius: 5px;
+		padding: 0.6rem 1.2rem;
+	}
+}
+
+.bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+	border-top-color: $green;
+}
+
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+	border-right-color: $green;
+}
+
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+  border-bottom-color: $green;
+}
+
+.bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+  border-left-color: $green;
+}
+
+.bs-tooltip-auto[x-placement^=top].tooltip-light .arrow::before, .bs-tooltip-top.tooltip-light .arrow::before {
+	border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.bs-tooltip-auto[x-placement^=right].tooltip-light .arrow::before, .bs-tooltip-right.tooltip-light .arrow::before {
+	border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+.bs-tooltip-auto[x-placement^=bottom].tooltip-light .arrow::before, .bs-tooltip-bottom.tooltip-light .arrow::before {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.bs-tooltip-auto[x-placement^=left].tooltip-light .arrow::before, .bs-tooltip-left.tooltip-light .arrow::before {
+  border-left-color: rgba(255, 255, 255, 0.1);
+}

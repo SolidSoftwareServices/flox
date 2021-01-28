@@ -1,0 +1,130 @@
+﻿@using EI.RP.WebApp.Controllers
+@using Ei.Rp.Mvc.Core.Controllers
+@using Ei.Rp.Mvc.Core.Cryptography.Urls
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountAndMeterDetails.Steps.AccountAndMeterDetails.ScreenModel
+
+<main class="help" data-page="details">
+    <div class="container">
+        <div class="portal-details">
+
+            <h2 class="mb-0">Account</h2>
+            <hr aria-hidden="true" class="mt-0 mb-4" />
+            <div class="row mb-4">
+                <div class="col-12 col-md-6 mb-0">
+                    <p class="m-0">Name on account</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="m-0 font-weight-bold text-md-right" data-testid="details-name-on-account">@Model.AccountName</p>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12 col-md-6 mb-0">
+                    <p class="m-0">Account number</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="m-0 font-weight-bold text-md-right" data-testid="details-account-number">@Model.AccountNumber</p>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12 col-md-6 mb-0">
+                    <p class="m-0">Meter Address</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="m-0 font-weight-bold text-md-right" data-testid="details-meter-address">@Model.SiteAddress</p>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12 col-md-6 mb-0">
+                    <p class="m-0">Billing Address</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="m-0 font-weight-bold text-md-right" data-testid="details-billing-address">@Model.BillingAddress</p>
+                </div>
+            </div>
+
+            <h2 class="mb-0">Meters</h2>
+            <hr aria-hidden="true" class="mt-0 mb-4" />
+            @foreach (var meter in Model.Meters)
+            {
+                var index = Array.IndexOf(Model.Meters, meter);
+                var canShowSmartCommsLevel = meter.CanShowSmartCommsLevel.HasValue && meter.CanShowSmartCommsLevel.Value;
+                <div class="border rounded p-5 @(index == Model.Meters.Length - 1 ? "mb-5" : "mb-4")" data-testid="details-meter-container-@index">
+                    <div class="row mb-4">
+                        <div class="col-12 col-md-6 mb-0">
+                            <p class="m-0" data-testid="details-meter-@index-ref-number-label">@meter.MeterPointRefNumberLabel</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="m-0 font-weight-bold text-md-right" data-testid="details-meter-@index-ref-number">@meter.MeterPointRefNumber</p>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-12 col-md-6 mb-0">
+                            <p class="m-0">Meter Serial Number</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="m-0 font-weight-bold text-md-right" data-testid="details-meter-@index-networks-meter-number">@meter.NetworksMeterNumber</p>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-12 col-md-6 mb-0">
+                            <p class="m-0">Location</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="m-0 font-weight-bold text-md-right" data-testid="details-meter-@index-location">@meter.Location</p>
+                        </div>
+                    </div>
+                    <div class="row @(canShowSmartCommsLevel ? "mb-4" : string.Empty)">
+                        <div class="col-12 col-md-6 mb-0">
+                            <p class="m-0">Description</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="m-0 font-weight-bold text-md-right" data-testid="details-meter-@index-description">@meter.Description</p>
+                        </div>
+                    </div>
+                    @if (canShowSmartCommsLevel)
+                    {
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-0">
+                                <p class="m-0">Smart meter comms level</p>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <p class="m-0 font-weight-bold text-md-right" data-testid="details-meter-@index-comms-level">@meter.CommsLevel</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Model.CanDownloadConsumptionData)
+            {
+                <h2 class="mb-0">Download meter data</h2>
+                <hr aria-hidden="true" class="mt-0 mb-4" />
+                <div class="row" data-testid="details-consumption-data-container">
+                    <div class="col-12 col-md-6 mb-0">
+                        <p class="m-0">This file contains your electricity meter readings with Electric Ireland up to a maximum of 2 years.</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="m-0 text-md-right">
+                            @await Html.GetActionLinkAsync(
+                                "Download your smart meter data",
+                                nameof(FilesController.GetConsumptionDataFile),
+                                typeof(FilesController).GetNameWithoutSuffix(),
+                                new
+                                {
+                                    Model.AccountNumber
+                                },
+                                new
+                                {
+                                    data_testid = "details-consumption-data-download",
+                                    data_ignore_loading_overlay = "",
+                                    data_file_download_promise = ""
+                                })
+                        </p>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</main>

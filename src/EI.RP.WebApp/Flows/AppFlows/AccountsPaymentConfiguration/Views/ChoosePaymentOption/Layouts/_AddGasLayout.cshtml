@@ -1,0 +1,96 @@
+﻿@using Ei.Rp.DomainModels.MappingValues
+@using EI.RP.WebApp.Infrastructure.Extensions
+@using EI.RP.WebApp.Flows.AppFlows
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.FlowDefinitions
+@using EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps
+
+@model EI.RP.WebApp.Flows.AppFlows.AccountsPaymentConfiguration.Steps.ChoosePaymentOption.ScreenModel
+
+@{
+    const string partialViewsLocationPrefix = "./../Parts/";
+    const string popupsViewsLocationPrefix = "./../Popups/";
+    const string actionViewsLocationPrefix = "./../Actions/";
+    if (Model.StartType != AccountsPaymentConfigurationFlowStartType.AddGasAccount)
+    {
+        throw new ApplicationException();
+    }
+}
+
+<main class="plan" data-page="add-gas-payment-options">
+    <div class="container">
+        <div class="portal-details">
+            <h2 id="gasAccountPayment" class="landing-head landing-align-left-on-mobile">Gas Account Payment</h2>
+            <hr aria-hidden="true" />
+
+            <p id="choosePaymentOptions" class="my-5 sub-heading">Choose a payment option:</p>
+
+            <div class="row" data-testid="payment-options-container">
+                @if (Model.ExistingPaymentMethod == PaymentMethodType.Manual)
+                {
+                    @await Html.PartialAsync($"{partialViewsLocationPrefix}_SetUpNewDirectDebitOption.cshtml", Model)
+                    @await Html.PartialAsync($"{partialViewsLocationPrefix}_SetUpManualOption.cshtml", Model)
+                }
+                else if (Model.ExistingPaymentMethod==PaymentMethodType.AlternativePayer)
+                {
+	                @await Html.PartialAsync($"{partialViewsLocationPrefix}_SetUpNewDirectDebitOption.cshtml", Model)
+                }
+                else if (Model.ExistingPaymentMethod == PaymentMethodType.DirectDebit || Model.ExistingPaymentMethod == PaymentMethodType.Equalizer)
+                {
+                    <div class="col-12 col-lg-6 mb-5">
+                        <div class="card border h-100">
+                            <div class="card-body p-5 h-100 d-flex flex-column">
+                                <div class="card-title-wrapper">
+                                    <h5 id="useExistingDirectDebitHeader" class="card-title font-col-title card-title-large mt-0 mb-5 text-center">Use Existing Direct Debit</h5>
+                                </div>
+                                <p class="card-text card-text--flex-auto-adjust mb-5" id="useExistingDDsubText">You have Direct Debit already set up to pay your bills.</p>
+                                @using (await Html.BeginUiFlowFormAsync(Model))
+                                {
+                                    <div class="form-group form-check pt-0 mt-0 mr-0 mb-5">
+                                        <div class="custom-control custom-checkbox" id="continueDebit">
+                                            @Html.CheckBoxFor(model => model.HasConfirmedDetailsAreCorrect, new { @class = "custom-control-input", id = "confirmContinueDebit" })
+                                            <label class="custom-control-label pr-0 form-info font-smaller"
+                                                   for="confirmContinueDebit">I confirm that all of the details are correct and that I have the authority to make this submission *</label>
+                                            @Html.ValidationMessageFor(model => model.HasConfirmedDetailsAreCorrect, "", new { @class = "alert alert-form alert-danger w-100" })
+                                        </div>
+                                    </div>
+                                    <div class="card-buttons">
+                                        <flow-action id="useExistingDirectDebit" 
+                                                     class="btn btn-primary line-height-for-btns"
+                                                     trigger-event="@ChoosePaymentOption.StepEvent.UseExistingDirectDebitSelected">Use existing Direct Debit</flow-action>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-5">
+                        <div class="card border h-100">
+                            <div class="card-body p-5 h-100 d-flex flex-column">
+                                <div class="card-title-wrapper">
+                                    <h5 id="setUpNewDDHeader" class="card-title font-col-title card-title-large mt-0 mb-5 text-center">Set Up New Direct Debit</h5>
+                                </div>
+                                <p id="setUpNewDDSubText" class="card-text card-text--flex-auto-adjust mb-5">Set up a new Direct Debit for your bill payments. You will need your IBAN and the name on your bank account.</p>
+                                @using (await Html.BeginUiFlowFormAsync(Model))
+                                {
+                                    <div class="card-buttons">
+                                        <flow-action id="setUpNewDirectDebit" 
+                                                     class="btn btn-primary line-height-for-btns"
+                                                     trigger-event=@ChoosePaymentOption.StepEvent.SetUpNewDirectDebit>Set up new Direct Debit</flow-action>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            @await Html.PartialAsync($"{actionViewsLocationPrefix}_SelectManualPayment.cshtml", Model)
+
+            @await Html.PartialAsync($"{actionViewsLocationPrefix}_GoBackAction.cshtml", Model)
+
+        </div>
+    </div>
+
+</main>
+
+@await Html.PartialAsync($"{popupsViewsLocationPrefix}_ConfirmManualPaymentPopup.cshtml", Model)

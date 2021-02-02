@@ -73,7 +73,7 @@ namespace S3.UiFlows.Core.DataSources.Repositories
 
 			await UpdateContainer();
 
-			await UpdateFollowingSnapshot();
+			UpdateFollowingSnapshot();
 
 			return ctx;
 
@@ -97,7 +97,7 @@ namespace S3.UiFlows.Core.DataSources.Repositories
 				}
 			}
 
-			async Task UpdateFollowingSnapshot()
+			void UpdateFollowingSnapshot()
 			{
 				if (!string.IsNullOrWhiteSpace(source.NextFlowHandler))
 				{

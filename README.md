@@ -3,6 +3,8 @@
 #extract encryption and explain plugability
 #improve samples
 #Tests all capabilities
+#flows in a different assembly
+#default dependency injection
 
 	
 	

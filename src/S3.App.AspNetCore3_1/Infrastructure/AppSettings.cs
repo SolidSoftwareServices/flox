@@ -34,7 +34,7 @@ namespace S3.App.AspNetCore3_1.Infrastructure
 		public bool ProfileInDetail { get; }
 
 		public bool IsDeferredComponentLoadEnabled { get; } = true;
-		public string DeferredComponentLoaderViewEmbeddedResourceName => throw new NotImplementedException();
+		public string DeferredComponentLoaderViewEmbeddedResourceName { get; } = null;
 		public bool IsProfilerEnabled { get; } = true;
 
 		

@@ -5,9 +5,8 @@ using Autofac;
 using S3.CoreServices.IoC.Autofac;
 using S3.CoreServices.Profiling;
 using S3.CoreServices.System;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
-
-using S3.UiFlows.Core.Infrastructure.DataSources;
 using S3.UiFlows.Core.Infrastructure.IoC;
 using S3.UiFlows.Mvc.Components;
 using S3.UiFlows.Mvc.Components.Deferred;
@@ -22,13 +21,8 @@ namespace S3.UiFlows.Mvc.Infrastructure.IoC
 	/// <typeparam name="TFlowTypesEnum">enumeration containing the various flow types</typeparam>
 	public class UiFlowsMvcModule<TFlowTypesEnum> : Module where TFlowTypesEnum : struct
 	{
-		private readonly ContextStoreStrategy _contextStoreStrategy;
 
 
-		public UiFlowsMvcModule(ContextStoreStrategy contextStoreStrategy)
-		{
-			_contextStoreStrategy = contextStoreStrategy;
-		}
 
 		protected override void Load(ContainerBuilder builder)
 		{
@@ -39,7 +33,7 @@ namespace S3.UiFlows.Mvc.Infrastructure.IoC
 			
 
 
-			builder.RegisterModule(new UiFlowsCoreModule<TFlowTypesEnum>(_contextStoreStrategy,RuntimeHelpers.GetUninitializedObject));
+			builder.RegisterModule(new UiFlowsCoreModule<TFlowTypesEnum>(RuntimeHelpers.GetUninitializedObject));
 			builder.RegisterType<UiFlowController>().AsSelf().WithClassProfiling();
 			
 			RegisterEngineTypes(builder);

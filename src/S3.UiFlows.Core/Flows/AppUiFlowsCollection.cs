@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
-using S3.UiFlows.Core.Infrastructure.DataSources;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Infrastructure.IoC;
 
 namespace S3.UiFlows.Core.Flows

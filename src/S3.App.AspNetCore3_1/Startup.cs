@@ -1,7 +1,5 @@
 using System;
-using System.Diagnostics;
 using Autofac;
-using S3.Mvc.Core.Middleware;
 using S3.Mvc.Core.Profiler;
 using S3.App.AspNetCore3_1.Data;
 using S3.App.AspNetCore3_1.Flows.AppFlows;
@@ -91,7 +89,6 @@ namespace S3.App.AspNetCore3_1
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
 			app.UseSession();
-			app.UseRequestResponseLogging();
 			
 
 			app.UseAuthentication();

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using S3.App.AspNetCore3_1.Flows.AppFlows.MetadataTestFlow.FlowDefinitions;
-using S3.UiFlows.Core.Infrastructure.DataSources;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;

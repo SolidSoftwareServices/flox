@@ -1,4 +1,4 @@
-using S3.UiFlows.Core.Infrastructure.DataSources;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens.Models;
 

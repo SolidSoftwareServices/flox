@@ -1,11 +1,11 @@
 using Autofac;
+using S3.App.Flows.AppFlows;
 using S3.CoreServices.Infrastructure;
 using S3.Mvc.Core.Profiler.IoC;
-using S3.App.AspNetCore3_1.Flows.AppFlows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Mvc.Infrastructure.IoC;
 
-namespace S3.App.AspNetCore3_1.Infrastructure.IoC
+namespace S3.App.Infrastructure.IoC
 {
 	public class IoCRegistrationModule : Module
 	{

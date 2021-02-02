@@ -1,6 +1,4 @@
-using System;
-
-namespace S3.App.AspNetCore3_1.Models
+namespace S3.App.Models
 {
 	public class ErrorViewModel
     {

@@ -1,5 +1,5 @@
-using S3.App.AspNetCore3_1.Flows.AppFlows.GreenFlow.Steps;
 using NUnit.Framework;
+using S3.App.Flows.AppFlows.GreenFlow.Steps;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Tests
 {

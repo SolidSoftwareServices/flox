@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using S3.CoreServices.Encryption;
 using S3.CoreServices.Platform;
 using S3.Mvc.Core;
 using S3.Mvc.Core.Cryptography.Urls;
 
-namespace S3.App.AspNetCore3_1.Infrastructure
+namespace S3.App.Infrastructure
 {
 	class AppSettings : IEncryptionSettings,
 		IUrlEncryptionSettings,

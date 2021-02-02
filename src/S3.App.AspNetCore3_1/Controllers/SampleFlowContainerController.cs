@@ -1,13 +1,11 @@
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
-using S3.App.AspNetCore3_1.Flows.AppFlows;
-using S3.App.AspNetCore3_1.Models;
-using S3.UiFlows.Mvc.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using S3.App.Flows.AppFlows;
+using S3.App.Models;
+using S3.UiFlows.Mvc.Controllers;
 
-namespace S3.App.AspNetCore3_1.Controllers
+namespace S3.App.Controllers
 {
 	[AllowAnonymous]
     public class SampleFlowContainerController : UiFlowContainerController<SampleFlowContainerViewModel,SampleAppFlowType>

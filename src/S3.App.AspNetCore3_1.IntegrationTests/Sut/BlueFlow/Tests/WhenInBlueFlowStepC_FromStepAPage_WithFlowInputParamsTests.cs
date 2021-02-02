@@ -1,5 +1,5 @@
-using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps;
 using NUnit.Framework;
+using S3.App.Flows.AppFlows.BlueFlow.Steps;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Tests
 {

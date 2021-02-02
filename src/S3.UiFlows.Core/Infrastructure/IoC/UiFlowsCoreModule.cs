@@ -6,6 +6,10 @@ using Autofac;
 using S3.CoreServices.IoC.Autofac;
 using S3.CoreServices.Profiling;
 using S3.CoreServices.System;
+using S3.UiFlows.Core.DataSources;
+using S3.UiFlows.Core.DataSources.Repositories;
+using S3.UiFlows.Core.DataSources.Repositories.Adapters;
+using S3.UiFlows.Core.DataSources.Stores;
 using S3.UiFlows.Core.Facade.CurrentView;
 using S3.UiFlows.Core.Facade.FlowResultResolver;
 using S3.UiFlows.Core.Facade.InitialView;
@@ -14,20 +18,15 @@ using S3.UiFlows.Core.Facade.TriggerEventOnView;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Initialization;
 using S3.UiFlows.Core.Flows.Screens;
-using S3.UiFlows.Core.Infrastructure.DataSources;
-using S3.UiFlows.Core.Infrastructure.DataSources.Repositories;
-using S3.UiFlows.Core.Infrastructure.DataSources.Repositories.Strategies;
 
 namespace S3.UiFlows.Core.Infrastructure.IoC
 {
 	public class UiFlowsCoreModule<TFlowTypesEnum> : Module where TFlowTypesEnum : struct
 	{
-		private readonly ContextStoreStrategy _contextStoreStrategy;
 		private readonly Func<Type, object> _getUninitializedObjectFactory;
 
-		public UiFlowsCoreModule(ContextStoreStrategy contextStoreStrategy, Func<Type,object> getUninitializedObjectFactory)
+		public UiFlowsCoreModule( Func<Type,object> getUninitializedObjectFactory)
 		{
-			_contextStoreStrategy = contextStoreStrategy;
 			_getUninitializedObjectFactory = getUninitializedObjectFactory;
 		}
 
@@ -143,27 +142,17 @@ namespace S3.UiFlows.Core.Infrastructure.IoC
 		private void RegisterContextRepository(ContainerBuilder builder)
 		{
 			builder.RegisterAssemblyTypes(GetType().Assembly).Where(x =>
-					!x.IsAssignableTo<IUiFlowContextRepository>() &&
-					!x.IsAssignableTo<IInternalUiFlowContextRepository>())
+					!x.IsAssignableTo<IUiFlowContextRepository>()
+					&& !x.IsAssignableTo<IFlowsStore>()
+					)
 				.AsImplementedInterfaces().WithInterfaceProfiling();
 
-			builder.RegisterType<InMemoryUiFlowContextDataRepository>()
+			builder.RegisterType<InMemoryFlowsStore>()
+				.SingleInstance()
 				.AsImplementedInterfaces()
-				.SingleInstance().WithInterfaceProfiling();
+				.WithInterfaceProfiling();
 
-			builder.RegisterType<InSessionUiFlowContextDataRepository>()
-				.AsImplementedInterfaces()
-				.InstancePerLifetimeScope().WithInterfaceProfiling();
-
-			
-
-			builder.Register(c =>
-				{
-					var uiFlowContextRepositories = c.Resolve<IEnumerable<IInternalUiFlowContextRepository>>();
-					return new UiFlowContextDataRepositoryDecorator(
-						uiFlowContextRepositories
-							.Single(x => x.StoreStrategy == _contextStoreStrategy), c.Resolve<IProfiler>());
-				})
+			builder.RegisterType<UiFlowContextDataRepositoryDecorator>()
 				.InstancePerLifetimeScope()
 				.AsImplementedInterfaces()
 				.WithInterfaceProfiling();

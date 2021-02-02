@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using S3.CoreServices.AspNet.Http.Session;
-using S3.CoreServices.Http.Session;
 using S3.CoreServices.Profiling;
 using S3.CoreServices.Serialization;
 using S3.CoreServices.System;
@@ -27,11 +25,11 @@ using S3.UiFlows.Core.Facade.TriggerEventOnView;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens.ErrorHandling;
 using S3.UiFlows.Core.Flows.Screens.Models;
-using S3.UiFlows.Core.Infrastructure.DataSources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Net.Http.Headers;
 using NLog;
+using S3.UiFlows.Core.DataSources;
 
 namespace S3.UiFlows.Mvc.Controllers
 {
@@ -62,10 +60,10 @@ namespace S3.UiFlows.Mvc.Controllers
 		private readonly IFlowsMetadataResolver _metadataResolver;
 		private readonly IUiFlowContextRepository _contextRepository;
 		private readonly IProfiler _profiler;
-		private readonly IUserSessionProvider _sessionProvider;
+		private IFlowsStore _store;
 
 		public UiFlowController(IUiFlowContextRepository contextRepository,
-			IProfiler profiler, IUserSessionProvider sessionProvider,
+			IProfiler profiler, IFlowsStore store,
 			IAppUiFlowsCollection flows
 			, IFlowInitialViewRequestHandler<IActionResult> flowInitialViewResolver
 			, IFlowCurrentViewRequestHandler<IActionResult> flowCurrentViewResolver,
@@ -77,7 +75,7 @@ namespace S3.UiFlows.Mvc.Controllers
 
 			_contextRepository = contextRepository;
 			_profiler = profiler;
-			_sessionProvider = sessionProvider;
+			_store = store;
 			_flows = flows;
 			_flowInitialViewResolver = flowInitialViewResolver;
 			_flowCurrentViewResolver = flowCurrentViewResolver;
@@ -251,7 +249,7 @@ namespace S3.UiFlows.Mvc.Controllers
 			{
 				var currentToken = form[FlowFormKey].ToString();
 
-				var lastToken = await _sessionProvider.GetAsync<string>(LastProcessedTokenKey);
+				var lastToken = await _store.GetAsync(LastProcessedTokenKey);
 				if (lastToken == currentToken)
 				{
 					var ctx = await _contextRepository.GetCurrentSnapshot(sourceStep.FlowHandler);
@@ -272,7 +270,7 @@ namespace S3.UiFlows.Mvc.Controllers
 
 				}
 
-				await _sessionProvider.SetAsync(LastProcessedTokenKey, currentToken);
+				await _store.SetAsync(LastProcessedTokenKey, currentToken);
 			}
 
 			return result;
@@ -359,7 +357,7 @@ namespace S3.UiFlows.Mvc.Controllers
 		{
 			callbackHandlers.OnExecuteEvent = async (eventName, screenModel) =>
 			{
-				await _sessionProvider.RemoveAsync(LastProcessedTokenKey);
+				await _store.RemoveAsync(LastProcessedTokenKey);
 				return await OnEvent(eventName, screenModel);
 			};
 			callbackHandlers.OnExecuteRedirection = (redirectTo) =>

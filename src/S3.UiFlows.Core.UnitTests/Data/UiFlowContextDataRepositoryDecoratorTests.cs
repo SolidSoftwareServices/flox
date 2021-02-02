@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using S3.TestServices;
-using S3.UiFlows.Core.Infrastructure.DataSources.Repositories;
-using S3.UiFlows.Core.Infrastructure.DataSources.Repositories.Strategies;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using Moq.AutoMock;
 using NUnit.Framework;
+using S3.UiFlows.Core.DataSources.Repositories;
+using S3.UiFlows.Core.DataSources.Repositories.Adapters;
+using S3.UiFlows.Core.DataSources.Stores;
 
 namespace S3.UiFlows.Core.UnitTests.Data
 {
@@ -238,12 +239,12 @@ namespace S3.UiFlows.Core.UnitTests.Data
 
 		public class TestContext : UnitTestContext<UiFlowContextDataRepositoryDecorator>
 		{
-			public InMemoryUiFlowContextDataRepository InMemoryUiFlowContextDataRepository { get; } =
-				new InMemoryUiFlowContextDataRepository();
+			public DefaultRepositoryAdapter DefaultRepositoryAdapter { get; } =
+				new DefaultRepositoryAdapter(new InMemoryFlowsStore());
 
 			protected override UiFlowContextDataRepositoryDecorator BuildSut(AutoMocker autoMocker)
 			{
-				autoMocker.Use<IInternalUiFlowContextRepository>(InMemoryUiFlowContextDataRepository);
+				autoMocker.Use<IRepositoryAdapter>(DefaultRepositoryAdapter);
 				return base.BuildSut(autoMocker);
 			}
 		}

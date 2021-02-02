@@ -5,7 +5,7 @@ using S3.CoreServices.System;
 using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.FlowDefinitions;
 using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps.FillData;
 using S3.UiFlows.Core.Configuration;
-using S3.UiFlows.Core.Infrastructure.DataSources;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;

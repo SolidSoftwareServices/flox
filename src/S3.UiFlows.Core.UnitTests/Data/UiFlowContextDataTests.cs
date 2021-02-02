@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using S3.TestServices;
-using S3.UiFlows.Core.Infrastructure.DataSources;
 using NUnit.Framework;
+using S3.UiFlows.Core.DataSources;
 
 namespace S3.UiFlows.Core.UnitTests.Data
 {

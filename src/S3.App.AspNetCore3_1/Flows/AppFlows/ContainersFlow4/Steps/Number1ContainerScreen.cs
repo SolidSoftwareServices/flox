@@ -1,6 +1,6 @@
 using S3.App.AspNetCore3_1.Flows.AppFlows.ContainersFlow4.FlowDefinitions;
 using S3.UiFlows.Core.Configuration;
-using S3.UiFlows.Core.Infrastructure.DataSources;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 

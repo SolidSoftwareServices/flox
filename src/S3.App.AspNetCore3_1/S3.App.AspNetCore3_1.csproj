@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-S3.App.AspNetCore3_1-8BF721F8-39EA-44C3-A8D5-C16CB1C17A61</UserSecretsId>
     <Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+    <RootNamespace>S3.App</RootNamespace>
+    <AssemblyName>S3.App</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FrameworkDevelopment|AnyCPU'">
@@ -44,13 +46,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Flows\AppFlows\BlueFlow\Views\Completed.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Flows\AppFlows\BlueFlow\Views\ErrorScreen.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Flows\AppFlows\ContainersFlow4\Views\Number1ContainerScreen.cshtml">
+    <Content Update="Flows\AppFlows\BlueFlow\Views\Init.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Flows\AppFlows\ContainersFlow4\Views\Number2ContainerScreen.cshtml">
+    <Content Update="Flows\AppFlows\BlueFlow\Views\StepA.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Flows\AppFlows\BlueFlow\Views\StepB.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Flows\AppFlows\BlueFlow\Views\StepC.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Flows\AppFlows\ContainersFlow2\Views\Number1ContainerScreen.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Flows\AppFlows\ContainersFlow2\Views\Number2ContainerScreen.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Flows\AppFlows\ContainersFlow3\Views\Number1ContainerScreen.cshtml">
@@ -59,10 +76,16 @@
     <Content Update="Flows\AppFlows\ContainersFlow3\Views\Number2ContainerScreen.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Flows\AppFlows\ContainersFlow2\Views\Number1ContainerScreen.cshtml">
+    <Content Update="Flows\AppFlows\ContainersFlow4\Views\Number1ContainerScreen.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Flows\AppFlows\ContainersFlow2\Views\Number2ContainerScreen.cshtml">
+    <Content Update="Flows\AppFlows\ContainersFlow4\Views\Number2ContainerScreen.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Flows\AppFlows\ContainersFlow\Views\Number1ContainerScreen.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Flows\AppFlows\ContainersFlow\Views\Number2ContainerScreen.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Flows\AppFlows\GreenFlow\Views\RunBlueFlowScreen.cshtml">
@@ -74,30 +97,11 @@
     <Content Update="Flows\AppFlows\ModelTesterFlow\Views\Input.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Flows\AppFlows\ContainersFlow\Views\Number1ContainerScreen.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Flows\AppFlows\ContainersFlow\Views\Number2ContainerScreen.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Flows\AppFlows\BlueFlow\Views\StepB.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Flows\AppFlows\BlueFlow\Views\Completed.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Flows\AppFlows\BlueFlow\Views\StepC.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Flows\AppFlows\BlueFlow\Views\StepA.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Flows\AppFlows\BlueFlow\Views\Init.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
   </ItemGroup>
+
+  <Import Project="..\S3.App.SharedFlows\S3.App.SharedFlows.projitems" Label="Shared" />
 
 </Project>

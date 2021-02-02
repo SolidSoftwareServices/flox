@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using S3.App.AspNetCore3_1.Flows.AppFlows;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using S3.App.Flows.AppFlows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using S3.UiFlows.Mvc.Views;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace S3.App.AspNetCore3_1.Infrastructure
+namespace S3.App.Infrastructure
 {
 	public static class HtmlHelperCustomExtensions
 	{

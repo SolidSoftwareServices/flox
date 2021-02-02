@@ -1,15 +1,14 @@
-@using S3.App.AspNetCore3_1.Flows
-
-@using S3.App.AspNetCore3_1.Flows.AppFlows
-@using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.FlowDefinitions
-@using S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps
-@using S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Components.SampleComponent
-@using S3.App.AspNetCore3_1.Flows.AppFlows.ComponentsFlow.Components.SampleComponentAsync
-@using S3.App.AspNetCore3_1.Flows.SharedFlowComponents.Main.SampleInput
+@using S3.App.Flows
 @using S3.UiFlows.Core.Flows.Screens.Metadata
-@using S3.App.AspNetCore3_1.Infrastructure
+
 @using S3.UiFlows.Mvc.Components.PreLoad
-@model S3.App.AspNetCore3_1.Flows.AppFlows.BlueFlow.Steps.InitialScreen.InitialScreenScreenModel
+@using S3.App.Flows.AppFlows.ComponentsFlow.Components.SampleComponentAsync
+@using S3.App.Flows.SharedFlowComponents.Main.SampleInput
+@using S3.App.Infrastructure
+@using S3.App.Flows.AppFlows.BlueFlow.Steps
+@using S3.App.Flows.AppFlows
+@using S3.App.Flows.AppFlows.BlueFlow.FlowDefinitions
+@model S3.App.Flows.AppFlows.BlueFlow.Steps.InitialScreen.InitialScreenScreenModel
 @{
 	ViewData["Title"] = "BlueFlow::Initial registration";
 	var componentPreLoader = new ComponentPreLoader<PageComponent>(Component, Model);

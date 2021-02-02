@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using System.Text;
-using S3.App.AspNetCore3_1.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using S3.App.Models;
 
-namespace S3.App.AspNetCore3_1.Controllers
+namespace S3.App.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,21 +1,20 @@
 using System;
 using Autofac;
-using S3.Mvc.Core.Profiler;
-using S3.App.AspNetCore3_1.Data;
-using S3.App.AspNetCore3_1.Flows.AppFlows;
-using S3.App.AspNetCore3_1.Infrastructure.IoC;
-using S3.UiFlows.Mvc.AppFeatures;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using S3.App.Data;
+using S3.App.Flows.AppFlows;
+using S3.App.Infrastructure.IoC;
+using S3.Mvc.Core.Profiler;
+using S3.UiFlows.Mvc.AppFeatures;
 
-namespace S3.App.AspNetCore3_1
+namespace S3.App
 {
 	public class Startup
 	{

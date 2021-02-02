@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NLog;
 
-namespace S3.App.AspNetCore3_1
+namespace S3.App
 {
 	public class Program
 	{

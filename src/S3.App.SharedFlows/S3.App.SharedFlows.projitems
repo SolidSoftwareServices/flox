@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>31af54bc-8a4d-4440-a3de-b2d0b5d548b1</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>S3.App</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\FlowDefinitions\BlueFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\FlowDefinitions\BlueFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\FlowDefinitions\IBlueInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\ErrorScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\FillData\StepAScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\FillData\StepBScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\FlowCompletedScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\InitialScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\ReturnToCaller.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\StepCScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Components\SampleComponentAsync\SampleComponentAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Components\SampleComponentAsync\SampleComponentInputAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Components\SampleComponentAsync\SampleComponentViewModelAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Components\SampleComponent\SampleComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Components\SampleComponent\SampleComponentInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Components\SampleComponent\SampleComponentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\FlowDefinitions\ComponentsFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\FlowDefinitions\ComponentsFlowScreenScreenName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Steps\Step0Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\FlowDefinitions\ContainersFlow2Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\FlowDefinitions\ContainersFlow2StepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\Steps\Number1ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\Steps\Number2ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\FlowDefinitions\ContainersFlow3Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\FlowDefinitions\ContainersFlow3StepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\Steps\Number1ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\Steps\Number2ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\FlowDefinitions\ContainersFlow4Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\FlowDefinitions\ContainersFlow4StepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\Steps\Number1ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\Steps\Number2ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\FlowDefinitions\ContainersFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\FlowDefinitions\ContainersFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\Steps\Number1ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\Steps\Number2ContainerScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\FlowDefinitions\GreenFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\FlowDefinitions\GreenFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\FlowDefinitions\IGreenInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\FlowCompletedScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\InitialScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\RunBlueFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\StepAScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\StepBScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\StepCScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\FlowDefinitions\MetadataTestFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\FlowDefinitions\MetadataTestFlowScreenStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\Steps\Step0Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\FlowDefinitions\IModelTesterInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\FlowDefinitions\ModelTesterFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\FlowDefinitions\ModelTesterFlowStep.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\Steps\FlowCompletedScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\Steps\InputScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\SampleAppFlowType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\FlowDefinitions\StartFailureFlowScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\FlowDefinitions\StartFailureFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\Steps\FailureScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\Steps\FlowInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\IInputComponentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\InputComponentInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\InputSampleStepComponent.cs" />
+  </ItemGroup>
+</Project>

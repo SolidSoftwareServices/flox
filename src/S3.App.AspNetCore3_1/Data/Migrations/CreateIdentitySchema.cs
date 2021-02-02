@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace S3.App.AspNetCore3_1.Data.Migrations
+namespace S3.App.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlow.StepA
 {
 	[TestFixture]
-	internal class WhenInContainerPage0_BlueFlowStepATests : WhenInContainer_BlueFlowStepATests<Container1Page0>
+	internal class WhenInContainerPage0FlowStepATests : WhenInContainerFlowStepATests<Container1Page0>
 	{
 
 		protected override async Task TestScenarioArrangement()

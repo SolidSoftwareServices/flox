@@ -9,7 +9,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 {
 	[TestFixture]
 	internal abstract class
-		WhenInContainer_BlueFlowStepCTests<TRootContainerPage> : ContainedBlueFlowTestsBase<TRootContainerPage>
+		WhenInContainerFlowStepCTests<TRootContainerPage> : ContainedFlowTestsBase<TRootContainerPage>
 		where TRootContainerPage : ISutPage
 	{
 
@@ -17,7 +17,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 		protected async Task<BlueFlowStepC> ResolveSut(BlueFlowStep0 step0)
 		{
 			await step0.InputValues("aa", "just validate").Next();
-			return AsStepC();
+			return AsStep<BlueFlowStepC>();
 		}
 
 		protected BlueFlowStepC PageSut { get; set; }
@@ -34,7 +34,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 		{
 			await App.ClickOnElementById("containerNext");
 			await App.ClickOnElementById("containerPrevious");
-			Assert.IsNotNull(AsStepC());
+			Assert.IsNotNull(AsStep<BlueFlowStepC>());
 		}
 
 		[Test]
@@ -78,17 +78,17 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 		{
 			AssertInputParameters();
 			await PageSut.ClickOnElementByText("Previous");
-			var step0 = AsStep0();
+			var step0 = AsStep<BlueFlowStep0>();
 			step0.Input.Value = "bb";
 			await step0.ClickOnElementByText("Next");
-			var stepA = AsStepA();
+			var stepA = AsStep<BlueFlowStepA>();
 			stepA.Input.Value = "cc";
 
 			await stepA.ClickOnElementByText("Next");
-			var stepB = AsStepB();
+			var stepB = AsStep<BlueFlowStepB>();
 			stepB.Input.Value = "dd";
 			await stepB.ClickOnElementByText("Next");
-			PageSut = AsStepC();
+			PageSut = AsStep<BlueFlowStepC>();
 
 			Assert.AreEqual("bb", PageSut.InitialScreenValue);
 			Assert.AreEqual("cc", PageSut.StepAValue);
@@ -102,7 +102,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 		public async Task ViewDataValue_IsCorrect(int value)
 		{
 			await PageSut.ClickOnElementByText($"Set {value}");
-			PageSut = AsStepC();
+			PageSut = AsStep<BlueFlowStepC>();
 			AssertViewDataValueIs(value);
 			AssertInputParameters();
 		}
@@ -112,7 +112,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 		public async Task Resets_RestartsStep0(string input)
 		{
 			await PageSut.ClickOnElementByText("Reset");
-			var step0 = AsStep0();
+			var step0 = AsStep<BlueFlowStep0>();
 			CollectionAssert.IsEmpty(step0.Errors());
 			Assert.IsEmpty(step0.Input.Value);
 			Assert.AreEqual(string.Empty, step0.FieldValidatorValue);
@@ -121,7 +121,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 		public async Task CanOpenNewBlueFlow()
 		{
 			await PageSut.ClickOnElementByText("Open new blue flow");
-			var step0 = AsStep0();
+			var step0 = AsStep<BlueFlowStep0>();
 			CollectionAssert.IsEmpty(step0.Errors());
 			Assert.IsEmpty(step0.Input.Value);
 			Assert.AreEqual(string.Empty, step0.FieldValidatorValue);

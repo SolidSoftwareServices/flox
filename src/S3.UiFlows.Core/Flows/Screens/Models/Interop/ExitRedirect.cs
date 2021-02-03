@@ -3,9 +3,9 @@ namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 	/// <summary>
 	///     Redirects outside of the flow
 	/// </summary>
-	public class UiFlowExitRedirection : UiFlowScreenModel
+	public class ExitRedirect : UiFlowScreenModel
 	{
-		public UiFlowExitRedirection(string controllerName, string actionName)
+		public ExitRedirect(string controllerName, string actionName)
 		{
 			ControllerName = controllerName.EndsWith("Controller")
 				? controllerName.Substring(0, controllerName.Length - 10)

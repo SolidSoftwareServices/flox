@@ -17,6 +17,10 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;1998</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Flows\AppFlows\ComponentsFlow\Components\SampleComponentAsync\CustomLoadingView.html" />
   </ItemGroup>

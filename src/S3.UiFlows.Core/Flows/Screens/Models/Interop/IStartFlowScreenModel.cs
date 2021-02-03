@@ -1,6 +1,6 @@
 namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 {
-	internal interface IConnectToFlow : IUiFlowScreenModel
+	internal interface IStartFlowScreenModel : IUiFlowScreenModel
 	{
 		string StartFlowType { get; set; }
 		bool AsContained { get; set; }

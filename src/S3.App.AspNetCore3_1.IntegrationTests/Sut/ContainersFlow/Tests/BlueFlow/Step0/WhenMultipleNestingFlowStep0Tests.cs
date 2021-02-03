@@ -3,11 +3,12 @@ using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container2;
 using NUnit.Framework;
+using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlow.Step0
 {
 	[TestFixture]
-	internal class WhenMultipleNesting_BlueFlowStep0Tests : WhenInContainer_BlueFlowStep0Tests<Container2Page0>
+	internal class WhenMultipleNestingFlowStep0Tests : WhenInContainerFlowStep0Tests<Container2Page0>
 	{
 
 		protected override async Task TestScenarioArrangement()
@@ -18,7 +19,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 			
 			var containersPage = container2FlowPage.GetCurrentContained<Container1Page0>();
 			await containersPage.SelectBlueFlow();
-			Assert.IsNotNull(AsStep0());
+			Assert.IsNotNull(AsStep<BlueFlowStep0>());
 		}
 
 		protected override IContainerPage ResolveImmediateContainer()

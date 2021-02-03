@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFlow.StepA
 {
 	[TestFixture]
-	internal abstract class WhenInContainer_GreenFlowStepATests<TRootContainerPage> : ContainedGreenFlowTestsBase<TRootContainerPage>
+	internal abstract class WhenInContainer_GreenFlowStepATests<TRootContainerPage> : ContainedFlowTestsBase<TRootContainerPage>
 		where TRootContainerPage : ISutPage
 	{
 
@@ -17,7 +17,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFl
 			
 			await step0.InputValues("ggg")
 				.ClickOnElementByText("Next");
-			return AsStepA();
+			return AsStep<GreenFlowStepA>();
 		}
 		protected GreenFlowStepA PageSut { get; set; }
 

@@ -20,7 +20,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFl
 
 			var containersPage = container2FlowPage.GetCurrentContained<Container1Page0>();
 			//await containersPage.SelectGreenFlow();
-			var page = AsStep0();
+			var page = AsStep<GreenFlowStep0>();
 			await ResolveSut(page);
 		}
 	

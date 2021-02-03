@@ -13,7 +13,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFl
 {
 	[TestFixture]
 	internal abstract class
-		WhenInContainer_GreenFlowStepCTests<TRootContainerPage> : ContainedGreenFlowTestsBase<TRootContainerPage>
+		WhenInContainer_GreenFlowStepCTests<TRootContainerPage> : ContainedFlowTestsBase<TRootContainerPage>
 		where TRootContainerPage : ISutPage
 	{
 
@@ -21,7 +21,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFl
 		protected async Task<GreenFlowStepC> ResolveSut(GreenFlowStep0 step0)
 		{
 			await step0.InputValues("aa").Next();
-			return AsStepC();
+			return AsStep<GreenFlowStepC>();
 		}
 
 		protected GreenFlowStepC PageSut { get; set; }
@@ -65,7 +65,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFl
 		{
 			Assert.AreEqual(
 				$"Flow start value:{string.Join(" - ", InputQueryStringParameters.Select(x => $"{x.Item2}"))}",
-				AsStepC().LabelStartValue.TextContent);
+				AsStep<GreenFlowStepC>().LabelStartValue.TextContent);
 		}
 
 
@@ -73,7 +73,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFl
 		public async Task CanStartBlueFlowAndCollectResult()
 		{
 			var expected = DateTime.UtcNow.Ticks.ToString();
-			await AsStepC().StartBlueFlow();
+			await AsStep<GreenFlowStepC>().StartBlueFlow();
 			var s0 = AsBlueStep0();
 			s0.InputValues("a", expected);
 			await s0.Next();

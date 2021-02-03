@@ -46,7 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore3_1", "AspNetCore
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "S3.App.SharedFlows", "S3.App.SharedFlows\S3.App.SharedFlows.shproj", "{31AF54BC-8A4D-4440-A3DE-B2D0B5D548B1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor.Server", "Blazor.Server", "{5DA9C61C-A451-4A64-8ACE-2F702554E498}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{5DA9C61C-A451-4A64-8ACE-2F702554E498}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

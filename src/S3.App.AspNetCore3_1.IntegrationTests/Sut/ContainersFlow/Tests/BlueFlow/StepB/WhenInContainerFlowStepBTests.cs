@@ -1,40 +1,39 @@
 using System.Linq;
 using System.Threading.Tasks;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
 using S3.UI.TestServices.Sut;
 using NUnit.Framework;
 
-namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlow.StepA
+namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlow.StepB
 {
 	[TestFixture]
-	internal abstract class WhenInContainer_BlueFlowStepATests<TRootContainerPage> : ContainedBlueFlowTestsBase<TRootContainerPage>
+	internal abstract class
+		WhenInContainerFlowStepBTests<TRootContainerPage> : ContainedFlowTestsBase<TRootContainerPage>
 		where TRootContainerPage : ISutPage
 	{
+		protected BlueFlowStepB PageSut { get; set; }
 
-		protected async Task<BlueFlowStepA> ResolveSut(BlueFlowStep0 step0)
+		protected async Task<BlueFlowStepB> ResolveSut(BlueFlowStep0 step0)
 		{
-			
 			await step0.InputValues("ggg", "just validate")
 				.ClickOnElementByText("Next");
-			return AsStepA();
+			await AsStep<BlueFlowStepA>().InputValues("AAA").ClickOnElementByText("Next");
+			return AsStep<BlueFlowStepB>();
 		}
-		protected BlueFlowStepA PageSut { get; set; }
-
 
 		[Test]
 		public async Task CanGoToNextContainerPage_AndKeepsStateWhenBack()
 		{
 			await App.ClickOnElementById("containerNext");
 			await App.ClickOnElementById("containerPrevious");
-			Assert.IsNotNull(AsStepA());
-		}
+			Assert.IsNotNull(AsStep<BlueFlowStepB>());
 
+		}
 		[Test]
 		public async Task AndNoInput_Next_ShowsError()
 		{
 			await PageSut.ClickOnElementByText("Next");
-			PageSut = AsStepA();
+			PageSut = AsStep<BlueFlowStepB>();
 
 			var errors = PageSut.Errors();
 			CollectionAssert.IsNotEmpty(errors);
@@ -44,14 +43,13 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 
 
 		[Test]
-		public async Task AndInputIsOk_Next_ShowsStepB_ThenPreviousKeptInput()
+		public async Task AndInputIsOk_Next_ShowsStepC_ThenPreviousKeptInput()
 		{
-
 			PageSut.Input.Value = "Ok";
 			await PageSut.ClickOnElementByText("Next");
 
-			await AsStepB().ClickOnElementByText("Previous");
-			PageSut = AsStepA();
+			await AsStep<BlueFlowStepC>().ClickOnElementByText("Previous");
+			PageSut = AsStep<BlueFlowStepB>();
 
 			Assert.AreEqual("Ok", PageSut.Input.Value);
 			var errors = PageSut.Errors();
@@ -69,11 +67,10 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlo
 				PageSut.Input.Value = input;
 			}
 			await PageSut.ClickOnElementByText("Reset");
-			var step0 = AsStep0();
+			var step0 = AsStep<BlueFlowStep0>();
 			CollectionAssert.IsEmpty(step0.Errors());
 			Assert.IsEmpty(step0.Input.Value);
 			Assert.AreEqual(string.Empty, step0.FieldValidatorValue);
 		}
-
 	}
 }

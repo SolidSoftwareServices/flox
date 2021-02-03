@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 
 namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 {
-	public abstract class ConnectToFlow<TFlowStartData, TResult> : UiFlowScreenModel, IConnectToFlow
+	public abstract class StartFlowScreenModel<TFlowStartData, TResult> : UiFlowScreenModel, IStartFlowScreenModel
 		where TFlowStartData : InitialFlowScreenModel
 	{
-		protected ConnectToFlow(string startFlowType, TFlowStartData startData = null, bool asContained = false,
+		protected StartFlowScreenModel(string startFlowType, TFlowStartData startData = null, bool asContained = false,
 			bool isContainer = false) : this(isContainer)
 		{
 			StartFlowType = startFlowType;
@@ -14,7 +14,7 @@ namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 			AsContained = asContained;
 		}
 
-		protected ConnectToFlow(bool isContainer = false) : base(isContainer)
+		protected StartFlowScreenModel(bool isContainer = false) : base(isContainer)
 		{
 		}
 
@@ -41,9 +41,9 @@ namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 	/// <summary>
 	///     used only as an agnostic deserializable support in the assembly
 	/// </summary>
-	public class ConnectToFlow : ConnectToFlow<InitialFlowScreenModel, object>
+	public class StartFlowScreenModel : StartFlowScreenModel<InitialFlowScreenModel, object>
 	{
-		public ConnectToFlow(
+		public StartFlowScreenModel(
 			string startFlowType,
 			InitialFlowScreenModel startData = null,
 			bool asContained = false) : base(startFlowType, startData, asContained)
@@ -51,7 +51,7 @@ namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 		}
 
 		[JsonConstructor]
-		private ConnectToFlow()
+		private StartFlowScreenModel()
 		{
 		}
 	}

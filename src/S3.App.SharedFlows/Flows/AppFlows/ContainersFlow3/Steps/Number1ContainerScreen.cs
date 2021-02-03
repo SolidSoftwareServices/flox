@@ -38,7 +38,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 		/// <summary>
 		/// Created to ease usage of parent class
 		/// </summary>
-		public class StepData : ConnectToFlow<BlueFlow.Steps.FlowInitializer.StartScreenModel, string>
+		public class StepData : StartFlowScreenModel<BlueFlow.Steps.FlowInitializer.StartScreenModel, string>
 		{
 			public StepData(SampleAppFlowType startFlowType, BlueFlow.Steps.FlowInitializer.StartScreenModel startData = null,
 				bool asContained = false) : base(startFlowType.ToString(), startData, asContained)

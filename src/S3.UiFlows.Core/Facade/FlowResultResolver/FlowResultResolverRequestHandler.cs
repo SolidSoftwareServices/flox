@@ -26,28 +26,25 @@ namespace S3.UiFlows.Core.Facade.FlowResultResolver
 
 		private async Task<TResult> ResolveFlowActionResult(FlowResultResolverRequest<TResult> input)
 		{
-
 			TResult result = default(TResult);
 			var screenModel = input.ScreenModel;
 			result = await HandleIfOnConnectToFlow();
 			if (result != null) return result;
-
-
 			
-			if (screenModel is CallbackOriginalFlow)
+			if (screenModel is ExitReturnToCaller)
 			{
-				var redirectTo = (CallbackOriginalFlow)screenModel;
+				var redirectTo = (ExitReturnToCaller)screenModel;
 				var ctx = await _contextRepository.Get(redirectTo.CallbackFlowHandler);
-
-				var interopData = (IConnectToFlow)ctx.GetCurrentStepData<UiFlowScreenModel>();
+				
+				var interopData = (IStartFlowScreenModel)ctx.GetCurrentStepData<UiFlowScreenModel>();
 				interopData.CallbackFromFlowHandler = redirectTo.FlowHandler;
 				interopData.SetFlowResult(redirectTo.FlowResult);
 				return await input.OnExecuteEvent(redirectTo.CallbackEvent, (UiFlowScreenModel)interopData);
 
 			}
-			if (screenModel is UiFlowExitRedirection)
+			if (screenModel is ExitRedirect)
 			{
-				var redirectTo = (UiFlowExitRedirection)screenModel;
+				var redirectTo = (ExitRedirect)screenModel;
 				return await input.OnExecuteRedirection(redirectTo);
 
 			}
@@ -67,10 +64,10 @@ namespace S3.UiFlows.Core.Facade.FlowResultResolver
 			async Task<TResult> HandleIfOnConnectToFlow()
 			{
 				TResult handleIfOnConnectToFlow = default(TResult);
-				if (screenModel is IConnectToFlow)
+				if (screenModel is IStartFlowScreenModel)
 				{
 					var ctx = await _contextRepository.Get(screenModel.FlowHandler);
-					var redirectTo = (IConnectToFlow)screenModel;
+					var redirectTo = (IStartFlowScreenModel)screenModel;
 					if (redirectTo.AsContained)
 					{
 						redirectTo.SetContainedFlow(redirectTo.StartFlowType);
@@ -107,9 +104,9 @@ namespace S3.UiFlows.Core.Facade.FlowResultResolver
 			var uiFlowContextData = await _contextRepository.Get(screenModel.FlowHandler);
 			if (
 				!uiFlowContextData.IsInContainer()
-			    || uiFlowStepData is UiFlowExitRedirection
-			    || uiFlowStepData is IConnectToFlow
-			    || uiFlowStepData is CallbackOriginalFlow
+			    || uiFlowStepData is ExitRedirect
+			    || uiFlowStepData is IStartFlowScreenModel
+			    || uiFlowStepData is ExitReturnToCaller
 			    || uiFlowStepData is UiFlowStepUnauthorized)
 				return await ResolveFlowActionResult(input);
 

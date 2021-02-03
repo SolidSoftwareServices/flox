@@ -1,4 +1,8 @@
+#simplify flow interop: add one test case missing first
 #remove TODO
+#declarative events handling
+#presentation logic gen
+#aspnetcore 2.2
 #document store with default in memory store. adding custom stores
 #extract encryption and explain plugability
 #improve samples
@@ -11,6 +15,10 @@
 ##forms
 
 #components
+
+#code generation
+
+#refactor screen title
 
 
 	

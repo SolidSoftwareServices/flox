@@ -35,9 +35,9 @@ namespace S3.UiFlows.Core.Facade.CurrentView
 				actualStepData = await InitializeNewContainedFlows(stepData, input.ViewParameters);
 			}
 
-			if (actualStepData is CallbackOriginalFlow)
+			if (actualStepData is ExitReturnToCaller)
 			{
-				result = await input.OnCallbackCallerFlow(((CallbackOriginalFlow)actualStepData));
+				result = await input.OnCallbackCallerFlow(((ExitReturnToCaller)actualStepData));
 			}
 			else if (actualStepData!=null && stepData.FlowHandler != actualStepData.FlowHandler)
 			{
@@ -94,7 +94,7 @@ namespace S3.UiFlows.Core.Facade.CurrentView
 
 				var f = _flows.GetByFlowType(stepMetaData.ContainedFlowType);
 				sData = await f.StartNew(sData.FlowHandler, containedFlowStartInfo);
-				if (sData is CallbackOriginalFlow)
+				if (sData is ExitReturnToCaller)
 				{
 					return sData;
 				}

@@ -35,6 +35,6 @@ namespace S3.UiFlows.Core.Facade.CurrentView
 			public string FlowType { get; set; }
 		}
 
-		public Func<CallbackOriginalFlow, Task<TResult>> OnCallbackCallerFlow {get;set; }
+		public Func<ExitReturnToCaller, Task<TResult>> OnCallbackCallerFlow {get;set; }
 	}
 }

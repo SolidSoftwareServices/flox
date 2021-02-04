@@ -34,12 +34,12 @@ namespace S3.UiFlows.Core.Flows.Screens
 		Task<UiFlowScreenModel> CreateStepDataAsync(IUiFlowContextData contextData);
 
 		/// <summary>
-		///     It defines the navigation from a Given screen
+		///     It defines the navigation from a Given screen and the event handlers
 		/// </summary>
 		/// <param name="screenConfiguration"></param>
 		/// <param name="contextData"></param>
 		/// <returns></returns>
-		IScreenFlowConfigurator DefineTransitionsFromCurrentScreen(IScreenFlowConfigurator screenConfiguration,
+		IScreenFlowConfigurator DefineActionHandlersOnCurrentScreen(IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData);
 
 		/// <summary>

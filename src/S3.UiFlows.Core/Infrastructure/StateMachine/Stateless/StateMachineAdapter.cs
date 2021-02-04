@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using S3.UiFlows.Core.Configuration;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows.Screens;
 using Stateless;
 using Stateless.Graph;
@@ -49,6 +50,7 @@ namespace S3.UiFlows.Core.Infrastructure.StateMachine.Stateless
 			private readonly HashSet<ScreenEvent> _events = new HashSet<ScreenEvent>();
 
 			private readonly HashSet<ScreenTransition> _transitions = new HashSet<ScreenTransition>();
+			private readonly Dictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> _handlers=new Dictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>>();
 
 			public ScreenFlowStateMachineAdapter(
 				StateMachine<ScreenName, ScreenEvent>.StateConfiguration targetStep)
@@ -56,8 +58,10 @@ namespace S3.UiFlows.Core.Infrastructure.StateMachine.Stateless
 				Target = targetStep;
 			}
 
-			public StateMachine<ScreenName, ScreenEvent>.StateConfiguration Target { get; }
+			private StateMachine<ScreenName, ScreenEvent>.StateConfiguration Target { get; }
 
+
+			public IReadOnlyDictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> Handlers => _handlers;
 
 			public void OnEntry(Func<Task> action, string entryActionDescription = null)
 			{
@@ -171,10 +175,29 @@ namespace S3.UiFlows.Core.Infrastructure.StateMachine.Stateless
 				return this;
 			}
 
+			public IScreenFlowConfigurator OnEventExecutes(ScreenEvent screenEvent, Func<ScreenEvent, IUiFlowContextData, Task> eventHandler)
+			{
+				if (screenEvent == null) throw new ArgumentNullException(nameof(screenEvent));
+				if (eventHandler == null) throw new ArgumentNullException(nameof(eventHandler));
+				_handlers.Add(screenEvent,eventHandler);
+				return this;
+			}
+
+			public IScreenFlowConfigurator OnEventExecutes(ScreenEvent screenEvent, Action<ScreenEvent, IUiFlowContextData> eventHandler)
+			{
+				return OnEventExecutes(screenEvent, (a, b)=>
+				{
+					eventHandler(a,b);
+					return Task.CompletedTask;
+				});
+			}
+
 			private void AddUsedEventIfNotExists(ScreenEvent whenEvent)
 			{
 				if (!_events.Contains(whenEvent)) _events.Add(whenEvent);
 			}
+
+			
 		}
 	}
 }

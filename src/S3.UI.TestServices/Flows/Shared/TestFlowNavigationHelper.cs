@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using S3.CoreServices.System;
 using S3.UiFlows.Core.Configuration;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 
@@ -17,7 +18,7 @@ namespace S3.UI.TestServices.Flows.Shared
 	abstract class TestFlowNavigationHelper : IScreenFlowConfigurator
 	{
 		private readonly ScreenName _currentStep;
-
+		public IReadOnlyDictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> Handlers => _handlers;
 
 		protected Dictionary<ScreenEvent,NavigationResolver> NavigationResolvers { get; }=new Dictionary<ScreenEvent, NavigationResolver>();
 
@@ -100,7 +101,23 @@ namespace S3.UI.TestServices.Flows.Shared
 		{
 			throw new NotImplementedException();
 		}
+		private readonly Dictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> _handlers = new Dictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>>();
+		public IScreenFlowConfigurator OnEventExecutes(ScreenEvent screenEvent, Func<ScreenEvent, IUiFlowContextData, Task> eventHandler)
+		{
+			if (screenEvent == null) throw new ArgumentNullException(nameof(screenEvent));
+			if (eventHandler == null) throw new ArgumentNullException(nameof(eventHandler));
+			_handlers.Add(screenEvent, eventHandler);
+			return this;
+		}
 
+		public IScreenFlowConfigurator OnEventExecutes(ScreenEvent screenEvent, Action<ScreenEvent, IUiFlowContextData> eventHandler)
+		{
+			return OnEventExecutes(screenEvent, (a, b) =>
+			{
+				eventHandler(a, b);
+				return Task.CompletedTask;
+			});
+		}
 		public ScreenName Execute(ScreenEvent eventToTrigger)
 		{
 			return NavigationResolvers.ContainsKey(eventToTrigger)

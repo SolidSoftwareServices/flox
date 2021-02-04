@@ -21,7 +21,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 
 		public override string ViewPath { get; } = "Completed";
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(IScreenFlowConfigurator screenConfiguration,
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventNavigatesTo(StepEvent.BackToEditValues, ModelTesterFlowStep.InputScreen);

@@ -18,7 +18,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(InitialScreen),"Next");
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(InitialScreen), "Reset");
 		}
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			bool ToStepC()
@@ -31,19 +31,13 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
 				.OnEventReentriesCurrent(StepEvent.Reset)
 				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepAScreen,()=>!ToStepC(),"input is NOT a*")
-				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepCScreen,ToStepC,"input is a*");
+				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepCScreen,ToStepC,"input is a*")
+
+				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset())
+				;
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			if (triggeredEvent == StepEvent.Reset)
-			{
-				contextData.Reset();
-
-			}
-
-			return Task.CompletedTask;
-		}
+		
 
 		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)

@@ -9,7 +9,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow2.Steps
 	{
 		public override ScreenName ScreenStep =>  ContainersFlow2ScreenName.Number1ContainerScreen;
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)

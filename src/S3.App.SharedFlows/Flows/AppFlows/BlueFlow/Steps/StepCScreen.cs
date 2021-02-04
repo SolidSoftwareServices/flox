@@ -28,7 +28,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			return true;
 		}
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			var prestart=contextData.GetStepData<FlowInitializer.StartScreenModel>(ScreenName.PreStart);
@@ -41,7 +41,9 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.FillDataStep_StepBScreen,
 					() => !ByPassedStepAandB(), "Comes from B")
 				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.Step0Screen, ByPassedStepAandB,
-					"Comes from step0");
+					"Comes from step0")
+
+				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset());
 
 			bool ByPassedStepAandB()
 			{
@@ -53,11 +55,6 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			if (triggeredEvent == StepEvent.Reset) contextData.Reset();
-			return Task.CompletedTask;
-		}
 		
 		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
 		{

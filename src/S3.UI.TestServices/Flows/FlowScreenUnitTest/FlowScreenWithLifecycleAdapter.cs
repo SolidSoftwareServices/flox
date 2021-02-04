@@ -100,6 +100,8 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 		public ScreenName ExecuteEvent(ScreenEvent eventToTrigger)
 		{
+			var cfg = new TestFlowScreenConfigurator(_target);
+			_target.DefineActionHandlersOnCurrentScreen(cfg, _uiFlowContextData);
 			_target.HandleStepEvent(eventToTrigger, _uiFlowContextData).Wait();
 			return RunNavigation(eventToTrigger);
 		}
@@ -107,7 +109,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 		public ScreenName RunNavigation(ScreenEvent eventToTrigger)
 		{
 			var navigations = new TestFlowScreenConfigurator(_target);
-			_target.DefineTransitionsFromCurrentScreen(navigations, _uiFlowContextData);
+			_target.DefineActionHandlersOnCurrentScreen(navigations, _uiFlowContextData);
 			return navigations.Execute(eventToTrigger);
 		}
 

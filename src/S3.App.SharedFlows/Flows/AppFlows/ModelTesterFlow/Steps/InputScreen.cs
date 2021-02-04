@@ -21,7 +21,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 
 		
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 
@@ -30,11 +30,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 				.OnEventNavigatesTo(StepEvent.Submit, ModelTesterFlowStep.FlowCompletedScreen);
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			
-			return Task.CompletedTask;
-		}
+		
 
 		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
 			IUiFlowContextData contextData, out string errorMessage)

@@ -29,23 +29,17 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 				});
 		}
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
-			return screenConfiguration.OnEventNavigatesTo(StepEvent.BlueFlowCompleted,
-				GreenFlowScreenName.FlowCompletedScreen);
+			return screenConfiguration
+				.OnEventNavigatesTo(StepEvent.BlueFlowCompleted, GreenFlowScreenName.FlowCompletedScreen)
+
+				.OnEventExecutes(StepEvent.BlueFlowCompleted,
+					(e, ctx) => ctx.GetCurrentStepData<StepData>().BlueFlowCompletedEventHandled = true);
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			if (triggeredEvent == StepEvent.BlueFlowCompleted)
-			{
-				contextData.GetCurrentStepData<StepData>().BlueFlowCompletedEventHandled = true;
-			}
-
-			return base.OnHandlingStepEvent(triggeredEvent, contextData);
-		}
 
 		/// <summary>
 		/// Created to ease usage of parent class

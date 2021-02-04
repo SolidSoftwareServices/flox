@@ -28,7 +28,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 		public override ScreenName ScreenStep =>  GreenFlowScreenName.StepCScreen;
 		public override string ViewPath { get; } = "StepC";
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			bool ByPassedStepAandB()
@@ -42,22 +42,11 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 				.OnEventNavigatesTo(StepEvent.FlowTransitionCompleted, GreenFlowScreenName.FlowCompletedScreen)
 				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.StepBScreen, () => !ByPassedStepAandB(),"Comes from B")
 				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.Step0Screen, ByPassedStepAandB, "Comes from step0")
-
 				.OnEventNavigatesTo(StepEvent.StartBlueFlow, GreenFlowScreenName.RunBlueFlow)
 
-				; 
+				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset());
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			if (triggeredEvent == StepEvent.Reset)
-			{
-				contextData.Reset();
-
-			}
-
-			return Task.CompletedTask;
-		}
 
 		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
 		{

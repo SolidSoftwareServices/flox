@@ -38,27 +38,18 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 		public override ScreenName ScreenStep =>  GreenFlowScreenName.StepBScreen;
 		public override string ViewPath { get; } = "StepB";
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
 				.OnEventNavigatesTo(StepEvent.Reset, GreenFlowScreenName.Step0Screen)
 				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepCScreen)
-				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.StepAScreen);
+				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.StepAScreen)
+				
+				.OnEventExecutes(StepEvent.Reset,  (e,ctx)=>ctx.Reset())
+				.OnEventExecutes(StepEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepBScreenScreenModel>().StepBValue1 = null);
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			 if (triggeredEvent == StepEvent.Reset)
-			{
-				contextData.Reset();
-			 }
-			 else if (triggeredEvent == StepEvent.Previous)
-			 {
-				 contextData.GetCurrentStepData<StepBScreenScreenModel>().StepBValue1 = null;
-			 }
-			return Task.CompletedTask;
-		}
 
 		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
 		{

@@ -224,7 +224,7 @@ namespace S3.UiFlows.Core.Flows
 				configurator = _stateMachine.Configure(screenStep);
 
 				flowRuntime.Screens[screenStep]
-					.DefineTransitionsFromCurrentScreen(configurator, contextData);
+					.DefineActionHandlersOnCurrentScreen(configurator, contextData);
 
 				configurator
 					.OnEntry(() => OnStateEntry(contextData));

@@ -17,7 +17,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(StepAScreen), "Reset");
 		}
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration
@@ -25,22 +25,13 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
 				.OnEventNavigatesTo(StepEvent.Reset, BlueFlowScreenName.Step0Screen)
 				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.FillDataStep_StepBScreen)
-				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.Step0Screen);
+				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.Step0Screen)
+
+				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset())
+				.OnEventExecutes(StepEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepAScreenScreenModel>().StepAValue1 = null);
+			;
 		}
 		
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
-		{
-			if (triggeredEvent == StepEvent.Reset)
-			{
-				contextData.Reset();
-
-			}else if (triggeredEvent == StepEvent.Previous)
-			{
-				contextData.GetCurrentStepData<StepAScreenScreenModel>().StepAValue1 = null;
-			}
-
-			return Task.CompletedTask;
-		}
 
         protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)

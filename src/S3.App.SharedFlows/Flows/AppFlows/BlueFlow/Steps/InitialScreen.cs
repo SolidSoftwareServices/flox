@@ -18,14 +18,10 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		public override ScreenName ScreenStep => BlueFlowScreenName.Step0Screen;
 		public override string ViewPath => "Init";
 
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
-			bool ToStepC()
-			{
-				var stepValue1 = contextData.GetCurrentStepData<InitialScreenScreenModel>().StepValue1;
-				return stepValue1 != null && stepValue1.StartsWith('a');
-			}
+			
 
 			ThrowIfMustFail(contextData, ScreenLifecycleStage.DefiningTransitionsFromCurrentScreen);
 
@@ -36,7 +32,13 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 				.OnEventReentriesCurrent(StepEvent.Reset)
 				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.FillDataStep_StepAScreen, () => !ToStepC(),
 					"input is NOT a*")
-				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.StepCScreen, ToStepC, "input is a*");
+				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.StepCScreen, ToStepC, "input is a*")
+				.OnEventExecutes(StepEvent.Reset,OnReset);
+			bool ToStepC()
+			{
+				var stepValue1 = contextData.GetCurrentStepData<InitialScreenScreenModel>().StepValue1;
+				return stepValue1 != null && stepValue1.StartsWith('a');
+			}
 		}
 
 		private void ThrowIfMustFail(IUiFlowContextData contextData, ScreenLifecycleStage stage)
@@ -46,10 +48,10 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 				throw new Exception($"Failing on {ScreenStep}.{stage}");
 		}
 
-		protected override Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
+		protected  Task OnReset(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
 		{
 			ThrowIfMustFail(contextData, ScreenLifecycleStage.HandlingEvent);
-			if (triggeredEvent == StepEvent.Reset) contextData.Reset();
+			contextData.Reset();
 			return Task.CompletedTask;
 		}
 

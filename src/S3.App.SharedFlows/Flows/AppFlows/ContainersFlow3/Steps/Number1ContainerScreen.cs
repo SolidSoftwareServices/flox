@@ -17,7 +17,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 		{
 			public static readonly ScreenEvent ToStep2 = new ScreenEvent(nameof(Number1ContainerScreen),nameof(ToStep2));
 		}
-		protected override IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)

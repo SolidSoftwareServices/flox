@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace S3.UiFlows.Core.Flows.Screens
 
 		[JsonIgnore] private bool _stepDataLoaded;
 
+		//TODO: IGNORE??
+		private  IReadOnlyDictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> _eventHandlers;
 		internal IEnumerable<ScreenTransition> Transitions { get; set; }
 
 		public abstract ScreenName ScreenStep { get; }
@@ -103,12 +106,15 @@ namespace S3.UiFlows.Core.Flows.Screens
 		{
 			TraceBegin(nameof(HandleStepEvent), contextData, triggeredEvent);
 			LifecycleStage = ScreenLifecycleStage.HandlingEvent;
+			//TDO: inline next
 			await OnHandlingStepEvent(triggeredEvent, contextData);
 			var uiFlowStepData = contextData.GetCurrentStepData<UiFlowScreenModel>();
 			if (uiFlowStepData != null) uiFlowStepData.Errors = new List<UiFlowUserInputError>();
 			LifecycleStage = ScreenLifecycleStage.HandleEventCompleted;
 			TraceEnd(nameof(HandleStepEvent), contextData, triggeredEvent);
 		}
+
+		
 
 		public virtual bool MustExecuteAnotherTransition(out ScreenEvent screenEvent)
 		{
@@ -125,18 +131,19 @@ namespace S3.UiFlows.Core.Flows.Screens
 			return startInfo;
 		}
 
-		public IScreenFlowConfigurator DefineTransitionsFromCurrentScreen(
+		public IScreenFlowConfigurator DefineActionHandlersOnCurrentScreen(
 			IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
-			TraceBegin(nameof(DefineTransitionsFromCurrentScreen), contextData);
+			TraceBegin(nameof(DefineActionHandlersOnCurrentScreen), contextData);
 			LifecycleStage = ScreenLifecycleStage.DefiningTransitionsFromCurrentScreen;
-			var cfg = OnDefiningTransitionsFromCurrentScreen(screenConfiguration, contextData);
+			var cfg = OnConfiguringScreenEventHandlersAndNavigations(screenConfiguration, contextData);
 			var internalScreenFlowConfigurator = ((IInternalScreenFlowConfigurator)cfg);
 			internalScreenFlowConfigurator.AddErrorTransitionIfUndefined();
 			this.Transitions = internalScreenFlowConfigurator.Transitions;
+			this._eventHandlers = internalScreenFlowConfigurator.Handlers;
 			LifecycleStage = ScreenLifecycleStage.DefineTransitionsFromCurrentScreenCompleted;
-			TraceEnd(nameof(DefineTransitionsFromCurrentScreen), contextData);
+			TraceEnd(nameof(DefineActionHandlersOnCurrentScreen), contextData);
 			return cfg;
 		}
 
@@ -149,12 +156,13 @@ namespace S3.UiFlows.Core.Flows.Screens
 			return originalScreenModel;
 		}
 
-		protected virtual IScreenFlowConfigurator OnDefiningTransitionsFromCurrentScreen(
+		protected virtual IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
 			IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
 			return screenConfiguration;
 		}
+
 
 		protected virtual async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
 		{
@@ -168,9 +176,13 @@ namespace S3.UiFlows.Core.Flows.Screens
 			return true;
 		}
 
-		protected virtual Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
+		private async Task OnHandlingStepEvent(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
 		{
-			return Task.CompletedTask;
+			if (_eventHandlers.ContainsKey(triggeredEvent))
+			{
+				var eventHandler = _eventHandlers[triggeredEvent];
+				await eventHandler(triggeredEvent, contextData);
+			}
 		}
 
 

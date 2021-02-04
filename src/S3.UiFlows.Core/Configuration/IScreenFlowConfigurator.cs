@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.UiFlows.Core.Configuration
@@ -29,5 +30,7 @@ namespace S3.UiFlows.Core.Configuration
 			string conditionFriendlyDescription);
 
 		IScreenFlowConfigurator SubStepOf(ScreenName step);
+		IScreenFlowConfigurator OnEventExecutes(ScreenEvent screenEvent, Func<ScreenEvent, IUiFlowContextData, Task> eventHandler);
+		IScreenFlowConfigurator OnEventExecutes(ScreenEvent screenEvent, Action<ScreenEvent, IUiFlowContextData> eventHandler);
 	}
 }

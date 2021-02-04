@@ -17,14 +17,14 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 		{
 			public static readonly ScreenEvent ToStep2 = new ScreenEvent(nameof(Number1ContainerScreen),nameof(ToStep2));
 		}
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
 				.OnEventNavigatesTo(StepEvent.ToStep2, ContainersFlow3ScreenName.Number2ContainerScreen);
 		}
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new StepData(SampleAppFlowType.BlueFlow,
 				new BlueFlow.Steps.FlowInitializer.StartScreenModel

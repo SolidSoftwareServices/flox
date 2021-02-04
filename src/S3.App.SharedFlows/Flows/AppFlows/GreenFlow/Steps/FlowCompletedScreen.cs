@@ -18,7 +18,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var stepData = new FlowCompletedScreenScreenModel
 			{

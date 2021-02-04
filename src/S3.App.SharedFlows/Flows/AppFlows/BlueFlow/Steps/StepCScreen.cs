@@ -21,14 +21,14 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		public override ScreenName ScreenStep =>  BlueFlowScreenName.StepCScreen;
 		public override string ViewPath { get; } = "StepC";
 
-		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
+		protected override bool OnValidate(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)
         {
 			errorMessage = null;
 			return true;
 		}
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			var prestart=contextData.GetStepData<FlowInitializer.StartScreenModel>(ScreenName.PreStart);
@@ -56,7 +56,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		}
 
 		
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new StepCScreenScreenModel
 			{
@@ -71,7 +71,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 					?.StepBValue1
 			};
 		}
-		protected override async Task<UiFlowScreenModel> OnRefreshStepDataAsync(IUiFlowContextData contextData,
+		protected override async Task<UiFlowScreenModel> OnRefreshModelAsync(IUiFlowContextData contextData,
 			UiFlowScreenModel originalScreenModel, IDictionary<string, object> stepViewCustomizations = null)
 		{
 			var result = (StepCScreenScreenModel)originalScreenModel ;

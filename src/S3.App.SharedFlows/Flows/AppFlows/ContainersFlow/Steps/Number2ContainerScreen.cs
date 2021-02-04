@@ -11,7 +11,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow.Steps
 	public class Number2ContainerScreen : ContainersFlowScreen
 	{
 		public override ScreenName ScreenStep =>  ContainersFlowScreenName.Number2ContainerScreen;
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
@@ -23,13 +23,13 @@ namespace S3.App.Flows.AppFlows.ContainersFlow.Steps
 			public static readonly ScreenEvent Step1 = new ScreenEvent(nameof(Number2ContainerScreen), nameof(Step1));
 		}
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var model = new Number2ContainerScreenModel();
 			await SetTitle(contextData, model);
 			return model;
 		}
-		protected override async Task<UiFlowScreenModel> OnRefreshStepDataAsync(IUiFlowContextData contextData, UiFlowScreenModel originalScreenModel,
+		protected override async Task<UiFlowScreenModel> OnRefreshModelAsync(IUiFlowContextData contextData, UiFlowScreenModel originalScreenModel,
 			IDictionary<string, object> stepViewCustomizations = null)
 		{
 			await SetTitle(contextData, (Number2ContainerScreenModel)originalScreenModel);

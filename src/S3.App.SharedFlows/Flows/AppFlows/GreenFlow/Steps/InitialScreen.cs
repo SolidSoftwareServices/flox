@@ -18,7 +18,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(InitialScreen),"Next");
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(InitialScreen), "Reset");
 		}
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			bool ToStepC()
@@ -39,7 +39,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 		
 
-		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
+		protected override bool OnValidate(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)
         {
 			bool result = true;
@@ -61,7 +61,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 		
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new InitialScreenScreenModel();
 		}

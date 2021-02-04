@@ -19,7 +19,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		
 		
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new FlowCompletedScreenScreenModel
 			{

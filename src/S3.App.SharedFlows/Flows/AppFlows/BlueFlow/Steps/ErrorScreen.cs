@@ -10,7 +10,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 	{
 		public override ScreenName ScreenStep => BlueFlowScreenName.ErrorScreen;
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var result = new ErrorScreenModel();
 			result.Error = contextData.LastError.ExceptionMessage;

@@ -11,16 +11,16 @@ namespace S3.App.Flows.AppFlows.ContainersFlow.Steps
 	{
 		public override ScreenName ScreenStep =>  ContainersFlowScreenName.Number1ContainerScreen;
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
 				.OnEventNavigatesTo(StepEvent.Step2, ContainersFlowScreenName.Number2ContainerScreen);
 		}
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
-			var result = await base.OnCreateStepDataAsync(contextData);
+			var result = await base.OnCreateModelAsync(contextData);
 			result.SetContainedFlow(SampleAppFlowType.GreenFlow);
 			return result;
 		}

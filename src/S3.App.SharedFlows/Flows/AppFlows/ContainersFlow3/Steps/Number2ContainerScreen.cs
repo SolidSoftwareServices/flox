@@ -11,7 +11,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 	public class Number2ContainerScreen : ContainersFlow3Screen
 	{
 		public override ScreenName ScreenStep =>  ContainersFlow3ScreenName.Number2ContainerScreen;
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
@@ -26,7 +26,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 		}
 
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var a = contextData.GetStepData<Number1ContainerScreen.StepData>(ContainersFlow3ScreenName.Number1ContainerScreen);
 			return new ScreenModel()

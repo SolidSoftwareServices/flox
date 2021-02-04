@@ -18,7 +18,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		public override ScreenName ScreenStep => BlueFlowScreenName.Step0Screen;
 		public override string ViewPath => "Init";
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			
@@ -55,7 +55,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			return Task.CompletedTask;
 		}
 
-		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
+		protected override bool OnValidate(ScreenEvent transitionTrigger,
 			IUiFlowContextData contextData, out string errorMessage)
 		{
 			ThrowIfMustFail(contextData, ScreenLifecycleStage.ValidatingTransition);
@@ -72,19 +72,19 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			return result;
 		}
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			ThrowIfMustFail(contextData, ScreenLifecycleStage.CreatingStepData);
 			var result = new InitialScreenScreenModel();
 			return result;
 		}
 
-		protected override Task<UiFlowScreenModel> OnRefreshStepDataAsync(IUiFlowContextData contextData,
+		protected override Task<UiFlowScreenModel> OnRefreshModelAsync(IUiFlowContextData contextData,
 			UiFlowScreenModel originalScreenModel,
 			IDictionary<string, object> stepViewCustomizations = null)
 		{
 			ThrowIfMustFail(contextData, ScreenLifecycleStage.RefreshingStepData);
-			return base.OnRefreshStepDataAsync(contextData, originalScreenModel, stepViewCustomizations);
+			return base.OnRefreshModelAsync(contextData, originalScreenModel, stepViewCustomizations);
 		}
 
 		public static class StepEvent

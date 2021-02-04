@@ -61,7 +61,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 							_stepDataLoaded = true;
 
 							var onRefreshStepDataAsync =
-								await OnRefreshStepDataAsync(contextData, originalScreenModel, stepViewCustomizations);
+								await OnRefreshModelAsync(contextData, originalScreenModel, stepViewCustomizations);
 							await OnScreenLoadCompletedAsync(contextData);
 							result = onRefreshStepDataAsync;
 							LifecycleStage = ScreenLifecycleStage.RefreshStepDataCompleted;
@@ -78,7 +78,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 		{
 			TraceBegin(nameof(CreateStepDataAsync), contextData);
 			LifecycleStage = ScreenLifecycleStage.CreatingStepData;
-			var result = await OnCreateStepDataAsync(contextData);
+			var result = await OnCreateModelAsync(contextData);
 
 			_stepDataLoaded = true;
 			await OnScreenLoadCompletedAsync(contextData);
@@ -94,7 +94,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 		{
 			TraceBegin(nameof(HandleStepEvent), contextData, triggeredEvent);
 			LifecycleStage = ScreenLifecycleStage.ValidatingTransition;
-			var isValid = OnValidateTransitionAttempt(triggeredEvent, contextData, out errorMessage);
+			var isValid = OnValidate(triggeredEvent, contextData, out errorMessage);
 			LifecycleStage = isValid
 				? ScreenLifecycleStage.ValidateTransitionCompleted
 				: ScreenLifecycleStage.ValidateTransitionCompletedWithErrors;
@@ -137,7 +137,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 		{
 			TraceBegin(nameof(DefineActionHandlersOnCurrentScreen), contextData);
 			LifecycleStage = ScreenLifecycleStage.DefiningTransitionsFromCurrentScreen;
-			var cfg = OnConfiguringScreenEventHandlersAndNavigations(screenConfiguration, contextData);
+			var cfg = OnRegisterUserActions(screenConfiguration, contextData);
 			var internalScreenFlowConfigurator = ((IInternalScreenFlowConfigurator)cfg);
 			internalScreenFlowConfigurator.AddErrorTransitionIfUndefined();
 			this.Transitions = internalScreenFlowConfigurator.Transitions;
@@ -149,14 +149,14 @@ namespace S3.UiFlows.Core.Flows.Screens
 
 
 
-		protected virtual async Task<UiFlowScreenModel> OnRefreshStepDataAsync(IUiFlowContextData contextData,
+		protected virtual async Task<UiFlowScreenModel> OnRefreshModelAsync(IUiFlowContextData contextData,
 			UiFlowScreenModel originalScreenModel,
 			IDictionary<string, object> stepViewCustomizations = null)
 		{
 			return originalScreenModel;
 		}
 
-		protected virtual IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected virtual IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
@@ -164,12 +164,12 @@ namespace S3.UiFlows.Core.Flows.Screens
 		}
 
 
-		protected virtual async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected virtual async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new EmptyScreenModel();
 		}
 
-		protected virtual bool OnValidateTransitionAttempt(ScreenEvent triggeredEvent,
+		protected virtual bool OnValidate(ScreenEvent triggeredEvent,
 			IUiFlowContextData contextData, out string errorMessage)
 		{
 			errorMessage = null;
@@ -218,8 +218,6 @@ namespace S3.UiFlows.Core.Flows.Screens
 	}
 	public abstract class UiFlowScreen<TFlowType> : UiFlowScreen, IUiFlowScreen<TFlowType>
 	{
-
-	
 
 		public override string IncludedInFlowTypeAsString()
 		{

@@ -21,14 +21,14 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 
 		public override string ViewPath { get; } = "Completed";
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(IScreenFlowConfigurator screenConfiguration,
+		protected override IScreenFlowConfigurator OnRegisterUserActions(IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventNavigatesTo(StepEvent.BackToEditValues, ModelTesterFlowStep.InputScreen);
 		}
 
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var stepData = contextData.GetStepData<InputScreen.ScreenModel>();
 
@@ -47,8 +47,8 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 			map.SampleInput = src.StringValue;
 			return map;
 		}
-
-		protected override async Task<UiFlowScreenModel> OnRefreshStepDataAsync(IUiFlowContextData contextData,
+			
+		protected override async Task<UiFlowScreenModel> OnRefreshModelAsync(IUiFlowContextData contextData,
 			UiFlowScreenModel originalScreenModel, IDictionary<string, object> stepViewCustomizations = null)
 		{
 			var result = Map(contextData.GetStepData<InputScreen.ScreenModel>(ModelTesterFlowStep.InputScreen),

@@ -11,7 +11,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 	{
 		public override ScreenName ScreenStep =>  BlueFlowScreenName.EndAndReturnToCaller;
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var initData = contextData.GetStepData<FlowInitializer.StartScreenModel>(ScreenName.PreStart);
 			var screenStepData = contextData.GetStepData<InitialScreen.InitialScreenScreenModel>();

@@ -21,7 +21,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 
 		
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 
@@ -32,7 +32,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 
 		
 
-		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
+		protected override bool OnValidate(ScreenEvent transitionTrigger,
 			IUiFlowContextData contextData, out string errorMessage)
 		{
 			var result = true;
@@ -45,7 +45,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 		public override ScreenName ScreenStep =>  ModelTesterFlowStep.InputScreen;
 		public override string ViewPath => "Input";
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var result = new ScreenModel()
 			{

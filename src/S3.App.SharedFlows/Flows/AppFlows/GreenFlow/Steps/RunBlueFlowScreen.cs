@@ -18,7 +18,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 		public override ScreenName ScreenStep =>  GreenFlowScreenName.RunBlueFlow;
 
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new StepData(SampleAppFlowType.BlueFlow,
 				new BlueFlow.Steps.FlowInitializer.StartScreenModel
@@ -29,7 +29,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 				});
 		}
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{

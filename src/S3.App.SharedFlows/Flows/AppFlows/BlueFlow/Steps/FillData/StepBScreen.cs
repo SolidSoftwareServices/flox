@@ -16,7 +16,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(StepBScreen), "Reset");
 		}
-		protected override bool OnValidateTransitionAttempt(ScreenEvent transitionTrigger,
+		protected override bool OnValidate(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)
         {
 			var result = true;
@@ -39,7 +39,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 		public override ScreenName ScreenStep =>  BlueFlowScreenName.FillDataStep_StepBScreen;
 		public override string ViewPath { get; } = "StepB";
 
-		protected override IScreenFlowConfigurator OnConfiguringScreenEventHandlersAndNavigations(
+		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration
@@ -54,7 +54,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 		}
 
 		
-		protected override async Task<UiFlowScreenModel> OnCreateStepDataAsync(IUiFlowContextData contextData)
+		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			return new StepBScreenScreenModel();
 		}

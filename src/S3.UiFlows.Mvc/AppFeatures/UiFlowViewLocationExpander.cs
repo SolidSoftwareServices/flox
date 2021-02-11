@@ -1,37 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using S3.CoreServices.System;
 using S3.Mvc.Core.Controllers;
-using S3.UiFlows.Core.Flows.Initialization;
 using S3.UiFlows.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Razor;
-#if !FrameworkDeveloper
-	using System.Diagnostics;
-#endif
 namespace S3.UiFlows.Mvc.AppFeatures
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
-	public class UiFlowViewLocationExpander<TFlowTypesEnum> : IViewLocationExpander
+	internal class UiFlowViewLocationExpander : IViewLocationExpander
 	{
+
+		public UiFlowViewLocationExpander(FlowsRegistry registry)
+		{
+			if (registry == null) throw new ArgumentNullException(nameof(registry));
+
+			NotSharedFlowSpecificComponents = new Lazy<IEnumerable<string>>(() =>
+			{
+				return registry.AllFlows
+					.Select(x => $"{x.ComponentsUrlPath}/{{0}}/{{0}}{RazorViewEngine.ViewExtension}")
+					.ToArray();
+			});
+		}
+
 		private const string UiFlowTypeKey = "UiFlowType";
 
-		private static readonly IEnumerable<string> NotSharedFlowSpecificComponents = Enum
-			.GetValues(typeof(TFlowTypesEnum))
-			.Cast<TFlowTypesEnum>()
-			.Select(x =>
-			{
+		internal Lazy<IEnumerable<string>> NotSharedFlowSpecificComponents { get; }
 
-				var ns = typeof(TFlowTypesEnum).Namespace
-					.Replace($"{typeof(TFlowTypesEnum).Assembly.GetName().Name}.", string.Empty).Split('.').ToList();
-				ns.Add(x.ToString());
-				ns.Add("Components");
-				return $"/{string.Join('/', ns)}/{{0}}/{{0}}{RazorViewEngine.ViewExtension}";
-
-			})
-			.ToArray();
+		
 
 		public void PopulateValues(ViewLocationExpanderContext context)
 		{
@@ -51,7 +45,7 @@ namespace S3.UiFlows.Mvc.AppFeatures
 
 			//TODO: 
 			if (context.Values.TryGetValue(UiFlowTypeKey, out var value))
-				viewLocations = new List<string>(NotSharedFlowSpecificComponents)
+				viewLocations = new List<string>(NotSharedFlowSpecificComponents.Value)
 				{
 					$"/Flows/AppFlows/{value}/Views/{{0}}{RazorViewEngine.ViewExtension}",
 					$"/Flows/AppFlows/{{0}}{RazorViewEngine.ViewExtension}",

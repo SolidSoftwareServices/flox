@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using S3.App.Data;
 using S3.App.Flows.AppFlows;
+using S3.App.Flows.AppFlows.BlueFlow.Steps;
 using S3.App.Infrastructure.IoC;
 using S3.Mvc.Core.Profiler;
 using S3.UiFlows.Mvc.AppFeatures;
@@ -61,7 +62,7 @@ namespace S3.App
 				{
 					opts.EnableEndpointRouting = false;
 				})
-				.AddUiFlows<SampleAppFlowType>(services);
+				.AddUiFlows(services, typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows", "/Flows/AppFlows");
 		}
 
 		//gets called by infrastructure after ConfigureServices

@@ -8,14 +8,11 @@ using S3.UiFlows.Mvc.FlowTagHelpers.Action;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-#if !FrameworkDeveloper
-#endif
+
 
 namespace S3.UiFlows.Mvc.FlowTagHelpers
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	[HtmlTargetElement(TagName)]
 	public class FlowActionTagHelper : TagHelper
 	{

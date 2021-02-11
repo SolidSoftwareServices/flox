@@ -12,14 +12,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using S3.UiFlows.Core.DataSources;
 
-#if !FrameworkDeveloper
 
-#endif
 namespace S3.UiFlows.Mvc.FlowTagHelpers.Action
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	class FlowLink : IFlowButtonTagHelperStrategy
 	{
 		private readonly IUiFlowContextRepository _contextRepository;

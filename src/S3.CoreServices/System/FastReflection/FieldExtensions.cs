@@ -6,9 +6,7 @@ using System.Reflection;
 
 namespace S3.CoreServices.System.FastReflection
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class FieldExtensions
 	{
 

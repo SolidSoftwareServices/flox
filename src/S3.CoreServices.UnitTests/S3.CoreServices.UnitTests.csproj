@@ -4,17 +4,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
-	  <Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+	  <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FrameworkDevelopment|AnyCPU'">
-    <DefineConstants>TRACE;FrameworkDeveloper</DefineConstants>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;FrameworkDeveloper</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>

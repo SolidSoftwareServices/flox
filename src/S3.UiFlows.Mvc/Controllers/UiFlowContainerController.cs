@@ -9,9 +9,7 @@ using ControllerBase = S3.Mvc.Core.Controllers.ControllerBase;
 
 namespace S3.UiFlows.Mvc.Controllers
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public abstract class UiFlowContainerController<TViewModel,TFlowType>: ControllerBase
 		where TViewModel: UiFlowScreenModel
 	where TFlowType:struct

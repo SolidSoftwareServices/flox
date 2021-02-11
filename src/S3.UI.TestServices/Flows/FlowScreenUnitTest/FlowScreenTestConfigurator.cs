@@ -6,9 +6,7 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public sealed partial class FlowScreenTestConfigurator<TFlowScreen, TFlowType>: FlowTestConfigurator<FlowScreenTestConfigurator<TFlowScreen, TFlowType>,FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType>>
 		where TFlowScreen : class, IUiFlowScreen<TFlowType>
 	{

@@ -36,9 +36,7 @@ namespace S3.UiFlows.Mvc.Controllers
 	/// <summary>
 	///     Uiflow controller
 	/// </summary>
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	[AutoValidateAntiforgeryToken]
 	[SupportEncryptedUrls]
 	[ValidateHiddenInputsAntiTampering]

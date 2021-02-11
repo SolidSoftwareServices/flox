@@ -16,9 +16,7 @@ using S3.CoreServices.System.FastReflection;
 
 namespace S3.Mvc.Core.Cryptography.Urls
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	[AttributeUsage(AttributeTargets.Class)]
 	public class SupportEncryptedUrlsAttribute : ActionFilterAttribute
 	{

@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 namespace S3.Mvc.Core.Views
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class HtmlHelperRequestExtensions
 	{
 		

@@ -12,9 +12,7 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public sealed class FlowInitializerWithLifecycleAdapter<TInitializer,TFlowType>: IFlowComponentAdapter
 		where TInitializer : class, IUiFlowInitializationStep
 	{

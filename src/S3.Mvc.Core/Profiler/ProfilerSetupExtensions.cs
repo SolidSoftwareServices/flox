@@ -5,9 +5,7 @@ using System.Diagnostics;
 
 namespace S3.Mvc.Core.Profiler
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class ProfilerSetupExtensions
 	{
 		

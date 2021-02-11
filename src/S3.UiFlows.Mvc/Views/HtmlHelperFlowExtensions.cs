@@ -14,9 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace S3.UiFlows.Mvc.Views
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class HtmlHelperFlowFormExtensions
 	{
 		/// <summary>

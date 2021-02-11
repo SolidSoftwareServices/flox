@@ -9,9 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace S3.UiFlows.Mvc.Components.PreLoad
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public class ComponentPreLoader<TId> 
 	{
 		private readonly IViewComponentHelper _componentHelper;

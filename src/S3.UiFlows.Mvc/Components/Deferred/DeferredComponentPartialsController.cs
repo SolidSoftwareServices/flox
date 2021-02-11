@@ -14,17 +14,13 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 using Fasterflect;
 using Microsoft.AspNetCore.Mvc;
 using S3.UiFlows.Core.DataSources;
-#if !FrameworkDeveloper
-using System.Diagnostics;
-#endif
+
 namespace S3.UiFlows.Mvc.Components.Deferred
 {
 	/// <summary>
 	///     Uiflow set component async controller
 	/// </summary>
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	[AutoValidateAntiforgeryToken]
 	[SupportEncryptedUrls]
 	public class DeferredComponentPartialsController : Controller

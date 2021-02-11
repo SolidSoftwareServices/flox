@@ -13,9 +13,7 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public sealed class FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> : IFlowComponentAdapter
 		where TFlowScreen : class, IUiFlowScreen<TFlowType>
 	{

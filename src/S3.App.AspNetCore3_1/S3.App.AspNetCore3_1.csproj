@@ -3,16 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-S3.App.AspNetCore3_1-8BF721F8-39EA-44C3-A8D5-C16CB1C17A61</UserSecretsId>
-    <Configurations>Debug;Release;FrameworkDevelopment</Configurations>
+    <Configurations>Debug;Release</Configurations>
     <RootNamespace>S3.App</RootNamespace>
     <AssemblyName>S3.App</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FrameworkDevelopment|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <NoWarn>1701;1702;1998</NoWarn>
-  </PropertyGroup>
-
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>

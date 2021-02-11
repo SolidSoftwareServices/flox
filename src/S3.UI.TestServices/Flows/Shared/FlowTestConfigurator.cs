@@ -7,9 +7,7 @@ using Moq.AutoMock;
 
 namespace S3.UI.TestServices.Flows.Shared
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public abstract class FlowTestConfigurator<TConfigurator, TAdapter> 
 		where TConfigurator : FlowTestConfigurator<TConfigurator,TAdapter>
 		where TAdapter:class,IFlowComponentAdapter

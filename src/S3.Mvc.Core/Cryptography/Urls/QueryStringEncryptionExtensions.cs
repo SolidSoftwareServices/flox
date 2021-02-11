@@ -19,9 +19,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace S3.Mvc.Core.Cryptography.Urls
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class QueryStringEncryptionExtensions
 	{
 		

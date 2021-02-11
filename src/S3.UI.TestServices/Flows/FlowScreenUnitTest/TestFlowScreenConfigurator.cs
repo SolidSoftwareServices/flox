@@ -12,9 +12,7 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	internal class TestFlowScreenConfigurator : TestFlowNavigationHelper, IInternalScreenFlowConfigurator
 	{
 		private readonly IUiFlowScreen _step;

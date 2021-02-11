@@ -14,11 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace S3.Mvc.Core.Controllers
 {
-	
 
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
 	public static class ControllerExtensions
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();

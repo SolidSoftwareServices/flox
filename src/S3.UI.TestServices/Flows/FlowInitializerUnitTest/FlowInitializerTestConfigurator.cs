@@ -5,9 +5,7 @@ using S3.UiFlows.Core.Flows.Initialization;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public sealed partial class FlowInitializerTestConfigurator<TInitializer, TFlowType> : FlowTestConfigurator<
 		FlowInitializerTestConfigurator<TInitializer, TFlowType>,
 		FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType>>

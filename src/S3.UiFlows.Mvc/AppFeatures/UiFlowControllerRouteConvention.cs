@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	internal class UiFlowControllerRouteConvention<TFlowsController> : IControllerModelConvention
 		where TFlowsController : IUiFlowController
 	{

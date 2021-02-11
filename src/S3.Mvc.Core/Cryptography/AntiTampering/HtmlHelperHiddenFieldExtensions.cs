@@ -13,9 +13,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace S3.Mvc.Core.Cryptography.AntiTampering
 {
-	#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-	#endif
+
 	public static class HtmlHelperHiddenFieldExtensions
 	{
 		

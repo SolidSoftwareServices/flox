@@ -4,14 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-#if !FrameworkDeveloper
 
-#endif
 namespace S3.UiFlows.Mvc.FlowTagHelpers.Action
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	internal class FlowFormEvent : IFlowButtonTagHelperStrategy
 	{
 		public IEnumerable<FlowActionTagHelper.FlowActionType> StrategyFor { get; } =

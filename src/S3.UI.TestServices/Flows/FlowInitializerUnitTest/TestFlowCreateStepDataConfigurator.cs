@@ -6,9 +6,7 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	class TestFlowCreateStepDataConfigurator : TestFlowNavigationHelper
 	{
 		private readonly IUiFlowInitializationStep _initializationTarget;

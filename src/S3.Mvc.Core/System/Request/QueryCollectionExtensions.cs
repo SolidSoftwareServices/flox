@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace S3.Mvc.Core.System.Request
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class QueryCollectionExtensions
 	{
 		private static readonly string[] Exclusions = {"action", "controller", "init"};

@@ -9,7 +9,7 @@ using String = System.String;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
-	public partial class FlowScreenTestConfigurator<TFlowScreen, TFlowType>
+	public partial class FlowScreenTestConfigurator<TFlowScreen>
 	{
 		/// <summary>
 		/// Retrieves a test runner specialized in testing events on the ScreenStep
@@ -20,9 +20,9 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 		public EventTestRunner<TStepData> NewEventTestRunner<TStepData>(TStepData stepData) where TStepData : UiFlowScreenModel => NewEventTestRunner<TStepData>(()=>stepData);
 		public class EventTestRunner<TStepData> where TStepData:UiFlowScreenModel
 		{
-			private readonly FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> _adapter;
+			private readonly FlowScreenWithLifecycleAdapter<TFlowScreen> _adapter;
 
-			internal EventTestRunner(FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> adapter,TStepData initialData)
+			internal EventTestRunner(FlowScreenWithLifecycleAdapter<TFlowScreen> adapter,TStepData initialData)
 			{
 				_adapter = adapter;
 				GivenTheStepDataIs(initialData);
@@ -53,11 +53,11 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 			public class AssertScreenStep
 			{
-				private readonly FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> _adapter;
+				private readonly FlowScreenWithLifecycleAdapter<TFlowScreen> _adapter;
 				private readonly bool? _validationResult;
 				private readonly string _validationErrorMessage;
 
-				internal AssertScreenStep(FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> adapter,
+				internal AssertScreenStep(FlowScreenWithLifecycleAdapter<TFlowScreen> adapter,
 					bool? validationResult, string validationErrorMessage, ScreenName stepResult)
 				{
 					_adapter = adapter;

@@ -67,11 +67,12 @@ namespace S3.UiFlows.Core.Flows.Screens.Models
 			return true;
 		}
 
-		public TScreenFlow GetFlowType<TScreenFlow>() where TScreenFlow:struct
+		public string GetFlowType() 
 		{
-			return FlowType.ToEnum<TScreenFlow>();
+			return FlowType;
 		}
 
+		
 		public IEnumerable<UiFlowUserInputError> Errors
 		{
 			get => Metadata.Errors;
@@ -89,9 +90,9 @@ namespace S3.UiFlows.Core.Flows.Screens.Models
 			Metadata.ContainedFlowType = null;
 		}
 
-		public void SetContainedFlow<TScreenFlow>(TScreenFlow newContainedFlow, string containedFlowStartType = null)
+		public void SetContainedFlow(string newContainedFlow, string containedFlowStartType = null)
 		{
-			Metadata.ContainedFlowType = newContainedFlow.ToString();
+			Metadata.ContainedFlowType = newContainedFlow;
 			Metadata.ContainedFlowStartType = containedFlowStartType;
 		}
 
@@ -110,9 +111,9 @@ namespace S3.UiFlows.Core.Flows.Screens.Models
 			return !string.IsNullOrEmpty(GetContainedFlowHandler());
 		}
 
-		public TScreenFlow? GetContainedFlow<TScreenFlow>() where TScreenFlow : struct
+		public string GetContainedFlow() 
 		{
-			return Metadata.ContainedFlowType?.ToEnum<TScreenFlow>();
+			return Metadata.ContainedFlowType;
 		}
 
 		public override bool Equals(object obj)

@@ -28,7 +28,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		[Test]
 		public async Task CanResolve_UiFlow_Init_WhenNotContained()
 		{
-			var uri = $"/{nameof(SampleAppFlowType.BlueFlow)}/{nameof(UiFlowController.Init)}";
+			var uri = $"/BlueFlow/{nameof(UiFlowController.Init)}";
 			string containerId = null;
 
 			await Execute_Init(uri, containerId);
@@ -38,7 +38,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		{
 
 			string containerId = Guid.NewGuid().ToString();
-			var uri = $"/{nameof(SampleAppFlowType.BlueFlow)}/{nameof(UiFlowController.Init)}/{containerId}";
+			var uri = $"/BlueFlow/{nameof(UiFlowController.Init)}/{containerId}";
 			await Execute_Init(uri, containerId);
 		}
 
@@ -47,7 +47,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 			await _ExecuteGet<UiFlowController.InitializeUiFlowRequest>(uri, nameof(IUiFlowController.Init),
 				(actualRequested) =>
 				{
-					Assert.AreEqual(SampleAppFlowType.BlueFlow, actualRequested.FlowType.ToEnum<SampleAppFlowType>());
+					Assert.AreEqual("BlueFlow", actualRequested.FlowType);
 					if (assertContainerId == null)
 					{
 						Assert.IsNull(actualRequested.ContainerFlowHandler);
@@ -64,7 +64,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		public async Task CanResolve_GetCurrentContainedView()
 		{
 			string flowHandler = Guid.NewGuid().ToString();
-			var uri = $"/{nameof(SampleAppFlowType.BlueFlow)}/{nameof(UiFlowController.ContainedView )}?ContainedFlowHandler={flowHandler}";
+			var uri = $"/BlueFlow/{nameof(UiFlowController.ContainedView )}?ContainedFlowHandler={flowHandler}";
 			await _ExecuteGet<UiFlowController.ContainedViewRequest>(uri,
 				nameof(IUiFlowController.ContainedView),
 				(actualRequested) => { Assert.AreEqual(flowHandler, actualRequested.ContainedFlowHandler); });
@@ -74,7 +74,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		public async Task CanResolve_GetNewContainedView()
 		{
 			string flowHandler = Guid.NewGuid().ToString();
-			var uri = $"/{nameof(SampleAppFlowType.BlueFlow)}/{nameof(UiFlowController.NewContainedView)}?FlowHandler={flowHandler}&NewContainedFlowType=greenflow";
+			var uri = $"/BlueFlow/{nameof(UiFlowController.NewContainedView)}?FlowHandler={flowHandler}&NewContainedFlowType=greenflow";
 			await _ExecuteGet<UiFlowController.GetNewContainedViewRequest>(uri,
 				nameof(IUiFlowController.NewContainedView),
 				(actualRequested) =>
@@ -83,7 +83,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 					Assert.AreEqual(flowHandler, actualRequested.FlowHandler);
 
 					Assert.IsNotNull(actualRequested.NewContainedFlowType);
-					Assert.AreEqual(SampleAppFlowType.GreenFlow, actualRequested.NewContainedFlowType.ToEnum<SampleAppFlowType>());
+					Assert.AreEqual("GreenFlow", actualRequested.NewContainedFlowType);
 				});
 		}
 
@@ -91,7 +91,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		public async Task CanResolve_UiFlow_GetCurrentView()  
 		{
 			string flowHandler = Guid.NewGuid().ToString();
-			var uri = $"/{nameof(SampleAppFlowType.BlueFlow)}/{nameof(UiFlowController.Current)}?FlowHandler={flowHandler}";
+			var uri = $"/BlueFlow/{nameof(UiFlowController.Current)}?FlowHandler={flowHandler}";
 			await _ExecuteGet<UiFlowController.CurrentViewRequest>(uri,
 				nameof(IUiFlowController.Current),
 				(actualRequested) =>
@@ -107,7 +107,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		public async Task CanResolve_UiFlow_OnEvent()
 		{
 			string trigger = Guid.NewGuid().ToString();
-			var uri = $"/{nameof(SampleAppFlowType.BlueFlow)}/{nameof(UiFlowController.OnEvent)}";
+			var uri = $"/BlueFlow/{nameof(UiFlowController.OnEvent)}";
 
 			var step = new Fixture().Build<UiFlowScreenModel>()
 				.With(x=>x.FlowScreenName,typeof(UiFlowScreenModel).FullName)

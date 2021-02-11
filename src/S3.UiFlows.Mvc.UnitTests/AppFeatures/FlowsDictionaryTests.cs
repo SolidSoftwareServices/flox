@@ -2,6 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using S3.App.Flows.AppFlows.BlueFlow.Steps;
 using S3.UiFlows.Mvc.AppFeatures;
+using S3.UiFlows.Mvc.Infrastructure;
 
 namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 {

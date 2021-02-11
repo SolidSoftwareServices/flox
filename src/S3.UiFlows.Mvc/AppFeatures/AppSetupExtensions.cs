@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using S3.UiFlows.Mvc.Infrastructure;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
@@ -54,7 +55,6 @@ namespace S3.UiFlows.Mvc.AppFeatures
 			;
 			builder.AddMvcOptions(o =>
 			{
-				//HERE
 				o.Conventions.Add(new UiFlowControllerRouteConvention< TFlowsController>(FlowsRegistry.Instance));
 				o.ModelBinderProviders.Insert(0, new UiFlowStepDataModelBinderProvider());
 

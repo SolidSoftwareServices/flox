@@ -8,7 +8,7 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
-	public partial class FlowScreenTestConfigurator<TFlowScreen, TFlowType>
+	public partial class FlowScreenTestConfigurator<TFlowScreen>
 	{
 
 		/// <summary>
@@ -18,9 +18,9 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 		public TestRefreshStepDataRunner NewTestRefreshStepDataRunner() => new TestRefreshStepDataRunner(Adapter);
 		public class TestRefreshStepDataRunner
 		{
-			private readonly FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> _adapter;
+			private readonly FlowScreenWithLifecycleAdapter<TFlowScreen> _adapter;
 
-			internal TestRefreshStepDataRunner(FlowScreenWithLifecycleAdapter<TFlowScreen,TFlowType> adapter)
+			internal TestRefreshStepDataRunner(FlowScreenWithLifecycleAdapter<TFlowScreen> adapter)
 			{
 				_adapter = adapter;
 			}
@@ -42,10 +42,10 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 			public class Assert
 			{
-				private readonly FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> _adapter;
+				private readonly FlowScreenWithLifecycleAdapter<TFlowScreen> _adapter;
 				private readonly UiFlowScreenModel _actual;
 
-				internal Assert(FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> adapter,
+				internal Assert(FlowScreenWithLifecycleAdapter<TFlowScreen> adapter,
 					UiFlowScreenModel actual)
 				{
 					_adapter = adapter;

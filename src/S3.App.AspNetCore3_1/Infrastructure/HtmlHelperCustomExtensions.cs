@@ -14,7 +14,7 @@ namespace S3.App.Infrastructure
 			IUiFlowScreenModel model, string htmlId = "", object queryString = null, string className = "",
 			ScreenEvent defaultEvent = null)
 		{
-			return html.BeginUiFlowFormAsync<SampleAppFlowType>(model, htmlId, queryString, className,
+			return html.BeginUiFlowFormAsync(model, htmlId, queryString, className,
 				defaultEvent);
 
 		}

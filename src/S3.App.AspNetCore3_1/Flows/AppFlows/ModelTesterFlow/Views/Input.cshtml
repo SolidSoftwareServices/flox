@@ -5,11 +5,12 @@
 @using S3.App.Infrastructure
 @using S3.App.Flows.AppFlows
 @using S3.App.Flows.AppFlows.ModelTesterFlow.Steps
+@using S3.UiFlows.Core.Registry
 
-
+@inject  IFlowsRegistry FlowsRegistry
 @model S3.App.Flows.AppFlows.ModelTesterFlow.Steps.InputScreen.ScreenModel
 @{
-	ViewData["Title"] = $"{nameof(SampleAppFlowType.ModelTesterFlow)}";
+	ViewData["Title"] = "ModelTesterFlow";
 }
 
 
@@ -92,12 +93,13 @@
 
 	<div class="row">
 		<div class="col-md-3">
-			@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow && x != SampleAppFlowType.ContainersFlow && x != SampleAppFlowType.ModelTesterFlow))
+			@foreach (var flowType in FlowsRegistry.AllFlows.Select(x => x.Name)
+				.Where(x => x != "ContainersFlow" && x != "ModelTesterFlow"))
 			{
 				<flow-action action-type="StartFlow"
-							 flow-name="@flowType"
-							 flow-location="SameContainerAsMe">sibling @flowType</flow-action>
-						}
+				             flow-name="@flowType"
+				             flow-location="SameContainerAsMe">sibling @flowType</flow-action>
+			}
 		</div>
 	</div>
 	<div class="row">

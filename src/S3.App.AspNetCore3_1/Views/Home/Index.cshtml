@@ -3,7 +3,9 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using S3.App.Controllers
 @using S3.App.Flows.AppFlows
+@using S3.UiFlows.Core.Registry
 
+@inject IFlowsRegistry FlowsRegistry
 @{
 	ViewData["Title"] = "Home Page";
 }
@@ -11,17 +13,19 @@
 <div id="flows">
 	<b>Flows:</b>
 	@Html.ActionLink("Container of flows that is not a flow", nameof(SampleFlowContainerController.Index), typeof(SampleFlowContainerController).GetNameWithoutSuffix())<br />
-	@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>())
+	<flow-action action-type="StartFlow" flow-name=@("NoFlow should 404")>No Flow</flow-action>
+	@foreach (var flowType in FlowsRegistry.AllFlows.Select(x => x.Name))
 	{
-		var linkText = flowType == SampleAppFlowType.NoFlow ? $"{nameof(SampleAppFlowType.NoFlow)} should 404" : flowType.ToString();
 		<br />
-		<flow-action action-type="StartFlow" flow-name=@flowType.ToString()>@linkText</flow-action>
+		<flow-action action-type="StartFlow" flow-name=@flowType.ToString()>@flowType</flow-action>
 	}
+
+
 </div>
 <br />
 <br />
 <b>UI Flow Definitions:</b>
-@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow))
+@foreach (var flowType in FlowsRegistry.AllFlows.Select(x => x.Name))
 {
 	<br />
 	@Html.ActionLink($"Flow {flowType}", nameof(UiFlowController.DotGraph), flowType.ToString())

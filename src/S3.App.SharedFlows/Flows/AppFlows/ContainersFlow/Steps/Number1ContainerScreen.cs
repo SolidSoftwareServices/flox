@@ -21,7 +21,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow.Steps
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
 			var result = await base.OnCreateModelAsync(contextData);
-			result.SetContainedFlow(SampleAppFlowType.GreenFlow);
+			result.SetContainedFlow("GreenFlow");
 			return result;
 		}
 

@@ -7,15 +7,14 @@ namespace S3.UiFlows.Core.Flows.Screens.Models
 	{
 		string FlowHandler { get; }
 		string FlowScreenName { get; }
-		TScreenFlow GetFlowType<TScreenFlow>() where TScreenFlow : struct;
 		IEnumerable<UiFlowUserInputError> Errors { get; set; }
 
 		IEnumerable<ScreenEvent> DontValidateEvents { get; }
 
 		bool IsValidFor(ScreenName screenStep);
-
-		void SetContainedFlow<TScreenFlow>(TScreenFlow newContainedFlow, string containedFlowStartType = null);
-		TScreenFlow? GetContainedFlow<TScreenFlow>() where TScreenFlow : struct;
+		string GetFlowType();
+		void SetContainedFlow(string newContainedFlow, string containedFlowStartType = null);
+		string GetContainedFlow();
 		void ClearContainedFlow();
 
 		string GetContainedFlowStartType();

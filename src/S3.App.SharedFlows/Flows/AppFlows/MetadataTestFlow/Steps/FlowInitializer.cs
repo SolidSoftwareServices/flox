@@ -6,9 +6,8 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.Flows.AppFlows.MetadataTestFlow.Steps
 {
-	public class FlowInitializer : UiFlowInitializationStep<SampleAppFlowType>
+	public class FlowInitializer : UiFlowInitializationStep
 	{
-		public override SampleAppFlowType InitializerOfFlowType => SampleAppFlowType.MetadataTestFlow;
 
 		public override IScreenFlowConfigurator OnDefiningAdditionalInitialStateTransitions(IScreenFlowConfigurator preStartCfg,
 			UiFlowContextData contextData)

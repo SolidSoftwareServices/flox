@@ -10,10 +10,9 @@ using S3.UiFlows.Core.Flows.Screens.Metadata;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
-	public class FlowInitializer : UiFlowInitializationStep<SampleAppFlowType, FlowInitializer.StartScreenModel>
+	public class FlowInitializer : UiFlowInitializationStep< FlowInitializer.StartScreenModel>
 	{
 
-		public override SampleAppFlowType InitializerOfFlowType => SampleAppFlowType.BlueFlow;
 		
 
 		public override IScreenFlowConfigurator OnDefiningAdditionalInitialStateTransitions(IScreenFlowConfigurator preStartCfg,

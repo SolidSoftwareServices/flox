@@ -4,12 +4,14 @@ using System.Linq;
 using S3.Mvc.Core.Controllers;
 using S3.UiFlows.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Razor;
+using S3.UiFlows.Core.Registry;
+
 namespace S3.UiFlows.Mvc.AppFeatures
 {
 	internal class UiFlowViewLocationExpander : IViewLocationExpander
 	{
 
-		public UiFlowViewLocationExpander(FlowsRegistry registry)
+		public UiFlowViewLocationExpander(IFlowsRegistry registry)
 		{
 			if (registry == null) throw new ArgumentNullException(nameof(registry));
 

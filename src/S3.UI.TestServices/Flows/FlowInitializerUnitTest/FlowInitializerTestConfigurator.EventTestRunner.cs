@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-	public partial class FlowInitializerTestConfigurator<TInitializer, TFlowType>
+	public partial class FlowInitializerTestConfigurator<TInitializer>
 	{
 
 
@@ -19,9 +19,9 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 		public EventTestRunner NewEventTestRunner() => new EventTestRunner(Adapter);
 		public class EventTestRunner
 		{
-			private readonly FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> _adapter;
+			private readonly FlowInitializerWithLifecycleAdapter<TInitializer> _adapter;
 
-			internal EventTestRunner(FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> adapter)
+			internal EventTestRunner(FlowInitializerWithLifecycleAdapter<TInitializer> adapter)
 			{
 				_adapter = adapter;
 			}
@@ -34,10 +34,10 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 
 			public class EventTestAssert
 			{
-				private readonly FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> _adapter;
+				private readonly FlowInitializerWithLifecycleAdapter<TInitializer> _adapter;
 				private readonly ScreenName _result;
 
-				public EventTestAssert(FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> adapter,ScreenName result)
+				public EventTestAssert(FlowInitializerWithLifecycleAdapter<TInitializer> adapter,ScreenName result)
 				{
 					_adapter = adapter;
 					_result = result;

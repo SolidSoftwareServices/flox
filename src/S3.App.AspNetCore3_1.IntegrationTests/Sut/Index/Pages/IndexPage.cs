@@ -23,23 +23,23 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages
 
 		public async Task<PrototypeApp> SelectBlueFlow(string queryString=null)
 		{
-			return await SelectFlow(SampleAppFlowType.BlueFlow.ToString(),queryString);
+			return await SelectFlow("BlueFlow",queryString);
 		}
 		public async Task<PrototypeApp> SelectGreenFlow(string queryString = null)
 		{
-			return await SelectFlow(SampleAppFlowType.GreenFlow.ToString(), queryString);
+			return await SelectFlow("GreenFlow", queryString);
 		}
 
 		public async Task<PrototypeApp> SelectModelTesterFlow()
 		{
-			return await SelectFlow(SampleAppFlowType.ModelTesterFlow.ToString(),null);
+			return await SelectFlow("ModelTesterFlow",null);
 		}
 
 
 
 		public async Task<PrototypeApp> SelectStartFailureFlow()
 		{
-			return await SelectFlow(SampleAppFlowType.StartFailure.ToString(), null);
+			return await SelectFlow("StartFailure", null);
 		}
 
 		private async Task<PrototypeApp> SelectFlow(string byText,string queryString)
@@ -56,11 +56,11 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages
 
 		public async Task<PrototypeApp> SelectContainersFlow()
 		{
-			return await SelectFlow(SampleAppFlowType.ContainersFlow.ToString(), null);
+			return await SelectFlow("ContainersFlow", null);
 		}
 		public async Task<PrototypeApp> SelectContainersFlow2()
 		{
-			return await SelectFlow(SampleAppFlowType.ContainersFlow2.ToString(), null);
+			return await SelectFlow("ContainersFlow2", null);
 		}
 	}
 }

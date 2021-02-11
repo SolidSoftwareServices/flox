@@ -4,6 +4,7 @@ using System.Linq;
 using S3.UiFlows.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
@@ -11,9 +12,9 @@ namespace S3.UiFlows.Mvc.AppFeatures
 	internal class UiFlowControllerRouteConvention<TFlowsController> : IControllerModelConvention
 		where TFlowsController : IUiFlowController
 	{
-		private readonly FlowsRegistry _registry;
+		private readonly IFlowsRegistry _registry;
 
-		public UiFlowControllerRouteConvention(FlowsRegistry registry)
+		public UiFlowControllerRouteConvention(IFlowsRegistry registry)
 		{
 			_registry = registry;
 		}

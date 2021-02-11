@@ -12,7 +12,7 @@ namespace S3.App.Infrastructure.IoC
 		protected override void Load(ContainerBuilder builder)
 		{
 			builder.RegisterModule(CoreModule.Configure().WithEncryptionFeature());
-			builder.RegisterModule< UiFlowsMvcModule<SampleAppFlowType>>();
+			builder.RegisterModule(new  UiFlowsMvcModule(this.GetType().Assembly));
 			builder.RegisterModule<ProfilerModule>();
 			builder.RegisterAssemblyTypes(GetType().Assembly)
 				.Where(x => !typeof(IUiFlowScreen).IsAssignableFrom(x))

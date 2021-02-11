@@ -1,4 +1,5 @@
 
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using Autofac;
@@ -8,43 +9,50 @@ using S3.CoreServices.System;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Infrastructure.IoC;
+using S3.UiFlows.Mvc.AppFeatures;
 using S3.UiFlows.Mvc.Components;
 using S3.UiFlows.Mvc.Components.Deferred;
 using S3.UiFlows.Mvc.Controllers;
 using S3.UiFlows.Mvc.Views;
+using Module = Autofac.Module;
 
 
 namespace S3.UiFlows.Mvc.Infrastructure.IoC
 {
-	/// <summary>
-	/// </summary>
-	/// <typeparam name="TFlowTypesEnum">enumeration containing the various flow types</typeparam>
-	public class UiFlowsMvcModule<TFlowTypesEnum> : Module where TFlowTypesEnum : struct
+	public class UiFlowsMvcModule: Module 
 	{
+		private readonly Assembly _flowsAssembly;
 
+		public UiFlowsMvcModule(Assembly flowsAssembly)
+		{
+			_flowsAssembly = flowsAssembly;
+		}
 
 
 		protected override void Load(ContainerBuilder builder)
 		{
 			builder.RegisterAssemblyTypes(GetType().Assembly)
-				.Where(x => x != typeof(UiFlow) && !x.IsAssignableTo<IProfiler>() )
+				.Where(
+					x => !x.IsOneOf(typeof(UiFlow), typeof(FlowsRegistry))
+					     && !x.IsAssignableTo<IProfiler>()
+				)
 				.AsImplementedInterfaces()
 				.WithInterfaceProfiling();
-			
 
-
-			builder.RegisterModule(new UiFlowsCoreModule<TFlowTypesEnum>(RuntimeHelpers.GetUninitializedObject));
+			builder.RegisterModule(new UiFlowsCoreModule(RuntimeHelpers.GetUninitializedObject,FlowsRegistry.Instance));
 			builder.RegisterType<UiFlowController>().AsSelf().WithClassProfiling();
 			
 			RegisterEngineTypes(builder);
 
 			RegisterDeferredComponentHandlers(builder);
 
+			builder.RegisterInstance(FlowsRegistry.Instance).SingleInstance().AsImplementedInterfaces();
+
 		}
 
 		private void RegisterDeferredComponentHandlers(ContainerBuilder builder)
 		{
-			builder.RegisterAssemblyTypes(typeof(TFlowTypesEnum).Assembly).Where(x =>
+			builder.RegisterAssemblyTypes(_flowsAssembly).Where(x =>
 				!x.IsAbstract && x.BaseType.ImplementsOpenGeneric(typeof(FlowStepComponent<,>)))
 				.AsSelf()
 				.InstancePerLifetimeScope();

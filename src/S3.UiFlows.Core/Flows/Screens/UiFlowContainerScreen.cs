@@ -5,7 +5,7 @@ using S3.UiFlows.Core.Flows.Screens.Models.Containers;
 
 namespace S3.UiFlows.Core.Flows.Screens
 {
-	public abstract class UiFlowContainerScreen<TFlowType> : UiFlowScreen<TFlowType>
+	public abstract class UiFlowContainerScreen : UiFlowScreen
 	{
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{

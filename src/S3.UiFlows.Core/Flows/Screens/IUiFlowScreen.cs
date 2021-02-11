@@ -4,6 +4,7 @@ using S3.UiFlows.Core.Configuration;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows.Screens.Metadata;
 using S3.UiFlows.Core.Flows.Screens.Models;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows.Screens
 {
@@ -71,13 +72,9 @@ namespace S3.UiFlows.Core.Flows.Screens
 
 		Task<IDictionary<string, object>> ResolveContainedFlowStartInfo(IUiFlowContextData contextData,
 			IDictionary<string, object> stepViewCustomizations);
-	}
-
-	public interface IUiFlowScreen<TFlowType> : IUiFlowScreen
-	{
 		/// <summary>
 		///     it returns the flow type where this screen lives
 		/// </summary>
-		TFlowType IncludedInFlowType { get; }
+		string IncludedInFlowType { get; }
 	}
 }

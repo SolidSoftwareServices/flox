@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using S3.App.Flows.AppFlows.BlueFlow.Steps;
 using S3.UiFlows.Mvc.AppFeatures;
+using S3.UiFlows.Mvc.Infrastructure;
 
 namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 {
@@ -11,9 +12,6 @@ namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 		[Test]
 		public void ItResolvesNotSharedFlowSpecificComponents()
 		{
-			
-			var sut=new UiFlowViewLocationExpander(FlowsRegistry.Instance);
-			
 
 			var expected = new[]
 			{
@@ -31,6 +29,8 @@ namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 
 			FlowsRegistry.Instance
 				.Load(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows", "/Flows/AppFlows");
+
+			var sut = new UiFlowViewLocationExpander(FlowsRegistry.Instance);
 			CollectionAssert.AreEquivalent(expected, sut.NotSharedFlowSpecificComponents.Value);
 		}
 	}

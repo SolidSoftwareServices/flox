@@ -8,19 +8,21 @@ using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Initialization;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
+using S3.UiFlows.Core.Registry;
+using S3.UiFlows.Mvc.Infrastructure;
 
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
 
-	public sealed class FlowInitializerWithLifecycleAdapter<TInitializer,TFlowType>: IFlowComponentAdapter
+	public sealed class FlowInitializerWithLifecycleAdapter<TInitializer>: IFlowComponentAdapter
 		where TInitializer : class, IUiFlowInitializationStep
 	{
-		private readonly IUiFlowInitializationStep<TFlowType> _target;
+		private readonly IUiFlowInitializationStep _target;
 		private bool _initialized;
 		//TODO: MOCK
 		private readonly UiFlowContextData _uiFlowContextData;
-		internal FlowInitializerWithLifecycleAdapter(IUiFlowInitializationStep<TFlowType> target)
+		internal FlowInitializerWithLifecycleAdapter(IUiFlowInitializationStep target)
 		{
 			_target = target;
 			_uiFlowContextData = new UiFlowContextData
@@ -29,7 +31,7 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 			};
 		}
 		
-		public TFlowType GetFlowType()
+		public string GetFlowType()
 		{
 			return _target.InitializerOfFlowType;
 		}
@@ -75,7 +77,7 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 
 		private ScreenName GetStepName()=> ScreenName.PreStart;
 
-		public FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> SetStepData<TStepData>(TStepData stepData) where TStepData : UiFlowScreenModel
+		public FlowInitializerWithLifecycleAdapter<TInitializer> SetStepData<TStepData>(TStepData stepData) where TStepData : UiFlowScreenModel
 		{
 			stepData.Metadata.FlowScreenName = ScreenName.PreStart;
 			stepData.Metadata.FlowHandler = Guid.NewGuid().ToString();

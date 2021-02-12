@@ -66,10 +66,4 @@ namespace S3.CoreServices.System
 			return stack.OrderBy(x => x.Start).ToArray();
 		}
 	}
-
-	public enum DateTimeRangeUnitPrecision
-	{
-		Day,
-		
-	}
 }

@@ -64,7 +64,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\FlowDefinitions\StartFailureFlowScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\Steps\FailureScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\Steps\FlowInitializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\IInputComponentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\ViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\InputComponentInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\InputSampleStepComponent.cs" />
   </ItemGroup>

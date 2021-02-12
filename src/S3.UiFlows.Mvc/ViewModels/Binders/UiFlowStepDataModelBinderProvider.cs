@@ -12,9 +12,7 @@ using ILogger = NLog.ILogger;
 
 namespace S3.UiFlows.Mvc.ViewModels.Binders
 {
-#if !FrameworkDeveloper
-       [DebuggerStepThrough]
-#endif
+
     internal class UiFlowStepDataModelBinderProvider : IModelBinderProvider
     {
 	    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();

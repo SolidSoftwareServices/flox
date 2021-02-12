@@ -5,7 +5,10 @@
 @using S3.App.Flows.AppFlows
 @using S3.App.Flows.AppFlows.ContainersFlow.Steps
 @using S3.App.Infrastructure
+@using S3.UiFlows.Core.Registry
+@using S3.UiFlows.Mvc.Views
 
+@inject IFlowsRegistry FlowsRegistry
 @model S3.App.Flows.AppFlows.ContainersFlow.Steps.Number2ContainerScreen.Number2ContainerScreenModel
 <div id="ContainersFlowPage">
 	<div class="row">
@@ -15,20 +18,21 @@
 			<h4>Leaf contained Title @Model.ScreenTitle</h4>
 		</div>
 	</div>
-	@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow && x != SampleAppFlowType.ContainersFlow))
+	@foreach (var flowType in FlowsRegistry.AllFlows.Select(x => x.Name)
+	   .Where(x => x != "ContainersFlow"))
 	{
-		if (flowType != Model.GetContainedFlow<SampleAppFlowType>())
+		if (flowType != Model.GetContainedFlow())
 		{
 			<flow-action action-type="StartFlow"
-			             flow-name="@flowType"
-			             flow-location="ContainedInMe">@flowType.ToString()</flow-action><b>||</b>
-		}
-	}
+						 flow-name="@flowType"
+						 flow-location="ContainedInMe">@flowType.ToString()</flow-action><b>||</b>
+					}
+				}
 
 	<div id="contained-part" style="background-color: lightblue; margin-left: 30px;">
 		<vc:embedded-flow input=@(new EmbeddedFlowComponent.ComponentParameters{Model=Model}) />
 	</div>
-	@using (await Html.BeginUiFlowFormAsync( Model))
+	@using (await Html.BeginUiFlowFormAsync(Model))
 	{
 		<div class="row">
 			<div class="col-md-3">

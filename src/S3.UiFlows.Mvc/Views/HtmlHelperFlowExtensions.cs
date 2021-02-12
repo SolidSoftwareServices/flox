@@ -14,9 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace S3.UiFlows.Mvc.Views
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class HtmlHelperFlowFormExtensions
 	{
 		/// <summary>
@@ -30,12 +28,12 @@ namespace S3.UiFlows.Mvc.Views
 		/// <param name="className"></param>
 		/// <param name="defaultEvent"></param>
 		/// <returns></returns>
-		public static async Task<MvcForm> BeginUiFlowFormAsync<TFlowType>(this IHtmlHelper html,
+		public static async Task<MvcForm> BeginUiFlowFormAsync(this IHtmlHelper html,
 			IUiFlowScreenModel model, string htmlId = "", object queryString = null, string className = "",
-			ScreenEvent defaultEvent = null) where TFlowType : struct
+			ScreenEvent defaultEvent = null) 
 		{
 
-			var flowType = model.GetFlowType<TFlowType>();
+			var flowType = model.GetFlowType();
 			var concreteModel = (UiFlowScreenModel) model;
 
 

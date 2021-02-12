@@ -1,39 +1,43 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using S3.UiFlows.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
-	public class UiFlowControllerRouteConvention<TFlowTypesEnum,TFlowsController> : IControllerModelConvention
-	where TFlowsController: IUiFlowController
+
+	internal class UiFlowControllerRouteConvention<TFlowsController> : IControllerModelConvention
+		where TFlowsController : IUiFlowController
 	{
+		private readonly IFlowsRegistry _registry;
+
+		public UiFlowControllerRouteConvention(IFlowsRegistry registry)
+		{
+			_registry = registry;
+		}
+
 		public void Apply(ControllerModel controller)
 		{
 			RegisterUiFlowControllerRoutes(controller);
 
 		}
 
-		private static void RegisterUiFlowControllerRoutes(ControllerModel controller)
+		private void RegisterUiFlowControllerRoutes(ControllerModel controller)
 		{
-
 			if (controller.ControllerType == typeof(TFlowsController))
 			{
 				controller.Selectors.Clear();
-				Enum.GetValues(typeof(TFlowTypesEnum)).Cast<TFlowTypesEnum>().All(flowType =>
+				foreach (var flowType in _registry.AllFlows.Select(x=>x.Name))
 				{
 					controller.Selectors.Add(BuildSelectorModel($"{flowType}/[action]"));
-					return true;
-				});
+				}
 			}
 		}
 
-		private static SelectorModel BuildSelectorModel(string template)
+		private SelectorModel BuildSelectorModel(string template)
 		{
 			return new SelectorModel
 			{

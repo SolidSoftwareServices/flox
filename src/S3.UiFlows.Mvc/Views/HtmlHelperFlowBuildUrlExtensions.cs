@@ -18,9 +18,7 @@ using S3.UiFlows.Core.DataSources;
 
 namespace S3.UiFlows.Mvc.Views
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class HtmlHelperFlowBuildUrlExtensions{
 
 		/// <summary>
@@ -64,8 +62,8 @@ namespace S3.UiFlows.Mvc.Views
 			return await html.SecureHiddenAsync(propertyPath, usableByClientCode, value);
 		}
 
-		public static async Task<IHtmlContent> GetButtonToFlowStepAsync<TFlowType, TStepData>(this IHtmlHelper html,
-			TFlowType flowType,
+		public static async Task<IHtmlContent> GetButtonToFlowStepAsync<TStepData>(this IHtmlHelper html,
+			string flowType,
             IUiFlowScreenModel currentScreenModel,
 			ScreenEvent eventToTrigger,
 			string buttonContent,
@@ -73,9 +71,8 @@ namespace S3.UiFlows.Mvc.Views
 			object queryString = null,
 			params (Expression<Func<TStepData, object>>, string)[] contextValuesToSetOnCurrentStepData)
 			where TStepData : UiFlowScreenModel 
-			where TFlowType : struct
 		{
-			using (await html.BeginUiFlowFormAsync<TFlowType>(currentScreenModel, queryString: queryString))
+			using (await html.BeginUiFlowFormAsync(currentScreenModel, queryString: queryString))
 			{
 				var content = html.ViewContext.FormContext.EndOfFormContent;
 				foreach (var item in contextValuesToSetOnCurrentStepData)

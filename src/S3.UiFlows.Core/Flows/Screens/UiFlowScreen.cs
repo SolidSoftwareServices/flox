@@ -12,6 +12,7 @@ using S3.UiFlows.Core.Flows.Screens.Models.DefaultModels;
 using Newtonsoft.Json;
 using NLog;
 using S3.UiFlows.Core.DataSources;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows.Screens
 {
@@ -42,7 +43,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 
 		public ScreenLifecycleStage LifecycleStage { get; private set; }
 
-		public abstract string IncludedInFlowTypeAsString();
+		public string IncludedInFlowTypeAsString() => _flowType;
 
 		
 		public async Task<UiFlowScreenModel> RefreshStepDataAsync(IUiFlowContextData contextData,
@@ -131,8 +132,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 			return startInfo;
 		}
 
-		public IScreenFlowConfigurator DefineActionHandlersOnCurrentScreen(
-			IScreenFlowConfigurator screenConfiguration,
+		public IScreenFlowConfigurator DefineActionHandlersOnCurrentScreen(IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
 			TraceBegin(nameof(DefineActionHandlersOnCurrentScreen), contextData);
@@ -213,21 +213,9 @@ namespace S3.UiFlows.Core.Flows.Screens
 		{
 			Trace(methodName, contextData, "END",suffix);
 		}
-
-
+		internal IFlowsRegistry Registry { get; set; }
+		private string _flowType;
+		public  string IncludedInFlowType => _flowType ??= Registry.GetByType(GetType()).Name;
 	}
-	public abstract class UiFlowScreen<TFlowType> : UiFlowScreen, IUiFlowScreen<TFlowType>
-	{
-
-		public override string IncludedInFlowTypeAsString()
-		{
-			return IncludedInFlowType.ToString();
-		}
-
-		public abstract TFlowType IncludedInFlowType { get; }
-
-
-
 	
-	}
 }

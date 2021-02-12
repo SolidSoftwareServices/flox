@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using S3.CoreServices.System;
@@ -8,12 +9,14 @@ using S3.UiFlows.Core.Flows.Initialization.Models;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using S3.UiFlows.Core.Flows.Screens.Models.DefaultModels;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows.Initialization
 {
-	public abstract class UiFlowInitializationStep<TFlowType, TFlowInputData> : IUiFlowInitializationStep<TFlowType>
+	public abstract class UiFlowInitializationStep< TFlowInputData> : IUiFlowInitializationStep
 		where TFlowInputData : InitialFlowScreenModel, new()
 	{
+		
 		public async Task<ScreenEvent> InitializeContext(UiFlowContextData newContext,
 			IDictionary<string, object> flowInputData,
 			ScreenEvent defaultEventToTrigger)
@@ -36,8 +39,10 @@ namespace S3.UiFlows.Core.Flows.Initialization
 
 		public abstract bool Authorize();
 	
+		internal IFlowsRegistry Registry { get; set; }
 
-		public abstract TFlowType InitializerOfFlowType { get; }
+		private string _flowType;
+		public string InitializerOfFlowType => _flowType??=Registry.GetByType(this.GetType()).Name;
 
 		private Task< ScreenEvent> ResolveInitializationEventToTrigger(ScreenEvent defaultEventToTriggerAfter,
 			UiFlowScreenModel screenModel)

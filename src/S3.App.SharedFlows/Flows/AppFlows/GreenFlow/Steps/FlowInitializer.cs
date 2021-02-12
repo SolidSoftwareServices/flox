@@ -7,9 +7,8 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
-	public class FlowInitializer : UiFlowInitializationStep<SampleAppFlowType, FlowInitializer.StartScreenModel>
+	public class FlowInitializer : UiFlowInitializationStep< FlowInitializer.StartScreenModel>
 	{
-		public override SampleAppFlowType InitializerOfFlowType => SampleAppFlowType.GreenFlow;
 
 		public override IScreenFlowConfigurator OnDefiningAdditionalInitialStateTransitions(IScreenFlowConfigurator preStartCfg,
 			UiFlowContextData contextData)

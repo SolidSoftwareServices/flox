@@ -91,20 +91,20 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Tests
 		[Test]
 		public async Task OpenBlueFlow_ShowsTheFlow()
 		{
-			Assert.IsNotNull((await Sut.ClickOnOpenSibling(SampleAppFlowType.BlueFlow)).CurrentPageAs<BlueFlowStep0>());
+			Assert.IsNotNull((await Sut.ClickOnOpenSibling("BlueFlow")).CurrentPageAs<BlueFlowStep0>());
 		}
 
 		[Test]
 		public async Task OpenGreenFlow_ShowsTheFlow()
 		{
 			Assert.IsNotNull(
-				(await Sut.ClickOnOpenSibling(SampleAppFlowType.GreenFlow)).CurrentPageAs<GreenFlowStep0>());
+				(await Sut.ClickOnOpenSibling("GreenFlow")).CurrentPageAs<GreenFlowStep0>());
 		}
 
 		[Test]
 		public async Task OpenStartFailureFlow_ShowsTheFlow()
 		{
-			Assert.IsNotNull((await Sut.ClickOnOpenSibling(SampleAppFlowType.StartFailure))
+			Assert.IsNotNull((await Sut.ClickOnOpenSibling("StartFailure"))
 				.CurrentPageAs<StartFailureFlowStep0>());
 		}
 	}

@@ -11,9 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace S3.UiFlows.Mvc.ViewModels.Binders
 {
-#if !FrameworkDeveloper
-    [DebuggerStepThrough]
-#endif
+
 	internal class UiFlowStepDataModelBinder : ModelBinderBase
 	{
 		private readonly Func<Type, Dictionary<ModelMetadata, IModelBinder>> _propsBinderFactory;

@@ -14,15 +14,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 using System.Threading.Tasks;
-#if !FrameworkDeveloper
-using System.Diagnostics;
-#endif
 
 namespace S3.Mvc.Core.Cryptography.Urls
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class UrlRouteExtensions
 	{
 		

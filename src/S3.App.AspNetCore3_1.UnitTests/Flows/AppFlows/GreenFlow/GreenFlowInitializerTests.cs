@@ -23,7 +23,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 		[Test, Theory]
 		public void InitializationIsCorrect(bool withInputParameters)
 		{
-			var configurator = new FlowInitializerTestConfigurator<FlowInitializer, SampleAppFlowType>(_fixture);
+			var configurator = new FlowInitializerTestConfigurator<FlowInitializer>(_fixture);
 			ExpandoObject p = null;
 			if (withInputParameters)
 			{
@@ -46,16 +46,16 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 		[Test]
 		public  void FlowTypeIsCorrect()
 		{
-			var configurator = new FlowInitializerTestConfigurator<FlowInitializer, SampleAppFlowType>(_fixture);
+			var configurator = new FlowInitializerTestConfigurator<FlowInitializer>(_fixture);
 			var adapter = configurator.Adapter;
-			Assert.AreEqual(SampleAppFlowType.GreenFlow,adapter.GetFlowType() );
+			Assert.AreEqual("GreenFlow".ToLowerInvariant(),adapter.GetFlowType() );
 
 		}
 
 		[Test]
 		public  async Task CanAuthorize()
 		{
-			var configurator = new FlowInitializerTestConfigurator<FlowInitializer, SampleAppFlowType>(_fixture);
+			var configurator = new FlowInitializerTestConfigurator<FlowInitializer>(_fixture);
 			var adapter = configurator.Adapter;
 			await adapter.Initialize();
 			Assert.IsTrue(adapter.Authorize());
@@ -80,7 +80,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 		[TestCaseSource(nameof(HandlingIsCorrect_OnStartCases))]
 		public void HandlingIsCorrect_OnStart(FlowInitializer.StartScreenModel whenDataIs, ScreenName expectedStep)
 		{
-			var configurator = new FlowInitializerTestConfigurator<FlowInitializer, SampleAppFlowType>(_fixture);
+			var configurator = new FlowInitializerTestConfigurator<FlowInitializer>(_fixture);
 			configurator.NewEventTestRunner()
 				.GivenTheStepDataIs(whenDataIs)
 				.WhenEvent(ScreenEvent.Start)

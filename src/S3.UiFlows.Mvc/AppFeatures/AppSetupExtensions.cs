@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using S3.UiFlows.Mvc.Infrastructure;
+using S3.UiFlows.Mvc.Infrastructure.IoC;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
 	public static class AppSetupExtensions
 	{
 		/// <summary>
@@ -20,12 +19,16 @@ namespace S3.UiFlows.Mvc.AppFeatures
 		/// <typeparam name="TFlowTypesEnum"></typeparam>
 		/// <param name="builder"></param>
 		/// <param name="services"></param>
-		/// <param name="enableFlowsDebugger">indicates if the flows debugger will be available at the relative url './flowdebugger/debugger' </param>
+		/// <param name="flowsAssembly"></param>
+		/// <param name="flowsRootNamespace"></param>
+		/// <param name="flowsRootPath"></param>
 		/// <returns></returns>
-		public static IMvcBuilder AddUiFlows<TFlowTypesEnum>(this IMvcBuilder builder, IServiceCollection services)
+		public static IMvcBuilder AddUiFlows(this IMvcBuilder builder, IServiceCollection services,
+			Assembly flowsAssembly, string flowsRootNamespace, string flowsRootPath)
 		{
-			return builder.AddUiFlows<TFlowTypesEnum, UiFlowController>(services) ;
+			return builder.AddUiFlows< UiFlowController>(services,flowsAssembly,flowsRootNamespace, flowsRootPath) ;
 		}
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -33,14 +36,18 @@ namespace S3.UiFlows.Mvc.AppFeatures
 		/// <typeparam name="TFlowsController"></typeparam>
 		/// <param name="builder"></param>
 		/// <param name="services"></param>
+		/// <param name="flowsAssembly"></param>
+		/// <param name="flowsRootNamespace"></param>
+		/// <param name="flowsRootPath"></param>
 		/// <returns></returns>
-		public static IMvcBuilder AddUiFlows<TFlowTypesEnum,TFlowsController>(this IMvcBuilder builder, IServiceCollection services) where TFlowsController : IUiFlowController
+		public static IMvcBuilder AddUiFlows<TFlowsController>(this IMvcBuilder builder, IServiceCollection services,
+			Assembly flowsAssembly, string flowsRootNamespace, string flowsRootPath) where TFlowsController : IUiFlowController
 		{
-			
-
+			var flowsRegistry=new FlowsRegistry(flowsAssembly, flowsRootNamespace,flowsRootPath);
+			UiFlowsMvcModule.Registry = flowsRegistry;
 			services.Configure<RazorViewEngineOptions>(o =>
 			{
-				o.ViewLocationExpanders.Add(new UiFlowViewLocationExpander<TFlowTypesEnum>());
+				o.ViewLocationExpanders.Add(new UiFlowViewLocationExpander(flowsRegistry));
 			});
 			services.Configure<MvcRazorRuntimeCompilationOptions>(opts =>
 			{
@@ -50,10 +57,8 @@ namespace S3.UiFlows.Mvc.AppFeatures
 			;
 			builder.AddMvcOptions(o =>
 			{
-				o.Conventions.Add(new UiFlowControllerRouteConvention<TFlowTypesEnum, TFlowsController>());
+				o.Conventions.Add(new UiFlowControllerRouteConvention< TFlowsController>(flowsRegistry));
 				o.ModelBinderProviders.Insert(0, new UiFlowStepDataModelBinderProvider());
-
-
 			});
 
 			return builder.ConfigureApplicationPartManager(m =>

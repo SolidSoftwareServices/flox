@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace S3.Mvc.Core.Cryptography.AntiTampering
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	[AttributeUsage(AttributeTargets.Class)]
 	public sealed class ValidateHiddenInputsAntiTamperingAttribute : ActionFilterAttribute
 	{

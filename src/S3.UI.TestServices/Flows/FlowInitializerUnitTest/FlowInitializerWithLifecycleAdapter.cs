@@ -1,37 +1,48 @@
 using System;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
+using S3.CoreServices.System.FastReflection;
 using S3.UI.TestServices.Flows.Shared;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Initialization;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
+using S3.UiFlows.Core.Registry;
+using S3.UiFlows.Mvc.Infrastructure;
 
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
-	public sealed class FlowInitializerWithLifecycleAdapter<TInitializer,TFlowType>: IFlowComponentAdapter
+
+	public sealed class FlowInitializerWithLifecycleAdapter<TInitializer>: IFlowComponentAdapter
 		where TInitializer : class, IUiFlowInitializationStep
 	{
-		private readonly IUiFlowInitializationStep<TFlowType> _target;
+		private readonly IUiFlowInitializationStep _target;
 		private bool _initialized;
 		//TODO: MOCK
 		private readonly UiFlowContextData _uiFlowContextData;
-		internal FlowInitializerWithLifecycleAdapter(IUiFlowInitializationStep<TFlowType> target)
+		internal FlowInitializerWithLifecycleAdapter(IUiFlowInitializationStep target)
 		{
 			_target = target;
+			SetRegistry();
 			_uiFlowContextData = new UiFlowContextData
 			{
 				CurrentScreenStep = ScreenName.PreStart
 			};
+
+			void SetRegistry()
+			{
+				var items = typeof(TInitializer).Namespace.Split('.').SkipLast(2);
+				var flowsRootNamespace = string.Join('.', items);
+				_target.SetPropertyValueFast(nameof(UiFlowScreen.Registry),
+					new FlowsRegistry(typeof(TInitializer).Assembly, flowsRootNamespace, string.Empty));
+			}
 		}
 		
-		public TFlowType GetFlowType()
+		public string GetFlowType()
 		{
 			return _target.InitializerOfFlowType;
 		}
@@ -77,7 +88,7 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 
 		private ScreenName GetStepName()=> ScreenName.PreStart;
 
-		public FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> SetStepData<TStepData>(TStepData stepData) where TStepData : UiFlowScreenModel
+		public FlowInitializerWithLifecycleAdapter<TInitializer> SetStepData<TStepData>(TStepData stepData) where TStepData : UiFlowScreenModel
 		{
 			stepData.Metadata.FlowScreenName = ScreenName.PreStart;
 			stepData.Metadata.FlowHandler = Guid.NewGuid().ToString();

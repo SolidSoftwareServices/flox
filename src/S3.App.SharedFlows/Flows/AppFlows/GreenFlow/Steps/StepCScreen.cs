@@ -27,6 +27,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 		public override ScreenName ScreenStep =>  GreenFlowScreenName.StepCScreen;
 		public override string ViewPath { get; } = "StepC";
+		
 
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)

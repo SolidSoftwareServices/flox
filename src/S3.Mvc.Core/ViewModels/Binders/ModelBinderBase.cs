@@ -9,9 +9,7 @@ using NLog;
 
 namespace S3.Mvc.Core.ViewModels.Binders
 {
-#if !FrameworkDeveloper
-    [DebuggerStepThrough]
-#endif
+
 	public abstract class ModelBinderBase : IModelBinder
 	{
 

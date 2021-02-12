@@ -5,23 +5,24 @@ using S3.CoreServices.System;
 using S3.Mvc.Core.Cryptography.Urls;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using Microsoft.AspNetCore.Mvc;
+using S3.UiFlows.Mvc.AppFeatures;
 using ControllerBase = S3.Mvc.Core.Controllers.ControllerBase;
+using IFlowsRegistry = S3.UiFlows.Core.Registry.IFlowsRegistry;
 
 namespace S3.UiFlows.Mvc.Controllers
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
-	public abstract class UiFlowContainerController<TViewModel,TFlowType>: ControllerBase
+
+	public abstract class UiFlowContainerController<TViewModel>: ControllerBase
 		where TViewModel: UiFlowScreenModel
-	where TFlowType:struct
 
 	{
 		private readonly UiFlowController _flowController;
+		private readonly IFlowsRegistry _flowsRegistry;
 
-		protected UiFlowContainerController(UiFlowController flowController)
+		protected UiFlowContainerController(UiFlowController flowController, IFlowsRegistry flowsRegistry)
 		{
 			_flowController = flowController;
+			_flowsRegistry = flowsRegistry;
 		}
 		public async Task<IActionResult> Index(TViewModel viewModel)
 		{
@@ -36,16 +37,16 @@ namespace S3.UiFlows.Mvc.Controllers
 			await _flowController.OnEvent(trigger,viewData);
 			if (flowType != null)
 			{
-				viewModel.SetContainedFlow(Enum.Parse<TFlowType>(flowType));
+				viewModel.SetContainedFlow(_flowsRegistry.GetByName(flowType,true).Name);
 			}
 			return RedirectToAction(nameof(Index), await viewModel.ToValidRouteValueAsync(ControllerContext.HttpContext));
 		}
 
 		protected abstract Task<IActionResult> GetIndexView(TViewModel viewModel);
-		public async Task<IActionResult> DisplayFlow(TViewModel viewModel, TFlowType flow)
+		public async Task<IActionResult> DisplayFlow(TViewModel viewModel, string flow)
 		{
 
-			if (!Equals(viewModel.Metadata.ContainedFlowType.ToEnum<TFlowType>(), flow))
+			if (!Equals(viewModel.Metadata.ContainedFlowType, flow))
 			{
 				viewModel.Metadata.ContainedFlowHandler = null;
 				viewModel.SetContainedFlow(flow);

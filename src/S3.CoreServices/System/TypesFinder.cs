@@ -57,34 +57,45 @@ namespace S3.CoreServices.System
 				var result = new HashSet<Type>();
 				foreach (var assembly in AllAssemblies.Value)
 				{
-					if (!assembly.IsDynamic)
-					{
-						Type[] exportedTypes = null;
-						try
-						{
-							
-							exportedTypes = assembly.GetTypes()
-								.Where(x=>
-									(includePublicOnly && (x.IsPublic ||x.IsNestedPublic))
-									||(!includePublicOnly))
-								.ToArray();
-						}
-						catch (ReflectionTypeLoadException e)
-						{
-							exportedTypes = e.Types;
-						}
+					result.AddRange(FindTypes(assembly,predicate,includePublicOnly:includePublicOnly));
+				}
+			
+				return result;
+			}
+		}
 
-						if (exportedTypes != null)
+		private IEnumerable<Type> FindTypes(Assembly assembly,Func<Type, bool> predicate, string cacheQueryId = null, bool includePublicOnly = true)
+		{
+			return cacheQueryId == null ? Fetch() : _findTypesCache.GetOrAdd(cacheQueryId, x => Fetch());
+			IEnumerable<Type> Fetch()
+			{
+				var result = new HashSet<Type>();
+				if (!assembly.IsDynamic)
+				{
+					Type[] exportedTypes = null;
+					try
+					{
+						exportedTypes = assembly.GetTypes()
+							.Where(x =>
+								(includePublicOnly && (x.IsPublic || x.IsNestedPublic))
+								|| (!includePublicOnly))
+							.ToArray();
+					}
+					catch (ReflectionTypeLoadException e)
+					{
+						exportedTypes = e.Types;
+					}
+
+					if (exportedTypes != null)
+					{
+						foreach (var type in exportedTypes)
 						{
-							foreach (var type in exportedTypes)
-							{
-								if (predicate(type))
-									result.Add(type);
-							}
+							if (predicate(type))
+								result.Add(type);
 						}
 					}
 				}
-			
+
 				return result;
 			}
 		}
@@ -146,7 +157,12 @@ namespace S3.CoreServices.System
 			                      x.Namespace.StartsWith(ns,
 				                      StringComparison.InvariantCultureIgnoreCase), $"ByNamespace_{ns}");
 		}
-
+		public IEnumerable<Type> FindTypesByNamespace(Assembly assembly,string ns)
+		{
+			return FindTypes(assembly,x => x.Namespace != null &&
+			                      x.Namespace.StartsWith(ns,
+				                      StringComparison.InvariantCultureIgnoreCase), $"From{assembly.FullName}.ByNamespace_{ns}");
+		}
 		public IEnumerable<Type> FindConcreteTypesOf(Type type, bool includePublicOnly = true)
 		{
 			return FindTypes(x =>

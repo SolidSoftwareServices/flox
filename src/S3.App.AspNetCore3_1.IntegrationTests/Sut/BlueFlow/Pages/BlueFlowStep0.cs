@@ -39,7 +39,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages
 		public IHtmlDivElement AsyncComponent2 => _node.QuerySelectorAll("[id^='SampleComponentAsync']").Last() as IHtmlDivElement;
 
 		public string FieldValidatorValue =>
-			_node.QuerySelector("#BlueFlow- > div:nth-child(2) > div > span").Text();
+			_node.QuerySelector("#blueflow- > div:nth-child(2) > div > span").Text();
 
 
 		public IEnumerable<string> Errors()

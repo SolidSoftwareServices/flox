@@ -62,9 +62,9 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Pages
 		}
 
 
-		public async Task<PrototypeApp> ClickOnOpenSibling(SampleAppFlowType flowType)
+		public async Task<PrototypeApp> ClickOnOpenSibling(string flowType)
 		{
-			return (PrototypeApp)await App.ClickOnElement(Document.GetElementByText($"sibling {flowType}"));
+			return (PrototypeApp)await App.ClickOnElement(Document.GetElementByText($"sibling {flowType}",false));
 		}
 
 		public ModelTesterPage0 SetValues(params (string, string)[] values)

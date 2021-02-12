@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public class UiFlowControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
 	{
 		public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)

@@ -34,8 +34,17 @@ namespace S3.CoreServices.System
 		}
 		public static TValue GetOrAdd<TKey,TValue>(this IDictionary<TKey, TValue> src, TKey key, Func<TValue> initialValueResolver)
 		{
-			if(!src.ContainsKey(key))src.Add(key,initialValueResolver());
-			return src[key];
+			TValue result;
+			if (src is ConcurrentDictionary<TKey, TValue> concurrentDictionary)
+			{
+				result=concurrentDictionary.GetOrAdd(key, k => initialValueResolver());
+			}
+			else
+			{
+				if (!src.ContainsKey(key)) src.Add(key, initialValueResolver());
+				result= src[key];
+			}
+			return result;
 		}
 		public static IDictionary<TKey, TValue> RemoveIfExists<TKey, TValue>(this IDictionary<TKey, TValue> src, TKey key)
 		{

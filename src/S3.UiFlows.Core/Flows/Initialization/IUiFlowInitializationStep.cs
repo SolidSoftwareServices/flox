@@ -4,6 +4,7 @@ using S3.UiFlows.Core.Configuration;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Facade.Metadata;
 using S3.UiFlows.Core.Flows.Screens;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows.Initialization
 {
@@ -16,11 +17,9 @@ namespace S3.UiFlows.Core.Flows.Initialization
 			IScreenFlowConfigurator preStartCfg, UiFlowContextData contextData);
 
 		bool Authorize();
-		
+
+		string InitializerOfFlowType { get; }
 	}
 
-	public interface IUiFlowInitializationStep<out TFlowType> : IUiFlowInitializationStep
-	{
-		TFlowType InitializerOfFlowType { get; }
-	}
+	
 }

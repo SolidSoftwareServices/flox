@@ -1,5 +1,8 @@
 @using S3.UiFlows.Mvc.Components
 @using S3.App.Flows.AppFlows
+@using S3.UiFlows.Core.Registry
+
+@inject IFlowsRegistry FlowsRegistry
 @model S3.App.Models.SampleFlowContainerViewModel
 
 @{
@@ -8,9 +11,10 @@
 
 <h2>FlowContainer</h2>
 
-@foreach (var flowType in Enum.GetValues(typeof(SampleAppFlowType)).Cast<SampleAppFlowType>().Where(x => x != SampleAppFlowType.NoFlow && x != SampleAppFlowType.ContainersFlow))
+@foreach (var flowType in FlowsRegistry.AllFlows.Select(x => x.Name)
+	.Where(x => x != "ContainersFlow"))
 {
-	if (flowType!=Model.GetContainedFlow<SampleAppFlowType>())
+	if (flowType != Model.GetContainedFlow())
 	{
 
 		<flow-action action-type="StartFlow"

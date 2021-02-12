@@ -15,9 +15,9 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 	public class GreenFlowInitialScreenTests
 	{
 		private readonly IFixture _fixture = new Fixture();
-		private FlowScreenTestConfigurator<InitialScreen, SampleAppFlowType> NewScreenTestConfigurator()
+		private FlowScreenTestConfigurator<InitialScreen> NewScreenTestConfigurator()
 		{
-			return new FlowScreenTestConfigurator<InitialScreen, SampleAppFlowType>(_fixture);
+			return new FlowScreenTestConfigurator<InitialScreen>(_fixture);
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 		[Test]
 		public void FlowIsCorrect()
 		{
-			Assert.AreEqual(SampleAppFlowType.GreenFlow, NewScreenTestConfigurator().Adapter.GetFlowType());
+			Assert.AreEqual("GreenFlow".ToLowerInvariant(), NewScreenTestConfigurator().Adapter.GetFlowType());
 		}
 
 		[Test]

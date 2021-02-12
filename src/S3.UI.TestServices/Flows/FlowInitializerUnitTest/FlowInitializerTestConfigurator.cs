@@ -5,22 +5,20 @@ using S3.UiFlows.Core.Flows.Initialization;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
-	public sealed partial class FlowInitializerTestConfigurator<TInitializer, TFlowType> : FlowTestConfigurator<
-		FlowInitializerTestConfigurator<TInitializer, TFlowType>,
-		FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType>>
-		where TInitializer : class, IUiFlowInitializationStep<TFlowType>
+
+	public sealed partial class FlowInitializerTestConfigurator<TInitializer> : FlowTestConfigurator<
+		FlowInitializerTestConfigurator<TInitializer>,
+		FlowInitializerWithLifecycleAdapter<TInitializer>>
+		where TInitializer : class, IUiFlowInitializationStep
 	{
 		public FlowInitializerTestConfigurator(IFixture fixture = null) : base(fixture ?? new Fixture())
 		{
 		}
 
-		protected override FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> BuildAdapter()
+		protected override FlowInitializerWithLifecycleAdapter<TInitializer> BuildAdapter()
 		{
 			var adapter =
-				new FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType>(Mocker.CreateInstance<TInitializer>());
+				new FlowInitializerWithLifecycleAdapter<TInitializer>(Mocker.CreateInstance<TInitializer>());
 			return adapter;
 		}
 	}

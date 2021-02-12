@@ -6,10 +6,9 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.Flows.AppFlows.ContainersFlow4.Steps
 {
-	public class FlowInitializer : UiFlowInitializationStep<SampleAppFlowType>
+	public class FlowInitializer : UiFlowInitializationStep
 	{
 
-		public override SampleAppFlowType InitializerOfFlowType => SampleAppFlowType.ContainersFlow4;
 
 		public override bool Authorize()
 		{

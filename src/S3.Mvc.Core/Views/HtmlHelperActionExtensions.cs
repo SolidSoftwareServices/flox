@@ -17,9 +17,7 @@ using System.Threading;
 
 namespace S3.Mvc.Core.Views
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public static class HtmlHelperActionExtensions
 	{
 

@@ -12,9 +12,7 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.UI.TestServices.Flows.Shared
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	abstract class TestFlowNavigationHelper : IScreenFlowConfigurator
 	{
 		private readonly ScreenName _currentStep;

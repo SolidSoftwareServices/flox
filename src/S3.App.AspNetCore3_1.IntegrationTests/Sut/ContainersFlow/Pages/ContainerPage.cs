@@ -18,22 +18,22 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages
 
 		public async Task<PrototypeApp> SelectBlueFlow()
 		{
-			var text = SampleAppFlowType.BlueFlow.ToString();
+			var text = "BlueFlow";
 			return await SelectContained(text);
 		}
 		public async Task<PrototypeApp> SelectGreenFlow()
 		{
-			var text = SampleAppFlowType.GreenFlow.ToString();
+			var text ="GreenFlow";
 			return await SelectContained(text);
 		}
 		private async Task<PrototypeApp> SelectContained(string text)
 		{
-			return (PrototypeApp)await App.ClickOnElement(Root.GetElementByText(text));
+			return (PrototypeApp)await App.ClickOnElement(Root.GetElementByText(text,false));
 		}
 
 		public async Task<PrototypeApp> SelectContainerFlow()
 		{
-			return await SelectContained(SampleAppFlowType.ContainersFlow.ToString());
+			return await SelectContained("ContainersFlow");
 		}
 		protected override bool IsInPage()
 		{

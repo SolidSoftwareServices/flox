@@ -4,15 +4,11 @@ using Castle.DynamicProxy;
 using S3.CoreServices.System;
 using NLog;
 
-#if !FrameworkDeveloper
-	using System.Diagnostics;
-#endif
+
 
 namespace S3.CoreServices.Profiling
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	class ProfilerInterceptor : IInterceptor
 	{
 		private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();

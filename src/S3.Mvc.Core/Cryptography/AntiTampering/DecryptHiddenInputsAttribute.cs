@@ -13,9 +13,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace S3.Mvc.Core.Cryptography.AntiTampering
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 
 	[AttributeUsage(AttributeTargets.Class)]
 	public sealed class DecryptHiddenInputsAttribute : ActionFilterAttribute

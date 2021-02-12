@@ -15,6 +15,7 @@ using S3.UiFlows.Core.Flows.Screens.Models.DefaultModels;
 using S3.UiFlows.Core.Infrastructure.StateMachine;
 using NLog;
 using S3.UiFlows.Core.DataSources;
+using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows
 {
@@ -27,6 +28,7 @@ namespace S3.UiFlows.Core.Flows
 		private readonly IFlowRuntimeInfoResolver _flowRuntimes;
 		private readonly IScreenMetadataResolver _screenMetadataResolver;
 		private readonly IFlowInitializerMetadataResolver _flowInitializerMetadataResolver;
+		private readonly IFlowsRegistry _flowsRegistry;
 
 		private readonly List<IInternalScreenFlowConfigurator> _screensConfigurators =
 			new List<IInternalScreenFlowConfigurator>();
@@ -40,7 +42,7 @@ namespace S3.UiFlows.Core.Flows
 			IUiFlowContextRepository contextRepository,
 			IInternalStateMachine stateMachine, IProfiler profiler, IFlowRuntimeInfoResolver flowRuntimes,
 			IScreenMetadataResolver screenMetadataResolver,
-			IFlowInitializerMetadataResolver flowInitializerMetadataResolver)
+			IFlowInitializerMetadataResolver flowInitializerMetadataResolver,IFlowsRegistry flowsRegistry)
 		{
 
 			_stateMachine = stateMachine;
@@ -48,6 +50,7 @@ namespace S3.UiFlows.Core.Flows
 			_flowRuntimes = flowRuntimes;
 			_screenMetadataResolver = screenMetadataResolver;
 			_flowInitializerMetadataResolver = flowInitializerMetadataResolver;
+			_flowsRegistry = flowsRegistry;
 			_contextRepository = contextRepository;
 		}
 

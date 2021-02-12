@@ -8,6 +8,7 @@
 @using S3.App.Flows.AppFlows.BlueFlow.Steps
 @using S3.App.Flows.AppFlows
 @using S3.App.Flows.AppFlows.BlueFlow.FlowDefinitions
+@using S3.UiFlows.Mvc.Views
 @model S3.App.Flows.AppFlows.BlueFlow.Steps.InitialScreen.InitialScreenScreenModel
 @{
 	ViewData["Title"] = "BlueFlow::Initial registration";
@@ -56,8 +57,8 @@
 		<div class="col-md-3">
 			<flow-action action-type="StartFlow"
 						 flow-location="SameContainerAsMe"
-						 flow-name="@SampleAppFlowType.GreenFlow">
-				open @SampleAppFlowType.GreenFlow.ToString() from sibling
+						 flow-name="GreenFlow">
+				open GreenFlow from sibling
 			</flow-action>
 
 		</div>
@@ -67,13 +68,13 @@
 			<flow-action id="lnkFailInitialization"
 						 action-type="StartFlow"
 						 flow-location="SameContainerAsMe"
-						 flow-name=@SampleAppFlowType.BlueFlow
+						 flow-name=BlueFlow
 						 flow-parameters=@(new {
 							                 FailOnStep = nameof(FlowInitializer),
 							                 FailOnEvent=ScreenLifecycleStage.FlowInitialization
 
 						                 })>
-				open @SampleAppFlowType.BlueFlow.ToString() Failing in flow initializer
+				open BlueFlow Failing in flow initializer
 			</flow-action>
 
 		</div>
@@ -83,13 +84,13 @@
 			<flow-action id="lnkFailCreatingStep"
 						 action-type="StartFlow"
 						 flow-location="SameContainerAsMe"
-						 flow-name=@SampleAppFlowType.BlueFlow
+						 flow-name=BlueFlow
 						 flow-parameters=@(new {
 				                             FailOnStep = BlueFlowScreenName.Step0Screen,
 				                             FailOnEvent=ScreenLifecycleStage.CreatingStepData
 
 			                             })>
-				open @SampleAppFlowType.BlueFlow.ToString() Failing in InitialScreen.CreateStepData
+				open BlueFlow Failing in InitialScreen.CreateStepData
 			</flow-action>
 
 		</div>

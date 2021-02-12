@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {
-	public partial class FlowInitializerTestConfigurator<TInitializer, TFlowType>
+	public partial class FlowInitializerTestConfigurator<TInitializer>
 	{
 		/// <summary>
 		/// Retrieves a test runner specialized in the initialization of the flow
@@ -19,9 +19,9 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 		public TestInitializationRunner NewInitializationRunner() => new TestInitializationRunner(Adapter);
 		public class TestInitializationRunner
 		{
-			private readonly FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> _adapter;
+			private readonly FlowInitializerWithLifecycleAdapter<TInitializer> _adapter;
 
-			internal TestInitializationRunner(FlowInitializerWithLifecycleAdapter<TInitializer,TFlowType> adapter)
+			internal TestInitializationRunner(FlowInitializerWithLifecycleAdapter<TInitializer> adapter)
 			{
 				_adapter = adapter;
 			}
@@ -54,10 +54,10 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 			}
 			public class FlowInitializationAssert
 			{
-				private readonly FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> _adapter;
+				private readonly FlowInitializerWithLifecycleAdapter<TInitializer> _adapter;
 				private readonly ScreenEvent _result;
 
-				internal FlowInitializationAssert(FlowInitializerWithLifecycleAdapter<TInitializer, TFlowType> adapter,
+				internal FlowInitializationAssert(FlowInitializerWithLifecycleAdapter<TInitializer> adapter,
 					ScreenEvent result)
 				{
 					_adapter = adapter;

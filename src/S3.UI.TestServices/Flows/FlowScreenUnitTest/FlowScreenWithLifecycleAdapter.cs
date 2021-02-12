@@ -3,23 +3,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
+using S3.CoreServices.System.FastReflection;
 using S3.UI.TestServices.Flows.Shared;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Metadata;
 using S3.UiFlows.Core.Flows.Screens.Models;
+using S3.UiFlows.Core.Registry;
+using S3.UiFlows.Mvc.Infrastructure;
 
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
-	public sealed class FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> : IFlowComponentAdapter
-		where TFlowScreen : class, IUiFlowScreen<TFlowType>
+
+	public sealed class FlowScreenWithLifecycleAdapter<TFlowScreen> : IFlowComponentAdapter
+		where TFlowScreen : class, IUiFlowScreen
 	{
-		private readonly IUiFlowScreen<TFlowType> _target;
+		private readonly IUiFlowScreen _target;
 
 		//TODO: MOCK
 		private readonly UiFlowContextData _uiFlowContextData;
@@ -28,15 +29,25 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 		{
 			Fixture = fixture;
 			_target = target;
+
+			SetRegistry();
 			_uiFlowContextData = new UiFlowContextData
 			{
 				CurrentScreenStep = GetStep()
 			};
+
+			void SetRegistry()
+			{
+				var items = typeof(TFlowScreen).Namespace.Split('.').SkipLast(2);
+				var flowsRootNamespace = string.Join('.', items);
+				_target.SetPropertyValueFast(nameof(UiFlowScreen.Registry),
+					new FlowsRegistry(typeof(TFlowScreen).Assembly, flowsRootNamespace,string.Empty));
+			}
 		}
 
 		private IFixture Fixture { get; }
 
-		public TFlowType GetFlowType()
+		public string GetFlowType()
 		{
 			return _target.IncludedInFlowType;
 		}
@@ -61,13 +72,13 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 			return _target.ScreenStep;
 		}
 
-		public FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> SetStepData<TStepData>(TStepData stepData)
+		public FlowScreenWithLifecycleAdapter<TFlowScreen> SetStepData<TStepData>(TStepData stepData)
 			where TStepData : UiFlowScreenModel
 		{
 			return SetStepData(stepData, GetStep());
 		}
 
-		public FlowScreenWithLifecycleAdapter<TFlowScreen, TFlowType> SetStepData<TStepData>(TStepData stepData,
+		public FlowScreenWithLifecycleAdapter<TFlowScreen> SetStepData<TStepData>(TStepData stepData,
 			ScreenName forStep) where TStepData : UiFlowScreenModel
 		{
 			stepData.Metadata.FlowScreenName = forStep;

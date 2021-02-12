@@ -20,7 +20,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
-			return new StepData(SampleAppFlowType.BlueFlow,
+			return new StepData("BlueFlow",
 				new BlueFlow.Steps.FlowInitializer.StartScreenModel
 				{
 					GreenFlowData = contextData.GetStepData<InitialScreen.InitialScreenScreenModel>().StepValue1,
@@ -46,7 +46,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 		/// </summary>
 		public class StepData : StartFlowScreenModel<BlueFlow.Steps.FlowInitializer.StartScreenModel, string>
 		{
-			public StepData(SampleAppFlowType startFlowType, BlueFlow.Steps.FlowInitializer.StartScreenModel startData = null,
+			public StepData(string startFlowType, BlueFlow.Steps.FlowInitializer.StartScreenModel startData = null,
 				bool asContained = false) : base(startFlowType.ToString(), startData, asContained)
 			{
 			}

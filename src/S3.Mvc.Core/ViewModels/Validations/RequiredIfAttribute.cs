@@ -7,10 +7,6 @@ using S3.CoreServices.System.FastReflection;
 
 namespace S3.Mvc.Core.ViewModels.Validations
 {
-#if !FrameworkDeveloper
-    [DebuggerStepThrough]
-#endif
-
 
 public class RequiredIfAttribute : ValidationAttribute
     {

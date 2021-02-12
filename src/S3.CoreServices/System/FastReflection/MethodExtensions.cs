@@ -8,9 +8,7 @@ using Fasterflect;
 namespace S3.CoreServices.System.FastReflection
 {
 
-#if !FrameworkDeveloper
-	[DebuggerStepThrough]
-#endif
+
 	public class MethodInvocationHandler
 	{
 		

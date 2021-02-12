@@ -9,7 +9,7 @@
     <Import_RootNamespace>S3.App</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\FlowDefinitions\BlueFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\FlowDefinitions\BlueFlowScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\FlowDefinitions\IBlueInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\ErrorScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\BlueFlow\Steps\FillData\StepAScreen.cs" />
@@ -28,23 +28,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\FlowDefinitions\ComponentsFlowScreenScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ComponentsFlow\Steps\Step0Screen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\FlowDefinitions\ContainersFlow2StepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\FlowDefinitions\ContainersFlow2ScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\Steps\Number1ContainerScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow2\Steps\Number2ContainerScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\FlowDefinitions\ContainersFlow3StepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\FlowDefinitions\ContainersFlow3ScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\Steps\Number1ContainerScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow3\Steps\Number2ContainerScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\FlowDefinitions\ContainersFlow4StepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\FlowDefinitions\ContainersFlow4ScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\Steps\Number1ContainerScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow4\Steps\Number2ContainerScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\FlowDefinitions\ContainersFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\FlowDefinitions\ContainersFlowScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\Steps\Number1ContainerScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ContainersFlow\Steps\Number2ContainerScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\FlowDefinitions\GreenFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\FlowDefinitions\GreenFlowScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\FlowDefinitions\IGreenInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\FlowCompletedScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\FlowInitializer.cs" />
@@ -53,7 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\StepAScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\StepBScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\GreenFlow\Steps\StepCScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\FlowDefinitions\MetadataTestFlowScreenStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\FlowDefinitions\MetadataTestFlowScreenScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\MetadataTestFlow\Steps\Step0Screen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\FlowDefinitions\IModelTesterInput.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\Steps\FlowCompletedScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\ModelTesterFlow\Steps\InputScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\FlowDefinitions\StartFailureFlowStepType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\FlowDefinitions\StartFailureFlowScreenName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\Steps\FailureScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\AppFlows\StartFailure\Steps\FlowInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flows\SharedFlowComponents\Main\SampleInput\IInputComponentViewModel.cs" />

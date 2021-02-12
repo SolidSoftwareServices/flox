@@ -12,10 +12,10 @@ namespace S3.App.Flows.AppFlows.ContainersFlow2.Steps
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Step1, ContainersFlow2ScreenName.Number1ContainerScreen);
+				.OnEventNavigatesTo(ScreenInputEvent.Step1, ContainersFlow2ScreenName.Number1ContainerScreen);
 		}
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Step1 = new ScreenEvent(nameof(Number2ContainerScreen),nameof(Step1));
 		}

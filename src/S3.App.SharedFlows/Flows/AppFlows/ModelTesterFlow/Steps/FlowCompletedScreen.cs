@@ -12,7 +12,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 {
 	public class FlowCompletedScreen : ModelTesterFlowScreen
 	{
-		public class StepEvent
+		public class ScreenInputEvent
 		{
 			public static readonly ScreenEvent BackToEditValues=new ScreenEvent(nameof(FlowCompletedScreen), nameof(BackToEditValues));
 		}
@@ -24,7 +24,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 		protected override IScreenFlowConfigurator OnRegisterUserActions(IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
-			return screenConfiguration.OnEventNavigatesTo(StepEvent.BackToEditValues, ModelTesterFlowStep.InputScreen);
+			return screenConfiguration.OnEventNavigatesTo(ScreenInputEvent.BackToEditValues, ModelTesterFlowStep.InputScreen);
 		}
 
 

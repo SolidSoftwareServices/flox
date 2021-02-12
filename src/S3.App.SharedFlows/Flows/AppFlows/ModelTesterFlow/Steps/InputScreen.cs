@@ -14,7 +14,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 	public class InputScreen : ModelTesterFlowScreen
 	{
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Submit = new ScreenEvent(nameof(InputScreen), nameof(Submit));
 		}
@@ -27,7 +27,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 
 			return screenConfiguration
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Submit, ModelTesterFlowStep.FlowCompletedScreen);
+				.OnEventNavigatesTo(ScreenInputEvent.Submit, ModelTesterFlowStep.FlowCompletedScreen);
 		}
 
 		

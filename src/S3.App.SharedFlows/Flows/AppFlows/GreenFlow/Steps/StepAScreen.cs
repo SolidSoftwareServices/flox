@@ -9,7 +9,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
 	public class StepAScreen : GreenFlowScreen
 	{
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Previous = new ScreenEvent(nameof(StepAScreen), "Previous");
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(StepAScreen), "Next");
@@ -20,12 +20,12 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Reset, GreenFlowScreenName.Step0Screen)
-				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepBScreen)
-				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.Reset, GreenFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.Next, GreenFlowScreenName.StepBScreen)
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, GreenFlowScreenName.Step0Screen)
 
-				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset())
-				.OnEventExecutes(StepEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepAScreenScreenModel>().StepAValue1 = null); ;
+				.OnEventExecutes(ScreenInputEvent.Reset, (e, ctx) => ctx.Reset())
+				.OnEventExecutes(ScreenInputEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepAScreenScreenModel>().StepAValue1 = null); ;
 			;
 		}
 
@@ -35,7 +35,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
         {
 			bool result = true;
 			errorMessage = null;
-			if (transitionTrigger == StepEvent.Next)
+			if (transitionTrigger == ScreenInputEvent.Next)
 			{
 				var viewModel = contextData.GetCurrentStepData<StepAScreenScreenModel>();
 				result = !string.IsNullOrEmpty(viewModel.StepAValue1);

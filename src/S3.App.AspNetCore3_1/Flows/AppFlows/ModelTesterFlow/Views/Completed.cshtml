@@ -78,7 +78,7 @@
 		<div class="col-md-3">
 			@using (await Html.BeginUiFlowFormAsync( Model))
 			{
-				<flow-action  trigger-event=@FlowCompletedScreen.StepEvent.BackToEditValues>Back</flow-action>
+				<flow-action  trigger-event=@FlowCompletedScreen.ScreenInputEvent.BackToEditValues>Back</flow-action>
 			}
 		</div>
 	</div>

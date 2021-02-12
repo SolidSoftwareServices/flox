@@ -25,8 +25,8 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			};
 			var runBlueFlowStep = contextData.GetStepData<RunBlueFlowScreen.StepData>(GreenFlowScreenName.RunBlueFlow);
 
-			if (contextData.CurrentEvents.Any(x=>x==RunBlueFlowScreen.StepEvent.BlueFlowCompleted) 
-			    || contextData.EventsLog.Any(x =>x.Event == RunBlueFlowScreen.StepEvent.BlueFlowCompleted))
+			if (contextData.CurrentEvents.Any(x=>x==RunBlueFlowScreen.ScreenInputEvent.BlueFlowCompleted) 
+			    || contextData.EventsLog.Any(x =>x.Event == RunBlueFlowScreen.ScreenInputEvent.BlueFlowCompleted))
 			{
 				stepData.BlueFlowInitialScreenValue =  runBlueFlowStep.CalledFlowResult;
 			}

@@ -10,7 +10,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
 	public class StepCScreen : GreenFlowScreen
 	{
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Previous = new ScreenEvent(nameof(StepCScreen), "Previous");
 			public static readonly ScreenEvent FlowTransitionCompleted = new ScreenEvent(nameof(StepCScreen), "FlowCompleted");
@@ -39,13 +39,13 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			}
 
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Reset, GreenFlowScreenName.Step0Screen)
-				.OnEventNavigatesTo(StepEvent.FlowTransitionCompleted, GreenFlowScreenName.FlowCompletedScreen)
-				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.StepBScreen, () => !ByPassedStepAandB(),"Comes from B")
-				.OnEventNavigatesTo(StepEvent.Previous, GreenFlowScreenName.Step0Screen, ByPassedStepAandB, "Comes from step0")
-				.OnEventNavigatesTo(StepEvent.StartBlueFlow, GreenFlowScreenName.RunBlueFlow)
+				.OnEventNavigatesTo(ScreenInputEvent.Reset, GreenFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.FlowTransitionCompleted, GreenFlowScreenName.FlowCompletedScreen)
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, GreenFlowScreenName.StepBScreen, () => !ByPassedStepAandB(),"Comes from B")
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, GreenFlowScreenName.Step0Screen, ByPassedStepAandB, "Comes from step0")
+				.OnEventNavigatesTo(ScreenInputEvent.StartBlueFlow, GreenFlowScreenName.RunBlueFlow)
 
-				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset());
+				.OnEventExecutes(ScreenInputEvent.Reset, (e, ctx) => ctx.Reset());
 		}
 
 

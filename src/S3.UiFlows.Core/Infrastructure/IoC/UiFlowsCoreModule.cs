@@ -68,7 +68,7 @@ namespace S3.UiFlows.Core.Infrastructure.IoC
 					var initStep =
 						(IUiFlowInitializationStep)_getUninitializedObjectFactory(type);
 
-					initStep.SetPropertyValueFast(nameof(UiFlowInitializationStep.Registry), _flowsRegistry);
+					initStep.SetPropertyValueFast(nameof(UiFlowStarter.Registry), _flowsRegistry);
 					var flowType = initStep.InitializerOfFlowType;
 					if (string.IsNullOrWhiteSpace(flowType))
 						throw new Exception(

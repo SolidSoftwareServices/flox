@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.ObjectPool;
 using S3.CoreServices.System;
 using S3.CoreServices.System.FastReflection;
-using Microsoft.Extensions.ObjectPool;
 
 namespace S3.CoreServices.Encryption
 {

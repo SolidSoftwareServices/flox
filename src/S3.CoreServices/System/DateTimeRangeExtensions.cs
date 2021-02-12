@@ -16,7 +16,7 @@ namespace S3.CoreServices.System
 
 			var stack = new Stack<DateTimeRange>();
 			stack.Push(sortedSrc[0]);
-			for (int i = 1; i < sortedSrc.Length; i++)
+			for (var i = 1; i < sortedSrc.Length; i++)
 			{
 				var top = stack.Peek();
 
@@ -46,7 +46,7 @@ namespace S3.CoreServices.System
 			var stack =new Stack<DateTimeRange>();
 			stack.Push(sortedSrc[0]);
 
-			for (int i = 1; i < sortedSrc.Length; i++)
+			for (var i = 1; i < sortedSrc.Length; i++)
 			{
 				var top = stack.Peek();
 

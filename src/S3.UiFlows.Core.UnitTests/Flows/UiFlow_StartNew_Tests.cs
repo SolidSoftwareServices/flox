@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.TestServices;
 using S3.UiFlows.Core.Flows;
-using NUnit.Framework;
 
 namespace S3.UiFlows.Core.UnitTests.Flows
 {

@@ -21,7 +21,7 @@ namespace S3.UI.TestServices.Sut
 		where TStartUp : class
 	{
 		protected static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-		public ConsoleProfiler Profiler { get; private set; }
+		public ConsoleProfiler Profiler { get; }
 		public PagesResolver<TApp> PagesResolver { get; }
 		private AppFactory<TStartUp> Factory { get; set; }
 		public Lazy<TestHttpClient> Client { get; private set; }

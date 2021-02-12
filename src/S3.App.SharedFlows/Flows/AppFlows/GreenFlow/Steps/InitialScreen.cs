@@ -42,12 +42,12 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 		protected override bool OnValidate(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)
         {
-			bool result = true;
+			var result = true;
 			errorMessage = null;
 			if (transitionTrigger == ScreenInputEvent.Next)
 			{
 				var viewModel = contextData.GetCurrentStepData<InitialScreenScreenModel>();
-				var b = int.TryParse(viewModel.StepValue1, out int value);
+				var b = int.TryParse(viewModel.StepValue1, out var value);
 				errorMessage = b ? "Numeric only value  are not allowed" : string.Empty;
 				result = !b;
 

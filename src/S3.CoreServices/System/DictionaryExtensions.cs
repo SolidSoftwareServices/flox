@@ -64,7 +64,7 @@ namespace S3.CoreServices.System
 		public static async Task<TValue> GetOrAddAsync<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary,TKey key,
 			Func<Task<TValue>> valueFactory,CancellationToken cancellationToken=default(CancellationToken))
 		{
-			TValue result = default(TValue);
+			var result = default(TValue);
 			if (!dictionary.TryGetValue(key, out result))
 			{
 				await GetOrAddAsyncSem.WaitAsync(cancellationToken);

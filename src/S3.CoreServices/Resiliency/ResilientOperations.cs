@@ -26,7 +26,7 @@ namespace S3.CoreServices.Resiliency
 			CancellationToken cancellationToken = default(CancellationToken), int maxAttempts = 2,
 			TimeSpan? waitBetweenAttempts = null)
 		{
-			bool succeeded = false;
+			var succeeded = false;
 			var result = default(TResult);
 			while (!succeeded)
 			{

@@ -1,7 +1,6 @@
-using System;
 using System.Threading.Tasks;
-using S3.CoreServices.Encryption;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using S3.CoreServices.Encryption;
 
 namespace S3.Mvc.Core.ViewModels.Binders
 {

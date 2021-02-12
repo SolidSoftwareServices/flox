@@ -14,7 +14,7 @@ namespace S3.CoreServices.System
 
 		public static string GetPropertyName<TSource, TField>(this Expression<Func<TSource, TField>> propertyExpression)
 		{
-			if (object.Equals(propertyExpression, null))
+			if (Equals(propertyExpression, null))
 			{
 				throw new NullReferenceException("Field is required");
 			}
@@ -42,7 +42,7 @@ namespace S3.CoreServices.System
 		public static string GetPropertyNameEx<T>(this Expression<Func<T,object>> expression)
 		{
 			var stack = new Stack<string>();
-			Expression expression1 = expression.Body;
+			var expression1 = expression.Body;
 			while (expression1 != null)
 			{
 				if (expression1.NodeType == ExpressionType.Call)

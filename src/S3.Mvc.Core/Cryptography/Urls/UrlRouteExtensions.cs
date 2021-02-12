@@ -1,19 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using System.Dynamic;
 using System.Linq;
 using System.Text;
-using S3.CoreServices.Encryption;
-using S3.Mvc.Core.Controllers;
-using S3.Mvc.Core.System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
-using System.Threading.Tasks;
+using S3.CoreServices.Encryption;
+using S3.Mvc.Core.Controllers;
+using S3.Mvc.Core.System;
 
 namespace S3.Mvc.Core.Cryptography.Urls
 {

@@ -4,20 +4,19 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac;
-using S3.CoreServices.Platform;
-using S3.CoreServices.Profiling;
-using S3.Mvc.Core.Cryptography.Urls;
-
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container2;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
-using S3.UI.TestServices.Services;
-using S3.UI.TestServices.Sut;
-using S3.UiFlows.Mvc.FlowTagHelpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Moq;
 using NUnit.Framework;
+using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
+using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container2;
+using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
+using S3.CoreServices.Platform;
+using S3.CoreServices.Profiling;
+using S3.Mvc.Core.Cryptography.Urls;
+using S3.UI.TestServices.Services;
+using S3.UI.TestServices.Sut;
+using S3.UiFlows.Mvc.FlowTagHelpers;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Infrastructure
 {

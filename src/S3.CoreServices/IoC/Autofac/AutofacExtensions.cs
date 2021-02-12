@@ -1,19 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using Autofac;
 using Autofac.Builder;
-using Autofac.Core;
-using Autofac.Core.Resolving.Pipeline;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
 using Autofac.Features.Scanning;
 using Castle.DynamicProxy;
-using S3.CoreServices.Profiling;
 using Microsoft.Extensions.DependencyInjection;
-using NotImplementedException = System.NotImplementedException;
+using S3.CoreServices.Profiling;
 
 namespace S3.CoreServices.IoC.Autofac
 {

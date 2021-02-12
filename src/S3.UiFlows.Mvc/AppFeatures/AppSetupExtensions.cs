@@ -1,13 +1,12 @@
-using System.Diagnostics;
 using System.Reflection;
-using S3.UiFlows.Mvc.Controllers;
-using S3.UiFlows.Mvc.ViewModels.Binders;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using S3.UiFlows.Mvc.Controllers;
 using S3.UiFlows.Mvc.Infrastructure;
 using S3.UiFlows.Mvc.Infrastructure.IoC;
+using S3.UiFlows.Mvc.ViewModels.Binders;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {

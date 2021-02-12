@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using S3.TestServices;
-using S3.UiFlows.Core.Flows.Screens;
-using S3.UiFlows.Core.Flows.Screens.Models;
 using Moq.AutoMock;
 using NUnit.Framework;
+using S3.TestServices;
 using S3.UiFlows.Core.DataSources.Repositories;
 using S3.UiFlows.Core.DataSources.Repositories.Adapters;
 using S3.UiFlows.Core.DataSources.Stores;
+using S3.UiFlows.Core.Flows.Screens;
+using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.UiFlows.Core.UnitTests.Data
 {

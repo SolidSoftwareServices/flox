@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.App.AspNetCore3_1.IntegrationTests.Infrastructure;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Pages;
-using NUnit.Framework;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Tests
 {
@@ -27,7 +27,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Tests
 		{
 			Sut.AssertValues(_generatedValues);
 
-			for (int i = 0; i < 3; i++)
+			for (var i = 0; i < 3; i++)
 			{
 
 				var step0 = (await Sut.ClickOnElementByText("Back")).CurrentPageAs<ModelTesterPage0>();

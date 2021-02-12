@@ -1,9 +1,7 @@
-using System.Linq;
 using System.Threading.Tasks;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Pages;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
-using S3.UI.TestServices.Sut;
 using NUnit.Framework;
+using S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Pages;
+using S3.UI.TestServices.Sut;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFlow.StepA
 {

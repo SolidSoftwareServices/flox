@@ -5,15 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
+using NUnit.Framework;
+using S3.App.AspNetCore3_1.IntegrationTests.Routing.Misc;
 using S3.CoreServices.Serialization;
 using S3.CoreServices.System;
-using S3.App.AspNetCore3_1.IntegrationTests.Routing.Misc;
 using S3.UI.TestServices.Test;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using S3.UiFlows.Mvc;
 using S3.UiFlows.Mvc.Controllers;
-using NUnit.Framework;
-using S3.App.Flows.AppFlows;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 {
@@ -37,7 +36,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		public async Task CanResolve_UiFlow_Init_When_Contained()
 		{
 
-			string containerId = Guid.NewGuid().ToString();
+			var containerId = Guid.NewGuid().ToString();
 			var uri = $"/BlueFlow/{nameof(UiFlowController.Init)}/{containerId}";
 			await Execute_Init(uri, containerId);
 		}
@@ -63,7 +62,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		[Test]
 		public async Task CanResolve_GetCurrentContainedView()
 		{
-			string flowHandler = Guid.NewGuid().ToString();
+			var flowHandler = Guid.NewGuid().ToString();
 			var uri = $"/BlueFlow/{nameof(UiFlowController.ContainedView )}?ContainedFlowHandler={flowHandler}";
 			await _ExecuteGet<UiFlowController.ContainedViewRequest>(uri,
 				nameof(IUiFlowController.ContainedView),
@@ -73,7 +72,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		[Test]
 		public async Task CanResolve_GetNewContainedView()
 		{
-			string flowHandler = Guid.NewGuid().ToString();
+			var flowHandler = Guid.NewGuid().ToString();
 			var uri = $"/BlueFlow/{nameof(UiFlowController.NewContainedView)}?FlowHandler={flowHandler}&NewContainedFlowType=greenflow";
 			await _ExecuteGet<UiFlowController.GetNewContainedViewRequest>(uri,
 				nameof(IUiFlowController.NewContainedView),
@@ -90,7 +89,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		[Test]
 		public async Task CanResolve_UiFlow_GetCurrentView()  
 		{
-			string flowHandler = Guid.NewGuid().ToString();
+			var flowHandler = Guid.NewGuid().ToString();
 			var uri = $"/BlueFlow/{nameof(UiFlowController.Current)}?FlowHandler={flowHandler}";
 			await _ExecuteGet<UiFlowController.CurrentViewRequest>(uri,
 				nameof(IUiFlowController.Current),
@@ -106,7 +105,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 		[Test]
 		public async Task CanResolve_UiFlow_OnEvent()
 		{
-			string trigger = Guid.NewGuid().ToString();
+			var trigger = Guid.NewGuid().ToString();
 			var uri = $"/BlueFlow/{nameof(UiFlowController.OnEvent)}";
 
 			var step = new Fixture().Build<UiFlowScreenModel>()

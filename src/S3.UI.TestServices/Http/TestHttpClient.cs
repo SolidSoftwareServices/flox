@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Io;
-using S3.CoreServices.Profiling;
 using S3.TestServices.Profilers;
 using HttpMethod = System.Net.Http.HttpMethod;
 

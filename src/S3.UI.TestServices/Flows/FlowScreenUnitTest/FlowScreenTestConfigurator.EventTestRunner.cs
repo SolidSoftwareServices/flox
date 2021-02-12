@@ -1,11 +1,7 @@
 using System;
-using System.Threading.Tasks;
-using S3.UiFlows.Core.Flows;
+using NUnit.Framework;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
-
-using NUnit.Framework;
-using String = System.String;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
@@ -43,7 +39,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 			public AssertScreenStep WhenEvent(ScreenEvent eventToTrigger)
 			{
 			
-				var validationResult = _adapter.RunValidation(eventToTrigger,out string errorMessage);
+				var validationResult = _adapter.RunValidation(eventToTrigger,out var errorMessage);
 
 				var stepResult = validationResult==null || validationResult.Value
 					? _adapter.ExecuteEvent(eventToTrigger)

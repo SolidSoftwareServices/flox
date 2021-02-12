@@ -4,7 +4,6 @@ using S3.UiFlows.Core.Configuration;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows.Screens.Metadata;
 using S3.UiFlows.Core.Flows.Screens.Models;
-using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows.Screens
 {

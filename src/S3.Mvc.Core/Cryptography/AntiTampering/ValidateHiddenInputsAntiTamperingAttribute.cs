@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Filters;
 using S3.CoreServices.Encryption;
 using S3.CoreServices.Profiling;
 using S3.Mvc.Core.System;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace S3.Mvc.Core.Cryptography.AntiTampering
 {

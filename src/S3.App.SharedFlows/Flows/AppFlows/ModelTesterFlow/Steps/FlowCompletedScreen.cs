@@ -32,7 +32,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 		{
 			var stepData = contextData.GetStepData<InputScreen.ScreenModel>();
 
-			return Map(stepData, new FlowCompletedScreen.ScreenModel());
+			return Map(stepData, new ScreenModel());
 		}
 
 		private static UiFlowScreenModel Map(InputScreen.ScreenModel src,ScreenModel destination)

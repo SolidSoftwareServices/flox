@@ -4,16 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using S3.Mvc.Core.Controllers;
-using S3.Mvc.Core.System;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
-using System.Diagnostics;
-using System.Threading;
+using S3.Mvc.Core.Controllers;
+using S3.Mvc.Core.System;
 
 namespace S3.Mvc.Core.Views
 {
@@ -55,7 +53,7 @@ namespace S3.Mvc.Core.Views
 			return await RenderActionAsync(helper, action, controller, area, parameters);
 		}
 
-		private static List<HttpContext> Ctx = new List<HttpContext>();
+		private static readonly List<HttpContext> Ctx = new List<HttpContext>();
 
 		public static async Task<IHtmlContent> RenderActionAsync(this IHtmlHelper helper, string action,
 			string controller, string area, object parameters = null)
@@ -85,7 +83,7 @@ namespace S3.Mvc.Core.Views
 				newHttpContext.User = currentHttpContext.User;
 			}
 
-			bool streamCreator = false;
+			var streamCreator = false;
 			if (!(newHttpContext.Response.Body is MemoryStream))
 			{
 				newHttpContext.Response.Body = new MemoryStream();

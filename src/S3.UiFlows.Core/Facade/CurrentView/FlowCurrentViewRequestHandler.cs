@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using S3.UiFlows.Core.DataSources;
@@ -76,7 +75,7 @@ namespace S3.UiFlows.Core.Facade.CurrentView
 		async Task<UiFlowScreenModel> InitializeNewContainedFlows(UiFlowScreenModel sData,
 			IDictionary<string, object> stepViewCustomizations)
 		{
-			bool refresh = false;
+			var refresh = false;
 
 			var stepMetaData = sData.Metadata;
 			while (stepMetaData.ContainedFlowType != null && stepMetaData.ContainedFlowHandler != null)
@@ -90,7 +89,7 @@ namespace S3.UiFlows.Core.Facade.CurrentView
 			{
 				var c = _flows.GetByFlowType((await _contextRepository.Get(sData.FlowHandler)).FlowType);
 				var uiFlowScreen = await c.GetCurrentScreen(sData.FlowHandler);
-				IDictionary<string, object> containedFlowStartInfo = await uiFlowScreen.ResolveContainedFlowStartInfo(c.CurrentState.ContextData, stepViewCustomizations);
+				var containedFlowStartInfo = await uiFlowScreen.ResolveContainedFlowStartInfo(c.CurrentState.ContextData, stepViewCustomizations);
 
 				var f = _flows.GetByFlowType(stepMetaData.ContainedFlowType);
 				sData = await f.StartNew(sData.FlowHandler, containedFlowStartInfo);

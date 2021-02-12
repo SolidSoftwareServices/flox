@@ -1,6 +1,6 @@
+using NUnit.Framework;
 using S3.UI.TestServices.Sut;
 using S3.UI.TestServices.Test;
-using NUnit.Framework;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Infrastructure
 {

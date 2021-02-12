@@ -4,13 +4,11 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using AngleSharp;
-using AngleSharp.Css.Parser;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Io;
 using AngleSharp.XPath;
 using S3.CoreServices.Profiling;
-using S3.TestServices.Profilers;
 
 namespace S3.UI.TestServices.Html
 {

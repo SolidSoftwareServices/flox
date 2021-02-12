@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using S3.UiFlows.Core.Flows.Screens.Models;
 using Microsoft.AspNetCore.Mvc;
+using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.UiFlows.Mvc.Components
 {

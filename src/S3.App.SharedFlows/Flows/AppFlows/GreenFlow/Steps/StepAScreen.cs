@@ -33,7 +33,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 		protected override bool OnValidate(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)
         {
-			bool result = true;
+			var result = true;
 			errorMessage = null;
 			if (transitionTrigger == ScreenInputEvent.Next)
 			{

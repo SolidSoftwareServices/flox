@@ -1,5 +1,4 @@
 using Autofac;
-using S3.App.Flows.AppFlows;
 using S3.CoreServices.Infrastructure;
 using S3.Mvc.Core.Profiler.IoC;
 using S3.UiFlows.Core.Flows.Screens;

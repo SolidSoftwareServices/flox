@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using S3.CoreServices.System;
 using S3.CoreServices.System.DependencyInjection;
 using S3.Mvc.Core.Cryptography.Urls;
-using Microsoft.AspNetCore.Http;
 
 namespace S3.Mvc.Core.System
 {

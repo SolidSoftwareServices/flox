@@ -11,7 +11,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 	
 	public interface IUiFlowScreen
 	{
-		ScreenName ScreenStep { get; }
+		ScreenName ScreenNameId { get; }
 
 		/// <summary>
 		///     Retrieves the screen view path

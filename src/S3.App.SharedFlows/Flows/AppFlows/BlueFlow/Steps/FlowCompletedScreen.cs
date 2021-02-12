@@ -8,10 +8,10 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
 
 
-	public class FlowCompletedScreen : BlueFlowScreen
+	public class FlowCompletedScreen : UiFlowScreen
 	{
 		
-		public override ScreenName ScreenStep => 
+		public override ScreenName ScreenNameId => 
 			BlueFlowScreenName.FlowCompletedScreen;
 
 		public override string ViewPath { get; } = "Completed";

@@ -27,7 +27,7 @@ namespace S3.UiFlows.Core.Flows.Runtime
 		{
 			return _runtimes.GetOrAdd(flowType, (key) =>
 			{
-				var screenHandlers = _screenHandlersIndex[key].ToDictionary(x => x.ScreenStep, x => x);
+				var screenHandlers = _screenHandlersIndex[key].ToDictionary(x => x.ScreenNameId, x => x);
 				return new FlowRuntimeInfo(_initializationStepIndex[key], screenHandlers);
 			});
 

@@ -93,10 +93,10 @@ namespace S3.UiFlows.Core.Infrastructure.IoC
 				{
 					var uiFlowScreen = (IUiFlowScreen)_getUninitializedObjectFactory(type);
 					uiFlowScreen.SetPropertyValueFast(nameof(UiFlowScreen.Registry), _flowsRegistry);
-					var screenStep = uiFlowScreen.ScreenStep;
+					var screenStep = uiFlowScreen.ScreenNameId;
 					
 					if (screenStep == null)
-						sb.AppendLine($"Could not resolve {type.FullName}.{nameof(IUiFlowScreen.ScreenStep)}.");
+						sb.AppendLine($"Could not resolve {type.FullName}.{nameof(IUiFlowScreen.ScreenNameId)}.");
 
 					var flowType = uiFlowScreen.IncludedInFlowType;
 					if (string.IsNullOrWhiteSpace(flowType ))

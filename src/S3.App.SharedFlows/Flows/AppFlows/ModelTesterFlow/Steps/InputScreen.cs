@@ -11,7 +11,7 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 {
-	public class InputScreen : ModelTesterFlowScreen
+	public class InputScreen : UiFlowScreen
 	{
 
 		public static class ScreenInputEvent
@@ -42,7 +42,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 		
 		}
 
-		public override ScreenName ScreenStep =>  ModelTesterFlowStep.InputScreen;
+		public override ScreenName ScreenNameId =>  ModelTesterFlowStep.InputScreen;
 		public override string ViewPath => "Input";
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)

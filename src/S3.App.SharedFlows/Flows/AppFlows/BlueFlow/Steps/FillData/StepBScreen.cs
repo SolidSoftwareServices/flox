@@ -7,7 +7,7 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 {
-	public class StepBScreen : BlueFlowScreen
+	public class StepBScreen : UiFlowScreen
 	{
 		public static class ScreenInputEvent
 		{
@@ -36,7 +36,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			return result;
 		}
 
-		public override ScreenName ScreenStep =>  BlueFlowScreenName.FillDataStep_StepBScreen;
+		public override ScreenName ScreenNameId =>  BlueFlowScreenName.FillDataStep_StepBScreen;
 		public override string ViewPath { get; } = "StepB";
 
 		protected override IScreenFlowConfigurator OnRegisterUserActions(

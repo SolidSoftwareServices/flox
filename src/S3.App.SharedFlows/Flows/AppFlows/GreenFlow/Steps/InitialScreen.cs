@@ -11,7 +11,7 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
-	public class InitialScreen : GreenFlowScreen
+	public class InitialScreen : UiFlowScreen
 	{
 		public static class ScreenInputEvent
 		{
@@ -56,7 +56,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			return result;
 		}
 
-		public override ScreenName ScreenStep =>  GreenFlowScreenName.Step0Screen;
+		public override ScreenName ScreenNameId =>  GreenFlowScreenName.Step0Screen;
 		public override string ViewPath => "Init";
 
 		

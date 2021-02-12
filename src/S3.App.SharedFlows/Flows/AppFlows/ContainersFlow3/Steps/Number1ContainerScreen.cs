@@ -10,9 +10,9 @@ using S3.UiFlows.Core.Flows.Screens.Models.Interop;
 
 namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 {
-	public class Number1ContainerScreen : ContainersFlow3Screen
+	public class Number1ContainerScreen : UiFlowContainerScreen
 	{
-		public override ScreenName ScreenStep =>  ContainersFlow3ScreenName.Number1ContainerScreen;
+		public override ScreenName ScreenNameId =>  ContainersFlow3ScreenName.Number1ContainerScreen;
 		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent ToStep2 = new ScreenEvent(nameof(Number1ContainerScreen),nameof(ToStep2));

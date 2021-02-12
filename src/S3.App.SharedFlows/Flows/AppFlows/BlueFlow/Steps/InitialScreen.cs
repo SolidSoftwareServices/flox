@@ -13,9 +13,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
-	public class InitialScreen : BlueFlowScreen
+	public class InitialScreen : UiFlowScreen
 	{
-		public override ScreenName ScreenStep => BlueFlowScreenName.Step0Screen;
+		public override ScreenName ScreenNameId => BlueFlowScreenName.Step0Screen;
 		public override string ViewPath => "Init";
 
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
@@ -44,8 +44,8 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		private void ThrowIfMustFail(IUiFlowContextData contextData, ScreenLifecycleStage stage)
 		{
 			var root = contextData.GetStepData<FlowInitializer.StartScreenModel>();
-			if (root != null && (ScreenName) root.FailOnStep == ScreenStep && root.FailOnEvent == stage)
-				throw new Exception($"Failing on {ScreenStep}.{stage}");
+			if (root != null && (ScreenName) root.FailOnStep == ScreenNameId && root.FailOnEvent == stage)
+				throw new Exception($"Failing on {ScreenNameId}.{stage}");
 		}
 
 		protected  Task OnReset(ScreenEvent triggeredEvent, IUiFlowContextData contextData)

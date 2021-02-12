@@ -9,14 +9,14 @@ using S3.UiFlows.Core.Flows.Screens.Models.Interop;
 
 namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
-	public class RunBlueFlowScreen : GreenFlowScreen
+	public class RunBlueFlowScreen : UiFlowScreen
 	{
 		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent BlueFlowCompleted = new ScreenEvent(nameof(RunBlueFlowScreen), nameof(BlueFlowCompleted));
 		}
 
-		public override ScreenName ScreenStep =>  GreenFlowScreenName.RunBlueFlow;
+		public override ScreenName ScreenNameId =>  GreenFlowScreenName.RunBlueFlow;
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{

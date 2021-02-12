@@ -17,7 +17,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 	{
 		private readonly IUiFlowScreen _step;
 
-		public TestFlowScreenConfigurator(IUiFlowScreen step) : base(step.ScreenStep)
+		public TestFlowScreenConfigurator(IUiFlowScreen step) : base(step.ScreenNameId)
 		{
 			_step = step;
 		}

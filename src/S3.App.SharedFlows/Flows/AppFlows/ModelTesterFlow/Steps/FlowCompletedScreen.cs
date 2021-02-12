@@ -10,13 +10,13 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 {
-	public class FlowCompletedScreen : ModelTesterFlowScreen
+	public class FlowCompletedScreen : UiFlowScreen
 	{
 		public class ScreenInputEvent
 		{
 			public static readonly ScreenEvent BackToEditValues=new ScreenEvent(nameof(FlowCompletedScreen), nameof(BackToEditValues));
 		}
-		public override ScreenName ScreenStep => 
+		public override ScreenName ScreenNameId => 
 			ModelTesterFlowStep.FlowCompletedScreen;
 
 		public override string ViewPath { get; } = "Completed";

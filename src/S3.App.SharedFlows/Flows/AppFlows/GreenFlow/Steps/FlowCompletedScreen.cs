@@ -7,10 +7,10 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
-	public class FlowCompletedScreen : GreenFlowScreen
+	public class FlowCompletedScreen : UiFlowScreen
 	{
 		
-		public override ScreenName ScreenStep => 
+		public override ScreenName ScreenNameId => 
 			GreenFlowScreenName.FlowCompletedScreen;
 
 		public override string ViewPath { get; } = "Completed";

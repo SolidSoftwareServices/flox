@@ -6,9 +6,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
-	public class ErrorScreen : BlueFlowScreen
+	public class ErrorScreen : UiFlowScreen
 	{
-		public override ScreenName ScreenStep => BlueFlowScreenName.ErrorScreen;
+		public override ScreenName ScreenNameId => BlueFlowScreenName.ErrorScreen;
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{

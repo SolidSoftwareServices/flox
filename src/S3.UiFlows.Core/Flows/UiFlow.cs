@@ -261,14 +261,14 @@ namespace S3.UiFlows.Core.Flows
 						stepData.Metadata.FlowType = contextData.FlowType;
 						stepData.Metadata.FlowScreenName = stepData.GetType().FullName;
 
-						contextData.SetStepData(target.ScreenStep, stepData, false);
+						contextData.SetStepData(target.ScreenNameId, stepData, false);
 					}
 				}
 				else
 				{
 					var stepData = contextData.GetCurrentStepData<UiFlowScreenModel>();
 					stepData = await target.RefreshStepDataAsync(contextData, stepData);
-					contextData.SetStepData(target.ScreenStep, stepData);
+					contextData.SetStepData(target.ScreenNameId, stepData);
 				}
 			}
 		}

@@ -12,7 +12,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 	public partial class FlowScreenTestConfigurator<TFlowScreen>
 	{
 		/// <summary>
-		/// Retrieves a test runner specialized in testing events on the ScreenStep
+		/// Retrieves a test runner specialized in testing events on the ScreenNameId
 		/// </summary>
 		/// <param name="initialDataBuilder">define the instance valu3e before running the event. I can be modified after using also GivenTheStepDataIs</param>
 		/// <returns></returns>

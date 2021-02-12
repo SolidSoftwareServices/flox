@@ -7,9 +7,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ComponentsFlow.Steps
 {
-	public class Step0Screen : ComponentsFlowScreen
+	public class Step0Screen : UiFlowScreen
 	{
-		public override ScreenName ScreenStep =>  MetadataTestFlowScreenScreenName.Step0Screen;
+		public override ScreenName ScreenNameId =>  MetadataTestFlowScreenScreenName.Step0Screen;
 
 		
 

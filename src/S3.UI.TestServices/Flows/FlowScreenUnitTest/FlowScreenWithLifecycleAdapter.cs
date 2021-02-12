@@ -69,7 +69,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 		public ScreenName GetStep()
 		{
-			return _target.ScreenStep;
+			return _target.ScreenNameId;
 		}
 
 		public FlowScreenWithLifecycleAdapter<TFlowScreen> SetStepData<TStepData>(TStepData stepData)

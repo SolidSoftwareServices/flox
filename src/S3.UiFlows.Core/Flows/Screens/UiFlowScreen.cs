@@ -29,11 +29,11 @@ namespace S3.UiFlows.Core.Flows.Screens
 		private  IReadOnlyDictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> _eventHandlers;
 		internal IEnumerable<ScreenTransition> Transitions { get; set; }
 
-		public abstract ScreenName ScreenStep { get; }
+		public abstract ScreenName ScreenNameId { get; }
 
 		public string GetStepName()
 		{
-			return ScreenStep;
+			return ScreenNameId;
 		}
 
 		/// <summary>
@@ -201,7 +201,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 		private void Trace(string methodName, IUiFlowContextData contextData, string stage, string suffix = null)
 		{
 			Logger.Trace(() =>
-				$"{methodName}({ScreenStep}.{stage}) - {contextData.FlowType}({contextData.FlowHandler}) - {suffix}");
+				$"{methodName}({ScreenNameId}.{stage}) - {contextData.FlowType}({contextData.FlowHandler}) - {suffix}");
 		}
 
 		private void TraceBegin(string methodName, IUiFlowContextData contextData, string suffix = null)

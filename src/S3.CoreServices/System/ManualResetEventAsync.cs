@@ -35,13 +35,13 @@ namespace S3.CoreServices.System
 
 		public Task WaitAsync()
 		{
-			return this.AwaitCompletion(ManualResetEventAsync.WaitIndefinitly, default(CancellationToken));
+			return this.AwaitCompletion(WaitIndefinitly, default(CancellationToken));
 		}
 
 
 		public Task WaitAsync(CancellationToken token)
 		{
-			return this.AwaitCompletion(ManualResetEventAsync.WaitIndefinitly, token);
+			return this.AwaitCompletion(WaitIndefinitly, token);
 		}
 
 
@@ -107,7 +107,7 @@ namespace S3.CoreServices.System
 
 			using (timeoutToken)
 			{
-				Task delayTask = Task.Delay(timeoutMs, timeoutToken.Token).ContinueWith((result) =>
+				var delayTask = Task.Delay(timeoutMs, timeoutToken.Token).ContinueWith((result) =>
 				{
 					var e = result.Exception;
 				}, TaskContinuationOptions.ExecuteSynchronously);

@@ -9,14 +9,14 @@ using S3.UiFlows.Core.Flows.Screens.Models.Interop;
 
 namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
-	public class RunBlueFlowScreen : GreenFlowScreen
+	public class RunBlueFlowScreen : UiFlowScreen
 	{
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent BlueFlowCompleted = new ScreenEvent(nameof(RunBlueFlowScreen), nameof(BlueFlowCompleted));
 		}
 
-		public override ScreenName ScreenStep =>  GreenFlowScreenName.RunBlueFlow;
+		public override ScreenName ScreenNameId =>  GreenFlowScreenName.RunBlueFlow;
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{
@@ -25,7 +25,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 				{
 					GreenFlowData = contextData.GetStepData<InitialScreen.InitialScreenScreenModel>().StepValue1,
 					CallbackFlowHandler = contextData.FlowHandler,
-					CallbackFlowEvent = StepEvent.BlueFlowCompleted
+					CallbackFlowEvent = ScreenInputEvent.BlueFlowCompleted
 				});
 		}
 
@@ -34,9 +34,9 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			IUiFlowContextData contextData)
 		{
 			return screenConfiguration
-				.OnEventNavigatesTo(StepEvent.BlueFlowCompleted, GreenFlowScreenName.FlowCompletedScreen)
+				.OnEventNavigatesTo(ScreenInputEvent.BlueFlowCompleted, GreenFlowScreenName.FlowCompletedScreen)
 
-				.OnEventExecutes(StepEvent.BlueFlowCompleted,
+				.OnEventExecutes(ScreenInputEvent.BlueFlowCompleted,
 					(e, ctx) => ctx.GetCurrentStepData<StepData>().BlueFlowCompletedEventHandled = true);
 		}
 

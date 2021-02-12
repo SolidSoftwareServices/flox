@@ -1,7 +1,7 @@
 using System;
-using S3.UI.TestServices.Sut;
 using NLog;
 using NUnit.Framework;
+using S3.UI.TestServices.Sut;
 
 namespace S3.UI.TestServices.Test
 {

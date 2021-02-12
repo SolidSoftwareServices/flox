@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.App.AspNetCore3_1.IntegrationTests.Infrastructure;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
-using NUnit.Framework;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Tests
 {

@@ -10,13 +10,13 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 {
-	public class FlowCompletedScreen : ModelTesterFlowScreen
+	public class FlowCompletedScreen : UiFlowScreen
 	{
-		public class StepEvent
+		public class ScreenInputEvent
 		{
 			public static readonly ScreenEvent BackToEditValues=new ScreenEvent(nameof(FlowCompletedScreen), nameof(BackToEditValues));
 		}
-		public override ScreenName ScreenStep => 
+		public override ScreenName ScreenNameId => 
 			ModelTesterFlowStep.FlowCompletedScreen;
 
 		public override string ViewPath { get; } = "Completed";
@@ -24,7 +24,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 		protected override IScreenFlowConfigurator OnRegisterUserActions(IScreenFlowConfigurator screenConfiguration,
 			IUiFlowContextData contextData)
 		{
-			return screenConfiguration.OnEventNavigatesTo(StepEvent.BackToEditValues, ModelTesterFlowStep.InputScreen);
+			return screenConfiguration.OnEventNavigatesTo(ScreenInputEvent.BackToEditValues, ModelTesterFlowStep.InputScreen);
 		}
 
 
@@ -32,7 +32,7 @@ namespace S3.App.Flows.AppFlows.ModelTesterFlow.Steps
 		{
 			var stepData = contextData.GetStepData<InputScreen.ScreenModel>();
 
-			return Map(stepData, new FlowCompletedScreen.ScreenModel());
+			return Map(stepData, new ScreenModel());
 		}
 
 		private static UiFlowScreenModel Map(InputScreen.ScreenModel src,ScreenModel destination)

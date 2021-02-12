@@ -5,7 +5,7 @@ using S3.UiFlows.Mvc.Components;
 
 namespace S3.App.Flows.SharedFlowComponents.Main.SampleInput
 {
-	[ViewComponent(Name= InputSampleStepComponent.Name)]
+	[ViewComponent(Name= Name)]
 	public class InputSampleStepComponent : FlowStepComponent<InputComponentInput, ViewModel>
 	{
 		private readonly IComponentViewModelBuilder<InputComponentInput, ViewModel> _viewModelBuilder;

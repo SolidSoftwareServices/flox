@@ -10,10 +10,10 @@ using S3.UiFlows.Core.Flows.Screens.Models.Interop;
 
 namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 {
-	public class Number1ContainerScreen : ContainersFlow3Screen
+	public class Number1ContainerScreen : UiFlowContainerScreen
 	{
-		public override ScreenName ScreenStep =>  ContainersFlow3ScreenName.Number1ContainerScreen;
-		public static class StepEvent
+		public override ScreenName ScreenNameId =>  ContainersFlow3ScreenName.Number1ContainerScreen;
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent ToStep2 = new ScreenEvent(nameof(Number1ContainerScreen),nameof(ToStep2));
 		}
@@ -21,7 +21,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.ToStep2, ContainersFlow3ScreenName.Number2ContainerScreen);
+				.OnEventNavigatesTo(ScreenInputEvent.ToStep2, ContainersFlow3ScreenName.Number2ContainerScreen);
 		}
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
@@ -30,7 +30,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 				new BlueFlow.Steps.FlowInitializer.StartScreenModel
 				{
 					CallbackFlowHandler = contextData.FlowHandler,
-					CallbackFlowEvent = StepEvent.ToStep2,
+					CallbackFlowEvent = ScreenInputEvent.ToStep2,
 
 				},asContained:true);
 

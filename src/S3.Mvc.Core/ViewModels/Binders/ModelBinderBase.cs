@@ -1,11 +1,10 @@
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NLog;
 using S3.CoreServices.Encryption;
 using S3.CoreServices.Profiling;
 using S3.Mvc.Core.System;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NLog;
 
 namespace S3.Mvc.Core.ViewModels.Binders
 {

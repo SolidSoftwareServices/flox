@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using S3.UiFlows.Core.DataSources;
-using S3.UiFlows.Core.Facade.TriggerEventOnView;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using S3.UiFlows.Core.Flows.Screens.Models.DefaultModels;
@@ -26,7 +25,7 @@ namespace S3.UiFlows.Core.Facade.FlowResultResolver
 
 		private async Task<TResult> ResolveFlowActionResult(FlowResultResolverRequest<TResult> input)
 		{
-			TResult result = default(TResult);
+			var result = default(TResult);
 			var screenModel = input.ScreenModel;
 			result = await HandleIfOnConnectToFlow();
 			if (result != null) return result;
@@ -63,7 +62,7 @@ namespace S3.UiFlows.Core.Facade.FlowResultResolver
 
 			async Task<TResult> HandleIfOnConnectToFlow()
 			{
-				TResult handleIfOnConnectToFlow = default(TResult);
+				var handleIfOnConnectToFlow = default(TResult);
 				if (screenModel is IStartFlowScreenModel)
 				{
 					var ctx = await _contextRepository.Get(screenModel.FlowHandler);

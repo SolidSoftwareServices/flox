@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using Autofac;
 using S3.CoreServices.IoC.Autofac;
-using S3.CoreServices.Profiling;
 using S3.CoreServices.System;
 using S3.CoreServices.System.FastReflection;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.DataSources.Repositories;
-using S3.UiFlows.Core.DataSources.Repositories.Adapters;
 using S3.UiFlows.Core.DataSources.Stores;
 using S3.UiFlows.Core.Facade.CurrentView;
 using S3.UiFlows.Core.Facade.FlowResultResolver;
@@ -70,7 +68,7 @@ namespace S3.UiFlows.Core.Infrastructure.IoC
 					var initStep =
 						(IUiFlowInitializationStep)_getUninitializedObjectFactory(type);
 
-					initStep.SetPropertyValueFast(nameof(UiFlowInitializationStep.Registry), _flowsRegistry);
+					initStep.SetPropertyValueFast(nameof(UiFlowStarter.Registry), _flowsRegistry);
 					var flowType = initStep.InitializerOfFlowType;
 					if (string.IsNullOrWhiteSpace(flowType))
 						throw new Exception(
@@ -93,10 +91,10 @@ namespace S3.UiFlows.Core.Infrastructure.IoC
 				{
 					var uiFlowScreen = (IUiFlowScreen)_getUninitializedObjectFactory(type);
 					uiFlowScreen.SetPropertyValueFast(nameof(UiFlowScreen.Registry), _flowsRegistry);
-					var screenStep = uiFlowScreen.ScreenStep;
+					var screenStep = uiFlowScreen.ScreenNameId;
 					
 					if (screenStep == null)
-						sb.AppendLine($"Could not resolve {type.FullName}.{nameof(IUiFlowScreen.ScreenStep)}.");
+						sb.AppendLine($"Could not resolve {type.FullName}.{nameof(IUiFlowScreen.ScreenNameId)}.");
 
 					var flowType = uiFlowScreen.IncludedInFlowType;
 					if (string.IsNullOrWhiteSpace(flowType ))

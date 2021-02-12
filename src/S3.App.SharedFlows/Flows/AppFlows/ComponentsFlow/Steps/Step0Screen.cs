@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using S3.App.Flows.AppFlows.ComponentsFlow.FlowDefinitions;
 using S3.App.Flows.AppFlows.MetadataTestFlow.FlowDefinitions;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows.Screens;
@@ -7,9 +6,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ComponentsFlow.Steps
 {
-	public class Step0Screen : ComponentsFlowScreen
+	public class Step0Screen : UiFlowScreen
 	{
-		public override ScreenName ScreenStep =>  MetadataTestFlowScreenScreenName.Step0Screen;
+		public override ScreenName ScreenNameId =>  MetadataTestFlowScreenScreenName.Step0Screen;
 
 		
 

@@ -38,7 +38,7 @@ namespace S3.TestServices
 		
 		private TSut _sut;
 		public AutoMocker AutoMocker { get; private set; } 
-		public IFixture Fixture { get; private set; }
+		public IFixture Fixture { get; }
 
 		/// <summary>
 		/// System Under Test. the target of the current unit tests

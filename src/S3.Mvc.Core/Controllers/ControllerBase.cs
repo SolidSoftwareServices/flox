@@ -1,7 +1,7 @@
-using S3.Mvc.Core.Cryptography.AntiTampering;
-using S3.Mvc.Core.Cryptography.Urls;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using S3.Mvc.Core.Cryptography.AntiTampering;
+using S3.Mvc.Core.Cryptography.Urls;
 
 namespace S3.Mvc.Core.Controllers
 {

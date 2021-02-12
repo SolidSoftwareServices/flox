@@ -5,10 +5,10 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using S3.CoreServices.Serialization;
-using S3.CoreServices.System.FastReflection;
 using Force.DeepCloner;
 using NLog;
+using S3.CoreServices.Serialization;
+using S3.CoreServices.System.FastReflection;
 
 namespace S3.CoreServices.System
 {
@@ -16,7 +16,7 @@ namespace S3.CoreServices.System
 	{
 		public static byte[] ToByteArray<TObject>(this TObject obj)
 		{
-			BinaryFormatter bf = new BinaryFormatter();
+			var bf = new BinaryFormatter();
 			using (var ms = new MemoryStream())
 			{
 				bf.Serialize(ms, obj);

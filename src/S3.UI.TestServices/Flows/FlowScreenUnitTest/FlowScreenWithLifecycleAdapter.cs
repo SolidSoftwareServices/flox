@@ -1,18 +1,14 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using S3.CoreServices.System.FastReflection;
 using S3.UI.TestServices.Flows.Shared;
 using S3.UiFlows.Core.DataSources;
-using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Metadata;
 using S3.UiFlows.Core.Flows.Screens.Models;
-using S3.UiFlows.Core.Registry;
 using S3.UiFlows.Mvc.Infrastructure;
-
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
@@ -69,7 +65,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 		public ScreenName GetStep()
 		{
-			return _target.ScreenStep;
+			return _target.ScreenNameId;
 		}
 
 		public FlowScreenWithLifecycleAdapter<TFlowScreen> SetStepData<TStepData>(TStepData stepData)

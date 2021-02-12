@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.App.AspNetCore3_1.IntegrationTests.Infrastructure;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.StartFailure.Pages;
-using NUnit.Framework;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.StartFailure.Tests
 {

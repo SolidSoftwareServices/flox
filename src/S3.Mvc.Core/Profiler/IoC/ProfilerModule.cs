@@ -1,7 +1,7 @@
 using System;
 using Autofac;
-using S3.CoreServices.Profiling;
 using S3.CoreServices.Platform;
+using S3.CoreServices.Profiling;
 
 namespace S3.Mvc.Core.Profiler.IoC
 {

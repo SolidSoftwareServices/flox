@@ -7,9 +7,9 @@ using S3.UiFlows.Core.Flows.Screens.Models.Interop;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
-	public class ReturnToCaller : BlueFlowScreen
+	public class ReturnToCaller : UiFlowScreen
 	{
-		public override ScreenName ScreenStep =>  BlueFlowScreenName.EndAndReturnToCaller;
+		public override ScreenName ScreenNameId =>  BlueFlowScreenName.EndAndReturnToCaller;
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
 		{

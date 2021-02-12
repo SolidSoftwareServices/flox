@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
+using NUnit.Framework;
+using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container2;
-using NUnit.Framework;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.BlueFlow.Step0
 {

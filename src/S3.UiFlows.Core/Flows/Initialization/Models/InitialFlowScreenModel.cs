@@ -1,8 +1,8 @@
 using System;
+using Newtonsoft.Json;
 using S3.CoreServices.System;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
-using Newtonsoft.Json;
 
 namespace S3.UiFlows.Core.Flows.Initialization.Models
 {

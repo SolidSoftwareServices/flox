@@ -9,7 +9,7 @@ namespace S3.UI.TestServices.Http
 	{
 		public static IHtmlFormElement ResolveParentForm(this IElement element,bool failIfNotFound=true)
 		{
-			IElement currentElement = element;
+			var currentElement = element;
 			do
 			{
 				currentElement = currentElement.ParentElement;

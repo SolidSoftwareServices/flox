@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using NLog;
 using S3.CoreServices.System;
 using S3.UiFlows.Core.Configuration;
-using S3.UiFlows.Core.Facade.Metadata;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows.Screens.ErrorHandling;
 using S3.UiFlows.Core.Flows.Screens.Metadata;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using S3.UiFlows.Core.Flows.Screens.Models.DefaultModels;
-using Newtonsoft.Json;
-using NLog;
-using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows.Screens
@@ -29,11 +28,11 @@ namespace S3.UiFlows.Core.Flows.Screens
 		private  IReadOnlyDictionary<ScreenEvent, Func<ScreenEvent, IUiFlowContextData, Task>> _eventHandlers;
 		internal IEnumerable<ScreenTransition> Transitions { get; set; }
 
-		public abstract ScreenName ScreenStep { get; }
+		public abstract ScreenName ScreenNameId { get; }
 
 		public string GetStepName()
 		{
-			return ScreenStep;
+			return ScreenNameId;
 		}
 
 		/// <summary>
@@ -201,7 +200,7 @@ namespace S3.UiFlows.Core.Flows.Screens
 		private void Trace(string methodName, IUiFlowContextData contextData, string stage, string suffix = null)
 		{
 			Logger.Trace(() =>
-				$"{methodName}({ScreenStep}.{stage}) - {contextData.FlowType}({contextData.FlowHandler}) - {suffix}");
+				$"{methodName}({ScreenNameId}.{stage}) - {contextData.FlowType}({contextData.FlowHandler}) - {suffix}");
 		}
 
 		private void TraceBegin(string methodName, IUiFlowContextData contextData, string suffix = null)

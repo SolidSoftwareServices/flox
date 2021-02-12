@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Pages;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages.Container1;
-using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
-using S3.UI.TestServices.Sut;
-using NUnit.Framework;
 using S3.App.Flows.AppFlows.GreenFlow.Steps;
+using S3.UI.TestServices.Sut;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Tests.GreenFlow.StepC
 {

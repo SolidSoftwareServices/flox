@@ -5,17 +5,6 @@ using Microsoft.Extensions.ObjectPool;
 
 namespace S3.CoreServices.Encryption
 {
-	internal interface ICryptoTransformFactory
-	{
-		Task<ICryptoTransform> Create();
-		bool Return(Task<ICryptoTransform> obj);
-	}
-	internal interface IEncryptTransformFactory:ICryptoTransformFactory
-	{
-	}	
-	internal interface IDecryptTransformFactory:ICryptoTransformFactory
-	{
-	}	
 	abstract class CryptoTransformFactory : PooledObjectPolicy<Task<ICryptoTransform>>
 	{
 		private readonly IEncryptionSettings _settings;
@@ -66,19 +55,6 @@ namespace S3.CoreServices.Encryption
 			return forEncryption
 				? symmetricKey.CreateEncryptor(keyBytes, initVectorBytes)
 				: symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
-		}
-	}
-
-	class EncryptTransformFactory : CryptoTransformFactory,IEncryptTransformFactory
-	{
-		public EncryptTransformFactory(IEncryptionSettings settings) : base(settings,true)
-		{
-		}
-	}
-	class DecryptTransformFactory : CryptoTransformFactory,IDecryptTransformFactory
-	{
-		public DecryptTransformFactory(IEncryptionSettings settings) : base(settings,false)
-		{
 		}
 	}
 }

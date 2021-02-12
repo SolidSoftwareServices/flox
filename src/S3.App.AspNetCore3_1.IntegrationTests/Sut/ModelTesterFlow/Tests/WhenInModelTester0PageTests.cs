@@ -1,13 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.App.AspNetCore3_1.IntegrationTests.Infrastructure;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.BlueFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Pages;
 using S3.App.AspNetCore3_1.IntegrationTests.Sut.StartFailure.Pages;
-using NUnit.Framework;
-using S3.App.Flows.AppFlows;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Tests
 {

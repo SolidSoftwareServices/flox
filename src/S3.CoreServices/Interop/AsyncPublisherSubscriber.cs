@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using S3.CoreServices.System.DesignPatterns.Observer;
 using NLog;
+using S3.CoreServices.System.DesignPatterns.Observer;
 
 namespace S3.CoreServices.Interop
 {
@@ -56,7 +56,7 @@ namespace S3.CoreServices.Interop
 				try
 				{
 					var messages = new List<TMessage>();
-					while (_queue.TryDequeue(out TMessage msg))
+					while (_queue.TryDequeue(out var msg))
 					{
 						msg.ReceptionBatchId = batchRun;
 						messages.Add(msg);

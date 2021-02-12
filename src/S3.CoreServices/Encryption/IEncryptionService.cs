@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using S3.CoreServices.Profiling;
 
 namespace S3.CoreServices.Encryption
 {

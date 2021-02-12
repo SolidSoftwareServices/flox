@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
-using Microsoft.Extensions.Options;
 
 namespace S3.UiFlows.Mvc.Views
 {
@@ -36,30 +35,6 @@ namespace S3.UiFlows.Mvc.Views
 			var result = _razor.GetView(executingFilePath, viewPath, isMainPage);
 
 			return result;
-		}
-	}
-
-	internal class FlowsMvcViewOptionsSetup : IConfigureOptions<MvcViewOptions>
-	{
-		private readonly FlowsViewEngine _engine;
-
-		public FlowsMvcViewOptionsSetup(FlowsViewEngine engine)
-		{
-			if (engine == null)
-			{
-				throw new ArgumentNullException(nameof(engine));
-			}
-
-			_engine = engine;
-		}
-
-		public void Configure(MvcViewOptions options)
-		{
-			if (options == null)
-			{
-				throw new ArgumentNullException(nameof(options));
-			}
-			options.ViewEngines.Add(_engine);
 		}
 	}
 }

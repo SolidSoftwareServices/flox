@@ -1,5 +1,4 @@
 using System;
-using S3.CoreServices.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 

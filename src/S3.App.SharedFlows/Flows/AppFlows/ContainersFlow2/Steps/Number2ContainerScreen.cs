@@ -5,17 +5,17 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.Flows.AppFlows.ContainersFlow2.Steps
 {
-	public class Number2ContainerScreen : ContainersFlow2Screen
+	public class Number2ContainerScreen : UiFlowContainerScreen
 	{
-		public override ScreenName ScreenStep =>  ContainersFlow2ScreenName.Number2ContainerScreen;
+		public override ScreenName ScreenNameId =>  ContainersFlow2ScreenName.Number2ContainerScreen;
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Step1, ContainersFlow2ScreenName.Number1ContainerScreen);
+				.OnEventNavigatesTo(ScreenInputEvent.Step1, ContainersFlow2ScreenName.Number1ContainerScreen);
 		}
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Step1 = new ScreenEvent(nameof(Number2ContainerScreen),nameof(Step1));
 		}

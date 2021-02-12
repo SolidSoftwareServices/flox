@@ -1,9 +1,7 @@
-using System;
-using S3.CoreServices.Serialization;
-using S3.UiFlows.Core.Flows;
-using S3.UiFlows.Core.Flows.Screens;
 using NUnit.Framework;
+using S3.CoreServices.Serialization;
 using S3.UiFlows.Core.DataSources;
+using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.UiFlows.Core.UnitTests.Data
 {

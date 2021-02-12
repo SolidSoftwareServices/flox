@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
-using System.Net.Http;
-using System.Reflection;
 using S3.CoreServices.System.FastReflection;
 
 namespace S3.CoreServices.System

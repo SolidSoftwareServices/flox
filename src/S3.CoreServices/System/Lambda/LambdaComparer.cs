@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace S3.CoreServices.System.Lambda
 {
@@ -218,9 +217,9 @@ namespace S3.CoreServices.System.Lambda
 				Value = value;
 			}
 
-			public bool IsDefined { get; private set; }
+			public bool IsDefined { get; }
 
-			public object Value { get; private set; }
+			public object Value { get; }
 		}
 	}
 }

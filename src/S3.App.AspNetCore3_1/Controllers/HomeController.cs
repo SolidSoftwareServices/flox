@@ -16,7 +16,7 @@ namespace S3.App.Controllers
 
         public IActionResult About()
         {
-            HttpContext.Session.TryGetValue("a",out byte[] b );
+            HttpContext.Session.TryGetValue("a",out var b );
 
             var a = Encoding.ASCII.GetString(b);
 

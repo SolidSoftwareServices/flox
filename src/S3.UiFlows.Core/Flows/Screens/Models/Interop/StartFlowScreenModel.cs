@@ -1,5 +1,5 @@
-using S3.UiFlows.Core.Flows.Initialization.Models;
 using Newtonsoft.Json;
+using S3.UiFlows.Core.Flows.Initialization.Models;
 
 namespace S3.UiFlows.Core.Flows.Screens.Models.Interop
 {

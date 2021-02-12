@@ -1,10 +1,5 @@
-
-@using S3.App.Flows
-@using S3.App.Infrastructure
 @using S3.App.Flows.AppFlows.GreenFlow.Steps
 @using S3.UiFlows.Mvc.Views
-
-
 @model S3.App.Flows.AppFlows.GreenFlow.Steps.StepCScreen.StepCScreenScreenModel
 @{
 	ViewData["Title"] = "GreenFlow::StepCScreen";
@@ -47,10 +42,10 @@
 		}
 		<div class="row">
 			<div class="col-md-3">
-				<flow-action trigger-event=@StepCScreen.StepEvent.FlowTransitionCompleted>Complete</flow-action>
-				<flow-action trigger-event=@StepCScreen.StepEvent.Previous>Previous</flow-action>
-				<flow-action trigger-event=@StepCScreen.StepEvent.Reset>Reset</flow-action>
-				<flow-action trigger-event=@StepCScreen.StepEvent.StartBlueFlow>Start Blue Flow</flow-action>
+				<flow-action trigger-event=@StepCScreen.ScreenInputEvent.FlowTransitionCompleted>Complete</flow-action>
+				<flow-action trigger-event=@StepCScreen.ScreenInputEvent.Previous>Previous</flow-action>
+				<flow-action trigger-event=@StepCScreen.ScreenInputEvent.Reset>Reset</flow-action>
+				<flow-action trigger-event=@StepCScreen.ScreenInputEvent.StartBlueFlow>Start Blue Flow</flow-action>
 			</div>
 		</div>
 	}

@@ -1,9 +1,5 @@
-
-@using S3.App.Flows
-@using S3.App.Infrastructure
 @using S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 @using S3.UiFlows.Mvc.Views
-
 @model S3.App.Flows.AppFlows.BlueFlow.Steps.FillData.StepAScreen.StepAScreenScreenModel
 
 @{
@@ -26,9 +22,9 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3">
-				<flow-action trigger-event=@StepAScreen.StepEvent.Previous>Previous</flow-action>
-				<flow-action trigger-event=@StepAScreen.StepEvent.Next>Next</flow-action>
-				<flow-action trigger-event=@StepAScreen.StepEvent.Reset>Reset</flow-action>
+				<flow-action trigger-event=@StepAScreen.ScreenInputEvent.Previous>Previous</flow-action>
+				<flow-action trigger-event=@StepAScreen.ScreenInputEvent.Next>Next</flow-action>
+				<flow-action trigger-event=@StepAScreen.ScreenInputEvent.Reset>Reset</flow-action>
 			</div>
 		</div>
 	}

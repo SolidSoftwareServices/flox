@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 using S3.CoreServices.Profiling;
 using S3.UiFlows.Core.Configuration;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Facade.Metadata;
 using S3.UiFlows.Core.Flows.Runtime;
 using S3.UiFlows.Core.Flows.Screens;
@@ -13,8 +15,6 @@ using S3.UiFlows.Core.Flows.Screens.Metadata;
 using S3.UiFlows.Core.Flows.Screens.Models;
 using S3.UiFlows.Core.Flows.Screens.Models.DefaultModels;
 using S3.UiFlows.Core.Infrastructure.StateMachine;
-using NLog;
-using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Registry;
 
 namespace S3.UiFlows.Core.Flows
@@ -261,14 +261,14 @@ namespace S3.UiFlows.Core.Flows
 						stepData.Metadata.FlowType = contextData.FlowType;
 						stepData.Metadata.FlowScreenName = stepData.GetType().FullName;
 
-						contextData.SetStepData(target.ScreenStep, stepData, false);
+						contextData.SetStepData(target.ScreenNameId, stepData, false);
 					}
 				}
 				else
 				{
 					var stepData = contextData.GetCurrentStepData<UiFlowScreenModel>();
 					stepData = await target.RefreshStepDataAsync(contextData, stepData);
-					contextData.SetStepData(target.ScreenStep, stepData);
+					contextData.SetStepData(target.ScreenNameId, stepData);
 				}
 			}
 		}

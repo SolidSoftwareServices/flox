@@ -3,11 +3,11 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.Flows.AppFlows.StartFailure.Steps
 {
-	public class FailureScreen : StartFailureFlowScreen
+	public class FailureScreen : UiFlowScreen
 	{
 		
 		
-		public override ScreenName ScreenStep =>  StartFailureFlowScreenName.FailureScreen;
+		public override ScreenName ScreenNameId =>  StartFailureFlowScreenName.FailureScreen;
 		public override string ViewPath => "ErrorView";
 
 		

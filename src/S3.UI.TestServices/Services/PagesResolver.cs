@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AngleSharp.Html.Dom;
+using NUnit.Framework;
 using S3.UI.TestServices.Html;
 using S3.UI.TestServices.Sut;
-using NUnit.Framework;
 
 namespace S3.UI.TestServices.Services
 {

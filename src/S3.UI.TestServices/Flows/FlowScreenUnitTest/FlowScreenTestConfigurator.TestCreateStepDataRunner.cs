@@ -1,9 +1,6 @@
 using System;
-using System.Dynamic;
-using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
-
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
@@ -32,7 +29,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 			public Assert WhenCreated()
 			{
-				UiFlowScreenModel actual = _adapter.CreateStepData();
+				var actual = _adapter.CreateStepData();
 				return new Assert(_adapter, actual);
 			}
 

@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Autofac;
+using Microsoft.Extensions.ObjectPool;
 using S3.CoreServices.Encryption;
 using S3.CoreServices.IoC.Autofac;
 using S3.CoreServices.Platform;
 using S3.CoreServices.Profiling;
-using Microsoft.Extensions.ObjectPool;
 
 namespace S3.CoreServices.Infrastructure
 {

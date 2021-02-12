@@ -1,18 +1,14 @@
 using System;
-using System.Threading.Tasks;
-using S3.UiFlows.Core.Flows;
+using NUnit.Framework;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
-
-using NUnit.Framework;
-using String = System.String;
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
 	public partial class FlowScreenTestConfigurator<TFlowScreen>
 	{
 		/// <summary>
-		/// Retrieves a test runner specialized in testing events on the ScreenStep
+		/// Retrieves a test runner specialized in testing events on the ScreenNameId
 		/// </summary>
 		/// <param name="initialDataBuilder">define the instance valu3e before running the event. I can be modified after using also GivenTheStepDataIs</param>
 		/// <returns></returns>
@@ -43,7 +39,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 			public AssertScreenStep WhenEvent(ScreenEvent eventToTrigger)
 			{
 			
-				var validationResult = _adapter.RunValidation(eventToTrigger,out string errorMessage);
+				var validationResult = _adapter.RunValidation(eventToTrigger,out var errorMessage);
 
 				var stepResult = validationResult==null || validationResult.Value
 					? _adapter.ExecuteEvent(eventToTrigger)

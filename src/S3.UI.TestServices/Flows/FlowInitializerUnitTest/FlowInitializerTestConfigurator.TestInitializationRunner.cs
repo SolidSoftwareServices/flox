@@ -1,12 +1,10 @@
 using System;
 using System.Dynamic;
+using NUnit.Framework;
 using S3.CoreServices.System;
-using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Initialization;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
-
-using NUnit.Framework;
 
 namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 {

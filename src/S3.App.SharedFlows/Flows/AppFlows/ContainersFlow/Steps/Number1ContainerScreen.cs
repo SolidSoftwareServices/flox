@@ -7,15 +7,15 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ContainersFlow.Steps
 {
-	public class Number1ContainerScreen : ContainersFlowScreen
+	public class Number1ContainerScreen : UiFlowContainerScreen
 	{
-		public override ScreenName ScreenStep =>  ContainersFlowScreenName.Number1ContainerScreen;
+		public override ScreenName ScreenNameId =>  ContainersFlowScreenName.Number1ContainerScreen;
 
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Step2, ContainersFlowScreenName.Number2ContainerScreen);
+				.OnEventNavigatesTo(ScreenInputEvent.Step2, ContainersFlowScreenName.Number2ContainerScreen);
 		}
 
 		protected override async Task<UiFlowScreenModel> OnCreateModelAsync(IUiFlowContextData contextData)
@@ -25,7 +25,7 @@ namespace S3.App.Flows.AppFlows.ContainersFlow.Steps
 			return result;
 		}
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Step2 = new ScreenEvent(nameof(Number1ContainerScreen), nameof(Step2));
 		}

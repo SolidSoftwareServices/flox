@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace S3.UiFlows.Core.Infrastructure.IoC
+namespace S3.UiFlows.Core.Flows
 {
 	class FlowNames
 	{

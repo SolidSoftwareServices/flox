@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace S3.CoreServices.Linq
+namespace S3.CoreServices.System.Structs
 {
 	public static class TreeExtensions
 	{

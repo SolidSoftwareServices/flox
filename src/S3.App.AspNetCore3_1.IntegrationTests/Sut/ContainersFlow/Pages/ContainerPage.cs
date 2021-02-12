@@ -28,7 +28,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ContainersFlow.Pages
 		}
 		private async Task<PrototypeApp> SelectContained(string text)
 		{
-			return (PrototypeApp)await App.ClickOnElement(Root.GetElementByText(text));
+			return (PrototypeApp)await App.ClickOnElement(Root.GetElementByText(text,false));
 		}
 
 		public async Task<PrototypeApp> SelectContainerFlow()

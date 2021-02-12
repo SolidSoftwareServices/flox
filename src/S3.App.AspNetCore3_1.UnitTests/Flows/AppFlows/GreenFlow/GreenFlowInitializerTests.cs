@@ -48,7 +48,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 		{
 			var configurator = new FlowInitializerTestConfigurator<FlowInitializer>(_fixture);
 			var adapter = configurator.Adapter;
-			Assert.AreEqual("GreenFlow",adapter.GetFlowType() );
+			Assert.AreEqual("GreenFlow".ToLowerInvariant(),adapter.GetFlowType() );
 
 		}
 

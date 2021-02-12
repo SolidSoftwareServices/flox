@@ -16,9 +16,8 @@ namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 				"BlueFlow",
 				"GreenFlow", "ContainersFlow", "ContainersFlow2", "ContainersFlow3", "ContainersFlow4",
 				"ModelTesterFlow", "StartFailure", "MetadataTestFlow", "ComponentsFlow"
-			};
-			var actual= FlowsRegistry.Instance
-				.Load(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows","/Flows/AppFlows")
+			}.Select(_=>_.ToLowerInvariant()).ToArray();
+			var actual= new FlowsRegistry(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows","/Flows/AppFlows")
 				.AllFlows
 				.Select(x=>x.Name);
 
@@ -30,8 +29,7 @@ namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 		public void CanResolveUrlPath()
 		{
 
-			var actual = FlowsRegistry.Instance
-				.Load(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows", "/Flows/AppFlows")
+			var actual = new FlowsRegistry(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows", "/Flows/AppFlows")
 				.GetByName("bLuEflow");
 
 			Assert.AreEqual("/Flows/AppFlows/BlueFlow".ToLowerInvariant(),actual.UrlPath.ToLowerInvariant());

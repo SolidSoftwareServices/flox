@@ -44,13 +44,13 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Tests
 		{
 			Assert.AreEqual(
 				$"Flow start value:{string.Join(" - ", InputQueryStringParameters.Select(x => $"{x.Item2}"))}",
-				Sut.Document.QuerySelector("#GreenFlow- > div:nth-child(1) > div > label").TextContent);
+				Sut.Document.QuerySelector("#greenflow- > div:nth-child(1) > div > label").TextContent);
 		}
 
 		[Test]
 		public async Task ShowsStep0ValueAndViewData()
 		{
-			Assert.AreEqual("Initial screen value:aa", Sut.Document.QuerySelector("#GreenFlow- > div:nth-child(2) > div > label").TextContent);
+			Assert.AreEqual("Initial screen value:aa", Sut.Document.QuerySelector("#greenflow- > div:nth-child(2) > div > label").TextContent);
 			AssertInputParameters();
 		}
 
@@ -77,9 +77,9 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Tests
 
 			Sut = (await stepB.ClickOnElementByText("Next")).CurrentPageAs<GreenFlowStepC>();
 
-			Assert.AreEqual("Initial screen value:bb", Sut.Document.QuerySelector("#GreenFlow- > div:nth-child(2) > div > label").TextContent);
-			Assert.AreEqual("StepA value:cc", Sut.Document.QuerySelector("#GreenFlow- > div:nth-child(3) > div > label").TextContent);
-			Assert.AreEqual("StepB value:dd", Sut.Document.QuerySelector("#GreenFlow- > div:nth-child(4) > div > label").TextContent);
+			Assert.AreEqual("Initial screen value:bb", Sut.Document.QuerySelector("#greenflow- > div:nth-child(2) > div > label").TextContent);
+			Assert.AreEqual("StepA value:cc", Sut.Document.QuerySelector("#greenflow- > div:nth-child(3) > div > label").TextContent);
+			Assert.AreEqual("StepB value:dd", Sut.Document.QuerySelector("#greenflow- > div:nth-child(4) > div > label").TextContent);
 			AssertInputParameters();
 		}
 

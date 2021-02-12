@@ -44,7 +44,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.Index.Pages
 
 		private async Task<PrototypeApp> SelectFlow(string byText,string queryString)
 		{
-			var element = (IHtmlAnchorElement) Document.GetElementByText(byText);
+			var element = (IHtmlAnchorElement) Document.GetElementByText(byText,false);
 			if (!string.IsNullOrEmpty(queryString))
 			{
 				element.Href += $"?{queryString}";

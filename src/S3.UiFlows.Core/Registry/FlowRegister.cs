@@ -11,7 +11,7 @@ namespace S3.UiFlows.Core.Registry
 		{
 			if (flowsRootPath == null) throw new ArgumentNullException(nameof(flowsRootPath));
 			_flowsRootNamespace = flowsRootNamespace ?? throw new ArgumentNullException(nameof(flowsRootNamespace));
-			Name = name ?? throw new ArgumentNullException(nameof(name));
+			Name = name?.ToLowerInvariant() ?? throw new ArgumentNullException(nameof(name));
 			UrlPath = $"{flowsRootPath}{name}";
 		}
 
@@ -28,7 +28,7 @@ namespace S3.UiFlows.Core.Registry
 			return _isFlowTypeCache.GetOrAdd(type, (t) =>
 			{
 				if (t.Namespace == null) return false;
-				var removedPrefix = t.Namespace.Replace($"{_flowsRootNamespace}.{Name}", string.Empty);
+				var removedPrefix = t.Namespace.ToLowerInvariant().Replace($"{_flowsRootNamespace.ToLowerInvariant()}.{Name}", string.Empty);
 				return removedPrefix.StartsWith(".") || removedPrefix == string.Empty;
 			});
 		}

@@ -53,15 +53,19 @@ namespace S3.UI.TestServices.Html
         }
 
 
-        public static IElement GetElementByText(this IHtmlDocument document, string text)
+        public static IElement GetElementByText(this IHtmlDocument document, string text, bool caseSensitive = true)
         {
-	        return document.Body.GetElementByText(text);
+	        return document.Body.GetElementByText(text,caseSensitive);
         }
 
 
-        public static IElement GetElementByText(this IHtmlElement element, string text)
+        public static IElement GetElementByText(this IHtmlElement element, string text,bool caseSensitive=true)
         {
-	        return (IElement)element.SelectSingleNode($".//*[contains(text(),'{text}')]");
+	        var xpath = caseSensitive
+		        ? $".//*[contains(text(),'{text}')]"
+			        : $".//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'{text.ToLowerInvariant()}')]";
+
+            return (IElement)element.SelectSingleNode(xpath);
         }
 
 	}

@@ -1,4 +1,5 @@
 
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -28,9 +29,12 @@ namespace S3.UiFlows.Mvc.Infrastructure.IoC
 			_flowsAssembly = flowsAssembly;
 		}
 
+		internal static FlowsRegistry Registry { get; set; }
+
 
 		protected override void Load(ContainerBuilder builder)
 		{
+			if (Registry == null) throw new InvalidOperationException($"{nameof(Registry)} is expected");
 			builder.RegisterAssemblyTypes(GetType().Assembly)
 				.Where(
 					x => !x.IsOneOf(typeof(UiFlow), typeof(FlowsRegistry))
@@ -39,14 +43,14 @@ namespace S3.UiFlows.Mvc.Infrastructure.IoC
 				.AsImplementedInterfaces()
 				.WithInterfaceProfiling();
 
-			builder.RegisterModule(new UiFlowsCoreModule(RuntimeHelpers.GetUninitializedObject,FlowsRegistry.Instance));
+			builder.RegisterModule(new UiFlowsCoreModule(RuntimeHelpers.GetUninitializedObject,Registry));
 			builder.RegisterType<UiFlowController>().AsSelf().WithClassProfiling();
 			
 			RegisterEngineTypes(builder);
 
 			RegisterDeferredComponentHandlers(builder);
 
-			builder.RegisterInstance(FlowsRegistry.Instance).SingleInstance().AsImplementedInterfaces();
+			builder.RegisterInstance(Registry).SingleInstance().AsImplementedInterfaces();
 
 		}
 

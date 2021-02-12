@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
+using S3.CoreServices.System.FastReflection;
 using S3.UI.TestServices.Flows.Shared;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
@@ -28,10 +29,20 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 		{
 			Fixture = fixture;
 			_target = target;
+
+			SetRegistry();
 			_uiFlowContextData = new UiFlowContextData
 			{
 				CurrentScreenStep = GetStep()
 			};
+
+			void SetRegistry()
+			{
+				var items = typeof(TFlowScreen).Namespace.Split('.').SkipLast(2);
+				var flowsRootNamespace = string.Join('.', items);
+				_target.SetPropertyValueFast(nameof(UiFlowScreen.Registry),
+					new FlowsRegistry(typeof(TFlowScreen).Assembly, flowsRootNamespace,string.Empty));
+			}
 		}
 
 		private IFixture Fixture { get; }

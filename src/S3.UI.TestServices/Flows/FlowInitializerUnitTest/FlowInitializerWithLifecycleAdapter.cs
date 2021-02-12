@@ -1,7 +1,9 @@
 using System;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
+using S3.CoreServices.System.FastReflection;
 using S3.UI.TestServices.Flows.Shared;
 using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Flows;
@@ -25,10 +27,19 @@ namespace S3.UI.TestServices.Flows.FlowInitializerUnitTest
 		internal FlowInitializerWithLifecycleAdapter(IUiFlowInitializationStep target)
 		{
 			_target = target;
+			SetRegistry();
 			_uiFlowContextData = new UiFlowContextData
 			{
 				CurrentScreenStep = ScreenName.PreStart
 			};
+
+			void SetRegistry()
+			{
+				var items = typeof(TInitializer).Namespace.Split('.').SkipLast(2);
+				var flowsRootNamespace = string.Join('.', items);
+				_target.SetPropertyValueFast(nameof(UiFlowScreen.Registry),
+					new FlowsRegistry(typeof(TInitializer).Assembly, flowsRootNamespace, string.Empty));
+			}
 		}
 		
 		public string GetFlowType()

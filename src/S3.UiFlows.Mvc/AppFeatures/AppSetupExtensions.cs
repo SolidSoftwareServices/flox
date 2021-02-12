@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using S3.UiFlows.Mvc.Infrastructure;
+using S3.UiFlows.Mvc.Infrastructure.IoC;
 
 namespace S3.UiFlows.Mvc.AppFeatures
 {
@@ -42,10 +43,11 @@ namespace S3.UiFlows.Mvc.AppFeatures
 		public static IMvcBuilder AddUiFlows<TFlowsController>(this IMvcBuilder builder, IServiceCollection services,
 			Assembly flowsAssembly, string flowsRootNamespace, string flowsRootPath) where TFlowsController : IUiFlowController
 		{
-			FlowsRegistry.Instance.Load(flowsAssembly, flowsRootNamespace,flowsRootPath);
+			var flowsRegistry=new FlowsRegistry(flowsAssembly, flowsRootNamespace,flowsRootPath);
+			UiFlowsMvcModule.Registry = flowsRegistry;
 			services.Configure<RazorViewEngineOptions>(o =>
 			{
-				o.ViewLocationExpanders.Add(new UiFlowViewLocationExpander(FlowsRegistry.Instance));
+				o.ViewLocationExpanders.Add(new UiFlowViewLocationExpander(flowsRegistry));
 			});
 			services.Configure<MvcRazorRuntimeCompilationOptions>(opts =>
 			{
@@ -55,10 +57,8 @@ namespace S3.UiFlows.Mvc.AppFeatures
 			;
 			builder.AddMvcOptions(o =>
 			{
-				o.Conventions.Add(new UiFlowControllerRouteConvention< TFlowsController>(FlowsRegistry.Instance));
+				o.Conventions.Add(new UiFlowControllerRouteConvention< TFlowsController>(flowsRegistry));
 				o.ModelBinderProviders.Insert(0, new UiFlowStepDataModelBinderProvider());
-
-
 			});
 
 			return builder.ConfigureApplicationPartManager(m =>

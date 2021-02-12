@@ -27,10 +27,9 @@ namespace S3.UiFlows.Mvc.UnitTests.AppFeatures
 				,"/Flows/AppFlows/ComponentsFlow/Components/{0}/{0}.cshtml"
 			};
 
-			FlowsRegistry.Instance
-				.Load(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows", "/Flows/AppFlows");
+			
 
-			var sut = new UiFlowViewLocationExpander(FlowsRegistry.Instance);
+			var sut = new UiFlowViewLocationExpander(new FlowsRegistry(typeof(InitialScreen).Assembly, "S3.App.Flows.AppFlows", "/Flows/AppFlows"));
 			CollectionAssert.AreEquivalent(expected, sut.NotSharedFlowSpecificComponents.Value);
 		}
 	}

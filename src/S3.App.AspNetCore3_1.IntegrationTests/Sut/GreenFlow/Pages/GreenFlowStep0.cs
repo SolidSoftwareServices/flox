@@ -38,7 +38,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.GreenFlow.Pages
 		public IHtmlInputElement Input => Document.QuerySelector("#StepValue1") as IHtmlInputElement;
 
 		public string FieldValidatorValue =>
-			Document.QuerySelector("#GreenFlow- > div:nth-child(2) > div > span").Text();
+			Document.QuerySelector("#greenflow- > div:nth-child(2) > div > span").Text();
 
 
 		public IEnumerable<string> Errors()

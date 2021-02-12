@@ -83,7 +83,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Routing
 					Assert.AreEqual(flowHandler, actualRequested.FlowHandler);
 
 					Assert.IsNotNull(actualRequested.NewContainedFlowType);
-					Assert.AreEqual("GreenFlow", actualRequested.NewContainedFlowType);
+					Assert.AreEqual("GreenFlow".ToLowerInvariant(), actualRequested.NewContainedFlowType);
 				});
 		}
 

@@ -35,7 +35,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 		[Test]
 		public void FlowIsCorrect()
 		{
-			Assert.AreEqual("GreenFlow", NewScreenTestConfigurator().Adapter.GetFlowType());
+			Assert.AreEqual("GreenFlow".ToLowerInvariant(), NewScreenTestConfigurator().Adapter.GetFlowType());
 		}
 
 		[Test]

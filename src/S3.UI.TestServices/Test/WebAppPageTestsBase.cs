@@ -3,9 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Win32;
+using NUnit.Framework;
 using S3.CoreServices.System;
 using S3.UI.TestServices.Sut;
-using NUnit.Framework;
 
 namespace S3.UI.TestServices.Test
 {
@@ -61,7 +62,7 @@ namespace S3.UI.TestServices.Test
 			            $"{TestContext.CurrentContext.Test.Name}.html");
 		            File.WriteAllText(filePath, currentHtml);
 
-		            var browserPath = Microsoft.Win32.Registry.GetValue(
+		            var browserPath = Registry.GetValue(
 			            @"HKEY_CLASSES_ROOT\ChromeHTML\shell\open\command", null, null) as string;
 		            if (browserPath != null)
 		            {

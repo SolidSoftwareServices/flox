@@ -8,19 +8,19 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.ContainersFlow3.Steps
 {
-	public class Number2ContainerScreen : ContainersFlow3Screen
+	public class Number2ContainerScreen : UiFlowContainerScreen
 	{
-		public override ScreenName ScreenStep =>  ContainersFlow3ScreenName.Number2ContainerScreen;
+		public override ScreenName ScreenNameId =>  ContainersFlow3ScreenName.Number2ContainerScreen;
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
 			IScreenFlowConfigurator screenConfiguration, IUiFlowContextData contextData)
 		{
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Step1, ContainersFlow3ScreenName.Number1ContainerScreen);
+				.OnEventNavigatesTo(ScreenInputEvent.Step1, ContainersFlow3ScreenName.Number1ContainerScreen);
 		}
 
 
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Step1 = new ScreenEvent(nameof(Number2ContainerScreen),nameof(Step1));
 		}

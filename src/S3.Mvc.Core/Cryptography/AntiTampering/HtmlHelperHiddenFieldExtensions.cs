@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using S3.CoreServices.Encryption;
-using S3.Mvc.Core.System;
-using S3.Mvc.Core.Views;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using S3.CoreServices.Encryption;
+using S3.Mvc.Core.System;
+using S3.Mvc.Core.Views;
 
 namespace S3.Mvc.Core.Cryptography.AntiTampering
 {
@@ -44,7 +43,7 @@ namespace S3.Mvc.Core.Cryptography.AntiTampering
 
 			var metadata = expressionProvider.CreateModelExpression(htmlHelper.ViewData, expression);
 
-			string name = expressionProvider.GetExpressionText(expression);
+			var name = expressionProvider.GetExpressionText(expression);
 			return await htmlHelper.InputHelperAsync(isVisibleAsDecryptedByClient, name, metadata.Model?.ToString(), htmlAttributes: htmlAttributes);
 		}
 
@@ -108,7 +107,7 @@ namespace S3.Mvc.Core.Cryptography.AntiTampering
 			Expression<Func<TModel, TProperty>> expression)
 		{
 			var expressionProvider = new ModelExpressionProvider(htmlHelper.MetadataProvider);
-			string name = expressionProvider.GetExpressionText(expression);
+			var name = expressionProvider.GetExpressionText(expression);
 			return await htmlHelper.InputHelperAsync(true, name, string.Empty, htmlAttributes: null);
 
 		}

@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using S3.UI.TestServices.Flows.Shared;
 using S3.UiFlows.Core.Configuration;
-using S3.UiFlows.Core.DataSources;
-using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
-
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
@@ -17,7 +13,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 	{
 		private readonly IUiFlowScreen _step;
 
-		public TestFlowScreenConfigurator(IUiFlowScreen step) : base(step.ScreenStep)
+		public TestFlowScreenConfigurator(IUiFlowScreen step) : base(step.ScreenNameId)
 		{
 			_step = step;
 		}

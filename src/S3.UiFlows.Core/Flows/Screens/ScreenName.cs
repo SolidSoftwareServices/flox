@@ -1,5 +1,5 @@
-using S3.CoreServices.System;
 using Newtonsoft.Json;
+using S3.CoreServices.System;
 
 namespace S3.UiFlows.Core.Flows.Screens
 {

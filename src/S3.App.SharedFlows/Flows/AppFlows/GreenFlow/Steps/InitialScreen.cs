@@ -11,9 +11,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 {
-	public class InitialScreen : GreenFlowScreen
+	public class InitialScreen : UiFlowScreen
 	{
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(InitialScreen),"Next");
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(InitialScreen), "Reset");
@@ -29,11 +29,11 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 
 			return screenConfiguration
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventReentriesCurrent(StepEvent.Reset)
-				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepAScreen,()=>!ToStepC(),"input is NOT a*")
-				.OnEventNavigatesTo(StepEvent.Next, GreenFlowScreenName.StepCScreen,ToStepC,"input is a*")
+				.OnEventReentriesCurrent(ScreenInputEvent.Reset)
+				.OnEventNavigatesTo(ScreenInputEvent.Next, GreenFlowScreenName.StepAScreen,()=>!ToStepC(),"input is NOT a*")
+				.OnEventNavigatesTo(ScreenInputEvent.Next, GreenFlowScreenName.StepCScreen,ToStepC,"input is a*")
 
-				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset())
+				.OnEventExecutes(ScreenInputEvent.Reset, (e, ctx) => ctx.Reset())
 				;
 		}
 
@@ -42,12 +42,12 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 		protected override bool OnValidate(ScreenEvent transitionTrigger,
             IUiFlowContextData contextData, out string errorMessage)
         {
-			bool result = true;
+			var result = true;
 			errorMessage = null;
-			if (transitionTrigger == StepEvent.Next)
+			if (transitionTrigger == ScreenInputEvent.Next)
 			{
 				var viewModel = contextData.GetCurrentStepData<InitialScreenScreenModel>();
-				var b = int.TryParse(viewModel.StepValue1, out int value);
+				var b = int.TryParse(viewModel.StepValue1, out var value);
 				errorMessage = b ? "Numeric only value  are not allowed" : string.Empty;
 				result = !b;
 
@@ -56,7 +56,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			return result;
 		}
 
-		public override ScreenName ScreenStep =>  GreenFlowScreenName.Step0Screen;
+		public override ScreenName ScreenNameId =>  GreenFlowScreenName.Step0Screen;
 		public override string ViewPath => "Init";
 
 		
@@ -78,7 +78,7 @@ namespace S3.App.Flows.AppFlows.GreenFlow.Steps
 			}
 
 			public override IEnumerable<ScreenEvent> DontValidateEvents =>
-				base.DontValidateEvents.Union(StepEvent.Reset.ToOneItemArray());
+				base.DontValidateEvents.Union(ScreenInputEvent.Reset.ToOneItemArray());
 		}
 	}
 }

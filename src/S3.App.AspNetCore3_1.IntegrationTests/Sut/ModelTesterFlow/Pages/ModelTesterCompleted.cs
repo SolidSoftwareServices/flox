@@ -1,9 +1,9 @@
 using System;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
+using NUnit.Framework;
 using S3.App.AspNetCore3_1.IntegrationTests.Infrastructure;
 using S3.UI.TestServices.Sut;
-using NUnit.Framework;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Pages
 {
@@ -32,7 +32,7 @@ namespace S3.App.AspNetCore3_1.IntegrationTests.Sut.ModelTesterFlow.Pages
 		public string SampleInput => ((IHtmlSpanElement)Document.QuerySelector("#ModelTesterFlowPage > div:nth-child(11) > div > span")).Text().Trim();
 		public void AssertValues((string, string)[] values)
 		{
-			Assert.IsTrue(Guid.TryParse(NotUsed,out Guid r));
+			Assert.IsTrue(Guid.TryParse(NotUsed,out var r));
 			foreach (var (item1, item2) in values)
 			{
 				switch (item1)

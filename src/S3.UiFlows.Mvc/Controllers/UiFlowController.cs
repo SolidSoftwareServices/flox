@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Net.Http.Headers;
+using NLog;
 using S3.CoreServices.Profiling;
 using S3.CoreServices.Serialization;
 using S3.CoreServices.System;
@@ -15,6 +18,7 @@ using S3.Mvc.Core.Cryptography.AntiTampering;
 using S3.Mvc.Core.Cryptography.Urls;
 using S3.Mvc.Core.System;
 using S3.Mvc.Core.System.Request;
+using S3.UiFlows.Core.DataSources;
 using S3.UiFlows.Core.Facade;
 using S3.UiFlows.Core.Facade.CurrentView;
 using S3.UiFlows.Core.Facade.FlowResultResolver;
@@ -25,11 +29,6 @@ using S3.UiFlows.Core.Facade.TriggerEventOnView;
 using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens.ErrorHandling;
 using S3.UiFlows.Core.Flows.Screens.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Net.Http.Headers;
-using NLog;
-using S3.UiFlows.Core.DataSources;
 
 namespace S3.UiFlows.Mvc.Controllers
 {
@@ -58,7 +57,7 @@ namespace S3.UiFlows.Mvc.Controllers
 		private readonly IFlowsMetadataResolver _metadataResolver;
 		private readonly IUiFlowContextRepository _contextRepository;
 		private readonly IProfiler _profiler;
-		private IFlowsStore _store;
+		private readonly IFlowsStore _store;
 
 		public UiFlowController(IUiFlowContextRepository contextRepository,
 			IProfiler profiler, IFlowsStore store,

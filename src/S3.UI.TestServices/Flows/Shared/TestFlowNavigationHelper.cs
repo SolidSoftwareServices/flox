@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using S3.CoreServices.System;
 using S3.UiFlows.Core.Configuration;
 using S3.UiFlows.Core.DataSources;
-using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
-
 
 namespace S3.UI.TestServices.Flows.Shared
 {
@@ -161,9 +158,9 @@ namespace S3.UI.TestServices.Flows.Shared
 				}
 				public ScreenName DestinationStep { get; }
 
-				public string ConditionFriendlyDescription { get; set; }
+				public string ConditionFriendlyDescription { get; }
 
-				public Func<bool> Condition { get; set; }
+				public Func<bool> Condition { get; }
 
 				public bool Equals(DestinationInfo other)
 				{

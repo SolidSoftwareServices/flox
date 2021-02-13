@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
+using NUnit.Framework;
 using S3.CoreServices.Serialization;
 using S3.UiFlows.Core.Flows.Screens.Models.Interop;
-
-using NUnit.Framework;
 
 namespace S3.App.AspNetCore3_1.IntegrationTests.Serialization
 {

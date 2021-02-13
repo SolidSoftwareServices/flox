@@ -6,7 +6,7 @@ namespace S3.UiFlows.Core.Flows.Initialization
 	///     Default flow initializer. Flow does not receive any input
 	/// </summary>
 	public abstract class
-		UiFlowInitializationStep : UiFlowInitializationStep< InitialFlowEmptyScreenModel>
+		UiFlowStarter : UiFlowInitializationStep< InitialFlowEmptyScreenModel>
 	{
 	}
 }

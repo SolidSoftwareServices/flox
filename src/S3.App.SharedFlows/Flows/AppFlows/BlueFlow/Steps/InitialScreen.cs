@@ -13,9 +13,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
-	public class InitialScreen : BlueFlowScreen
+	public class InitialScreen : UiFlowScreen
 	{
-		public override ScreenName ScreenStep => BlueFlowScreenName.Step0Screen;
+		public override ScreenName ScreenNameId => BlueFlowScreenName.Step0Screen;
 		public override string ViewPath => "Init";
 
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
@@ -29,11 +29,11 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			return screenConfiguration
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred,()=>contextData.LastError.LifecycleStage==ScreenLifecycleStage.ValidateTransitionCompletedWithErrors,"Validation error")
 				.OnEventNavigatesTo(ScreenEvent.ErrorOccurred, BlueFlowScreenName.ErrorScreen, () => contextData.LastError.LifecycleStage != ScreenLifecycleStage.ValidateTransitionCompletedWithErrors, "Not a validation error")
-				.OnEventReentriesCurrent(StepEvent.Reset)
-				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.FillDataStep_StepAScreen, () => !ToStepC(),
+				.OnEventReentriesCurrent(ScreenInputEvent.Reset)
+				.OnEventNavigatesTo(ScreenInputEvent.Next, BlueFlowScreenName.FillDataStep_StepAScreen, () => !ToStepC(),
 					"input is NOT a*")
-				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.StepCScreen, ToStepC, "input is a*")
-				.OnEventExecutes(StepEvent.Reset,OnReset);
+				.OnEventNavigatesTo(ScreenInputEvent.Next, BlueFlowScreenName.StepCScreen, ToStepC, "input is a*")
+				.OnEventExecutes(ScreenInputEvent.Reset,OnReset);
 			bool ToStepC()
 			{
 				var stepValue1 = contextData.GetCurrentStepData<InitialScreenScreenModel>().StepValue1;
@@ -44,8 +44,8 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 		private void ThrowIfMustFail(IUiFlowContextData contextData, ScreenLifecycleStage stage)
 		{
 			var root = contextData.GetStepData<FlowInitializer.StartScreenModel>();
-			if (root != null && (ScreenName) root.FailOnStep == ScreenStep && root.FailOnEvent == stage)
-				throw new Exception($"Failing on {ScreenStep}.{stage}");
+			if (root != null && (ScreenName) root.FailOnStep == ScreenNameId && root.FailOnEvent == stage)
+				throw new Exception($"Failing on {ScreenNameId}.{stage}");
 		}
 
 		protected  Task OnReset(ScreenEvent triggeredEvent, IUiFlowContextData contextData)
@@ -61,7 +61,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			ThrowIfMustFail(contextData, ScreenLifecycleStage.ValidatingTransition);
 			var result = true;
 			errorMessage = null;
-			if (transitionTrigger == StepEvent.Next)
+			if (transitionTrigger == ScreenInputEvent.Next)
 			{
 				var viewModel = contextData.GetCurrentStepData<InitialScreenScreenModel>();
 				var b = int.TryParse(viewModel.StepValue1, out var value);
@@ -87,7 +87,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			return base.OnRefreshModelAsync(contextData, originalScreenModel, stepViewCustomizations);
 		}
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(InitialScreen), nameof(Next));
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(InitialScreen), nameof(Reset));
@@ -99,7 +99,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			public string StepValue1 { get; set; }
 
 			public override IEnumerable<ScreenEvent> DontValidateEvents =>
-				base.DontValidateEvents.Union(StepEvent.Reset.ToOneItemArray());
+				base.DontValidateEvents.Union(ScreenInputEvent.Reset.ToOneItemArray());
 
 			//we use the same as the input
 			[Required(ErrorMessage = "ERROR TEST VALUE")]

@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading;
 using NUnit.Framework;
 
 namespace S3.TestServices

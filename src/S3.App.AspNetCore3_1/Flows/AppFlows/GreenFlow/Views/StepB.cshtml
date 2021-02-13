@@ -2,12 +2,9 @@
 	ViewData["Title"] = "GreenFlow::FillDataStep_StepBScreen";
 }
 
-@using S3.App.Flows
-@using S3.App.Infrastructure
+
 @using S3.App.Flows.AppFlows.GreenFlow.Steps
 @using S3.UiFlows.Mvc.Views
-
-
 @model S3.App.Flows.AppFlows.GreenFlow.Steps.StepBScreen.StepBScreenScreenModel
 <div id="GreenFlowPage">
 	<div class="row">
@@ -26,9 +23,9 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3">
-				<flow-action trigger-event=@StepBScreen.StepEvent.Previous>Previous</flow-action>
-				<flow-action trigger-event=@StepBScreen.StepEvent.Next>Next</flow-action>
-				<flow-action trigger-event=@StepBScreen.StepEvent.Reset>Reset</flow-action>
+				<flow-action trigger-event=@StepBScreen.ScreenInputEvent.Previous>Previous</flow-action>
+				<flow-action trigger-event=@StepBScreen.ScreenInputEvent.Next>Next</flow-action>
+				<flow-action trigger-event=@StepBScreen.ScreenInputEvent.Reset>Reset</flow-action>
 			</div>
 		</div>
 	}

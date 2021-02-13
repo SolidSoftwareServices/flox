@@ -1,4 +1,3 @@
-using S3.UiFlows.Core.Facade.CurrentView;
 using S3.UiFlows.Core.Facade.Delegates;
 
 namespace S3.UiFlows.Core.Facade

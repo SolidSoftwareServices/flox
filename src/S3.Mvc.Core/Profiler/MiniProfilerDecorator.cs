@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
-using S3.CoreServices.Profiling;
 using NLog;
+using S3.CoreServices.Profiling;
 using StackExchange.Profiling;
 
 namespace S3.Mvc.Core.Profiler

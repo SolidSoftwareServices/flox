@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -35,7 +34,7 @@ namespace S3.CoreServices.System.FastReflection
 				default:
 					throw new ArgumentException($"The expression doesn't indicate a valid property. [ {expression} ]");
 			}
-			PropertyInfo propertyInfo = (PropertyInfo)memberExpression.Member;
+			var propertyInfo = (PropertyInfo)memberExpression.Member;
 			var sb = new StringBuilder(propertyInfo.Name);
 			var nested = memberExpression.Expression;
 

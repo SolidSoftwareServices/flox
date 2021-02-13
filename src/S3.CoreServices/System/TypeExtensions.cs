@@ -2,10 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using S3.CoreServices.System.FastReflection;
-using Type = System.Type;
 
 namespace S3.CoreServices.System
 {

@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using S3.UiFlows.Core.Flows;
 using S3.UiFlows.Core.Flows.Screens;
 using S3.UiFlows.Core.Flows.Screens.Models;
-
 
 namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 {
@@ -36,7 +33,7 @@ namespace S3.UI.TestServices.Flows.FlowScreenUnitTest
 
 			public Assert WhenRefreshed(IDictionary<string, object> withRouteParameters=null)
 			{
-				UiFlowScreenModel actual = _adapter.RefreshStepData(withRouteParameters);
+				var actual = _adapter.RefreshStepData(withRouteParameters);
 				return new Assert(_adapter, actual);
 			}
 

@@ -1,10 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
-using S3.CoreServices.System;
 using NLog;
-
-
+using S3.CoreServices.System;
 
 namespace S3.CoreServices.Profiling
 {
@@ -45,7 +42,7 @@ namespace S3.CoreServices.Profiling
 
 		private async Task<TResult> InterceptAsync<TResult>(Task<TResult> task)
 		{
-			TResult result = await task.ConfigureAwait(false);
+			var result = await task.ConfigureAwait(false);
 			return result;
 		}
 

@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using S3.CoreServices.System;
-using S3.Mvc.Core.ViewModels.Binders;
-using S3.UiFlows.Core.Flows.Screens.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.Logging;
+using S3.CoreServices.System;
+using S3.Mvc.Core.ViewModels.Binders;
+using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.UiFlows.Mvc.ViewModels.Binders
 {
@@ -28,7 +27,7 @@ namespace S3.UiFlows.Mvc.ViewModels.Binders
 			EncryptedPropertyDataValueProvider valueProvider)
 		{
 
-			ModelBindingResult result = ModelBindingResult.Failed();
+			var result = ModelBindingResult.Failed();
 
 			var valueProviderResult = await valueProvider
 				.GetValueAsync(ModelNames.CreatePropertyModelName(bindingContext.ModelName,

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using Newtonsoft.Json.Serialization;
 using NLog;
 
@@ -15,7 +13,7 @@ namespace S3.CoreServices.Diagnostics
 
 		public void Trace(TraceLevel level, string message, Exception ex)
 		{
-			LogEventInfo logEvent = new LogEventInfo
+			var logEvent = new LogEventInfo
 			{
 				Message = message,
 				Level = GetLogLevel(level),

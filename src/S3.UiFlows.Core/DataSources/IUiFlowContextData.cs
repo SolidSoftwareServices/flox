@@ -32,17 +32,4 @@ namespace S3.UiFlows.Core.DataSources
 		bool IsInContainer();
 		Task<UiFlowScreenModel> GetCurrentStepContainedData(ContainedFlowQueryOption option);
 	}
-
-	public enum ContainedFlowQueryOption
-	{
-		/// <summary>
-		/// the immediately contained flow
-		/// </summary>
-		Immediate,
-
-		/// <summary>
-		/// the ultimately contained flow
-		/// </summary>
-		Last
-	}
 }

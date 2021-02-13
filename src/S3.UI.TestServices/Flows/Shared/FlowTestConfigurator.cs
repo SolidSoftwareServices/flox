@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Moq;

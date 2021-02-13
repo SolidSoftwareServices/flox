@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using AutoFixture;
-using S3.UI.TestServices.Flows.FlowScreenUnitTest;
-using S3.UiFlows.Core.Flows;
-using S3.UiFlows.Core.Flows.Screens;
 using NUnit.Framework;
-using S3.App.Flows.AppFlows;
 using S3.App.Flows.AppFlows.GreenFlow.FlowDefinitions;
 using S3.App.Flows.AppFlows.GreenFlow.Steps;
+using S3.UI.TestServices.Flows.FlowScreenUnitTest;
+using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 {
@@ -81,7 +78,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 			return NewScreenTestConfigurator()
 				.NewEventTestRunner(()=>new InitialScreen.InitialScreenScreenModel())
 				.GivenTheStepDataIs(new InitialScreen.InitialScreenScreenModel() { StepValue1 = inputText })
-				.WhenEvent(InitialScreen.StepEvent.Next)
+				.WhenEvent(InitialScreen.ScreenInputEvent.Next)
 				.ThenTheValidationResultIs(expectedValidationMessage== string.Empty, expectedValidationMessage)
 				.ThenTheStepDataAfterIs<InitialScreen.InitialScreenScreenModel>(actual=>Assert.AreEqual(inputText,actual.StepValue1))
 				.ResultStep;
@@ -98,7 +95,7 @@ namespace S3.App.AspNetCore3_1.UnitTests.Flows.AppFlows.GreenFlow
 					SampleParameter = "aa"
 				})
 				
-				.WhenEvent(InitialScreen.StepEvent.Reset)
+				.WhenEvent(InitialScreen.ScreenInputEvent.Reset)
 				.ThenTheStepDataAfterIsNull()
 				.ThenTheResultStepIs(GreenFlowScreenName.Step0Screen)
 				.ThenTheValidationWasNotExecuted();

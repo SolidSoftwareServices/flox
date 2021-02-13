@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using S3.App.Flows.AppFlows.BlueFlow.FlowDefinitions;
 using S3.App.Flows.AppFlows.BlueFlow.Steps;
 using S3.App.Flows.AppFlows.BlueFlow.Steps.FillData;
@@ -10,6 +8,7 @@ using S3.App.Flows.AppFlows.ComponentsFlow.Components.SampleComponentAsync;
 using S3.App.Flows.AppFlows.ContainersFlow4.Steps;
 using S3.App.Flows.SharedFlowComponents.Main.SampleInput;
 using S3.UiFlows.Mvc.Infrastructure;
+using FlowInitializer = S3.App.Flows.AppFlows.ComponentsFlow.Steps.FlowInitializer;
 
 namespace S3.UiFlows.Mvc.UnitTests.Infrastructure
 {
@@ -29,7 +28,7 @@ namespace S3.UiFlows.Mvc.UnitTests.Infrastructure
 			yield return new TestCaseData(typeof(SampleComponentInputAsync)).Returns(componentsflow);
 			yield return new TestCaseData(typeof(SampleComponentViewModelAsync)).Returns(componentsflow);
 
-			yield return new TestCaseData(typeof(S3.App.Flows.AppFlows.ComponentsFlow.Steps.FlowInitializer)).Returns(componentsflow);
+			yield return new TestCaseData(typeof(FlowInitializer)).Returns(componentsflow);
 			yield return new TestCaseData(typeof(Number1ContainerScreen)).Returns("ContainersFlow4".ToLowerInvariant());
 
 

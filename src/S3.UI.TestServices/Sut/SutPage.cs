@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using S3.UI.TestServices.Html;
 using NUnit.Framework;
+using S3.UI.TestServices.Html;
 
 namespace S3.UI.TestServices.Sut
 {

@@ -7,9 +7,9 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 {
-	public class StepBScreen : BlueFlowScreen
+	public class StepBScreen : UiFlowScreen
 	{
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Previous = new ScreenEvent(nameof(StepBScreen), "Previous");
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(StepBScreen), "Next");
@@ -21,7 +21,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
         {
 			var result = true;
 			errorMessage = null;
-			if (transitionTrigger == StepEvent.Next)
+			if (transitionTrigger == ScreenInputEvent.Next)
 			{
 				var viewModel = contextData.GetCurrentStepData<StepBScreenScreenModel>();
 					result = !string.IsNullOrEmpty(viewModel.StepBValue1);
@@ -36,7 +36,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			return result;
 		}
 
-		public override ScreenName ScreenStep =>  BlueFlowScreenName.FillDataStep_StepBScreen;
+		public override ScreenName ScreenNameId =>  BlueFlowScreenName.FillDataStep_StepBScreen;
 		public override string ViewPath { get; } = "StepB";
 
 		protected override IScreenFlowConfigurator OnRegisterUserActions(
@@ -45,12 +45,12 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			return screenConfiguration
 				.SubStepOf(BlueFlowScreenName.FillDataStep)
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Reset, BlueFlowScreenName.Step0Screen)
-				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.StepCScreen)
-				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.FillDataStep_StepAScreen)
+				.OnEventNavigatesTo(ScreenInputEvent.Reset, BlueFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.Next, BlueFlowScreenName.StepCScreen)
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, BlueFlowScreenName.FillDataStep_StepAScreen)
 
-				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset())
-				.OnEventExecutes(StepEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepBScreenScreenModel>().StepBValue1 = null); ;
+				.OnEventExecutes(ScreenInputEvent.Reset, (e, ctx) => ctx.Reset())
+				.OnEventExecutes(ScreenInputEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepBScreenScreenModel>().StepBValue1 = null); ;
 		}
 
 		

@@ -1,11 +1,11 @@
-using S3.CoreServices.System.FastReflection;
 using System.ComponentModel.DataAnnotations;
+using S3.CoreServices.System.FastReflection;
 
 namespace S3.Mvc.Core.ViewModels.Validations
 {
     public class CustomCompareAttribute : ValidationAttribute
     {
-        private string IfPropertyPath { get; set; }
+        private string IfPropertyPath { get; }
 
         public CustomCompareAttribute(params string[] propertyPath)
         {

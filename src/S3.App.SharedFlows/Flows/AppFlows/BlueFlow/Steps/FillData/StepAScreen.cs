@@ -7,10 +7,10 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 {
-	public class StepAScreen : BlueFlowScreen
+	public class StepAScreen : UiFlowScreen
 	{
 
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Previous = new ScreenEvent(nameof(StepAScreen),"Previous");
 			public static readonly ScreenEvent Next = new ScreenEvent(nameof(StepAScreen), "Next");
@@ -23,12 +23,12 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			return screenConfiguration
 				.SubStepOf(BlueFlowScreenName.FillDataStep)
 				.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Reset, BlueFlowScreenName.Step0Screen)
-				.OnEventNavigatesTo(StepEvent.Next, BlueFlowScreenName.FillDataStep_StepBScreen)
-				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.Reset, BlueFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.Next, BlueFlowScreenName.FillDataStep_StepBScreen)
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, BlueFlowScreenName.Step0Screen)
 
-				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset())
-				.OnEventExecutes(StepEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepAScreenScreenModel>().StepAValue1 = null);
+				.OnEventExecutes(ScreenInputEvent.Reset, (e, ctx) => ctx.Reset())
+				.OnEventExecutes(ScreenInputEvent.Previous, (e, ctx) => ctx.GetCurrentStepData<StepAScreenScreenModel>().StepAValue1 = null);
 			;
 		}
 		
@@ -38,7 +38,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
         {
 			var result = true;
 			errorMessage = null;
-			if (transitionTrigger == StepEvent.Next)
+			if (transitionTrigger == ScreenInputEvent.Next)
 			{
 				var viewModel = contextData.GetCurrentStepData<StepAScreenScreenModel>();
 				result = !string.IsNullOrEmpty(viewModel.StepAValue1);
@@ -53,7 +53,7 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps.FillData
 			return result;
 		}
 
-		public override ScreenName ScreenStep =>
+		public override ScreenName ScreenNameId =>
 			 BlueFlowScreenName.FillDataStep_StepAScreen;
 
 		public override string ViewPath { get; } = "StepA";

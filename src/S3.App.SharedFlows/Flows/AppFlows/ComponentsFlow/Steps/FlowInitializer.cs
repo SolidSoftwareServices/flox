@@ -6,7 +6,7 @@ using S3.UiFlows.Core.Flows.Screens;
 
 namespace S3.App.Flows.AppFlows.ComponentsFlow.Steps
 {
-	public class FlowInitializer : UiFlowInitializationStep
+	public class FlowInitializer : UiFlowStarter
 	{
 
 		public override IScreenFlowConfigurator OnDefiningAdditionalInitialStateTransitions(IScreenFlowConfigurator preStartCfg,

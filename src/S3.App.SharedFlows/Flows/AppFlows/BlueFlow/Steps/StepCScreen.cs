@@ -10,15 +10,15 @@ using S3.UiFlows.Core.Flows.Screens.Models;
 
 namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 {
-	public class StepCScreen : BlueFlowScreen
+	public class StepCScreen : UiFlowScreen
 	{
-		public static class StepEvent
+		public static class ScreenInputEvent
 		{
 			public static readonly ScreenEvent Previous = new ScreenEvent(nameof(StepCScreen), "Previous");
 			public static readonly ScreenEvent FlowTransitionCompleted = new ScreenEvent(nameof(StepCScreen), "FlowCompleted");
 			public static readonly ScreenEvent Reset = new ScreenEvent(nameof(StepCScreen), "Reset");
 		}
-		public override ScreenName ScreenStep =>  BlueFlowScreenName.StepCScreen;
+		public override ScreenName ScreenNameId =>  BlueFlowScreenName.StepCScreen;
 		public override string ViewPath { get; } = "StepC";
 
 		protected override bool OnValidate(ScreenEvent transitionTrigger,
@@ -35,15 +35,15 @@ namespace S3.App.Flows.AppFlows.BlueFlow.Steps
 			
 
 			return screenConfiguration.OnEventReentriesCurrent(ScreenEvent.ErrorOccurred)
-				.OnEventNavigatesTo(StepEvent.Reset, BlueFlowScreenName.Step0Screen)
-				.OnEventNavigatesTo(StepEvent.FlowTransitionCompleted, BlueFlowScreenName.FlowCompletedScreen,()=>!prestart.MustReturnToCaller,"Not Called from another flow expecting result")
-				.OnEventNavigatesTo(StepEvent.FlowTransitionCompleted, BlueFlowScreenName.EndAndReturnToCaller, () => prestart.MustReturnToCaller, "Called from another flow expecting result")
-				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.FillDataStep_StepBScreen,
+				.OnEventNavigatesTo(ScreenInputEvent.Reset, BlueFlowScreenName.Step0Screen)
+				.OnEventNavigatesTo(ScreenInputEvent.FlowTransitionCompleted, BlueFlowScreenName.FlowCompletedScreen,()=>!prestart.MustReturnToCaller,"Not Called from another flow expecting result")
+				.OnEventNavigatesTo(ScreenInputEvent.FlowTransitionCompleted, BlueFlowScreenName.EndAndReturnToCaller, () => prestart.MustReturnToCaller, "Called from another flow expecting result")
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, BlueFlowScreenName.FillDataStep_StepBScreen,
 					() => !ByPassedStepAandB(), "Comes from B")
-				.OnEventNavigatesTo(StepEvent.Previous, BlueFlowScreenName.Step0Screen, ByPassedStepAandB,
+				.OnEventNavigatesTo(ScreenInputEvent.Previous, BlueFlowScreenName.Step0Screen, ByPassedStepAandB,
 					"Comes from step0")
 
-				.OnEventExecutes(StepEvent.Reset, (e, ctx) => ctx.Reset());
+				.OnEventExecutes(ScreenInputEvent.Reset, (e, ctx) => ctx.Reset());
 
 			bool ByPassedStepAandB()
 			{

@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Diagnostics;
 using S3.CoreServices.System;
 using S3.CoreServices.System.FastReflection;
 
@@ -17,7 +16,7 @@ public class RequiredIfAttribute : ValidationAttribute
 			Property,BooleanMethod
 	    }
 
-        private string Path { get; set; }
+        private string Path { get; }
         public object[] IfValues { get; set; }
 
         public object IfValue
@@ -46,7 +45,7 @@ public class RequiredIfAttribute : ValidationAttribute
 		protected override ValidationResult IsValid(object value, ValidationContext context)
         {
             var sourceValueToCompare = GetSourceValueToCompare();
-            bool isValid = false;
+            var isValid = false;
 
 			if (value is bool)
             {

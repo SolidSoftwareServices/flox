@@ -1,7 +1,7 @@
-using S3.Mvc.Core.Hosting;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using S3.Mvc.Core.Hosting;
 
 namespace S3.UI.TestServices.Services
 {

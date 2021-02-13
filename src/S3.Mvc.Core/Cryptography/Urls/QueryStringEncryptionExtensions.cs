@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
-using Autofac.Core;
-using S3.CoreServices.Encryption;
-using S3.Mvc.Core.Controllers;
-using S3.Mvc.Core.System;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Routing;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
+using S3.CoreServices.Encryption;
+using S3.Mvc.Core.System;
 
 namespace S3.Mvc.Core.Cryptography.Urls
 {

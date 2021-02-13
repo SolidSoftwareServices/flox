@@ -10,7 +10,9 @@
     <EmbeddedResource Remove="Logging\**" />
     <None Remove="Logging\**" />
   </ItemGroup>
-
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;1998</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\CommonCompilerExtensions.cs" Link="CommonCompilerExtensions.cs" />
   </ItemGroup>

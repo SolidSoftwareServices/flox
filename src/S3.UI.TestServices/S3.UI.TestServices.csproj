@@ -12,7 +12,9 @@
 	<NoWarn>1701;1702;1998</NoWarn>
 	<DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;1998</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
 	<PackageReference Include="AngleSharp" Version="0.14.0" />
 	<PackageReference Include="AngleSharp.Css" Version="0.14.2" />

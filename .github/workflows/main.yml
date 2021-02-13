@@ -105,6 +105,7 @@ jobs:
     - name: Update project version
       uses: roryprimrose/set-vs-sdk-project-version@v1
       with:
+        projectFilter: '*.csproj'
         version: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}"
         assemblyVersion: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}.0"
         fileVersion: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}"

@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/SolidSoftwareServices/flox/badge.svg?branch=master)](https://coveralls.io/github/SolidSoftwareServices/flox?branch=master)
+
 #simplify flow interop: add one test case missing first
 #remove TODO
 #declarative events handling

@@ -40,6 +40,7 @@ jobs:
         MATRIX_CONTEXT: ${{ toJson(matrix) }}
       run: echo "$MATRIX_CONTEXT"
 
+
 #start      
     - name: Checkout
       uses: actions/checkout@v2
@@ -54,10 +55,12 @@ jobs:
         versionSpec: '5.5.x'
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
+  
+  
+    # - name: Setup .NET Core
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 3.1.x
             
     - name: Dump version values
       id: gitversion # step id used as reference for output values
@@ -107,17 +110,17 @@ jobs:
         fileVersion: "${{steps.gitversion.outputs.Major}}.${{steps.gitversion.outputs.Minor}}.${{github.run_number}}"
       if: ${{ github.event_name != 'pull_request' && github.ref!='refs/heads/master' && (steps.gitversion.outputs.Major>0 || steps.gitversion.outputs.Minor>0) }}
 
-    - name: Install dependencies
-      run: dotnet restore ${{env.solutionFile}}
-      working-directory: ${{env.working-directory}}     
+    # - name: Install dependencies
+    #   run: dotnet restore ${{env.solutionFile}}
+    #   working-directory: ${{env.working-directory}}     
       
-    - name: Build
-      run: dotnet build ${{env.solutionFile}} --configuration Release --no-restore
-      working-directory: ${{env.working-directory}}
+    # - name: Build
+    #   run: dotnet build ${{env.solutionFile}} --configuration Release --no-restore
+    #   working-directory: ${{env.working-directory}}
    
-    - name: Test
-      run: dotnet test ${{env.solutionFile}} --no-restore /p:CollectCoverage=true /p:CoverletOutput=${{env.testResultsDirectory}} /p:CoverletOutputFormat=lcov
-      working-directory: ${{env.working-directory}}
+    # - name: Test
+    #   run: dotnet test ${{env.solutionFile}} --no-restore /p:CollectCoverage=true /p:CoverletOutput=${{env.testResultsDirectory}} /p:CoverletOutputFormat=lcov
+    #   working-directory: ${{env.working-directory}}
 
     #NEEDS TO BE PUBLIC FIRST
     # - name: Publish coverage report to coveralls.io

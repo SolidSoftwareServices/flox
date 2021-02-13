@@ -2,7 +2,7 @@ name: main
 env:
   working-directory: './src/'
   solutionFile: 'S3.Flox.sln'
-  testResultsDirectory: './TestResults/'
+  
 on:
   push:
     branches: [master, 'releases/**']
@@ -120,7 +120,7 @@ jobs:
       working-directory: ${{env.working-directory}}
    
     - name: Test
-      run: dotnet test ${{env.solutionFile}} --no-restore /p:CollectCoverage=true /p:CoverletOutput=${{env.testResultsDirectory}} /p:CoverletOutputFormat=lcov
+      run: dotnet test ${{env.solutionFile}} --no-restore /p:CollectCoverage=true /p:CoverletOutput=../TestResults/ /p:CoverletOutputFormat=lcov
       working-directory: ${{env.working-directory}}
 
     
@@ -128,9 +128,8 @@ jobs:
       uses: coverallsapp/github-action@v1.0.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{env.testResultsDirectory}}coverage.info   
-        working-directory: ${{env.working-directory}}
-   
+        path-to-lcov: ./src/TestResults/coverage.info
+           
     #s3 threading    
     # - name: Generate nuget package S3.Threading
     #   run: dotnet pack S3.Threading.csproj --configuration Release -o nupkg
